@@ -1,0 +1,1 @@
+console.log('我是src/1ind1111111111q1e1x2.js')
