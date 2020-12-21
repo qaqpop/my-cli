@@ -30,9 +30,9 @@ webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程�
 
 
 
-在上一篇文章中讲到package文件中的<font style="color:#f03d3d">devDependencies</font>留了一个问题：什么是开发环境依赖，这里其实就可以总结出：<font style="color:#f03d3d">**部署之前的依赖环境，也就是参与打包的依赖+真正开发时用到的依赖**	</font> 。在判断其环境依赖时，可以思考一下，这个包是否是在浏览器中执行时所用的包，如果是，就添加到<font style="color:#f03d3d">dependencies</font>依赖，如果不是，就添加到<font style="color:#f03d3d">devDependencies</font>依赖
+在上一篇文章中讲到package文件中的<font style="color:#f03d3d">devDependencies</font>留了一个问题：什么是开发环境依赖，这里其实就可以总结出：<font style="color:#f03d3d">**部署之前的依赖环境，也就是构建工程化使用到的依赖环境**	</font> 。在判断其环境依赖时，可以思考一下，这个包是否是在浏览器中执行时所用的包，如果是，就添加到<font style="color:#f03d3d">dependencies</font>依赖，如果不是，就添加到<font style="color:#f03d3d">devDependencies</font>依赖
 
-> 真正开发时用到的依赖具有像eslint那些不参与打包的依赖包，后面再介绍
+> <font style="color:#f03d3d">构建工程化依赖环境</font>包括打包依赖、开发时的eslint、还有有	的脚手架中使用的测试依赖
 
 
 
@@ -309,7 +309,19 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 在前面说到过一个问题，就是webpack具有开发模式（<font style="color:#f03d3d">development</font>）和发布模式（<font style="color:#f03d3d">production</font>）这个问题跟<font style="color:#007FFF">“开发代码”</font>和<font style="color:#007FFF">“部署代码”</font>有些类似，开发时本地执行代码与真实部署肯定还有些差距，本地执行不需要压缩代码、不需要缓存。这个最好的做法就是我们配置不同环境，然后使用不同命令去执行，所以webpack提供了两个模式<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>，使用一个<font style="color:#f03d3d">mode</font>属性去设置
 
+```javascript
+ {
+   mode:'development'
+ }
+```
 
+当然也可以使用<font style="color:#f03d3d">CLI参数</font>传递，使用参数传递的好处时就是开发与发布使用不同命令即可，例如，一般cli开发使用<font style="color:#f03d3d">start</font>,发布则使用<font style="color:#f03d3d">build</font>
 
+<img src=".//images//image-02-11.png" width="400">
 
+> <font style="color:#f03d3d">CLI参数</font>的优先级要大于<font style="color:#f03d3d">webpack.config</font>文件。
+
+不过还有种更好的方案就是使用两个
+
+设置完毕可以使用两个命令测试下，最直接的查看就是打包生成的JS是否被压缩
 

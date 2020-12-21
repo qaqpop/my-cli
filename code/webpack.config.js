@@ -1,3 +1,9 @@
+/*
+ * @Author: Orcas
+ * @Date: 2020-12-17
+ * @LastEditTime: 2020-06-04 14:46:53
+ */
+
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
