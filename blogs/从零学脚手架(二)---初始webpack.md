@@ -4,7 +4,7 @@
 
 抛开webpack去看本质问题，在当前时代，前端起到的作用越来越大，对于写过mvc或者更早的jsp或asp的朋友可能更有体会，那时的前端只是作为展示作用。
 
-随着移动端和Node的崛起，前端与后端开始了分离，前端开始独立起来，逐渐走入了前端工程化的步伐，其实所谓的工程化只不过是开发者的<font style="color:#f03d3d">约定规范</font>，因为这样可以大大提高开发成本和学习成本，但其实对于程序运行环境（浏览器/Node）来说代码只要能识别出，就完美可以执行，
+随着移动端和Node的崛起，前端与后端开始了分离，前端开始独立起来，逐渐走入了前端工程化的步伐，其实所谓的工程化只不过是开发者的<font style="color:#f03d3d">约定规范</font>，因为这样可以大大提高开发和学习成本，但其实对于程序运行环境（浏览器/Node）来说代码只要能识别出，就完美可以执行，
 
 在开发者与执行环境之间就出现了差异，开发者想要更规范、更效率的编写代码，而执行环境需要能更快、兼容性越好的代码。这时候就需要一个桥梁，来架起开发者与执行环境之间的差异，然后就有了<font style="color:#f03d3d">打包器</font>
 
@@ -24,7 +24,7 @@
 
 
 
-webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程序的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#f03d3d">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**核心引擎（plugin+loader）**</font>进行完成。 
+webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程序的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#f03d3d">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件（plugin+loader）**</font>进行完成。 
 
  开发人员只需要安装符合自己需求的插件就可以达到自己的目的，而插件则可以交给社区去完成。社区中具有大量的插件，相同功能的插件有的都有好多。所以，在学习webpack时，我个人建议转换一下思想： <font style="color:#f03d3d">**不要想这个东西是什么，而要想我们需要什么**	</font> 需要压缩，那么寻找压缩的插件，需要css打包，寻找关于css的插件。  只不过经过了这么多年的发展，已经挑选出了最优解，所以使用的都是指定的插件。就像现在所有虚拟机的JC算法设计都相同一样。
 
@@ -32,13 +32,13 @@ webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程�
 
 在上一篇文章中讲到package文件中的<font style="color:#f03d3d">devDependencies</font>留了一个问题：什么是开发环境依赖，这里其实就可以总结出：<font style="color:#f03d3d">**部署之前的依赖环境，也就是构建工程化使用到的依赖环境**	</font> 。在判断其环境依赖时，可以思考一下，这个包是否是在浏览器中执行时所用的包，如果是，就添加到<font style="color:#f03d3d">dependencies</font>依赖，如果不是，就添加到<font style="color:#f03d3d">devDependencies</font>依赖
 
-> <font style="color:#f03d3d">构建工程化依赖环境</font>包括打包依赖、开发时的eslint、还有有	的脚手架中使用的测试依赖
+> <font style="color:#f03d3d">构建工程化依赖环境</font>包括打包使用依赖、开发时的eslint、还有脚手架中使用的测试依赖
 
 
 
 ### webpack 基本使用
 
-#### webpack环境准备
+#### webpack安装
 
 在上篇文章已经安装了<font style="color:#f03d3d">webpack@5.4</font>包，所以只需要再安装<font style="color:#f03d3d">webpack-cli</font>即可,webpack-cli用于在命令行中运行webpack，如果不安装<font style="color:#f03d3d">webpack-cli</font>运行webpack命令时会报错
 
@@ -72,7 +72,7 @@ webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程�
 
 接下来就可以在<font style="color:#f03d3d">webpack.config.js</font>编写配置项了
 
-> 通过前面介绍其实应该可以猜出webpack是基于node.js运行的，所以在webpack配置中默认使用的<font style="color:#f03d3d">common.js 模块</font> 当然也可以配置成<font style="color:#f03d3d">ES6 模块</font>或者<font style="color:#f03d3d">AMD 模块</font>， 这个放在后面讲述。至于    <font style="color:#f03d3d">common.js 模块 </font>、<font style="color:#f03d3d">ES6 模块 </font>、<font style="color:#f03d3d">AMD 模块 </font>有兴趣的诸君也可以去[深入了解](https://www.cnblogs.com/chinabin1993/p/10565816.html)下。 
+> 通过介绍其实可以猜出webpack是基于node.js运行的，所以在webpack配置中默认使用的<font style="color:#f03d3d">common.js 模块</font> 当然也可以配置成<font style="color:#f03d3d">ES6 模块</font>或者<font style="color:#f03d3d">AMD 模块</font>， 这个放在后面讲述。
 >
 > 在webpack中也会经常使用到node.js的基本包，例如使用<font style="color:#f03d3d">require('path')</font>来获取当前目录
 
@@ -87,7 +87,26 @@ webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程�
 
 #### webpack.config.js文件详解
 
-##### entry和output
+##### webpack.config.js文件总览
+
+在<font style="color:#f03d3d">webpack.config.js</font>中我们需要抛出一个**模块**，这个模块可以是一个对象，也可以是一个函数（函数返回值必须为对象），而webpack的所有配置项都写在这个对象中。
+
+webpack约定配置项的属性名称，开发者根据其配置名称去设置自己想要的属性值。然后webpack在执行时，会导入这个文件中的模块，加载webpack配置去执行对应的操作。诸君可以脑补一下这个流程，
+
+```javascript
+const modules = {}
+module.exports = modules
+```
+
+```javascript
+const modules = ()=>{}
+
+module.exports = modules
+```
+
+
+
+##### entry、output
 
 打包器最重要的是<font style="color:#f03d3d">entry</font>（入口），<font style="color:#f03d3d">output</font>（输出）文件，所以先来去看看这两个属性
 
@@ -152,13 +171,17 @@ module.exports = modules
 
 
 
-##### html-webpack-plugin
+##### plugins
 
-刚才虽然完成了第一次打包，但是跟实际脚手架还有天大的差距，但是不着急，诸君请整理好思路，继续走下去，
+webpack只提供了一个<font style="color:#f03d3d">**核心引擎**</font>。而大部分功能则需要使用插件形式进行扩展。在webpack配置对象中具有一个<font style="color:#f03d3d">plugins</font>的属性名称，这个属性就是设置插件的属性，属性需要提供一个数组，数组内存放插件对象。webpack在执行时会顺序执行<font style="color:#f03d3d">plugins</font>数组中的扩展插件 。  下面先来看看常用的两个插件（后续使用插件时会直接加入）
+
+> 插件编写具有一定的规则，有兴趣的诸君可以去看下[官网](https://www.webpackjs.com/concepts/plugins/)
+
+###### html-webpack-plugin
 
 诸君请思考一个问题，刚才打包的是JS文件，那么实际上浏览器运行的是<font style="color:#f03d3d">HTML</font>文件。就算我们将所有业务逻辑都以JS（Document类型）去完成，但是依然需要一个容器承载JS。所以需要打包一个HTML或者在打包的过程中，创建一个HTML文件。并且将此HTML必须引用打包后的JS文件。
 
-webpack只是一个<font style="color:#f03d3d">**核心引擎**</font>。所以HTML的创建也是由插件来完成的，这个插件叫做<font style="color:#f03d3d">html-webpack-plugin</font>
+webpack中构建这个HTML页面则交给了一个插件来完成，这个插件叫做<font style="color:#f03d3d">html-webpack-plugin</font>
 
 >  yarn add -D html-webpack-plugin      打包时使用的依赖包
 
@@ -167,7 +190,6 @@ webpack只是一个<font style="color:#f03d3d">**核心引擎**</font>。所以H
 安装完包之后，需要在webpack文件中进行引用
 
 ```javascript
-
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const modules = {
@@ -180,15 +202,9 @@ const modules = {
 module.exports = modules
 ```
 
-> 只展示增加的代码，本章全部配置代码在最后展示
-
-在webpack文件中引入<font style="color:#f03d3d">html-webpack-plugin</font>依赖包并且在<font style="color:#f03d3d">plugins</font>属性中创建了一个对象，<font style="color:#f03d3d">plugins</font>属性是一个数组，webpack在运行时会顺序执行<font style="color:#f03d3d">plugins</font>数组中的扩展插件。
-
-> 插件编写具有一定的规则，有兴趣的诸君可以去看下[官网](https://www.webpackjs.com/concepts/plugins/)
-
 再次build就可以看到dist目录中多了一个html文件，html中还引用了一个js文件，代表打包成功了，可以使用浏览器打开这个html，会在控制台中输出js文件中的console语句。
 
-<img src=".//images//image-02-08.png" width="400">
+<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-08.png" width="400">
 
 简单的使用了<font style="color:#f03d3d">html-webpack-plugin</font>创建了执行容器HTML，但是HTML的创建一般都是需要定制一些东西，例如：title、mata等信息，并且我们看到的脚手架都是使用自己创建的<font style="color:#f03d3d">index.html</font>文件，打包后的html文件是以此文件进行模板。那些操作都是使用了
 
@@ -233,19 +249,19 @@ plugins: [
 
 上面列举了部分<font style="color:#f03d3d">html-webpack-plugin</font>属性，其中<font style="color:#f03d3d">template</font>属性需要是一个本地的html路径，所以需要创建一个html文件。 更多属性可以去[npm](https://www.npmjs.com/package/html-webpack-plugin)中查看
 
-<img src=".//images//image-02-09.png" width="400">
+<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-09.png" width="400">
 
 
 
 
 
-##### clean-webpack-plugin
+###### clean-webpack-plugin
 
-在打包之后有一个比较恶心的问题，就是每次打包都是往<font style="color:#f03d3d">dist</font>目录去<font style="color:#f03d3d">添加</font>文件，而不是清空dist目录再添加，在刚才完成的几次build之后，<font style="color:#f03d3d">dist</font>
+在打包之后其实会发现一个恶心的问题：每次打包都是往<font style="color:#f03d3d">dist</font>目录去<font style="color:#f03d3d">添加</font>文件，而不是清空dist目录再添加，在刚才完成的几次build之后，<font style="color:#f03d3d">dist</font>
 
 目录已经具有好多文件了
 
-<img src=".//images//image-02-10.png" width="400">
+<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-10.png" width="400">
 
 这个问题在demo中还能忍受，但是在真正项目中那么多文件，多打几次包绝对是一场可怕的噩梦，所以肯定要在每次打包时都清空输出目录，在webpack中<font style="color:#f03d3d">clean-webpack-plugin</font>插件就是提供这个需求。
 
@@ -255,7 +271,7 @@ plugins: [
 
 在webpack中直接配置使用即可
 
-```jav
+```JavaScript
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
  plugins: [
     new CleanWebpackPlugin()
@@ -305,23 +321,126 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 
 
-##### mode
+随着本章的学习已经已经构建出一个简单的webpack配置，虽然距离真正的脚手架还有天大的差距，但是一步一个脚印，慢慢来。
 
-在前面说到过一个问题，就是webpack具有开发模式（<font style="color:#f03d3d">development</font>）和发布模式（<font style="color:#f03d3d">production</font>）这个问题跟<font style="color:#007FFF">“开发代码”</font>和<font style="color:#007FFF">“部署代码”</font>有些类似，开发时本地执行代码与真实部署肯定还有些差距，本地执行不需要压缩代码、不需要缓存。这个最好的做法就是我们配置不同环境，然后使用不同命令去执行，所以webpack提供了两个模式<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>，使用一个<font style="color:#f03d3d">mode</font>属性去设置
 
-```javascript
- {
-   mode:'development'
- }
+
+### 总结
+
+> * 打包器是将**开发代码**编译为**可部署**代码的*"编译器"*，webpack则是目前流行的打包器一种
+> * webpack需要抛出一个模块，虽然可以是对象或者是函数，但是其结果必须是配置对象
+> * webpack只提供一个**核心引擎**，其余交给插件进行完成
+
+### 本文参考
+
+* [webpack官网](https://webpack.js.org/)
+* [webpack中hash、chunkhash、contenthash区别](https://www.cnblogs.com/giggle/p/9583940.html)
+
+### 本文依赖
+
+* [webpack@5.4](https://www.npmjs.com/package/webpack/v/5.4.0)
+* [webpack-cli@4.2.0](https://www.npmjs.com/package/webpack-cli)
+* [html-webpack-plugin@4.5.0](https://www.npmjs.com/package/html-webpack-plugin)
+* [clean-webpack-plugin@3.0.0](https://www.npmjs.com/package/clean-webpack-plugin)
+
+
+
+### package.json 
+
+```json
+{
+  "name": "my-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "mowenjinzhao<yanzhangshuai@126.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "webpack": "5.4",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1"
+  },
+  "scripts": {
+    "start": "node",
+    "build": "webpack --config webpack.config.js"
+  }
+}
+
 ```
 
-当然也可以使用<font style="color:#f03d3d">CLI参数</font>传递，使用参数传递的好处时就是开发与发布使用不同命令即可，例如，一般cli开发使用<font style="color:#f03d3d">start</font>,发布则使用<font style="color:#f03d3d">build</font>
+### webpack.config.js
 
-<img src=".//images//image-02-11.png" width="400">
+```javascript
+const path = require('path')
 
-> <font style="color:#f03d3d">CLI参数</font>的优先级要大于<font style="color:#f03d3d">webpack.config</font>文件。
+const modules = {
+  //  入口文件
+  //  字符串形式
+  entry:path.join(__dirname, 'src/index.js'),
+  //  对象形式
+  // entry:{
+  //   'index':path.join(__dirname, 'src/index.js')
+  // },
 
-不过还有种更好的方案就是使用两个
+  //  出口文件
+  //  字符串形式
+  // output:path.join(__dirname, 'dist/[name].js')
+  //对象形式
+  output:{
+    //  出口文件的目录地址
+    path:path.join(__dirname, 'dist'),
+    //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
+    filename: '[name]_[contenthash].js'
+  },
+    
+  plugins: [
+    new HtmlWebpackPlugin({
+      //  template的title优先级大于当前数据
+      title: 'my-cli',
+      //  文件名称
+      filename: 'index.html',
 
-设置完毕可以使用两个命令测试下，最直接的查看就是打包生成的JS是否被压缩
+      //  模板路径
+      template: path.join(__dirname, 'src/index.html'),
+      // 用于打包后引用脚本时的路径
+      publicPath: './',
 
+      //  是否将打包的资源引用到当前HTML， false代表不引用
+      //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
+      //  默认为true
+      inject: 'body',
+      //  加载js方式，值为defer/blocking
+      //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
+      scriptLoading: 'blocking',
+
+      //  是否进行缓存，默认为true，在开发环境可以设置成false
+      cache: false,
+      //  添加mate属性
+      meta: {}
+    }),
+    new CleanWebpackPlugin({
+
+      //  假装文件删除
+      //  如果为false则代表真实删除，如果为true，则代表不删除
+      dry: false,
+      //  是否打印日志到控制台 默认为false
+      verbose: true,
+      cleanStaleWebpackAssets: false,
+      //  允许保留本次打包的文件
+      //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
+      //  默认为true
+      protectWebpackAssets: true,
+      //  每次打包之前删除匹配的文件
+      cleanOnceBeforeBuildPatterns: ['**/*'],
+
+      //  每次打包之后删除匹配的文件
+    })
+  ]
+}
+
+//  使用node。js的导出，将配置进行导出
+module.exports = modules
+```
