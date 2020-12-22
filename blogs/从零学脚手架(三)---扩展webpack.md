@@ -26,23 +26,23 @@ webpack提供了三种模式<font style="color:#f03d3d">development</font>、<fo
 
 
 
-设置完毕可以使用两个命令测试下，最直接的感觉就是看生成的JS是否被压缩。这是因为在<font style="color:#f03d3d">production</font>预设了压缩插件。
+设置完毕可以使用两个命令测试下，最直接的感觉就是看生成的JS是否被压缩。这是因为在<font style="color:#f03d3d">production</font>预设了压缩**plugin**。
 
 > <font style="color:#f03d3d">none</font>属性的差异诸君可以自己测试下
 
 
 
-***mode***属性具有三种<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>、<font style="color:#f03d3d">none</font>，其中<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>都预设各自环境的插件，以便我们使用更少的配置完成更多的功能。但 <font style="color:#f03d3d">none</font>属性则没有预设插件。不过，<font style="color:#f03d3d">none</font>几乎也很少使用，通常只使用<font style="color:#f03d3d">development</font>和<font style="color:#f03d3d">production</font>
+***mode***属性具有三种<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>、<font style="color:#f03d3d">none</font>，其中<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>都预设各自环境的功能，以便我们使用更少的配置完成更多的功能。但 <font style="color:#f03d3d">none</font>属性则没有预设功能。不过，<font style="color:#f03d3d">none</font>几乎也很少使用，通常只使用<font style="color:#f03d3d">development</font>和<font style="color:#f03d3d">production</font>
 
 
 
 #### development
 
-* **设置process.env.NODE_ENV属性**：预设了webpack内置的<font style="color:#f03d3d">DefinePlugin</font>插件，这个插件就是将***process.env.NODE_ENV***属性设置为<font style="color:#f03d3d">development</font>属性
+* **设置process.env.NODE_ENV属性**：预设了webpack内置的<font style="color:#f03d3d">DefinePlugin</font>**plugin**，这个**plugin**就是将***process.env.NODE_ENV***属性设置为<font style="color:#f03d3d">development</font>属性
 
 * **模块和模块名称设置有效性**：预设了开发模式下将模块和模块名称设置为有效名称，增加代码的可读性
 
-  *webpack5*设置代码可读性使用的  ***optimization***属性中的 <font style="color:#f03d3d">moduleIds</font> 、<font style="color:#f03d3d">chunkIds</font>  。在*webpack4*则使用的是webpack内置插件<font style="color:#f03d3d">NamedChunksPlugin</font>和<font style="color:#f03d3d">NamedModulesPlugin</font>
+  *webpack5*设置代码可读性使用的  ***optimization***属性中的 <font style="color:#f03d3d">moduleIds</font> 、<font style="color:#f03d3d">chunkIds</font>  。在*webpack4*则使用的是webpack内置**plugin**<font style="color:#f03d3d">NamedChunksPlugin</font>和<font style="color:#f03d3d">NamedModulesPlugin</font>
 
   ```javascript
 optimization: {
@@ -59,7 +59,7 @@ optimization: {
 
 #### production
 
-* **设置process.env.NODE_ENV属性**：预设了webpack内置的<font style="color:#f03d3d">DefinePlugin</font>插件，这个插件就是将***process.env.NODE_ENV***属性设置为<font style="color:#f03d3d">production</font>属性。
+* **设置process.env.NODE_ENV属性**：预设了webpack内置的<font style="color:#f03d3d">DefinePlugin</font>**plugin**，这个**plugin**就是将***process.env.NODE_ENV***属性设置为<font style="color:#f03d3d">production</font>属性。
 
 * **模块和模块名称进行混淆**：预设了发布模式将模块和模块名称进行混淆，避免代码轻易泄露
 
@@ -72,33 +72,33 @@ optimization: {
   }
   ```
   
-* **代码压缩**：预设了<font style="color:#f03d3d">terser-webpack-plugin</font>插件，对打包生成的代码进行压缩
+* **代码压缩**：预设了<font style="color:#f03d3d">terser-webpack-plugin</font>**plugin**，对打包生成的代码进行压缩
 
-  *webpack5*默认使用的此插件进行压缩的代码，在之前版本的webpack，默认使用的是<font style="color:#f03d3d">uglifyjs-webpack-plugin</font>插件，但是<font style="color:#f03d3d">uglifyjs-webpack-plugin</font>插件后来不再维护，于是便换成了
+  *webpack5*默认使用的此**plugin**进行压缩的代码，在之前版本的webpack，默认使用的是<font style="color:#f03d3d">uglifyjs-webpack-plugin</font>，但是<font style="color:#f03d3d">uglifyjs-webpack-plugin</font>**plugin**后来不再维护，于是便换成了
 
   > 打包压缩其实是由webpack对象配置中***optimization***属性进行设置的
 
-* **作用域提升**：预设了webpack内置的<font style="color:#f03d3d">ModuleConcatenationPlugin</font>，这个插件允许在打包时添加作用域提升的处理，用于减少打包生成的代码量和执行速度。
+* **作用域提升**：预设了webpack内置的<font style="color:#f03d3d">ModuleConcatenationPlugin</font>，这个**plugin**允许在打包时添加作用域提升的处理，用于减少打包生成的代码量和执行速度。
 
-* **打包出错处理**：预设了webpack内置的<font style="color:#f03d3d">NoEmitOnErrorsPlugin</font>插件，这个插件用于编译时发现出错代码则不再生成，避免打包出来的代码异常
+* **打包出错处理**：预设了webpack内置的<font style="color:#f03d3d">NoEmitOnErrorsPlugin</font>**plugin**，这个**plugin**用于编译时发现出错代码则不再生成，避免打包出来的代码异常
 
 
 
-可以看到在<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>两个模式其实预设了很少的插件，大部分还是需要手动去配置。毕竟预设太多反而会不太灵活。
+可以看到在<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>两个模式其实预设了很少的功能，大部分还是需要手动去配置。毕竟预设太多反而会不太灵活。
 
-> *webpack5*和*webpack4*下的<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>预设插件具有一些差异，具体请参考 [webpack5-mode](https://webpack.js.org/configuration/mode/)、[webpack4-mode](https://v4.webpack.js.org/configuration/mode/)、[显微镜下的webpack4的新特性：mode详解](https://juejin.cn/post/6844903695033843726#heading-11)
+> *webpack5*和*webpack4*下的<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font>预设功能具有一些差异，具体请参考 [webpack5-mode](https://webpack.js.org/configuration/mode/)、[webpack4-mode](https://v4.webpack.js.org/configuration/mode/)、[显微镜下的webpack4的新特性：mode详解](https://juejin.cn/post/6844903695033843726#heading-11)
 
 
 
 #### process.env.NODE_ENV
 
-在预设插件时看到在无论在***development***还是在***production***都设置了这个属性。那么这个属性是做什么用的。
+在预设功能时看到在无论在***development***还是在***production***都设置了这个属性。那么这个属性是做什么用的。
 
 先来看一个需要：在调用第三方SDK时，在开发环境与正式环境使用不同的SDK，会有人想这个做个配置就行了，在上线之前改下配置路径。
 
 但是这样其实在开发和生产打包时需要分别更改代码，来回更改也是一件很繁琐的事情，所以需要一个能在业务代码中判断环境变量的需求。
 
-在webpack中<font style="color:#f03d3d">DefinePlugin</font>插件就做了这件事，***development***和***production*** 都预设使用<font style="color:#f03d3d">DefinePlugin</font>插件设置了各自环境变量。
+在webpack中<font style="color:#f03d3d">DefinePlugin</font>**plugin**就做了这件事，***development***和***production*** 都预设使用<font style="color:#f03d3d">DefinePlugin</font>**plugin**设置了各自环境变量。
 
 
 
@@ -120,7 +120,7 @@ optimization: {
 
 
 
-> 其实环境变量的重点是：<font style="color:#f03d3d">DefinePlugin</font>插件，这个插件官方的解释是创建一个在编译时可以配置的全局变量，所以其实可以自定义配置任意属性值，在打包操作时，<font style="color:#f03d3d">DefinePlugin</font>插件会将配置的属性值进行替换。而***process.env.NODE_ENV***属性只是一个*约定属性*，有兴趣的诸君可以自行测试，具体请参考[官网](https://www.webpackjs.com/plugins/define-plugin/)
+> 其实环境变量的重点是：<font style="color:#f03d3d">DefinePlugin</font>，这个**plugin**官方的解释是创建一个在编译时可以配置的全局变量，所以其实可以自定义配置任意属性值，在打包操作时，<font style="color:#f03d3d">DefinePlugin</font>**plugin**会将配置的属性值进行替换。而***process.env.NODE_ENV***属性只是一个*约定属性*，有兴趣的诸君可以自行测试，具体请参考[官网](https://www.webpackjs.com/plugins/define-plugin/)
 
 ```javascript
 const webpack = require("webpack");
@@ -186,11 +186,9 @@ const webpack = require("webpack");
 
 然后再使用***production***模式打包，会发现一个有趣的现象：代码并没有被压缩。
 
+可以看出其实***production***模式中只不过将***optimization.minimize***属性设置为了<font style="color:#f03d3d">true</font>，而控制压缩的开关还是***optimization.minimize***属性
 
-
-可以看出其实***production***模式中只不过将***optimization.minimize***属性设置为了<font style="color:#f03d3d">true</font>，控制压缩的还是***optimization***属性
-
-<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-14.png" width="400">
+<img src="./images/image-02-14.png" width="400">
 
 ```javascript
   optimization:{
@@ -199,16 +197,41 @@ const webpack = require("webpack");
   }
 ```
 
-将***optimization.minimize***设置为true之后就使用默认的压缩插件进行压缩，前面说过，默认的压缩插件是<font style="color:#f03d3d">terser-webpack-plugin</font>。
+将***optimization.minimize***设置为true之后就使用默认的压缩**plugin**进行压缩，前面说过，默认的压缩**plugin**是<font style="color:#f03d3d">terser-webpack-plugin</font>。这个逻辑也很容易思考，打开优化开关，执行时就执行这个**plugin**。
 
-也可以使用别的插件覆盖默认插件，覆盖操作使用的是***optimization.minimizer***属性，这个属性跟***plugins***属性类似，是一个数组，并且数组中设置的是插件实体对象，执行优化代码时会依次使用所有优化插件进行优化代码。
+> 在之前版本默认的打包**plugin**是[uglifyjs-webpack-plugin](https://www.npmjs.com/package/uglifyjs-webpack-plugin)，网上好多文章都是以这个**plugin**为基础，不过后来这个**plugin**不维护了，所以现在默认为[terser-webpack-plugin](https://www.npmjs.com/package/terser-webpack-plugin)
 
-> 也可以将这些插件放在***plugins***属性中，不过放入***optimization.minimizer***具有打包性能优化
-> 
+当然，也可以在***plugins***中手动覆盖或者自定义配置**plugin**，不过除了在***plugins***，还有一个的选择，那就是***optimization.minimizer***属性，这个属性与***plugins***一致，只不过在执行打包时做了一下缓存之类的优化
 
-前面说过，目前流行的插件基本都是经过考证的最优解，所以也就直接使用<font style="color:#f03d3d">terser-webpack-plugin</font>，不过可以自定义配置<font style="color:#f03d3d">terser-webpack-plugin</font>压缩，以达到项目需求
+```javascript
+const TerserPlugin = require('terser-webpack-plugin');
 
->  注意：<font style="color:#f03d3d">terser-webpack-plugin</font>压缩对**devtool**具有一定的要求，只支持<font style="color:#f03d3d">none</font>、<font style="color:#f03d3d">source-map</font>、<font style="color:#f03d3d">inline-source-map</font>、<font style="color:#f03d3d">hidden-source-map</font>、<font style="color:#f03d3d">nosources-source-map</font>这些属性。  <font style="color:#f03d3d">eval</font>属性生成的是字符串。插件并不处理字符串。
+{
+    plugins:[
+        new TerserPlugin()
+    ]
+}
+```
+
+```javascript
+const TerserPlugin = require('terser-webpack-plugin');
+
+{
+    optimization: {
+    // 配置可优化
+    minimize: true,
+    minimizer: [
+      new TerserPlugin()
+    ]
+  }
+}
+```
+
+
+
+前面说过，目前流行的**plugin**基本都是经过考证的最优解，所以也就直接使用<font style="color:#f03d3d">terser-webpack-plugin</font>，不过可以自定义配置<font style="color:#f03d3d">terser-webpack-plugin</font>压缩，以达到项目需求
+
+>  注意：<font style="color:#f03d3d">terser-webpack-plugin</font>压缩对**devtool**具有一定的要求，只支持<font style="color:#f03d3d">none</font>、<font style="color:#f03d3d">source-map</font>、<font style="color:#f03d3d">inline-source-map</font>、<font style="color:#f03d3d">hidden-source-map</font>、<font style="color:#f03d3d">nosources-source-map</font>这些属性。  <font style="color:#f03d3d">eval</font>属性生成的是字符串。**plugin**并不处理字符串。
 
 
 
@@ -219,7 +242,8 @@ const webpack = require("webpack");
 ```javascript
 const TerserPlugin = require('terser-webpack-plugin');
 
- optimization: {
+{
+    optimization: {
     // 配置可优化
     minimize: true,
     minimizer: [
@@ -232,7 +256,7 @@ const TerserPlugin = require('terser-webpack-plugin');
         //  可以设置为false(不使用多线程)或者数值（并发数量）
         parallel: true,
 
-        //  可以设置一个function，使用其它压缩插件覆盖当前的压缩插件，默认为undefined，
+        //  可以设置一个function，使用其它压缩plugin覆盖当前的压缩plugin，默认为undefined，
         minify: undefined,
 
         //  是否将注释提出到单独的文件中
@@ -246,12 +270,13 @@ const TerserPlugin = require('terser-webpack-plugin');
       })
     ]
   }
+}
 ```
 
 > * **include**：代表包含哪些文件，这个属性可以是字符串，字符串数组或者正则，注意：这个不是文件路径匹配，而是文件名称匹配
 > * **exclude**：排除哪些文件，同**include**规则一致
 > * **parallel**：是否启用多线提高打包速度，这个属性可以是<font style="color:#f03d3d">boolean</font>和<font style="color:#f03d3d">number</font>，布尔属性时代表是否启用多线程，如果为<font style="color:#f03d3d">true</font>，默认多线程数量是***os.cpus()-1***， 如果是<font style="color:#f03d3d">number</font>，则表示使用的线程数量
-> * **minify**：这个属性可以设置一个函数，函数内可以使用别的压缩插件覆盖当前压缩插件，其实就是做一个拦截处理
+> * **minify**：这个属性可以设置一个函数，函数内可以使用别的压缩**plugin**覆盖当前压缩**plugin**，其实就是做一个拦截处理
 > * **extractComments**：表示是否将注释提取道单独的文件中，值可以为多种类型，简单的设置为<font style="color:#f03d3d">boolean</font>和<font style="color:#f03d3d">all</font>，当为<font style="color:#f03d3d">true</font>时，默认只提取/^\*\*!|@preserve|@license|@cc_on/i匹配道的注释，为<font style="color:#f03d3d">all</font>时表示提取全部，我感觉这个属性基本没什么用也。
 > * **terserOptions**：这个属性代表压缩时的构建设置，压缩设置便是这个属性。
 

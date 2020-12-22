@@ -24,9 +24,11 @@
 
 
 
-webpack是一个优秀的*JavaScript*应用程序的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#f03d3d">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件（plugin+loader）**</font>进行完成。 
+webpack是一个优秀的***JavaScript***应用程序的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#f03d3d">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件**</font>进行完成。 
 
- 开发人员只需要安装符合自己需求的插件就可以达到自己的目的，而插件则可以交给社区去完成。社区中具有大量的插件，相同功能的插件有的都有好多。所以，在学习webpack时，我个人建议转换一下思想： <font style="color:#f03d3d">**不要想这个东西是什么，而要想我们需要什么**	</font> 需要压缩，那么寻找压缩的插件，需要css打包，寻找关于css的插件。  只不过经过了这么多年的发展，已经挑选出了最优解，所以使用的都是指定的插件。就像现在所有虚拟机的JC算法设计都相同一样。
+> 注意：这里说的<font style="color:#f03d3d">**插件**</font>并不是指的webpack中的***plugins***，而是<font style="color:#f03d3d">**插件化**</font>的意思，为了避免与webpack中的<font style="color:#f03d3d">**plugins**</font>名称冲突，在文章中webpack中***plugins***统一叫做<font style="color:#f03d3d">**plugins**</font>，这里所说的插件统一叫做<font style="color:#f03d3d">**扩展**</font>
+
+ 开发人员只需要安装符合自己需求的*扩展*就可以达到自己的目的，而*扩展*则可以交给社区去完成。社区中具有大量的插件，相同功能的插件有的都有好多。所以，在学习webpack时，我个人建议转换一下思想： <font style="color:#f03d3d">**不要想这个东西是什么，而要想我们需要什么**	</font> 需要压缩，那么寻找压缩的插件，需要css打包，寻找关于css的插件。  只不过经过了这么多年的发展，已经挑选出了最优解，所以使用的都是指定的插件。就像现在所有虚拟机的JC算法设计都相同一样。
 
 
 
@@ -52,7 +54,7 @@ webpack是一个优秀的*JavaScript*应用程序的静态模块打包器。具�
 
 
 
-此时使用**会执行webpack命令，虽然会因为我们没有配置而失败，但是webpack还是能运行的。诸君有兴趣的可以将<font style="color:#f03d3d">webpack-cli</font>包移除再build，会发现webpack无法运行，并且提示安装<font style="color:#f03d3d">webpack-cli</font>
+此时使用*yarn build*会执行webpack命令，虽然会因为我们没有配置而失败，但是webpack还是能运行的。诸君有兴趣的可以将<font style="color:#f03d3d">webpack-cli</font>包移除再build，会发现webpack无法运行，并且提示安装<font style="color:#f03d3d">webpack-cli</font>
 
 
 
@@ -81,7 +83,7 @@ webpack是一个优秀的*JavaScript*应用程序的静态模块打包器。具�
 > 注： 
 >
 > * 打包器其实不一定非要使用node.js，也可以使用java、c#等任何一门语言
-> * 打包器其实就是IO操作，将<font style="color:#f03d3d">entry</font>（入口）文件数据读取并经过插件的包装写入到<font style="color:#f03d3d">output</font>（输出）文件
+> * 打包器其实就是IO操作，将<font style="color:#f03d3d">entry</font>（入口）文件数据读取并经过扩展的包装写入到<font style="color:#f03d3d">output</font>（输出）文件
 
 
 
@@ -173,15 +175,19 @@ module.exports = modules
 
 ##### plugins
 
-webpack只提供了一个<font style="color:#f03d3d">**核心引擎**</font>。而大部分功能则需要使用插件形式进行扩展。在webpack配置对象中具有一个<font style="color:#f03d3d">plugins</font>的属性名称，这个属性就是设置插件的属性，属性需要提供一个数组，数组内存放插件对象。webpack在执行时会顺序执行<font style="color:#f03d3d">plugins</font>数组中的扩展插件 。  下面先来看看常用的两个插件（后续使用插件时会直接加入）
+webpack只提供了一个<font style="color:#f03d3d">**核心引擎**</font>。而大部分功能则需要使用***插件化***形式扩展。
 
-> 插件编写具有一定的规则，有兴趣的诸君可以去看下[官网](https://www.webpackjs.com/concepts/plugins/)
+在webpack配置对象中具有一个<font style="color:#f03d3d">plugins</font>的属性名称，这个属性就是设置***plugin***的，该属性需要提供一个数组，数组内存放***plugin***对象。webpack在执行时会顺序执行<font style="color:#f03d3d">plugins</font>数组中的***plugin*** 。  下面先来看看常用的两个***plugin***（后续使用***plugin***时会直接加入）
+
+> ***plugin*** 编写具有一定的规则，有兴趣的诸君可以去看下[官网](https://www.webpackjs.com/concepts/plugins/)
+
+> 注意：webpack默认只是一个***JavaScript应用程序***的打包器，不会处理像CSS、image、typescript等非js模块，webpack中使用了一个叫做<font style="color:#f03d3d">loader</font>的属性***加载***非JS模块并将其**转换**为JS模块处理，，诸君可以思考一下这样的流程。 在webpack中<font style="color:#f03d3d">plugins</font>和<font style="color:#f03d3d">loader</font>是两个核心概念，一个扩展了打包的额外功能（<font style="color:#f03d3d">plugins</font>），一个将**非JS模块**转换为webpack识别的**JS模块**（<font style="color:#f03d3d">loader</font>）。两者分工不同，两者结合了促成了webpack***插件化***的系统。完成了高度扩展。两者的分工和不同在之后会慢慢了解。
 
 ###### html-webpack-plugin
 
 诸君请思考一个问题，刚才打包的是JS文件，那么实际上浏览器运行的是***HTML***文件。就算我们将所有业务逻辑都以JS（Document类型）去完成，但是依然需要一个容器承载JS。所以需要打包一个HTML或者在打包的过程中，创建一个HTML文件。并且将此HTML必须引用打包后的JS文件。
 
-webpack中构建这个HTML页面则交给了一个插件来完成，这个插件叫做<font style="color:#f03d3d">html-webpack-plugin</font>
+webpack中构建这个HTML页面则交给了一个***plugin***来完成，这个***plugin***叫做<font style="color:#f03d3d">html-webpack-plugin</font>
 
 >  yarn add -D html-webpack-plugin      打包时使用的依赖包
 
@@ -204,11 +210,11 @@ module.exports = modules
 
 再次build就可以看到dist目录中多了一个html文件，html中还引用了一个js文件，代表打包成功了，可以使用浏览器打开这个html，会在控制台中输出js文件中的console语句。
 
-<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-08.png" width="400">
+<img src="../blogs/images/image-02-08.png" width="400">
 
 简单的使用了<font style="color:#f03d3d">html-webpack-plugin</font>创建了执行容器HTML，但是HTML的创建一般都是需要定制一些东西，例如：title、mata等信息，并且我们看到的脚手架都是使用自己创建的*index.html*文件，打包后的html文件是以此文件进行模板。那些操作都是使用了
 
-<font style="color:#f03d3d">html-webpack-plugin</font>插件的参数配置，传入是以构造函数方式传入的。
+<font style="color:#f03d3d">html-webpack-plugin</font>的参数配置，传入是以构造函数方式传入的。
 
 ```javascript
 plugins: [
@@ -249,7 +255,7 @@ plugins: [
 
 上面列举了部分<font style="color:#f03d3d">html-webpack-plugin</font>属性，其中***template***属性需要是一个本地的html路径，所以需要创建一个html文件。 更多属性可以去[npm](https://www.npmjs.com/package/html-webpack-plugin)中查看
 
-<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-09.png" width="400">
+<img src="./images/image-02-09.png" width="400">
 
 
 
@@ -259,9 +265,9 @@ plugins: [
 
 在打包之后其实会发现一个恶心的问题：每次打包都是往dist目录去**添加**文件，而不是清空dist目录再添加，在刚才完成的几次build之后，dist目录已经具有好多文件了
 
-<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-10.png" width="400">
+<img src="./images/image-02-10.png" width="400">
 
-这个问题在demo中还能忍受，但是在真正项目中那么多文件，多打几次包绝对是一场可怕的噩梦，所以肯定要在每次打包时都清空输出目录，在webpack中<font style="color:#f03d3d">clean-webpack-plugin</font>插件就是提供这个需求。
+这个问题在demo中还能忍受，但是在真正项目中那么多文件，多打几次包绝对是一场可怕的噩梦，所以肯定要在每次打包时都清空输出目录，在webpack中由一个**plugin**就是提供这个需求，这就是<font style="color:#f03d3d">clean-webpack-plugin</font>
 
 > yarn add -D clean-webpack-plugin
 
@@ -276,7 +282,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
   ]
 ```
 
-> 注意：<font style="color:#f03d3d">clean-webpack-plugin</font>导入包使用的***{ CleanWebpackPlugin }***接收，而不是<font style="color:#f03d3d">html-webpack-plugin</font>那种别名机制，原因是<font style="color:#f03d3d">html-webpack-plugin</font>插件导出的是默认：export default 。导入时只是以一个变量接收，而<font style="color:#f03d3d">clean-webpack-plugin</font>导出的是一个对象，对象中具有***CleanWebpackPlugin ***类型，所以使用时名称不能更改
+> 注意：<font style="color:#f03d3d">clean-webpack-plugin</font>导入包使用的***{ CleanWebpackPlugin }***接收，而不是<font style="color:#f03d3d">html-webpack-plugin</font>那种别名机制，原因是<font style="color:#f03d3d">html-webpack-plugin</font>导出的是默认：export default 。导入时只是以一个变量接收，而<font style="color:#f03d3d">clean-webpack-plugin</font>导出的是一个对象，对象中具有***CleanWebpackPlugin ***类型，所以使用时名称不能更改
 
 
 
@@ -313,9 +319,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 
 
-其实在真实开发中这个插件完全没必要配置，毕竟每次打包都是想要新结果。而这个插件只是清理目录
+其实在真实开发中这个**plugin**完全没必要配置，毕竟每次打包都是想要新结果。而这个**plugin**只是清理目录
 
-> 注意：在测试插件配置时，每次修改一下index.js文件数据，因为output设置了*[contenthash]*,所以如果不修改，不会重新打包
+> 注意：在测试**plugin**配置时，每次修改一下index.js文件数据，因为output设置了*[contenthash]*,所以如果不修改，不会重新打包
 
 
 
@@ -327,7 +333,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 > * 打包器是将**开发代码**编译为**可部署**代码的*"编译器"*，webpack则是目前流行的打包器一种
 > * webpack需要抛出一个模块，虽然可以是对象或者是函数，但是其结果必须是配置对象
-> * webpack只提供一个**核心引擎**，其余交给插件进行完成
+> * webpack只提供一个**核心引擎**，其余交给扩展进行完成
 
 ### 本文参考
 
