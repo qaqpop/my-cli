@@ -24,7 +24,7 @@
 
 
 
-webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程序的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#f03d3d">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件（plugin+loader）**</font>进行完成。 
+webpack是一个优秀的*JavaScript*应用程序的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#f03d3d">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件（plugin+loader）**</font>进行完成。 
 
  开发人员只需要安装符合自己需求的插件就可以达到自己的目的，而插件则可以交给社区去完成。社区中具有大量的插件，相同功能的插件有的都有好多。所以，在学习webpack时，我个人建议转换一下思想： <font style="color:#f03d3d">**不要想这个东西是什么，而要想我们需要什么**	</font> 需要压缩，那么寻找压缩的插件，需要css打包，寻找关于css的插件。  只不过经过了这么多年的发展，已经挑选出了最优解，所以使用的都是指定的插件。就像现在所有虚拟机的JC算法设计都相同一样。
 
@@ -46,13 +46,13 @@ webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程�
 
 
 
-然后我们在package文件中的<font style="color:#f03d3d">scripts</font>属性中加入一个<font style="color:#f03d3d">build：webpack</font>指令
+然后我们在package文件中的***scripts***属性中加入一个<font style="color:#f03d3d">build：webpack</font>指令
 
 <img src=".//images//image-02-02.png" width="400">
 
 
 
-此时使用<font style="color:#f03d3d">yarn build</font>会执行webpack命令，虽然会因为我们没有配置而失败，但是webpack还是能运行的。诸君有兴趣的可以将<font style="color:#f03d3d">webpack-cli</font>包移除再build，会发现webpack无法运行，并且提示安装<font style="color:#f03d3d">webpack-cli</font>
+此时使用**会执行webpack命令，虽然会因为我们没有配置而失败，但是webpack还是能运行的。诸君有兴趣的可以将<font style="color:#f03d3d">webpack-cli</font>包移除再build，会发现webpack无法运行，并且提示安装<font style="color:#f03d3d">webpack-cli</font>
 
 
 
@@ -62,15 +62,15 @@ webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程�
 
 
 
-* <font style="color:#f03d3d">webpack.config.js</font>  此文件是编写webpack配置的文件，webpack在执行时会去执行此文件，以此文件去进行打包
+* ***webpack.config.js***此文件是编写webpack配置的文件，webpack在执行时会去执行此文件，以此文件去进行打包
 
   > 根目录webpack.config.js 文件为一个默认约定文件，在你不指定配置文件时，便会执行根目录的这个文件，当然也可以使用参数去控制配置文件，也推荐使用参数配置，参数配置可以改变其目录和名称。
 
   <img src=".//images//image-02-04.png" width="400">
 
-* <font style="color:#f03d3d">src</font> 此目录作为工作目录，约定其目录为开发文件目录，当然目录名称可以随意，但是目前约定都是使用src这个名称。在src目录下拥有一个js文件，这个文件作为配置入口文件，在前面说过，webpack(打包器)是一个将开发代码编译为可发布代码类似的编译工具，所以必须具有入口（读取）和输出（写入），否则就不能称之为“桥梁”。在webpack配置中<font style="color:#f03d3d">entry</font>（入口）、<font style="color:#f03d3d">output</font>（输出）是必备的两个属性。在index.js就作为其入口文件，在主流的脚手架中都具有一个index.js文件
+* ***src***此目录作为工作目录，约定其目录为开发文件目录，当然目录名称可以随意，但是目前约定都是使用src这个名称。在src目录下拥有一个js文件，这个文件作为配置入口文件，在前面说过，webpack(打包器)是一个将开发代码编译为可发布代码类似的编译工具，所以必须具有入口（读取）和输出（写入），否则就不能称之为“桥梁”。在webpack配置中<font style="color:#f03d3d">entry</font>（入口）、<font style="color:#f03d3d">output</font>（输出）是必备的两个属性。在index.js就作为其入口文件，在主流的脚手架中都具有一个index.js文件
 
-接下来就可以在<font style="color:#f03d3d">webpack.config.js</font>编写配置项了
+接下来就可以在***webpack.config.js***编写配置项了
 
 > 通过介绍其实可以猜出webpack是基于node.js运行的，所以在webpack配置中默认使用的<font style="color:#f03d3d">common.js 模块</font> 当然也可以配置成<font style="color:#f03d3d">ES6 模块</font>或者<font style="color:#f03d3d">AMD 模块</font>， 这个放在后面讲述。
 >
@@ -89,7 +89,7 @@ webpack是一个优秀的<font style="color:#f03d3d">JavaScript</font>应用程�
 
 ##### webpack.config.js文件总览
 
-在<font style="color:#f03d3d">webpack.config.js</font>中我们需要抛出一个**模块**，这个模块可以是一个对象，也可以是一个函数（函数返回值必须为对象），而webpack的所有配置项都写在这个对象中。
+在*webpack.config.js*中我们需要抛出一个**模块**，这个模块可以是一个对象，也可以是一个函数（函数返回值必须为对象），而webpack的所有配置项都写在这个对象中。
 
 webpack约定配置项的属性名称，开发者根据其配置名称去设置自己想要的属性值。然后webpack在执行时，会导入这个文件中的模块，加载webpack配置去执行对应的操作。诸君可以脑补一下这个流程，
 
@@ -138,16 +138,16 @@ const modules = {
 module.exports = modules
 ```
 
-代码代表了一个最基本的一个打包器，将<font style="color:#f03d3d">src/index.js</font>文件打包到<font style="color:#f03d3d">dist</font>目录下，用到的webpack属性是<font style="color:#f03d3d">entry</font>、<font style="color:#f03d3d">output</font>
+代码代表了一个最基本的一个打包器，将*src/index.js*文件打包到*dist*目录下，用到的webpack属性是<font style="color:#f03d3d">entry</font>、<font style="color:#f03d3d">output</font>
 
 * entry：入口文件地址，这个属性可以是一个字符串（js入口文件的地址），也可以是一个对象，对象中可以设置多个入口文件，一般拥有多页面开发，至于多页面开发的配置，就不在此赘述，诸君可以去看其它[参考资料](https://www.sohu.com/a/323226642_495695)，单页面程序一般字符串即可
 * output：输出文件地址，这个属性也是可以是一个字符串或者对象，字符串直接设置地址+文件名，对象形式则可以比较清晰和详细的设置，一般使用对象形式。 文件名称使用了一个<font style="color:#f03d3d">[contenthash]</font>名称，这是一个webpack打包缓存的一种机制，当打包文件修改了hash值才会改变，然后重新打包。文件不更改则会拦截打包操作。缓存一般会在<font style="color:#f03d3d">production</font>模式下设置, 还有两个<font style="color:#f03d3d">[hash]</font>、<font style="color:#f03d3d">[chunkhash]</font>也可以设置缓存，具体请参考[webpack中hash、chunkhash、contenthash区别](https://www.cnblogs.com/giggle/p/9583940.html)
 
-> 在webpack.json文件中使用了<font style="color:#f03d3d">require('path')</font>库来获取当前绝对地址，然后再加上相对路径确保路径的完整性
+> 在webpack.json文件中使用了***require('path')***库来获取当前绝对地址，然后再加上相对路径确保路径的完整性
 
 
 
-配置完之后使用<font style="color:#f03d3d">yarn build</font>执行打包操作，执行完毕后，会在当前目录创建一个dist目录并且具有一个.js文件，里面就是src/index.js内容
+配置完之后使用*yarn build*执行打包操作，执行完毕后，会在当前目录创建一个dist目录并且具有一个.js文件，里面就是src/index.js内容
 
 <img src=".//images//image-02-05.png" width="400">
 
@@ -179,7 +179,7 @@ webpack只提供了一个<font style="color:#f03d3d">**核心引擎**</font>。�
 
 ###### html-webpack-plugin
 
-诸君请思考一个问题，刚才打包的是JS文件，那么实际上浏览器运行的是<font style="color:#f03d3d">HTML</font>文件。就算我们将所有业务逻辑都以JS（Document类型）去完成，但是依然需要一个容器承载JS。所以需要打包一个HTML或者在打包的过程中，创建一个HTML文件。并且将此HTML必须引用打包后的JS文件。
+诸君请思考一个问题，刚才打包的是JS文件，那么实际上浏览器运行的是***HTML***文件。就算我们将所有业务逻辑都以JS（Document类型）去完成，但是依然需要一个容器承载JS。所以需要打包一个HTML或者在打包的过程中，创建一个HTML文件。并且将此HTML必须引用打包后的JS文件。
 
 webpack中构建这个HTML页面则交给了一个插件来完成，这个插件叫做<font style="color:#f03d3d">html-webpack-plugin</font>
 
@@ -206,7 +206,7 @@ module.exports = modules
 
 <img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-08.png" width="400">
 
-简单的使用了<font style="color:#f03d3d">html-webpack-plugin</font>创建了执行容器HTML，但是HTML的创建一般都是需要定制一些东西，例如：title、mata等信息，并且我们看到的脚手架都是使用自己创建的<font style="color:#f03d3d">index.html</font>文件，打包后的html文件是以此文件进行模板。那些操作都是使用了
+简单的使用了<font style="color:#f03d3d">html-webpack-plugin</font>创建了执行容器HTML，但是HTML的创建一般都是需要定制一些东西，例如：title、mata等信息，并且我们看到的脚手架都是使用自己创建的*index.html*文件，打包后的html文件是以此文件进行模板。那些操作都是使用了
 
 <font style="color:#f03d3d">html-webpack-plugin</font>插件的参数配置，传入是以构造函数方式传入的。
 
@@ -238,7 +238,7 @@ plugins: [
   ]
 ```
 
-> * **title**	这个属性是设置html的title属性，这个属性只有在没有<font style="color:#f03d3d">template</font>时有效，具有<font style="color:#f03d3d">template</font>数据时，会使用<font style="color:#f03d3d">template</font>的title属性
+> * **title**	这个属性是设置html的title属性，这个属性只有在没有***template***时有效，具有***template***数据时，会使用***template***的title属性
 > * **filename**  打包输出的文件名称
 > * **template** 本地html模板地址，此模板中的其它引用都会原封不动的进行引用。例如下面html引用了jquery，在打包完成后还是具有jquery的引用，并且在js中可以使用jquery，诸君可以使用[CDN](https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js)连接测试一下  
 > * **publicPath**  打包后引用脚本时的路径，配置中的路径为<font style="color:#f03d3d">./</font>，在html中引用js的路径就以<font style="color:#f03d3d">./</font>目录为准，其它包好多都有这个属性。
@@ -247,7 +247,7 @@ plugins: [
 > * **cache**  代表是否要缓存html，默认为true，在开发环境可以设置成false
 > * **meta** 就是设置meta属性值的配置
 
-上面列举了部分<font style="color:#f03d3d">html-webpack-plugin</font>属性，其中<font style="color:#f03d3d">template</font>属性需要是一个本地的html路径，所以需要创建一个html文件。 更多属性可以去[npm](https://www.npmjs.com/package/html-webpack-plugin)中查看
+上面列举了部分<font style="color:#f03d3d">html-webpack-plugin</font>属性，其中***template***属性需要是一个本地的html路径，所以需要创建一个html文件。 更多属性可以去[npm](https://www.npmjs.com/package/html-webpack-plugin)中查看
 
 <img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-09.png" width="400">
 
@@ -257,9 +257,7 @@ plugins: [
 
 ###### clean-webpack-plugin
 
-在打包之后其实会发现一个恶心的问题：每次打包都是往<font style="color:#f03d3d">dist</font>目录去<font style="color:#f03d3d">添加</font>文件，而不是清空dist目录再添加，在刚才完成的几次build之后，<font style="color:#f03d3d">dist</font>
-
-目录已经具有好多文件了
+在打包之后其实会发现一个恶心的问题：每次打包都是往dist目录去**添加**文件，而不是清空dist目录再添加，在刚才完成的几次build之后，dist目录已经具有好多文件了
 
 <img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-10.png" width="400">
 
@@ -278,11 +276,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
   ]
 ```
 
-> 注意：<font style="color:#f03d3d">clean-webpack-plugin</font>导入包使用的<font style="color:#f03d3d">{ CleanWebpackPlugin }</font> 接收，而不是<font style="color:#f03d3d">html-webpack-plugin</font>那种别名机制，原因是<font style="color:#f03d3d">html-webpack-plugin</font>插件导出的是默认：export default 。导入时只是以一个变量接收，而<font style="color:#f03d3d">clean-webpack-plugin</font>导出的是一个对象，对象中具有<font style="color:#f03d3d">CleanWebpackPlugin </font>类型，所以使用时名称不能更改
+> 注意：<font style="color:#f03d3d">clean-webpack-plugin</font>导入包使用的***{ CleanWebpackPlugin }***接收，而不是<font style="color:#f03d3d">html-webpack-plugin</font>那种别名机制，原因是<font style="color:#f03d3d">html-webpack-plugin</font>插件导出的是默认：export default 。导入时只是以一个变量接收，而<font style="color:#f03d3d">clean-webpack-plugin</font>导出的是一个对象，对象中具有***CleanWebpackPlugin ***类型，所以使用时名称不能更改
 
 
 
-<font style="color:#f03d3d">CleanWebpackPlugin </font>类型构造函数中也可以传入配置参数进行控制
+***CleanWebpackPlugin ***类型构造函数中也可以传入配置参数进行控制
 
 ```javascript
  new CleanWebpackPlugin({
