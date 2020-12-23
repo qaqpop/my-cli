@@ -14,7 +14,7 @@ const modules = {
 
   //  入口文件
   //  字符串形式
-  entry: path.join(__dirname, 'src/index.js'),
+  entry: path.join(__dirname,'src/index.js') ,
   //  对象形式
   // entry:{
   //   'index':path.join(__dirname, 'src/index.js')
@@ -26,12 +26,12 @@ const modules = {
   //对象形式
   output: {
     //  出口文件的目录地址
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname,'dist'),
     //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
     filename: '[name]_[contenthash].js'
   },
 
- devtool:false, //'eval'
+  devtool:false, //'eval'
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -41,7 +41,7 @@ const modules = {
       filename: 'index.html',
 
       //  模板路径
-      template: path.join(__dirname, 'src/index.html'),
+      template: './src/index.html',
       // 用于打包后引用脚本时的路径
       publicPath: './',
 
@@ -76,6 +76,8 @@ const modules = {
       //  每次打包之后删除匹配的文件
     }),
     new webpack.DefinePlugin({ "global_a": JSON.stringify("我是一个打包配置的全局变量") }),
+
+
   ],
 
   optimization: {
@@ -94,15 +96,39 @@ const modules = {
         minify:undefined,
 
         terserOptions: {
+          // //  是否防止篡改函数名称，true代表防止篡改，即保留函数名称，false即可以篡改，
+          // //  此属性对使用Function.prototype.name
+          // //  默认为false
+          keep_fnames:false,
+          // //  是否防止篡改类名称
+          keep_classnames:false,
+          // //  设置一些其它的解析
+          parse: {},
+          //  最小化es6模块。默认为false
           module:true,
+          //  ·压缩配置
+
+          //  format和output是同一个属性值，，名称不一致，output不建议使用了，被放弃
+          format: {
+            comments:false,
+          },
           //  是否支持IE8，默认不支持
           ie8:true,
-          compress:{
-            // booleans :false,
-            // //  移除console
-            // drop_console: true
+          compress: {
+            // 是否使用默认设置，这个属性当只启用指定某些选项时可以设置为false
+            defaults:false,
+            //  是否移除无法访问的代码
+            dead_code:false,
 
-          }
+            // 折叠仅仅使用一次的变量
+            collapse_vars:true,
+            warnings:true,
+            //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
+            //  是否删除所有debugger语句，默认为true
+            drop_debugger:true,
+            //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
+            // pure_funcs: ['console.log'], //移除console
+          },
         },
         //  是否将注释提出到单独的文件中
         //  值Boolean|String|RegExp|Function<(node, comment) -> Boolean|Object>|Object
@@ -113,7 +139,38 @@ const modules = {
     ]
   },
 
+  // module:{
+  //   rules:[
+  //     {
+  //       test:/\.css$/,
+  //       include:path.join(__dirname,'src'),
+  //       exclude:path.join(__dirname,'node_modules'),
+  //       ////  字符串形式
+  //       // use:'css-loader',
+  //       //  数组形式，可以设置多个loader
+  //       // use:[
+  //       //   {
+  //       //     loader:'css-loader',
+  //       //     options:{
+  //       //
+  //       //     }
+  //       //   }
+  //       // ]
+  //     }
+  //   ]
+  // }
+
+  resolve: {
+    alias:{
+      //  设置路径别名
+      '@':path.join(__dirname,'src'),
+    },
+  }
 }
 
 //  使用node。js的导出，将配置进行导出
 module.exports = modules
+
+// // 无扩展名时自动解析的后缀，如果具有相同名称但是不同后缀的文件，使用显设置的解析
+// extensions: ['.js'],
+//   mainFiles:['index','main'],

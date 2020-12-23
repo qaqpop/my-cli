@@ -148,7 +148,7 @@ const webpack = require("webpack");
 
 ***development***模式下默认值<font style="color:#f03d3d">eval</font>；***production***模式下默认值为<font style="color:#f03d3d">false(none)</font>
 
-<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-15.png" width="400">
+<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-14.png" width="400">
 
 
 
@@ -188,8 +188,6 @@ const webpack = require("webpack");
 
 可以看出其实***production***模式中只不过将***optimization.minimize***属性设置为了<font style="color:#f03d3d">true</font>，而控制压缩的开关还是***optimization.minimize***属性
 
-<img src="./images/image-02-14.png" width="400">
-
 ```javascript
   optimization:{
     // 开启默认优化
@@ -201,7 +199,7 @@ const webpack = require("webpack");
 
 > 在之前版本默认的打包**plugin**是[uglifyjs-webpack-plugin](https://www.npmjs.com/package/uglifyjs-webpack-plugin)，网上好多文章都是以这个**plugin**为基础，不过后来这个**plugin**不维护了，所以现在默认为[terser-webpack-plugin](https://www.npmjs.com/package/terser-webpack-plugin)
 
-当然，也可以在***plugins***中手动覆盖或者自定义配置**plugin**，不过除了在***plugins***，还有一个的选择，那就是***optimization.minimizer***属性，这个属性与***plugins***一致，只不过在执行打包时做了一下缓存之类的优化
+当然，也可以在***plugins***中手动覆盖或者自定义配置**plugin**，不过除了在***plugins***，还有一个很好的选择，那就是使用***optimization.minimizer***属性，这个属性与***plugins***使用一致。但是稍微有一些区别，那就是设置在***optimization.minimizer***的**plugin**可以使用***optimization.minimize***开关管控
 
 ```javascript
 const TerserPlugin = require('terser-webpack-plugin');
@@ -218,16 +216,30 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 {
     optimization: {
-    // 配置可优化
-    minimize: true,
-    minimizer: [
-      new TerserPlugin()
-    ]
+        // 配置可优化
+        minimize: true,
+        minimizer: [
+          new TerserPlugin()
+        ]
   }
 }
 ```
 
 
+
+> 诸君请在这里停一下，整理一下思路：不要认为***optimization***属性是一个必须属性，它只是方便统一统一管理。 可以这样去思考一下，
+>
+> 在设计webpack压缩优化这个需求，压缩是可以进行扩展的，那么就设计成使用**plugin**扩展进行。但是发现：压缩优化可能需要好多**plugin**，但是需要有一个开关能管控这些压缩优化的**plugin**，毕竟如果在不进行优化时，这些负责优化的**plugin**都不应该执行，那么在设计时便可以提供一个属性（***optimization***），属性提供一个开关（***optimization.minimize***）,还提供一个设置**plugin**属性（***optimization.minimizer***）。只要设置在***optimization.minimizer***的**plugin**都可以交给***optimization.minimize***统一管控，webpack就是这样。 
+>
+> 如果将<font style="color:#f03d3d">terser-webpack-plugin</font>设置到***plugins***中，那么就算将***optimization.minimize***为*false*，依然会执行优化。有兴趣的诸君可以自行测试下。
+>
+> 当然webpack在***optimization***设置了许多其它属性，但是设计思想就是这样，其它只不过是内置而已。
+
+
+
+
+
+#### terser-webpack-plugin
 
 前面说过，目前流行的**plugin**基本都是经过考证的最优解，所以也就直接使用<font style="color:#f03d3d">terser-webpack-plugin</font>，不过可以自定义配置<font style="color:#f03d3d">terser-webpack-plugin</font>压缩，以达到项目需求
 
@@ -280,9 +292,232 @@ const TerserPlugin = require('terser-webpack-plugin');
 > * **extractComments**：表示是否将注释提取道单独的文件中，值可以为多种类型，简单的设置为<font style="color:#f03d3d">boolean</font>和<font style="color:#f03d3d">all</font>，当为<font style="color:#f03d3d">true</font>时，默认只提取/^\*\*!|@preserve|@license|@cc_on/i匹配道的注释，为<font style="color:#f03d3d">all</font>时表示提取全部，我感觉这个属性基本没什么用也。
 > * **terserOptions**：这个属性代表压缩时的构建设置，压缩设置便是这个属性。
 
-<font style="color:#f03d3d">terser-webpack-plugin</font>可以看出构造参数第一层主要是对文件的设置，并没有详细的参数设置，详细的参数设置在<font style="color:#f03d3d">terserOptions</font>属性中
+<font style="color:#f03d3d">terser-webpack-plugin</font>可以看出这些构造参数主要针对文件的设置，并没有详细的参数设置，详细的参数设置在<font style="color:#f03d3d">terserOptions</font>属性中
 
 ###### terserOptions属性设置
+
+先来做一个测试，在index.js中创建一个函数
+
+<img src="./images/image-02-15.png" width="400">
+
+然后使用默认配置进行打包，结果会发现打包生成的代码只有两句代码，也就是真实执行的两句。可以得出，在默认配置中，<font style="color:#f03d3d">terser-webpack-plugin</font>基本上是做到了最优解，所以其实真实应用中普遍不需要配置。
+
+<img src="./images/image-02-16.png" width="400">
+
+
+
+接下来再做一个小测试，在<font style="color:#f03d3d">terserOptions</font>属性中具有一个<font style="color:#f03d3d">compress</font>属性，这个是代码的压缩配置，可以设置为***boolean***和***object***，把它设置为**false**来看下
+
+```javascript
+{
+   optimization: {
+    // 配置可优化
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        //  压缩时的选项设置
+        terserOptions: {
+             compress:false
+        }
+      })
+    ]
+  }
+}
+```
+
+再看下结果会发现，代码除了名称的改变，其它并没有什么变化
+
+<img src="./images/image-02-17.png" width="400">
+
+可以看出，主要的配置是<font style="color:#f03d3d">terserOptions.compress</font>属性，当然<font style="color:#f03d3d">terserOptions</font>属性还有其它属性配置，先来看下<font style="color:#f03d3d">terserOptions</font>某些参数
+
+```javascript
+{
+   optimization: {
+    // 配置可优化
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+          //  压缩时的选项设置
+          terserOptions: {
+              //  是否防止篡改函数名称，true代表防止篡改，即保留函数名称，false即可以篡改，
+              //  此属性对使用Function.prototype.name
+              //  默认为false
+              keep_fnames:false,
+              //  是否防止篡改类名称
+              keep_classnames:false,
+              //  设置一些其它的解析
+              parse: {},
+              //  最小化es6模块。默认为false
+              module:true,
+              //  ·压缩配置
+              compress: {  },
+
+              //  format和output是同一个属性值，，名称不一致，output不建议使用了，被放弃
+              format:{comments:true},
+              output:null,
+              //  是否支持IE8，默认不支持
+              ie8:true,
+        }
+      })
+    ]
+  }
+}
+```
+
+* **keep_fnames**：这个属性是是否允许防止篡改函数名称，刚才打包时看到了，压缩时将函数名称进行了更改，这个属性设置就是为了不更改函数名称。不过需要注意的是，如果设置了这个属性，那么压缩时所有**有效**函数都会保留正确的函数名称。
+* **keep_classnames**： 这个属性与**keep_fnames**类似，不过是为了防止修改类名称，有兴趣的诸君可以测试一下
+* **parse**：设置一下其他解析，具体请参见[官方](https://github.com/terser/terser#parse-options)
+* **module** ：是否最小化压缩ES6模块
+* **compress**：压缩配置，设置为*{}*或者*true*代表使用默认
+* **format/output**：这是一个属性，**output**官方建议不再使用，这个属性指定压缩格式，例如是否保留*注释*，是否始终为*if*、*for*等设置大括号，默认值是最佳压缩优化，这个属性就不介绍，具体请参考[官方](https://github.com/terser/terser#format-options)
+* **ie8**：是否支持IE8
+
+
+
+<font style="color:#f03d3d">terserOptions.compress </font>属性只列举几个看起来比较常用的属性，毕竟<font style="color:#f03d3d">terserOptions.compress </font>设置不少，学的时候感觉恶心到了，有兴趣的可以[官方看下](https://github.com/terser/terser#compress-options)
+
+```javascript
+{
+   optimization: {
+    // 配置可优化
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+          //  压缩时的选项设置
+          terserOptions: {
+                compress: {
+                // 是否使用默认设置，这个属性当只启用指定某些选项时可以设置为false
+                //	默认为true
+                defaults:true,
+                //  是否移除无法访问的代码,默认为true
+                dead_code:true,
+
+                // 折叠仅仅使用一次的变量,默认为true
+                collapse_vars:true,
+                //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
+                drop_console:true,
+                //  是否删除所有debugger语句，默认为true
+                drop_debugger:true,
+                //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
+                pure_funcs: ['console.log'], //移除console
+          }
+        }
+      })
+    ]
+  }
+}
+```
+
+* **defaluts**：这个属性表示是否使用默认配置，默认值为true，只有在只启用某些选项时可以设置false，不过，感觉基本不需要配置
+* **dead_code**：是否移除无法访问的代码，默认为true
+* **collapse_vars**：是否折叠仅使用一次的变量，默认为true
+* **drop_console**：是否删除所有*console*语句，这个默认为false，这个在线上可以设置true，这样就不需要删除所有console了
+* **drop_debugger**：是否删除所有的*debugger*语句，默认为true
+* **pure_funcs**：指定移除的函数名称，这个假定所有函数都没有副作用（没有使用），就算有副作用也会直接移除，所以使用时要注意。
+
+
+
+<font style="color:#f03d3d">terser-webpack-plugin</font>的配置具有好多，但是一般使用默认即可，除非有特定需求指定某些选项。上面说到的配置能帮到诸君的在下会感到荣幸，帮不到的可以去[github](https://github.com/webpack-contrib/terser-webpack-plugin)瞧瞧，配置项学习时感觉有些恶心，可能是在下基础不牢固。
+
+
+
+
+
+#### optimization其它设置
+
+##################################################略####################################
+
+
+
+
+
+### loader
+
+在前面提到过<font style="color:#f03d3d">loader </font>。webpack作为一个**JavaScript应用程序**的打包器，本身不支持非JS，但webpack提供了一种技术允许将非JS模块***转换***为JS模块处理。
+
+在这里不讲解具体的loader，而是讲一下loader的语法，在后面CSS、图片等处理时才看具体的loader
+
+ loader是配置在***module.rules***中的，***module.rules***是一个数组，数组中的每一项都是一个**rule**，每个loader常用属性就是如下属性
+
+```javascript
+{
+  module:{
+    rules:[
+      {
+        // test:/\.css$/,
+        // include:path.join(__dirname,'src'),
+        // exclude:path.join(__dirname,'node_modules'),
+        // //  字符串形式
+        // use:'css-loader',
+        //  数组形式，可以设置多个loader
+        // use:[
+        //   {
+        //     loader:'css-loader',
+        //     options:{
+        //
+        //     }
+        //   }
+        // ]
+      }
+    ]
+  }
+}
+```
+
+* **test**：这个是匹配的模块文件名称，例如上面*/\.css$*代表所有的css文件，
+* **include**：这个是查找包含的目录。注意这个是目录，不是像<font style="color:#f03d3d">terser-webpack-plugin</font>是文件名称
+* **exclude**：这个是查找排除的目录。这个一般设置是排除*node_modules*，一般与**include**二取一。
+* **use**：这个当前模块需要用到的*loader*，这个属性可以设置为字符串形式的**loader**名称，也可以设置为一个数组，数组可以允许当前模块使用多个**loader**，并且对loader进行参数化管理。
+
+
+
+### resolve
+
+下面来看一个对于允许不太重要但是能在写代码时更加方便和管理的功能，毕竟代码很多时候是写给人看的。用过脚手架的诸君应该都用过以下的功能之一
+
+1. import组件时可以忽略组件名称
+2. 使用**@**代表**src**根目录
+3. 如果import指向的是一个目录，那么默认会导入其中的*index*文件
+
+那么这些是怎么实现的呢。其实这些是在webpack中的<font style="color:#f03d3d">resolve </font>属性配置的。
+
+<font style="color:#f03d3d">resolve </font>属性设置模块如何被解析。这个属性具有很多的参数设置，当然，webpack提供了合理的默认值，一般情况是不需要设置很多的
+
+下面只来看一下这三个需要的配置。至于其它，诸君有兴趣的可以看下[官方](https://www.webpackjs.com/configuration/resolve/#resolve-modules)
+
+
+
+#### alias
+
+<font style="color:#f03d3d">resolve.alias</font>属性可以帮助项目中指定目录起一个别名，也就是允许我们使用**@**符号代表**src**根目录
+
+```javascript
+{
+   resolve: {
+    alias:{
+      //  设置路径别名
+      '@':path.join(__dirname,'src'),
+    },
+  }
+}
+```
+
+使用上面代码就使用**@**符号代表了**src**，在项目*import*时就可以使用**@**了
+
+<img src="./images/image-02-18.png" width="400">
+
+在打包时也会将*index2*进行打包
+
+<img src="./images/image-02-19.png" width="400">
+
+其实通过上面代码可以猜到一个问题，那就是webpack允许给任意目录起使用任意标识（除了关键字符）的别名，而使用**@**符号代表**src**目录只不过是统一约定，在自己项目可以设置更多的别名。
+
+
+
+#### extensions
+
+
 
 至于    <font style="color:#f03d3d">common.js 模块 </font>、<font style="color:#f03d3d">ES6 模块 </font>、<font style="color:#f03d3d">AMD 模块 </font>有兴趣的诸君也可以去[深入了解](https://www.cnblogs.com/chinabin1993/p/10565816.html)下。 
 

@@ -1,17 +1,14 @@
-
-/**
- * 1231231
- */
+import '@/index2'
 console.log('我是src.js')
 function a(){
   var a = 1;
   a+=1
   if(a>1){
-    document.write(a)
+    console.log(a)
   }else{
-    document.write('111')
+    console.log('else')
   }
-
-  console.debug('aaaaaaaaaaaaa')
 }
 a()
+
+
