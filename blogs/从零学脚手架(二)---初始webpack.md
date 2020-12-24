@@ -24,7 +24,7 @@
 
 
 
-webpack是一个优秀的***JavaScript应用程序***的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#f03d3d">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件**</font>进行完成。 
+webpack是一个优秀的***JavaScript应用程序***的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#007FFF">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件**</font>进行完成。 
 
 > :whale2::whale2:	 这里说的<font style="color:#f03d3d">**插件**</font>并不是指的webpack中的***plugins***，而是<font style="color:#f03d3d">**插件化**</font>的意思，为了避免与webpack中的<font style="color:#f03d3d">**plugins**</font>名称冲突，在文章中webpack中***plugins***统一叫做<font style="color:#f03d3d">**plugins**</font>，这里所说的插件统一叫做<font style="color:#f03d3d">**扩展**</font>
 

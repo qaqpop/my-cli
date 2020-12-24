@@ -447,7 +447,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 
-> :whale2: 在不学习压缩优化时，先把***optimization***开关关掉，这样能更好的查看打包后代码
+> :whale2::whale2:  	***optimization***  应该是在开发环境时模式，部署模式打开。虽然在<font style="color:#f03d3d">development</font>、<font style="color:#f03d3d">production</font> 预设时会自动设置，但是更好的选择还是自己手动控制，不过这个控制放到后面在***merge***时处理，那时候进行分离开发、部署模式 。
+>
+> 暂时在不学习压缩优化时，先把***optimization***开关关掉，这样能更好的查看打包后代码
+
+
 
 ### loader
 
