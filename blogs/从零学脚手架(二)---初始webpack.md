@@ -24,9 +24,11 @@
 
 
 
-webpack是一个优秀的***JavaScript***应用程序的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#f03d3d">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件**</font>进行完成。 
+webpack是一个优秀的***JavaScript应用程序***的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#f03d3d">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件**</font>进行完成。 
 
-> 注意：这里说的<font style="color:#f03d3d">**插件**</font>并不是指的webpack中的***plugins***，而是<font style="color:#f03d3d">**插件化**</font>的意思，为了避免与webpack中的<font style="color:#f03d3d">**plugins**</font>名称冲突，在文章中webpack中***plugins***统一叫做<font style="color:#f03d3d">**plugins**</font>，这里所说的插件统一叫做<font style="color:#f03d3d">**扩展**</font>
+> :whale2::whale2:	 这里说的<font style="color:#f03d3d">**插件**</font>并不是指的webpack中的***plugins***，而是<font style="color:#f03d3d">**插件化**</font>的意思，为了避免与webpack中的<font style="color:#f03d3d">**plugins**</font>名称冲突，在文章中webpack中***plugins***统一叫做<font style="color:#f03d3d">**plugins**</font>，这里所说的插件统一叫做<font style="color:#f03d3d">**扩展**</font>
+
+
 
  开发人员只需要安装符合自己需求的*扩展*就可以达到自己的目的，而*扩展*则可以交给社区去完成。社区中具有大量的插件，相同功能的插件有的都有好多。所以，在学习webpack时，我个人建议转换一下思想： <font style="color:#f03d3d">**不要想这个东西是什么，而要想我们需要什么**	</font> 需要压缩，那么寻找压缩的插件，需要css打包，寻找关于css的插件。  只不过经过了这么多年的发展，已经挑选出了最优解，所以使用的都是指定的插件。就像现在所有虚拟机的JC算法设计都相同一样。
 
@@ -34,7 +36,9 @@ webpack是一个优秀的***JavaScript***应用程序的静态模块打包器。
 
 在上一篇文章中讲到package文件中的<font style="color:#f03d3d">devDependencies</font>留了一个问题：什么是开发环境依赖，这里其实就可以总结出：<font style="color:#f03d3d">**部署之前的依赖环境，也就是构建工程化使用到的依赖环境**	</font> 。在判断其环境依赖时，可以思考一下，这个包是否是在浏览器中执行时所用的包，如果是，就添加到<font style="color:#f03d3d">dependencies</font>依赖，如果不是，就添加到<font style="color:#f03d3d">devDependencies</font>依赖
 
-> <font style="color:#f03d3d">构建工程化依赖环境</font>包括打包使用依赖、开发时的eslint、还有脚手架中使用的测试依赖
+
+
+> :whale2:	<font style="color:#f03d3d">构建工程化依赖环境</font>包括打包使用依赖、开发时的eslint、还有脚手架中使用的测试依赖
 
 
 
@@ -44,11 +48,13 @@ webpack是一个优秀的***JavaScript***应用程序的静态模块打包器。
 
 在上篇文章已经安装了<font style="color:#f03d3d">webpack@5.4</font>包，所以只需要再安装<font style="color:#f03d3d">webpack-cli</font>即可,webpack-cli用于在命令行中运行webpack，如果不安装<font style="color:#f03d3d">webpack-cli</font>运行webpack命令时会报错
 
+
+
 > yarn add -D  webpack-cli     // 安装到<font style="color:#f03d3d">devDependencies</font>依赖。
 
 
 
-然后我们在package文件中的***scripts***属性中加入一个<font style="color:#f03d3d">build：webpack</font>指令
+然后在package文件中的***scripts***属性中加入一个<font style="color:#f03d3d">build：webpack</font>指令
 
 <img src=".//images//image-02-02.png" width="400">
 
@@ -66,7 +72,7 @@ webpack是一个优秀的***JavaScript***应用程序的静态模块打包器。
 
 * ***webpack.config.js***此文件是编写webpack配置的文件，webpack在执行时会去执行此文件，以此文件去进行打包
 
-  > 根目录webpack.config.js 文件为一个默认约定文件，在你不指定配置文件时，便会执行根目录的这个文件，当然也可以使用参数去控制配置文件，也推荐使用参数配置，参数配置可以改变其目录和名称。
+  > :whale2:	根目录webpack.config.js 文件为一个默认约定文件，在你不指定配置文件时，便会执行根目录的这个文件，当然也可以使用参数去控制配置文件，也推荐使用参数配置，参数配置可以改变其目录和名称。
 
   <img src=".//images//image-02-04.png" width="400">
 
@@ -74,14 +80,11 @@ webpack是一个优秀的***JavaScript***应用程序的静态模块打包器。
 
 接下来就可以在***webpack.config.js***编写配置项了
 
-> 通过介绍其实可以猜出webpack是基于node.js运行的，所以在webpack配置中默认使用的<font style="color:#f03d3d">common.js 模块</font> 当然也可以配置成<font style="color:#f03d3d">ES6 模块</font>或者<font style="color:#f03d3d">AMD 模块</font>， 这个放在后面讲述。
+> :whale2::whale2:
 >
-> 在webpack中也会经常使用到node.js的基本包，例如使用<font style="color:#f03d3d">require('path')</font>来获取当前目录
-
-
-
-> 注： 
+> * webpack是基于node.js运行的，  你写webpack不是在写<font style="color:#007FFF">**JS**</font>，而是在写<font style="color:#007FFF">**Node.JS**</font> 。所以webpack中的语法都是<font style="color:#007FFF">**Node.JS**</font> 语法。
 >
+> * 在webpack中也会经常使用到node.js的基本包，例如使用<font style="color:#f03d3d">require('path')</font>来获取当前目录
 > * 打包器其实不一定非要使用node.js，也可以使用java、c#等任何一门语言
 > * 打包器其实就是IO操作，将<font style="color:#f03d3d">entry</font>（入口）文件数据读取并经过扩展的包装写入到<font style="color:#f03d3d">output</font>（输出）文件
 
@@ -145,7 +148,7 @@ module.exports = modules
 * entry：入口文件地址，这个属性可以是一个字符串（js入口文件的地址），也可以是一个对象，对象中可以设置多个入口文件，一般拥有多页面开发，至于多页面开发的配置，就不在此赘述，诸君可以去看其它[参考资料](https://www.sohu.com/a/323226642_495695)，单页面程序一般字符串即可
 * output：输出文件地址，这个属性也是可以是一个字符串或者对象，字符串直接设置地址+文件名，对象形式则可以比较清晰和详细的设置，一般使用对象形式。 文件名称使用了一个<font style="color:#f03d3d">[contenthash]</font>名称，这是一个webpack打包缓存的一种机制，当打包文件修改了hash值才会改变，然后重新打包。文件不更改则会拦截打包操作。缓存一般会在<font style="color:#f03d3d">production</font>模式下设置, 还有两个<font style="color:#f03d3d">[hash]</font>、<font style="color:#f03d3d">[chunkhash]</font>也可以设置缓存，具体请参考[webpack中hash、chunkhash、contenthash区别](https://www.cnblogs.com/giggle/p/9583940.html)
 
-> 在webpack.json文件中使用了***require('path')***库来获取当前绝对地址，然后再加上相对路径确保路径的完整性
+> :whale2:	 在webpack.json文件中使用了***require('path')***库来获取当前绝对地址，然后再加上相对路径确保路径的完整性
 
 
 
@@ -167,7 +170,9 @@ module.exports = modules
 
 <img src=".//images//image-02-07.png" width="400">
 
-> 打包后的文件会是压缩后的代码，并且代码中多出许多webpack构建的代码，压缩的代码是因为打包使用的<font style="color:#f03d3d">mode=production</font>，也就是发布模式，而如果想要不压缩代码可以在webpack.json配置文件中添加一个<font style="color:#f03d3d">mode:'development'</font>属性，意思是使用开发模式打包，至于两种模式，稍微再讲解
+> :whale2::whale2: 打包后的文件会是压缩后的代码，并且代码中多出许多webpack构建的代码，压缩的代码是因为打包使用的<font style="color:#f03d3d">mode=production</font>，也就是发布模式，而如果想要不压缩代码可以在webpack.json配置文件中添加一个<font style="color:#f03d3d">mode:'development'</font>属性，意思是使用开发模式打包，至于两种模式，稍微再讲解
+
+
 
 这就是webpack强大的地方，webpack在打包时，会递归的构建一个依赖图（*dependency graph*），然后根据这个依赖图将所有模块进行打包。如果在index.js将引入index2.js的代码注释或者删除，那么index2.js文件便不会被打包。有兴趣的诸君可以测试一下。
 
@@ -179,9 +184,11 @@ webpack只提供了一个<font style="color:#f03d3d">**核心引擎**</font>。�
 
 在webpack配置对象中具有一个<font style="color:#f03d3d">plugins</font>的属性名称，这个属性就是设置***plugin***的，该属性需要提供一个数组，数组内存放***plugin***对象。webpack在执行时会顺序执行<font style="color:#f03d3d">plugins</font>数组中的***plugin*** 。  下面先来看看常用的两个***plugin***（后续使用***plugin***时会直接加入）
 
-> ***plugin*** 编写具有一定的规则，有兴趣的诸君可以去看下[官网](https://www.webpackjs.com/concepts/plugins/)
+> :whale2: ***plugin*** 编写具有一定的规则，有兴趣的诸君可以去看下[官网](https://www.webpackjs.com/concepts/plugins/)
 
-> 注意：webpack默认只是一个***JavaScript应用程序***的打包器，不会处理像CSS、image、typescript等非js模块，webpack中使用了一个叫做<font style="color:#f03d3d">loader</font>的属性***加载***非JS模块并将其**转换**为JS模块处理，，诸君可以思考一下这样的流程。 在webpack中<font style="color:#f03d3d">plugins</font>和<font style="color:#f03d3d">loader</font>是两个核心概念，一个扩展了打包的额外功能（<font style="color:#f03d3d">plugins</font>），一个将**非JS模块**转换为webpack识别的**JS模块**（<font style="color:#f03d3d">loader</font>）。两者分工不同，两者结合了促成了webpack***插件化***的系统。完成了高度扩展。两者的分工和不同在之后会慢慢了解。
+
+
+> :whale2::whale2: webpack默认只是一个***JavaScript应用程序***的打包器，不会处理像CSS、image、typescript等非js模块，webpack中使用了一个叫做<font style="color:#f03d3d">loader</font>的属性***加载***非JS模块并将其**转换**为JS模块处理，，诸君可以思考一下这样的流程。 在webpack中<font style="color:#f03d3d">plugins</font>和<font style="color:#f03d3d">loader</font>是两个核心概念，一个扩展了打包的额外功能（<font style="color:#f03d3d">plugins</font>），一个将**非JS模块**转换为webpack识别的**JS模块**（<font style="color:#f03d3d">loader</font>）。两者分工不同，两者结合了促成了webpack***插件化***的系统。完成了高度扩展。两者的分工和不同在之后会慢慢了解。
 
 ###### html-webpack-plugin
 
@@ -189,9 +196,7 @@ webpack只提供了一个<font style="color:#f03d3d">**核心引擎**</font>。�
 
 webpack中构建这个HTML页面则交给了一个***plugin***来完成，这个***plugin***叫做<font style="color:#f03d3d">html-webpack-plugin</font>
 
-
-
-> 刚才说过，webpack默认只负责JS，而非JS则交给***loader***进行转换，那html为什么不需要***loader***呢？我的理解是html不需要做转换为JS处理，它是一个承载JS的容器。
+刚才说过，webpack默认只负责JS，而非JS则交给***loader***进行转换，那html为什么不需要***loader***呢？我的理解是html不需要做转换为JS处理，它是一个承载JS的容器。
 
 
 
@@ -288,11 +293,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
   ]
 ```
 
-> 注意：<font style="color:#f03d3d">clean-webpack-plugin</font>导入包使用的***{ CleanWebpackPlugin }***接收，而不是<font style="color:#f03d3d">html-webpack-plugin</font>那种别名机制，原因是<font style="color:#f03d3d">html-webpack-plugin</font>导出的是默认：export default 。导入时只是以一个变量接收，而<font style="color:#f03d3d">clean-webpack-plugin</font>导出的是一个对象，对象中具有***CleanWebpackPlugin ***类型，所以使用时名称不能更改
+> :whale2::whale2:	 <font style="color:#f03d3d">clean-webpack-plugin</font>导入包使用的***{ CleanWebpackPlugin }***接收，而不是<font style="color:#f03d3d">html-webpack-plugin</font>那种别名机制，原因是<font style="color:#f03d3d">html-webpack-plugin</font>导出的是默认：export default 。导入时只是以一个变量接收，而<font style="color:#f03d3d">clean-webpack-plugin</font>导出的是一个对象，对象中具有***CleanWebpackPlugin ***类型，所以使用时名称不能更改
 
 
 
-***CleanWebpackPlugin ***类型构造函数中也可以传入配置参数进行控制
+**CleanWebpackPlugin **类型构造函数中也可以传入配置参数进行控制
 
 ```javascript
  new CleanWebpackPlugin({
@@ -327,7 +332,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 其实在真实开发中这个**plugin**完全没必要配置，毕竟每次打包都是想要新结果。而这个**plugin**只是清理目录
 
-> 注意：在测试**plugin**配置时，每次修改一下index.js文件数据，因为output设置了*[contenthash]*,所以如果不修改，不会重新打包
+> :whale2::whale2:	 在测试**plugin**配置时，每次修改一下index.js文件数据，因为output设置了*[contenthash]*,所以如果不修改，不会重新打包
 
 
 
@@ -337,9 +342,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 ### 总结
 
+> :whale2::whale2::whale2:
+>
 > * 打包器是将**开发代码**编译为**可部署**代码的*"编译器"*，webpack则是目前流行的打包器一种
+> * webpack是使用Node.js作为打包语言运行的
 > * webpack需要抛出一个模块，虽然可以是对象或者是函数，但是其结果必须是配置对象
 > * webpack只提供一个**核心引擎**，其余交给扩展进行完成
+> * webpack是一个**JavaScript应用程序**，默认只支持JS模块，对于非JS模块需要使用**loader**转换为JS模块
 
 ### 本文参考
 
@@ -349,9 +358,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 ### 本文依赖
 
 * [webpack@5.4](https://www.npmjs.com/package/webpack/v/5.4.0)
-* [webpack-cli@4.2.0](https://www.npmjs.com/package/webpack-cli)
-* [html-webpack-plugin@4.5.0](https://www.npmjs.com/package/html-webpack-plugin)
-* [clean-webpack-plugin@3.0.0](https://www.npmjs.com/package/clean-webpack-plugin)
+* [webpack-cli@4.2.0](https://www.npmjs.com/package/webpack-cli/v/4.2.0)
+* [html-webpack-plugin@4.5.0](https://www.npmjs.com/package/html-webpack-plugin/v/4.5.0)
+* [clean-webpack-plugin@3.0.0](https://www.npmjs.com/package/clean-webpack-plugin/v/3.0.0)
 
 
 

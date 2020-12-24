@@ -31,7 +31,7 @@ const modules = {
     filename: '[name]_[contenthash].js'
   },
 
-  devtool:false, //'eval'
+  //devtool:false, //'eval'
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -81,7 +81,7 @@ const modules = {
   ],
 
   optimization: {
-    minimize: true,
+    minimize: false,
     minimizer: [
       new TerserPlugin({
         //  包含哪些文件
@@ -113,7 +113,7 @@ const modules = {
             comments:false,
           },
           //  是否支持IE8，默认不支持
-          ie8:true,
+          ie8:false,
           compress: {
             // 是否使用默认设置，这个属性当只启用指定某些选项时可以设置为false
             defaults:false,
@@ -164,13 +164,13 @@ const modules = {
     alias:{
       //  设置路径别名
       '@':path.join(__dirname,'src'),
+
+      '~': path.resolve(__dirname, '../src/assets')
     },
+    extensions:['.js','.json'],
+    mainFiles:['index','main'],
   }
 }
 
 //  使用node。js的导出，将配置进行导出
 module.exports = modules
-
-// // 无扩展名时自动解析的后缀，如果具有相同名称但是不同后缀的文件，使用显设置的解析
-// extensions: ['.js'],
-//   mainFiles:['index','main'],

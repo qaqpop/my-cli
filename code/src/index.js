@@ -1,4 +1,5 @@
-import '@/index2'
+// import '@/index2.js'
+import '@/components/demo'
 console.log('我是src.js')
 function a(){
   var a = 1;
