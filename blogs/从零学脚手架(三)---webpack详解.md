@@ -20,7 +20,7 @@ webpack就提供了三种模式<font style="color:#f03d3d">development</font>、
 
 也可以使用***CLI参数***传递设置相应模式
 
-<img src="./images/image-02-11.png" width="400">
+<img src="./images/image-03-01.png" width="400">
 
 > :whale2::whale2:
 >
@@ -110,7 +110,7 @@ optimization: {
 
 先在index.js中添加一个console
 
-<img src="./images/image-02-12.png" width="400">
+<img src="./images/image-03-02.png" width="400">
 
 然后使用***development***打包
 
@@ -118,7 +118,7 @@ optimization: {
 
 在打包生成的代码会找到这句代码
 
-<img src="./images/image-02-13.png" width="400">
+<img src="./images/image-03-03.png" width="400">
 
 可以看到打包出来的代码替换成了**development**字符串。同理***production***会替换成**production**值，我们使用此环境变量便可以进行使用不同SDK
 
@@ -152,7 +152,7 @@ const webpack = require("webpack");
 
 ***development***模式下默认值<font style="color:#f03d3d">eval</font>；***production***模式下默认值为<font style="color:#f03d3d">false(none)</font>
 
-<img src="./images/image-02-14.png" width="400">
+<img src="./images/image-03-04.png" width="400">
 
 
 
@@ -309,11 +309,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 先来做一个测试，在index.js中创建一个函数
 
-<img src="./images/image-02-15.png" width="400">
+<img src="./images/image-03-05.png" width="400">
 
 然后使用默认配置进行打包，结果会发现打包生成的代码只有两句代码，也就是真实执行的两句。可以得出，在默认配置中，<font style="color:#f03d3d">terser-webpack-plugin</font>基本上是做到了最优解，所以其实真实应用中普遍不需要配置。
 
-<img src="./images/image-02-16.png" width="400">
+<img src="./images/image-03-06.png" width="400">
 
 
 
@@ -342,7 +342,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 再看下结果会发现，代码除了名称的改变，其它并没有什么变化
 
-<img src="./images/image-02-17.png" width="400">
+<img src="./images/image-03-07.png" width="400">
 
 可以看出，主要的配置是<font style="color:#f03d3d">terserOptions.compress</font>属性，当然<font style="color:#f03d3d">terserOptions</font>属性还有其它属性配置，先来看下<font style="color:#f03d3d">terserOptions</font>某些参数
 
@@ -523,11 +523,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 使用上面代码就使用**@**符号代表了**src**，在项目*import*时就可以使用**@**了
 
-<img src="./images/image-02-18.png" width="400">
+<img src="./images/image-03-08.png" width="400">
 
 在打包时也会将*index2*进行打包
 
-<img src="./images/image-02-19.png" width="400">
+<img src="./images/image-03-09.png" width="400">
 
 通过上面代码其实可以总结出：webpack其实允许给任意目录起使用任意标识（除关键字符）的别名，而使用**@**符号代表**src**目录只不过是统一约定，在自己项目可以设置更多的别名。
 
@@ -553,7 +553,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 然后打包测试会直接报错，找不到*index2*
 
-<img src="./images/image-02-20.png" width="400">
+<img src="./images/image-03-10.png" width="400">
 
 如果**import**将后缀加上，就可以打包成功，这个就不贴图了。
 
@@ -567,7 +567,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 在真实项目时，构建组件往往是以目录为单元的，例如下面antd组件结构，就是以目录结构
 
-<img src="./images/image-02-21.png" height="200">
+<img src="./images/image-03-11.png" height="200">
 
 使用目录组织结构能更好的管理组件，但是这样如果目录管理，那么就会有一个问题，*import*时必须加上文件名称，这也是一个代码看起来有些默认其妙的问题。
 
@@ -590,9 +590,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-<img src="./images/image-02-22.png" width="400">
+<img src="./images/image-03-12.png" width="400">
 
-<img src="./images/image-02-23.png" width="400">
+<img src="./images/image-03-13.png" width="400">
 
 
 
