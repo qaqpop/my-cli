@@ -20,7 +20,7 @@ webpack就提供了三种模式<font style="color:#f03d3d">development</font>、
 
 也可以使用***CLI参数***传递设置相应模式
 
-<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-11.png" width="400">
+<img src="./images/image-02-11.png" width="400">
 
 > :whale2::whale2:
 >
@@ -110,7 +110,7 @@ optimization: {
 
 先在index.js中添加一个console
 
-<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-12.png" width="400">
+<img src="./images/image-02-12.png" width="400">
 
 然后使用***development***打包
 
@@ -118,7 +118,7 @@ optimization: {
 
 在打包生成的代码会找到这句代码
 
-<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-13.png" width="400">
+<img src="./images/image-02-13.png" width="400">
 
 可以看到打包出来的代码替换成了**development**字符串。同理***production***会替换成**production**值，我们使用此环境变量便可以进行使用不同SDK
 
@@ -152,7 +152,7 @@ const webpack = require("webpack");
 
 ***development***模式下默认值<font style="color:#f03d3d">eval</font>；***production***模式下默认值为<font style="color:#f03d3d">false(none)</font>
 
-<img src="D:/Code/前端/webpack/my-cli/blogs/images/image-02-14.png" width="400">
+<img src="./images/image-02-14.png" width="400">
 
 
 

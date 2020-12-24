@@ -154,7 +154,7 @@ module.exports = modules
 
 配置完之后使用*yarn build*执行打包操作，执行完毕后，会在当前目录创建一个dist目录并且具有一个.js文件，里面就是src/index.js内容
 
-<img src=".//images//image-02-05.png" width="400">
+<img src="./images/image-02-05.png" width="400">
 
 
 
@@ -162,13 +162,13 @@ module.exports = modules
 
 下面在src目录下创建一个index2.js,并且，在index.js中进行import导入
 
-<img src=".//images//image-02-06.png" width="400">
+<img src="./images/image-02-06.png" width="400">
 
 
 
 然后再次build，会在dist目录下多出一个文件，查看会发现，两个文件的内容都打包在了那个文件中，
 
-<img src=".//images//image-02-07.png" width="400">
+<img src="./images/image-02-07.png" width="400">
 
 > :whale2::whale2: 打包后的文件会是压缩后的代码，并且代码中多出许多webpack构建的代码，压缩的代码是因为打包使用的<font style="color:#f03d3d">mode=production</font>，也就是发布模式，而如果想要不压缩代码可以在webpack.json配置文件中添加一个<font style="color:#f03d3d">mode:'development'</font>属性，意思是使用开发模式打包，至于两种模式，稍微再讲解
 
@@ -221,7 +221,7 @@ module.exports = modules
 
 再次build就可以看到dist目录中多了一个html文件，html中还引用了一个js文件，代表打包成功了，可以使用浏览器打开这个html，会在控制台中输出js文件中的console语句。
 
-<img src="../blogs/images/image-02-08.png" width="400">
+<img src="./images/image-02-08.png" width="400">
 
 简单的使用了<font style="color:#f03d3d">html-webpack-plugin</font>创建了执行容器HTML，但是HTML的创建一般都是需要定制一些东西，例如：title、mata等信息，并且我们看到的脚手架都是使用自己创建的*index.html*文件，打包后的html文件是以此文件进行模板。那些操作都是使用了
 
