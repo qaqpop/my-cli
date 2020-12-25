@@ -50,13 +50,15 @@ webpack是一个优秀的***JavaScript应用程序***的静态模块打包器。
 
 
 
-> yarn add -D  webpack-cli     // 安装到<font style="color:#f03d3d">devDependencies</font>依赖。
+> yarn add -D  webpack-cli@4.2.0     // 安装到<font style="color:#f03d3d">devDependencies</font>依赖。
 
 
 
 然后在package文件中的***scripts***属性中加入一个<font style="color:#f03d3d">build：webpack</font>指令
 
 <img src=".//images//image-02-02.png" width="400">
+
+
 
 
 
@@ -200,7 +202,7 @@ webpack中构建这个HTML页面则交给了一个***plugin***来完成，这个
 
 
 
->  yarn add -D html-webpack-plugin      打包时使用的依赖包
+>  yarn add -D  html-webpack-plugin@4.5.0      
 
 
 
@@ -280,7 +282,7 @@ plugins: [
 
 这个问题在demo中还能忍受，但是在真正项目中那么多文件，多打几次包绝对是一场可怕的噩梦，所以肯定要在每次打包时都清空输出目录，在webpack中由一个**plugin**就是提供这个需求，这就是<font style="color:#f03d3d">clean-webpack-plugin</font>
 
-> yarn add -D clean-webpack-plugin
+> yarn add -D clean-webpack-plugin@3.0.0
 
 
 
@@ -374,13 +376,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
   "author": "mowenjinzhao<yanzhangshuai@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "clean-webpack-plugin": "^3.0.0",
-    "html-webpack-plugin": "^4.5.0",
+    "clean-webpack-plugin": "3.0.0",
+    "html-webpack-plugin": "4.5.0",
     "webpack": "5.4",
-    "webpack-cli": "^4.2.0"
+    "webpack-cli": "4.2.0"
   },
   "dependencies": {
-    "jquery": "^3.5.1"
+    "jquery": "3.5.1"
   },
   "scripts": {
     "start": "node",

@@ -33,6 +33,18 @@ const modules = {
 
   //devtool:false, //'eval'
 
+  module:{
+    rules:[
+      {
+        test:/\.js$/,
+        include:path.join(__dirname,'src'),
+        loader: "babel-loader",
+
+      }
+    ]
+  },
+
+
   optimization: {
     minimize: false,
     minimizer: [
@@ -92,26 +104,6 @@ const modules = {
     ]
   },
 
-  // module:{
-  //   rules:[
-  //     {
-  //       test:/\.css$/,
-  //       include:path.join(__dirname,'src'),
-  //       exclude:path.join(__dirname,'node_modules'),
-  //       ////  字符串形式
-  //       // use:'css-loader',
-  //       //  数组形式，可以设置多个loader
-  //       // use:[
-  //       //   {
-  //       //     loader:'css-loader',
-  //       //     options:{
-  //       //
-  //       //     }
-  //       //   }
-  //       // ]
-  //     }
-  //   ]
-  // }
 
 
   plugins: [
@@ -157,6 +149,7 @@ const modules = {
 
       //  每次打包之后删除匹配的文件
     }),
+
 
     new webpack.DefinePlugin({ "global_a": JSON.stringify("我是一个打包配置的全局变量") }),
   ],

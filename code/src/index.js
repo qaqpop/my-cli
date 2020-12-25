@@ -11,7 +11,9 @@
 //   }
 // }
 // a()
+import '@babel/polyfill'
 const lambdaFunc = ()=>{
+  //  es6语法
   const a = '我是箭头函数'
   console.log(a)
 
@@ -19,7 +21,13 @@ const lambdaFunc = ()=>{
   for (const item of arr) {
     console.log(item)
   }
+
+
+  //  es6-API
+  arr.map(s=>console.log(s))
+  console.log(arr.includes(1))
 }
 lambdaFunc()
+
 
 

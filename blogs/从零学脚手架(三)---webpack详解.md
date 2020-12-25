@@ -254,7 +254,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 
-> yarn add -D terser-webpack-plugin
+> yarn add -D terser-webpack-plugin@5.0.3
 
 
 
@@ -646,14 +646,14 @@ const TerserPlugin = require('terser-webpack-plugin');
   "author": "mowenjinzhao<yanzhangshuai@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "clean-webpack-plugin": "^3.0.0",
-    "html-webpack-plugin": "^4.5.0",
-    "terser-webpack-plugin": "^5.0.3",
+    "clean-webpack-plugin": "3.0.0",
+    "html-webpack-plugin": "4.5.0",
+    "terser-webpack-plugin": "5.0.3",
     "webpack": "5.4",
-    "webpack-cli": "^4.2.0"
+    "webpack-cli": "4.2.0"
   },
   "dependencies": {
-    "jquery": "^3.5.1"
+    "jquery": "3.5.1"
   },
   "scripts": {
     "start": "webpack --mode=development  --config webpack.config.js",
