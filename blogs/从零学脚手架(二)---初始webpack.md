@@ -144,6 +144,7 @@ const modules = {
 //  使用node。js的导出，将配置进行导出
 module.exports = modules
 ```
+> :whale2: ：__dirname 这个参数是node自有的一个字段，是当前文件所在文件夹的绝对路径等同于path.dirname()。
 
 代码代表了一个最基本的一个打包器，将*src/index.js*文件打包到*dist*目录下，用到的webpack属性是<font style="color:#f03d3d">entry</font>、<font style="color:#f03d3d">output</font>
 
