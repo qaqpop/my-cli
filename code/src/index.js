@@ -1,5 +1,3 @@
-import "core-js/stable"
-import "regenerator-runtime/runtime"
 function promiseFunc(){
   //  es6 promise类型
   return Promise.resolve(1)

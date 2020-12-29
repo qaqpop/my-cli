@@ -39,13 +39,7 @@ const modules = {
         //  所有的.js文件都走babel-loader
         test:/\.js$/,
         include:path.join(__dirname,'src'),
-        loader: "babel-loader",
-        options: {
-          presets:[
-            "@babel/preset-env",
-          ]
-        }
-
+        loader: "babel-loader"
       }
     ]
   },
