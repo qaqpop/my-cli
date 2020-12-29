@@ -728,13 +728,55 @@
 
 <font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库就是完成此需求的。
 
-> yarn add -D @babel/plugin-transform-runtime@7.12.10    // 因为这个库是做转换的，所以只在打包时使用
-
 
 
 <font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库依赖一个库<font style="color:#f03d3d">@babel/runtime-corejs3</font>（或<font style="color:#f03d3d">@babel/runtime-corejs2</font>  core-js2.X）
 
-<font style="color:#f03d3d">@babel/runtime-corejs3</font>这个库其实也就是一个<font style="color:#f03d3d">core-js</font>封装库，只不过
+<font style="color:#f03d3d">@babel/runtime-corejs3</font>这个库其实也就是一个<font style="color:#f03d3d">core-js</font>封装库，只不过做了一些处理，具体可以参考[这篇文章](https://segmentfault.com/a/1190000020237790)，不过这篇文章是**core-js2.X**版本，与**core-js3.X**具有一定差异
+
+> yarn add -D @babel/plugin-transform-runtime@7.12.10  @babel/runtime-corejs3@7.12.5    // 因为这个库是做转换的，所以只在打包时使用
+
+
+
+在**.babelrc**文件中就可以进行配置
+
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        //  移除useBuiltIns设置
+        //      "targets": "chrome > 75",
+        //      "useBuiltIns": "usage",
+        //      "corejs": {
+        //        "version": 3,
+        //        "proposals":true
+        //      }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": {
+          "version": 3,
+          "proposals": true
+        }
+      }
+    ]
+  ]
+}
+```
+
+
+
+
+
+
+
+
 
 
 
