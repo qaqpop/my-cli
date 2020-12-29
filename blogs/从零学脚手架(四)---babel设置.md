@@ -492,7 +492,7 @@
 
    在<font style="color:#f03d3d">@babel/preset-env</font>中有个**useBuiltIns**参数是用来控制**按需导入**的，这个属性具有三个值，***false*** 、***entry***、***usage***,默认值是**false**（不去处理）
 
-   
+   > :whale2: 这里其实还有一个区别，`entry`是将按需导入这件事做到了babel的入口，在入口会寻找所有用到的api并引用，而`usage`是在每个用到模块上单独引用，并保证不会一个api在各处只引用一次
 
    ##### entry
    
@@ -778,7 +778,7 @@
 
 
 
-
+### 参考链接
 
 https://segmentfault.com/a/1190000021188054
 
