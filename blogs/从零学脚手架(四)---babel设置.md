@@ -2,11 +2,13 @@
 
 ### ES6的枷锁
 
-在之前各种打包测试时，都是使用**ES5**的简单特性，并没有使用过**ES6（ES2015+）**的特性（*import除外*）。但是自从**ES6**时代来临后，让开发者编写代码越来越方便：箭头函数可以避免this问题、const和let块级作用域避免了闭包问题等等。开发者用了**ES6**之后基本都不会再想去写**ES5**。
+在之前各种打包测试时，都是使用**ES5**的简单特性，并没有使用过**ES6（ES2015+）**的特性（*import除外*）。
 
-但是在前面提过，前端代码的执行环境（浏览器）版本是取决于用户，有的用户会一直不更新浏览器版本。代码中使用的新特性便无法在旧版浏览器运行，
+自从**ES6**时代来临后，开发者编写代码越来越方便：箭头函数避免this、const和let块级作用域避免闭包问题等等。开发者使用**ES6**后基本都不会再想写**ES5**。
 
-在介绍打包器时说过，打包器会完成这一系列操作。但是，在打包器打包环节，**ES6**特性转**ES5**特性操作其实是<font style="color:#f03d3d">babel</font>扩展完成的。
+但是在前面提过，前端代码的执行环境（浏览器）版本是取决于用户，有的用户可能会一直不更新浏览器版本，	而新特性无法在那些浏览器运行。
+
+介绍打包器时说过，打包器会完成这一系列操作。其实，在打包器打包环节，**ES6**特性转**ES5**特性操作其实是<font style="color:#f03d3d">babel</font>扩展完成的。
 
 
 
@@ -85,8 +87,6 @@
 > 
 >
 > :whale2: <font style="color:#f03d3d">babel</font>也可以使用在任意打包器中
-
-
 
 
 
@@ -204,7 +204,7 @@
 > :whale2: presets参数配置可以设置短名称，
 >
 > 		1.  如果preset以**babel-preset-**为前缀，则可以省去前缀。 例如*babel-preset-my-custom*，可以设置为*custom*
->   		2.  也适用于冠名的，例如*@babel/preset-env*，也可以设置为*@babel/env*
+> 		2.  也适用于冠名的，例如*@babel/preset-env*，也可以设置为*@babel/env*
 
 
 
@@ -308,7 +308,7 @@
    > :whale2::whale2::whale2: 
 >
    > 下面全部使用配置文件形式，一定要把**loader**中的**options**进行删除，切记，切记，切记，我就被这玩意坑了1天多。
-   
+
    
 
    :whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2:
@@ -476,9 +476,9 @@
    
 
    #### useBuiltIns 属性
-   
+
    在介绍怎么按需导入之前，先说明一下所谓的**按需导入**
-   
+
    > :whale2::whale2::whale2: 
    >
    > **按需加载**具有两种情况
@@ -490,14 +490,14 @@
 
    
 
-   在<font style="color:#f03d3d">@babel/preset-env</font>中有个**useBuiltIns**参数是用来控制**按需导入**的，这个属性具有三个值，***false*** 、***entry***、***usage***,默认值是**false**（不去处理）
+   在<font style="color:#f03d3d">@babel/preset-env</font>中有个**useBuiltIns**参数是用来设置**按需导入**，这个属性具有三个值，***false*** 、***entry***、***usage***,默认值是**false**（全部导入）
 
    > :whale2: 这里其实还有一个区别，`entry`是将按需导入这件事做到了babel的入口，在入口会寻找所有用到的api并引用，而`usage`是在每个用到模块上单独引用，并保证不会一个api在各处只引用一次
 
    ##### entry
-   
+
    ***entry***属性实现了**按需导入**的第一种情况：按照浏览器版本导入、转换。
-   
+
    ```json
    {
      "presets": [
@@ -552,9 +552,9 @@
    还记得在**package.json**文件中设置的**browserslist**属性吗？答案就是它，<font style="color:#f03d3d">babel</font>会读取这个属性配置的浏览器版本，然后根据这些浏览器版本进行导入、转换，而在这里配置的是***ie 9***，***ie 9***不支持任何**ES6**特性，所以<font style="color:#f03d3d">babel</font>会将所有**API**全部导入。
 
    
-   
+
    所以只需要设置**browserslist**属性只支持新版本浏览器就可以看到差异。例如
-   
+
    ```json
  "browserslist": [
        "Chrome > 75"
@@ -592,22 +592,21 @@
    > :whale2: 写代码重在好奇、兴趣、折腾
 
    
-   
+
    ##### usage
-   
-   使用***entry***进行了浏览器版本的**按需导入**，但这还不是真正需要的**按需导入**， 而***usage***值则提供了真正需要的按需导入：**浏览器版本+代码使用**
-   
+
+   使用***entry***属性以浏览器版本的**按需导入**，但还不是真正需要的**按需导入**， 而***usage***值则提供了***理论上***真正按需导入：**浏览器版本+代码使用**
+
    ```json
    {
      "presets": [
-       ["@babel/preset-env",{
+       	["@babel/preset-env",{
          "useBuiltIns": "usage",
          "corejs": {
            "version": 3,
            "proposals":true
          }
-   
-    }]
+    	}]
      ],
      "plugins": [
      ]
@@ -643,9 +642,9 @@
    
 
    并且也能IE9版本中正常运行。生成的代码中基本不存在未使用的**ES6**垫片。诸君可以试一下，在此就不在贴图。
+
    
-   
-   
+
    如果**browserslist**为**Chrome > 75**，则便不会导入和转换
 
    ```json
@@ -653,12 +652,20 @@
        "Chrome > 75"
   ]
    ```
+
    
-   
-   
+
    <img src="./images/image-04-19.png" width="400">
+
    
-   
+
+
+
+#### entry和usage有话说
+
+
+
+
 
 #### targets属性
 
@@ -702,7 +709,7 @@
 
 1. 无法处理自动生成的箭头函数
 
-   <img src="./images/image-04-19.png" width="400">
+   <img src="./images/image-04-20.png" width="400">
 
 2. 配置统一管理为最佳，使用**browserslist**属性的话，属于全局性质的。
 
@@ -716,17 +723,21 @@
 
 #### @babel/plugin-transform-runtime
 
-下面来介绍下这个plugin：<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>
+下面来介绍下这个库：<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>
 
 
 
-这是一个什么plugin？ 转换运行？
+这是一个什么库？ 转换运行？
 
 这个plugin也是用于设置**按需导入垫片**，与 **useBuiltIns=usage**功能一样，那么它有什么不同呢？
 
-就是不污染全局，使用 **useBuiltIns=usage**时，查看生成代码会发现，垫片其实就是往*Prototype*上添加的API，也就导致了运行环境本身的API被污染。这种情况例如在写第三方库时绝对不允许的，哪怕API功能是一致的。所以有时候就需要将使用到的**ES6-API**转换为不污染全局的自定义API（功能一样，但是例如名称不一致）。
+在前面说垫片是创建一个与运行环境支持的相同名称的API，只不过是将原API进行了覆盖
 
-<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库就是完成此需求的。
+这样做其实具有一个问题：**污染全局**。
+
+这种情况原则上是不允许的，尤其是在写第三方库时，所以需要一个方案可以不污染原API
+
+<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库就是实现此方案的。
 
 
 
@@ -734,11 +745,15 @@
 
 <font style="color:#f03d3d">@babel/runtime-corejs3</font>这个库其实也就是一个<font style="color:#f03d3d">core-js</font>封装库，只不过做了一些处理，具体可以参考[这篇文章](https://segmentfault.com/a/1190000020237790)，不过这篇文章是**core-js2.X**版本，与**core-js3.X**具有一定差异
 
+> :whale2:  使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>包，那么在**package.json**文件中删除<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font> ,因为<font style="color:#f03d3d">@babel/runtime-corejs3</font>包会直接依赖。所以只是**package.json**文件中干净一些。
+
+
+
 > yarn add -D @babel/plugin-transform-runtime@7.12.10  @babel/runtime-corejs3@7.12.5    // 因为这个库是做转换的，所以只在打包时使用
 
 
 
-在**.babelrc**文件中就可以进行配置
+在**.babelrc**文件配置中使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库代替<font style="color:#f03d3d">@babel/preset-env</font>配置。
 
 ```json
 {
@@ -770,27 +785,263 @@
 }
 ```
 
+> :whale2::whale2:使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>也不需要进行手动导入，会在打包时自动编译
+
+<img src="./images/image-04-21.png" width="400">
+
+
+
+可以看到使用的**ES6-API**已经被转换为另外的API了，所以并不会再污染全局代码。至于打包的大小，诸君可以自己测试看看
 
 
 
 
 
+### 总结 
+
+> :whale2::whale2::whale2:
+>
+> * **babel**是用来将**ES6代码**转换为**ES5代码**的工作
+>
+> * **babel**提供了一个核心引擎，也是使用扩展形式进行执行
+>
+> * 在**webpack**中，使用一种*转换器模式（**babel-loader**）*将**babel**应用到**webpack**中
+>
+> * **babel**将 **语法（syntax）**和**API**分开进行处理，处理语法的是**@babel/preset-env**，处理API使用垫片**core-js**
+>
+> * **babel**提供一种预设plugin的功能，所有的预设放在***presets***属性中
+> * **@babel/preset-env**设置**useBuiltIns**可以进行垫片优化：**entry**值是依据浏览器进行按需导入垫片，**usage**值是依据浏览器+项目使用进行按需导入垫片
+> * **@babel/plugin-transform-runtime**库可以做到不污染全局API
 
 
 
-### 参考链接
+### 本文参考
 
-https://segmentfault.com/a/1190000021188054
+* [@babel/preset-env 与@babel/plugin-transform-runtime 使用及场景区别](https://segmentfault.com/a/1190000021188054)
 
-https://zhuanlan.zhihu.com/p/139359864
+* [babel corejs@3 是如何按需polyfill原型对象方法的](https://zhuanlan.zhihu.com/p/139359864)
 
-https://zhuanlan.zhihu.com/p/147083132
+* [@babel/plugin-transform-runtime 到底是什么？](https://zhuanlan.zhihu.com/p/147083132)
 
-https://segmentfault.com/a/1190000020237790
+* [Babel7 转码（四）- polyfill 还是 transform-runtime](https://segmentfault.com/a/1190000020237790)
+
+* [Polyfill 方案的过去、现在和未来 #80](https://github.com/sorrycc/blog/issues/80)
+
+* [2020 如何优雅的兼容 IE](https://www.yuque.com/kuitos/gky7yw/qskte2)
 
 
 
+### package.json
 
+```json
+{
+  "name": "my-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "mowenjinzhao<yanzhangshuai@126.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "7.12.10",
+    "@babel/plugin-transform-runtime": "7.12.10",
+    "@babel/preset-env": "7.12.11",
+    "@babel/runtime-corejs3": "7.12.5",
+    "babel-loader": "8.2.2",
+    "clean-webpack-plugin": "3.0.0",
+    "html-webpack-plugin": "4.5.0",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack": "5.4.0",
+    "webpack-cli": "4.2.0"
+  },
+  "dependencies": {
+    "core-js": "3.8.1",
+    "jquery": "3.5.1",
+    "regenerator-runtime": "0.13.7"
+  },
+  "scripts": {
+    "start": "webpack --mode=development  --config webpack.config.js",
+    "build": "webpack --mode=production  --config webpack.config.js"
+  },
+  
+  "browserslist": [
+    "ie 9",
+    "Chrome > 75"
+    ]
+}
+
+```
+
+
+
+### webpack.config.js
+
+```javascript
+const path = require('path')
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+
+const modules = {
+
+  //  入口文件
+  //  字符串形式
+  entry: path.join(__dirname,'src/index.js') ,
+  //  对象形式
+  // entry:{
+  //   'index':path.join(__dirname, 'src/index.js')
+  // },
+
+  //  出口文件
+  //  字符串形式
+  // output:path.join(__dirname, 'dist/[name].js')
+  //对象形式
+  output: {
+    //  出口文件的目录地址
+    path: path.join(__dirname,'dist'),
+    //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
+    filename: '[name]_[contenthash].js'
+  },
+
+  //devtool:false, //'eval'
+
+  module:{
+    rules:[
+      {
+        //  所有的.js文件都走babel-loader
+        test:/\.js$/,
+        include:path.join(__dirname,'src'),
+        loader: "babel-loader"
+      }
+    ]
+  },
+
+
+  optimization: {
+    minimize: false,
+    minimizer: [
+      new TerserPlugin({
+        //  包含哪些文件
+        include:  /\.js(\?.*)?$/i,
+        // //  排除哪些文件
+        // exclude:/\.js(\?.*)?$/i,
+        //  多进程并行运行，默认为true，开启，默认并发数量为os.cpus()-1
+        //  可以设置为false(不使用多线程)或者数值（并发数量）
+        parallel:true,
+
+        //  可以设置一个function，使用其它压缩插件覆盖默认的压缩插件，默认为undefined，
+        minify:undefined,
+
+        terserOptions: {
+          // //  是否防止篡改函数名称，true代表防止篡改，即保留函数名称，false即可以篡改，
+          // //  此属性对使用Function.prototype.name
+          // //  默认为false
+          keep_fnames:false,
+          // //  是否防止篡改类名称
+          keep_classnames:false,
+          // //  设置一些其它的解析
+          parse: {},
+          //  最小化es6模块。默认为false
+          module:true,
+          //  ·压缩配置
+
+          //  format和output是同一个属性值，，名称不一致，output不建议使用了，被放弃
+          format: {
+            comments:false,
+          },
+          //  是否支持IE8，默认不支持
+          ie8:false,
+          compress: {
+            // 是否使用默认设置，这个属性当只启用指定某些选项时可以设置为false
+            defaults:false,
+            //  是否移除无法访问的代码
+            dead_code:false,
+
+            // 折叠仅仅使用一次的变量
+            collapse_vars:true,
+            warnings:true,
+            //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
+            //  是否删除所有debugger语句，默认为true
+            drop_debugger:true,
+            //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
+            // pure_funcs: ['console.log'], //移除console
+          },
+        },
+        //  是否将注释提出到单独的文件中
+        //  值Boolean|String|RegExp|Function<(node, comment) -> Boolean|Object>|Object
+        //  默认为true， 只提取/^\**!|@preserve|@license|@cc_on/i注释
+        //  感觉没什么特殊情况直接设置为false即可
+        extractComments:false,
+      })
+    ]
+  },
+
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      //  template的title优先级大于当前数据
+      title: 'my-cli',
+      //  文件名称
+      filename: 'index.html',
+
+      //  模板路径
+      template: './src/index.html',
+      // 用于打包后引用脚本时的路径
+      publicPath: './',
+
+      //  是否将打包的资源引用到当前HTML， false代表不引用
+      //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
+      //  默认为true
+      inject: 'body',
+      //  加载js方式，值为defer/blocking
+      //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
+      scriptLoading: 'blocking',
+
+      //  是否进行缓存，默认为true，在开发环境可以设置成false
+      cache: false,
+      //  添加mate属性
+      meta: {}
+    }),
+
+    new CleanWebpackPlugin({
+
+      //  假装文件删除
+      //  如果为false则代表真实删除，如果为true，则代表不删除
+      dry: false,
+      //  是否打印日志到控制台 默认为false
+      verbose: true,
+      cleanStaleWebpackAssets: false,
+      //  允许保留本次打包的文件
+      //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
+      //  默认为true
+      protectWebpackAssets: true,
+      //  每次打包之前删除匹配的文件
+      cleanOnceBeforeBuildPatterns: ['**/*'],
+
+      //  每次打包之后删除匹配的文件
+    }),
+
+    //	定义一个全局变量
+    new webpack.DefinePlugin({ "global_a": JSON.stringify("我是一个打包配置的全局变量") }),
+  ],
+
+  resolve: {
+    alias:{
+      //  设置路径别名
+      '@':path.join(__dirname,'src'),
+
+      '~': path.resolve(__dirname, '../src/assets')
+    },
+    //  可互忽略的后缀
+    extensions:['.js','.json'],
+    //  默认读取的文件名
+    mainFiles:['index','main'],
+  }
+}
+
+//  使用node。js的导出，将配置进行导出
+module.exports = modules
+
+```
 
 
 

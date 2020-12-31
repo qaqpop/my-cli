@@ -161,7 +161,9 @@ const modules = {
 
       '~': path.resolve(__dirname, '../src/assets')
     },
+    //  可互忽略的后缀
     extensions:['.js','.json'],
+    //  默认读取的文件名
     mainFiles:['index','main'],
   }
 }
