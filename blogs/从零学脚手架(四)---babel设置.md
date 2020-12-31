@@ -112,6 +112,10 @@
 
 
 
+> :whale2: 在<font style="color:#f03d3d">babel@6.X</font>版本时，核心引擎的包名叫做<font style="color:#f03d3d">babel-core</font>，而从<font style="color:#f03d3d">babel@7.X</font>版本之后，官方提供的包都以<font style="color:#f03d3d">@babel/</font>为冠名，目的应该是区别于第三方包，有兴趣的的诸君可以在npm中对比下两个包的版本
+
+
+
 ```javascript
 {
    module:{
@@ -371,11 +375,13 @@
 
    #### regenerator-runtime和core-js
 
-   在打完包后的代码为什么一直无法运行呢？ 这是因为缺少了<font style="color:#f03d3d">regenerator-runtime</font>库 ，这个库一般都是与<font style="color:#f03d3d">core-js</font>一块出现。  
+   在打完包后的代码为什么一直无法运行呢？ 这是因为缺少了<font style="color:#f03d3d">regenerator-runtime</font>库 ，
 
-   
+<font style="color:#f03d3d">regenerator-runtime</font>库是一个提供：生成器函数、async、await函数这些功能实现的库。<font style="color:#f03d3d">babel</font>就使用此库提供生成后的代码。
 
-   <font style="color:#f03d3d">core-js</font>又是什么呢，诸君请整理好思路接着看下去
+<font style="color:#f03d3d">regenerator-runtime</font>一般都是与<font style="color:#f03d3d">core-js</font>一块出现。  
+
+ <font style="color:#f03d3d">core-js</font>又是什么呢，诸君请整理好思路接着看下去
 
    
 
@@ -385,7 +391,7 @@
 
    [core-js](https://www.npmjs.com/package/core-js)项目现在最新版本为3.8.1，而<font style="color:#f03d3d">core-js</font>在*2.X版本*和*3.X版本*进行更新时发生了巨大的变化，以至于<font style="color:#f03d3d">babel</font>配置时也有所不同，不过现在基本都是使用**3.X版本**，在这里也以**3.X版本**为基础
 
-   
+
 
    ##### regenerator-runtime、core-js和@babel/polyfill关系
 
@@ -828,6 +834,18 @@
 * [Polyfill 方案的过去、现在和未来 #80](https://github.com/sorrycc/blog/issues/80)
 
 * [2020 如何优雅的兼容 IE](https://www.yuque.com/kuitos/gky7yw/qskte2)
+
+
+
+### 文本依赖
+
+* [babel-loader@8.2.2]( https://www.npmjs.com/package/babel-loader/v/8.2.2)
+* [@babel/core@7.12.10]( https://www.npmjs.com/package/@babel/core/v/7.12.10)
+* [@babel/preset-env@7.12.11]( https://www.npmjs.com/package/@babel/preset-env/v/7.12.11)
+* [regenerator-runtime@0.13.7](https://www.npmjs.com/package/regenerator-runtime/v/0.13.7)
+* [core-js@3.8.1](https://www.npmjs.com/package/core-js/v/3.8.1)
+* [@babel/plugin-transform-runtime@7.12.10](https://www.npmjs.com/package/@babel/plugin-transform-runtime/v/7.12.10)
+* [@babel/runtime-corejs3@7.12.5](https://www.npmjs.com/package/@babel/runtime-corejs3/v/7.12.5)
 
 
 
