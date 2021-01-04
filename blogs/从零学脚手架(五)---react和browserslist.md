@@ -20,18 +20,18 @@
 
 现在来简单思考一下利用DOM编写**动态网站**的过程
 
-由于需要实现动态网站，就需要使用大量DOM操作实现更新，但随着项目的扩大，网站运行会越来越慢，这时候就需要进行优化。 
+首先使用原生DOM去更新页面，但随着项目的扩大，网站运行会越来越慢，这时候就需要进行优化。 
 
-在优化排查代码时发现DOM更新时更新了需要没必要更新的DOM。我们都知道DOM是消耗性能的，重新编排DOM，浏览器等操作。所以要想一个办法去优化DOM更新。对于在下，头脑中第一想到的办法就是，在JS中缓存DOM数据，然后在更新时对于新旧DOM，然后过滤掉不需要更新的DOM。
+在优化排查代码时发现DOM更新时会更新许多没有修改的DOM，而不是局部更新。我们都知道DOM是消耗性能的，重新编排DOM，浏览器等操作。所以要想一个办法去优化DOM更新。对于这种优化，一般来说，想到的解决方案就是在JS中缓存DOM结构，然后在更新时对比新旧DOM，过滤掉不需要更新的DOM。这种算法就叫做***diff***算法，React的虚拟DOM核心也就是***diff***算法
 
- 浏览器DOM是一个*树结构*，那么只需要去缓存一个虚拟DOM的*树结构*即可，然后更新前对比。
+
 
 DOM优化思路有了，接下来再去思考另一个东西。
 
 在开发时，会大量操作DOM以此展示不同操作。对于有经验的诸君就会封装好多函数去简化代码。例如以下的工具条封装，这样在外部直接调用就可以。
 
 ```javascript
-function toolbar(){
+function createToolbar(){
   const  ls = ['首页','新闻','个人信息']
   const ul =  document.createElement('ul')
 
@@ -47,13 +47,15 @@ function toolbar(){
 
 > :whale2: 动态生成DOM，先不考虑事件和CSS
 
-我们开发一般只做到这一步就可以了，但对于Facebook员工他们却想要做到更简单。
+一般开发应用程序到这一步就可以了， 但是如果想做一个通用库，那么还需要进行抽象。
 
 
 
-试想一下，能否使用JS去组织HTML格式的DOM结构。理论上是可以的。但是需要编写引擎去做底层支持。<font style="color:#f03d3d">React</font>就是这样的引擎。
+试想一下，能否使用一种模板去组织虚拟DOM，然后提供一个引擎做底层转换为真实DOM。
 
-<font style="color:#f03d3d">React</font>创建了了一种JS的扩展语言。<font style="color:#f03d3d">JSX</font>。允许使用**标签**构建元素。
+<font style="color:#f03d3d">React</font>就创建了这么一种模板--<font style="color:#f03d3d">JSX</font>。
+
+<font style="color:#f03d3d">JSX</font>是一种JS的扩展扩展语言，允许在JS中以**标签**形式构建元素。
 
 ```jsx
 const element = (
@@ -63,7 +65,7 @@ const element = (
 );
 ```
 
-<font style="color:#f03d3d">React</font>创建的<font style="color:#f03d3d">JSX</font>语法通过引擎转换为创建元素的函数。
+<font style="color:#f03d3d">React</font>运行时将<font style="color:#f03d3d">JSX</font>转换成<font style="color:#f03d3d">React</font>*自定义元素*。也就是虚拟DOM
 
 ```jsx
 const element = React.createElement(
@@ -73,13 +75,25 @@ const element = React.createElement(
 );
 ```
 
+
+
+> :whale2: :whale2: 诸君注意到转换自定义元素实际上是创建的虚拟DOM。 那么为什么不直接创建DOM呢？这么做有什么好处呢？
+>
+> 因为跨平台。使用React做一层虚拟DOM抽象，这样与真实DOM进行隔离，这样对真实DOM进行数据化，可以对库进行分离，然后根据不同平台使用不同平台的DOM库。从而达到跨平台效果。
+
+
+
 > :whale2: <font style="color:#f03d3d">JSX</font>目前被业界通用化。<font style="color:#f03d3d">Vue@3.X</font>也支持<font style="color:#f03d3d">JSX</font>
+>
+>  :whale2:<font style="color:#f03d3d">Vue</font>底层也使用了虚拟DOM，:whale2:<font style="color:#f03d3d">Vue</font>模板语言则是**template**
 
 
 
 这就是<font style="color:#f03d3d">React</font>的整体思路。而<font style="color:#f03d3d">React</font>本质也就这么简单，而其中只不过需要处理许多东西，例如css，事件等。
 
 > :whale2::whale2::whale2: <font style="color:#f03d3d">JSX</font>是一种扩展语言。 <font style="color:#f03d3d">JSX</font>中定义的事件、style、class其实是<font style="color:#f03d3d">JSX</font>语法。并不是DOM原生语法。所以类似*class*在DOM语法为*class*，而在<font style="color:#f03d3d">JSX</font>中为*className*
+
+
 
 
 
