@@ -723,7 +723,32 @@
 
 
 
-<font style="color:#f03d3d">@babel/preset-env</font>插件还有其它一些属性，不过不常用。有兴趣的诸君可以看下[官网](https://www.babeljs.cn/docs/babel-preset-env#targets)，差评是没有中文版
+#### modules
+
+<font style="color:#f03d3d">@babel/preset-env</font>插件中具有一个**modules**属性，这个属性表示将**ES模块**转换为**指定模块类型**去处理。
+
+属性值具有：`"amd" | "umd" | "systemjs" | "commonjs" | "cjs" | "auto" | false`。默认值为`auto`
+
+但是，在打包过程中，往往需要具有***tree-shaking***需求，而***tree-shaking***只处理**ES模块**，所以往往要关闭转换类型。
+
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules":false
+      }
+    ]
+  ]
+}
+```
+
+> :whale2: **tree-shaking**在后面讲解
+
+
+
+<font style="color:#f03d3d">@babel/preset-env</font>插件还有其它一些属性，不过不常用。有兴趣的诸君可以看下[官网](https://www.babeljs.cn/docs/babel-preset-env#targets)。有些头疼的是官网只有英文版
 
 
 
@@ -1062,4 +1087,37 @@ module.exports = modules
 ```
 
 
+
+### .babelrc
+
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules":false
+        //  移除useBuiltIns设置
+        //      "targets": "chrome > 75",
+        //      "useBuiltIns": "usage",
+        //      "corejs": {
+        //        "version": 3,
+        //        "proposals":true
+        //      }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": {
+          "version": 3,
+          "proposals": true
+        }
+      }
+    ]
+  ]
+}
+```
 
