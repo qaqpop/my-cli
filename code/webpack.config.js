@@ -37,7 +37,7 @@ const modules = {
     rules:[
       {
         //  所有的.js文件都走babel-loader
-        test:/\.js$/,
+        test:/\.js(x?)$/,
         include:path.join(__dirname,'src'),
         loader: "babel-loader"
       }
@@ -162,9 +162,9 @@ const modules = {
       '~': path.resolve(__dirname, '../src/assets')
     },
     //  可互忽略的后缀
-    extensions:['.js','.json'],
+    extensions:['.jsx', '.js', '.json'],
     //  默认读取的文件名
-    mainFiles:['index','main'],
+    mainFiles:['index', 'main'],
   }
 }
 
