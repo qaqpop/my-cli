@@ -261,56 +261,131 @@ const modules = {
 
 ### browserslist
 
-在配置**babel**时使用到了一个**browserslist**属性来判断生成代码的环境，这个属性到底是什么东西，接下来学习一下这玩意
+
+
+#### browserslist是什么
+
+在配置**babel**时使用到了一个**browserslist**属性来判断生成代码的环境，这个属性到底是什么东西，接下来看这玩意
 
 
 
-**browserslist**属性来自于[browserslist](https://github.com/browserslist/browserslist)这个库，这是一个获取设置的浏览器版本的工具库。
+在**babel**打包时，使用到了浏览器版本依赖，根据浏览器版本转换代码。
 
-如果这样说，可能诸君就有可能比较迷糊，什么是获取设置的浏览器版本呢？
+不同公司项目对于浏览器版本有着不同要求，例如：
+
+有些支持大部分用户使用的版本即可，
+
+有的像政府项目则需要支持IE，
+
+有的公司则可以直接替客户选择浏览器，而这种直接仅仅支持最新版本浏览器就可以。
 
 
 
-可以先思考一下这个库的背景。
+所以就需要在打包设置浏览器版本，这个需求像**babel**这类的库都是支持设置(`target`)
+
+但是，在打包时不仅仅**babel**才依赖浏览器版本，像CSS往往也需要去设置指定的版本环境。
+
+而这时候对于开发来说的解决方案就是，将浏览器版本依赖编写在一个配置文件的属性中，然后设置时读取这个配置文件属性。
+
+这样能做到方便维护。
 
 
 
+有一种想法，能否让**babel**库默认支持写在一个地方的配置，也就是写一个配置文件或者库，自定义配置地址等信息，让**babel**去支持，
+
+这种做法就是<font style="color:#f03d3d">browserslist</font>。
+
+当然，想要做到这点，必须让业界普遍认可，这样可以让更多项目去依赖支持，
+
+<font style="color:#f03d3d">browserslist</font>做到了这一点，它收到了业界的认可，很多库都依赖支持。
 
 
-诸君还得在前面是怎么使用这个属性的吗？ 
 
-```json
-"browserslist": [
-    "ie 9",
-    "Chrome > 75"
- ]
+所在在设置浏览器依赖时支持设置<font style="color:#f03d3d">browserslist</font>，打包时依赖基本上都依赖此库
+
+> :whale2: 虽然不依赖此库则需要根据使用的库去设置，不过前端打包所使用到的库都支持<font style="color:#f03d3d">browserslist</font>
+
+
+
+#### browserslist设置
+
+<font style="color:#f03d3d">browserslist</font>库提供了两种配置方式，
+
+1. 配置**package.json**的***browserslist***中
+2. 配置在根目录下约定文件：***.browserslistrc.json***中，文件名称一般为***.browserslistrc***
+
+个人感觉直接使用第一种方式就行，没必要单独再建立一个文件。
+
+
+
+<font style="color:#f03d3d">browserslist</font>还可以设置为对象形式，进而区分环境依赖。
+
+```js
+  "browserslist": {
+    "production": [
+      "ie 10",
+       "Chrome > 75"
+    ],
+   "development": [
+      "Chrome > 75"
+    ],
+  }
 ```
 
-一个是设置IE 9，一个是设置Chrome版本大于75。
+但是需要设置环境变量，环境变量名称为`process.env.BROWSERSLIST_ENV`，环境变量在**webpack**中配置
 
 
 
-假设**babel**需要支持处理这样配置（其实本身的确支持）
+#### browserslist支持的浏览器
 
-第一个直接设置浏览器版本号，没什么好说的，
+<font style="color:#f03d3d">browserslist</font>支持设置当前基本上所有的浏览器，在Github上作者说明了可以设置的浏览器
 
-第二个：设置**Chrome > 75** 。这并不是一个指定的版本号。 **babel** 在处理这样的属性时具有两种方案
+可以看到，<font style="color:#f03d3d">browserslist</font>几乎支持所有浏览器：PC、安卓、IOS 甚至还有国内Baidu。
 
-​	1.	直接做判断，找出**Chrome > 75** 的特性，转换
+设置浏览器时名称不区分大小写
 
-​	2.	编写一个函数将当前大于75版本的浏览器全部找出来。转换只判断浏览器版本即可
+<img src="./images/image-05-07.png" width="400">
 
-可以想到，第二种方案比第一种要好很多。避免了大量的判断。
+#### browserslist属性
 
+<font style="color:#f03d3d">browserslist</font>能得到业界的认可，也就代表<font style="color:#f03d3d">browserslist</font>的功能强大，
 
+也的确是这样，<font style="color:#f03d3d">browserslist</font>设置各种的属性去配置自定义浏览器依赖。
 
-这个函数再接着完善，可以做成一个工具库。专门提供浏览器版本，让**babel**直接使用。
-
-这是一个不错的选择。并且不止**babel**可以使用这个库，所有需要依赖浏览器版本的都可以使用这个库
-
-然后<font style="color:#f03d3d">browserslist</font>就出现了。
+从最简单如 直接设置各种浏览器版本和大于某个浏览器版本，还可以设置使用浏览器的比例情况。下面简单介绍下
 
 
 
+* 指定版本号： 最简单的就是指定浏览器版本号，例如： `IE 11`
 
+* 范围版本号：<font style="color:#f03d3d">browserslist</font>支持设置指定范围的版本号，例如：`Chrome > 75`, <font style="color:#f03d3d">browserslist</font>还支持 *>=*、*<*、*<=*语法设置
+
+* 浏览器使用率：<font style="color:#f03d3d">browserslist</font>支持设置指定区域内浏览器份额的浏览器版本。例如：`cover 99.5%`代表设置全球内浏览器使用率达到99.5%比例的浏览器。 
+
+  并且还支持指定地区内的使用率： `cover 99.5% in US` 美国区域内的浏览器使用统计数据   `cover 99.5% in alt-AS` 亚洲区域浏览器使用统计数据
+
+  也自定义设置地区，具体参考[Github文档](https://github.com/browserslist/browserslist#custom-usage-data)
+
+* 最新版本的浏览器：<font style="color:#f03d3d">browserslist</font>支持设置最新的几个版本浏览器， 例如：`last 2 versions` 设置每个浏览器最新的两个版本，
+
+  还可以设置指定浏览器的最新版本：`last 2 Chrome versions` Chrome浏览器最新的两个版本
+
+* 支持not：<font style="color:#f03d3d">browserslist</font>支持***not***，也就是排除指定的浏览器，例如：`not ie <= 8` 排除IE8及以下的
+
+* 支持组合设置：<font style="color:#f03d3d">browserslist</font>支持组合设置，这也是<font style="color:#f03d3d">browserslist</font>灵活所在，例如上之前使用
+
+  ```json
+   "browserslist": [
+        "ie 9",
+         "Chrome > 75"
+      ],
+  ```
+
+  这就是一个**并且（and）组合**设置，<font style="color:#f03d3d">browserslist</font>还支持**或者（or）组合**：`> .5% or last 2 versions`。
+
+  
+
+组合设置配合配置其它各种设置，能灵活的控制各种需求。
+
+而这也代表了<font style="color:#f03d3d">browserslist</font>的强大之处，不过一般不会设置多么复杂.
 
