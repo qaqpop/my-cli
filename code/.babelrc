@@ -4,7 +4,6 @@
     [
       "@babel/preset-env",
       {
-        "modules":false
         //  移除useBuiltIns设置
         //      "targets": "chrome > 75",
         //      "useBuiltIns": "usage",
