@@ -649,7 +649,7 @@ const TerserPlugin = require('terser-webpack-plugin');
     "clean-webpack-plugin": "3.0.0",
     "html-webpack-plugin": "4.5.0",
     "terser-webpack-plugin": "5.0.3",
-    "webpack": "5.4",
+    "webpack": "5.14.0",
     "webpack-cli": "4.2.0"
   },
   "dependencies": {

@@ -46,7 +46,7 @@ webpack是一个优秀的***JavaScript应用程序***的静态模块打包器。
 
 #### webpack安装
 
-在上篇文章已经安装了<font style="color:#f03d3d">webpack@5.4</font>包，所以只需要再安装<font style="color:#f03d3d">webpack-cli</font>即可,webpack-cli用于在命令行中运行webpack，如果不安装<font style="color:#f03d3d">webpack-cli</font>运行webpack命令时会报错
+在上篇文章已经安装了<font style="color:#f03d3d">webpack@5.14.0</font>包，所以只需要再安装<font style="color:#f03d3d">webpack-cli</font>即可,webpack-cli用于在命令行中运行webpack，如果不安装<font style="color:#f03d3d">webpack-cli</font>运行webpack命令时会报错
 
 
 
@@ -360,7 +360,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 ### 本文依赖
 
-* [webpack@5.4](https://www.npmjs.com/package/webpack/v/5.4.0)
+* [webpack@5.14.0](https://www.npmjs.com/package/webpack/v/5.14.0)
 * [webpack-cli@4.2.0](https://www.npmjs.com/package/webpack-cli/v/4.2.0)
 * [html-webpack-plugin@4.5.0](https://www.npmjs.com/package/html-webpack-plugin/v/4.5.0)
 * [clean-webpack-plugin@3.0.0](https://www.npmjs.com/package/clean-webpack-plugin/v/3.0.0)
@@ -379,7 +379,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
   "devDependencies": {
     "clean-webpack-plugin": "3.0.0",
     "html-webpack-plugin": "4.5.0",
-    "webpack": "5.4",
+    "webpack": "5.14.0",
     "webpack-cli": "4.2.0"
   },
   "dependencies": {

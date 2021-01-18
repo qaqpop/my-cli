@@ -1,7 +1,7 @@
 /*
  * @Author: Orcas
- * @Date: 2020-12-17
- * @LastEditTime: 2021-01-18
+ * @Date: 2021-01-18
+ * @LastEditTime: 2020-06-04 14:46:53
  */
 
 const path = require('path')
@@ -9,62 +9,33 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-
 const modules = {
 
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 9000
-  },
+  mode: 'production',
 
-  //  入口文件
-  //  字符串形式
-  entry: path.join(__dirname,'src/index.js') ,
-  //  对象形式
-  // entry:{
-  //   'index':path.join(__dirname, 'src/index.js')
-  // },
+  //  因为文件地址不再是根目录，所以需要加上 ../
+  entry: path.join(__dirname,'../src/index.js') ,
 
-  //  出口文件
-  //  字符串形式
-  // output:path.join(__dirname, 'dist/[name].js')
-  //对象形式
+  // prod需要缓存js
   output: {
-    //  出口文件的目录地址
-    path: path.join(__dirname,'dist'),
-    //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
+    path: path.join(__dirname,'../dist'),
     filename: '[name]_[contenthash].js'
   },
-
-  //devtool:false, //'eval'
 
   module:{
     rules:[
       {
         //  所有的.js文件都走babel-loader
         test:/\.js(x?)$/,
-        include:path.join(__dirname,'src'),
+        include:path.join(__dirname,'../src'),
         loader: "babel-loader"
-      },
-      {
-        //  解析.css文件
-        test: /\.css$/i,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader:  'css-loader'
-          }
-        ],
-      },
+      }
     ]
   },
 
 
   optimization: {
-    minimize: false,
+    minimize: true,
     minimizer: [
       new TerserPlugin({
         //  包含哪些文件
@@ -130,7 +101,7 @@ const modules = {
       filename: 'index.html',
 
       //  模板路径
-      template: './src/index.html',
+      template: path.join(__dirname, '../src/index.html'),
       // 用于打包后引用脚本时的路径
       publicPath: './',
 
@@ -173,9 +144,9 @@ const modules = {
   resolve: {
     alias:{
       //  设置路径别名
-      '@':path.join(__dirname,'src'),
+      '@':path.join(__dirname,'../src'),
 
-      '~': path.resolve(__dirname, '../src/assets')
+      '~': path.join(__dirname, '../src/assets')
     },
     //  可互忽略的后缀
     extensions:['.jsx', '.js', '.json', '.css'],
