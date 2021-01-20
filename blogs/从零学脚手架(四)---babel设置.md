@@ -123,7 +123,7 @@
       {
         //  所有的.js文件都走babel-loader
         test:/\.js$/,
-        include:path.join(__dirname,'src'),
+        include: path.join(config.root,'src'),
         loader: "babel-loader",
 
       }
@@ -165,7 +165,7 @@
       {
         //  所有的.js文件都走babel-loader
         test:/\.js$/,
-        include:path.join(__dirname,'src'),
+       	include: path.join(config.root,'src'),
         loader: "babel-loader",
         options: {
           presets:[
@@ -207,8 +207,10 @@
 
 > :whale2: presets参数配置可以设置短名称，
 >
-> 		1.  如果preset以**babel-preset-**为前缀，则可以省去前缀。 例如*babel-preset-my-custom*，可以设置为*custom*
-> 		2.  也适用于冠名的，例如*@babel/preset-env*，也可以设置为*@babel/env*
+> 1. 如果preset以**babel-preset-**为前缀，则可以省去前缀。 例如*babel-preset-my-custom*，可以设置为*custom*
+> 2. 也适用于冠名的，例如*@babel/preset-env*，也可以设置为*@babel/env*
+>
+> 
 
 
 
@@ -924,23 +926,28 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
+
+const config = {
+  root: path.join(__dirname, './'),
+}
+
 const modules = {
 
   //  入口文件
   //  字符串形式
-  entry: path.join(__dirname,'src/index.js') ,
+  entry: path.join(config.root, 'src/index.js'),
   //  对象形式
   // entry:{
-  //   'index':path.join(__dirname, 'src/index.js')
+  //   'index':  path.join(config.root, 'src/index.js'),
   // },
 
   //  出口文件
   //  字符串形式
-  // output:path.join(__dirname, 'dist/[name].js')
+  // output:path.join(config.root, './dist/[name].js')
   //对象形式
   output: {
     //  出口文件的目录地址
-    path: path.join(__dirname,'dist'),
+    path: path.join(config.root, 'dist'),
     //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
     filename: '[name]_[contenthash].js'
   },
@@ -952,7 +959,7 @@ const modules = {
       {
         //  所有的.js文件都走babel-loader
         test:/\.js$/,
-        include:path.join(__dirname,'src'),
+        include: path.join(config.root,'src'),
         loader: "babel-loader"
       }
     ]
@@ -1018,7 +1025,6 @@ const modules = {
     ]
   },
 
-
   plugins: [
     new HtmlWebpackPlugin({
       //  template的title优先级大于当前数据
@@ -1027,7 +1033,7 @@ const modules = {
       filename: 'index.html',
 
       //  模板路径
-      template: './src/index.html',
+      template: path.join(config.root, 'src/index.html') ,
       // 用于打包后引用脚本时的路径
       publicPath: './',
 
@@ -1063,27 +1069,26 @@ const modules = {
       //  每次打包之后删除匹配的文件
     }),
 
-    //	定义一个全局变量
+
     new webpack.DefinePlugin({ "global_a": JSON.stringify("我是一个打包配置的全局变量") }),
   ],
 
   resolve: {
     alias:{
       //  设置路径别名
-      '@':path.join(__dirname,'src'),
+      '@': path.join(config.root, 'src') ,
 
-      '~': path.resolve(__dirname, '../src/assets')
+      '~':  path.join(config.root, './src/assets') ,
     },
     //  可互忽略的后缀
-    extensions:['.js','.json'],
+    extensions:['.js', '.json'],
     //  默认读取的文件名
-    mainFiles:['index','main'],
+    mainFiles:['index', 'main'],
   }
 }
 
 //  使用node。js的导出，将配置进行导出
 module.exports = modules
-
 ```
 
 

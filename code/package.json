@@ -28,8 +28,8 @@
     "regenerator-runtime": "0.13.7"
   },
   "scripts": {
-    "start": "webpack  --config ./build/webpack.dev.js",
-    "build": "webpack  --config ./build/webpack.pro.js"
+    "start": "webpack  --config build/webpack.dev.js",
+    "build": "webpack  --config build/webpack.pro.js"
   },
   "browserslist": [
     "ie 9",

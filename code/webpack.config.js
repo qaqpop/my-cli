@@ -10,29 +10,28 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
-const modules = {
 
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 9000
-  },
+const config = {
+  root: path.join(__dirname, './'),
+}
+
+const modules = {
 
   //  入口文件
   //  字符串形式
-  entry: path.join(__dirname,'src/index.js') ,
+  entry: path.join(config.root, 'src/index.js'),
   //  对象形式
   // entry:{
-  //   'index':path.join(__dirname, 'src/index.js')
+  //   'index':  path.join(config.root, 'src/index.js'),
   // },
 
   //  出口文件
   //  字符串形式
-  // output:path.join(__dirname, 'dist/[name].js')
+  // output:path.join(config.root, './dist/[name].js')
   //对象形式
   output: {
     //  出口文件的目录地址
-    path: path.join(__dirname,'dist'),
+    path: path.join(config.root, 'dist'),
     //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
     filename: '[name]_[contenthash].js'
   },
@@ -42,23 +41,11 @@ const modules = {
   module:{
     rules:[
       {
-        //  所有的.js文件都走babel-loader
-        test:/\.js(x?)$/,
-        include:path.join(__dirname,'src'),
+        //  所有的.js或者.jsx文件都走babel-loader
+        test: /\.js(x?)$/,
+        include: path.join(config.root,'src'),
         loader: "babel-loader"
-      },
-      {
-        //  解析.css文件
-        test: /\.css$/i,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader:  'css-loader'
-          }
-        ],
-      },
+      }
     ]
   },
 
@@ -130,7 +117,7 @@ const modules = {
       filename: 'index.html',
 
       //  模板路径
-      template: './src/index.html',
+      template: path.join(config.root, 'src/index.html') ,
       // 用于打包后引用脚本时的路径
       publicPath: './',
 
@@ -173,12 +160,12 @@ const modules = {
   resolve: {
     alias:{
       //  设置路径别名
-      '@':path.join(__dirname,'src'),
+      '@': path.join(config.root, 'src') ,
 
-      '~': path.resolve(__dirname, '../src/assets')
+      '~':  path.join(config.root, './src/assets') ,
     },
     //  可互忽略的后缀
-    extensions:['.jsx', '.js', '.json', '.css'],
+    extensions:['.jsx', '.js', '.json'],
     //  默认读取的文件名
     mainFiles:['index', 'main'],
   }

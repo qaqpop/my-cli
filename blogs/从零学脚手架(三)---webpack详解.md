@@ -606,7 +606,71 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 
+### context
 
+在webpack配置项中具有一个**context**的设置，这个属性是设置*当前打包环境根目录*。
+
+在前面所写的webpack配置中，所有的文件路径都使用了 **path.join(__dirname, )** 函数，这个函数是将连接目录  **__dirname**代表当前文件目录，所以实际上是使用了*绝对目录*设置的，webpack当然也可以使用*相对目录*设置。
+
+在webpack配置项中具有一个**context**属性，这个属性代表*相对目录*的基准目录，其默认为项目的根目录，所以**entry**属性可以直接使用相对目录
+
+```js
+{
+    entry: './src/index.js' ,
+}
+```
+
+打包也正常
+
+<img src="./images/image-03-14.png" width="400">
+
+
+
+一切似乎都很棒，只要将所有的路径改为相对路径就可以。但其实并不是那样。
+
+1.  并不是所有的设置都可以使用相对路径
+
+   ​	配置中并不是所有路径都可以使用*webpack设置的相对路径*的，例如**output**属性，如果使用相对路径就会报错
+
+   <img src="./images/image-03-14.png" width="400">
+
+2. **context**属性默认指向了项目的根目录。
+
+   ​	**context**属性默认指向并不是*webpack.config.js*配置文件地址，而是当前项目（库）的根目录，也就是*package.json*所在的地址，所以如果移动了webpack.config.js文件目录，直接使用相对地址会看起来很怪。
+
+
+
+设置地址只要能找到目录，无论怎么设置都可以，无非是项目管理问题，可以使用**context**，并且可以更改**context**目录，不过要注意不能使用相对目录
+
+```js
+{
+  
+  context: path.join(__dirname, './src'),
+  //  入口文件
+  //  字符串形式
+  entry: './index.js' ,
+}
+```
+
+也可以不使用**context**属性，直接使用绝对路径 , 自己去控制地址
+
+```js
+const config = {
+  root: path.join(__dirname, './'),
+};
+
+const {
+  entry: path.join(config.root, 'src/index.js'),
+  output: {
+    path: path.join(config.root, 'dist'),
+    filename: '[name]_[contenthash].js'
+  },
+}
+```
+
+
+
+> :whale2: 个人建议最好只在一个地方配置**__dirname**，要不然在动配置文件目录时需要更改的地方会很多
 
 ###  总结
 
@@ -674,75 +738,55 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
+
+const config = {
+  root: path.join(__dirname, './'),
+}
+
 const modules = {
 
   //  入口文件
   //  字符串形式
-  entry: path.join(__dirname,'src/index.js') ,
+  entry: path.join(config.root, 'src/index.js'),
   //  对象形式
   // entry:{
-  //   'index':path.join(__dirname, 'src/index.js')
+  //   'index':  path.join(config.root, 'src/index.js'),
   // },
 
   //  出口文件
   //  字符串形式
-  // output:path.join(__dirname, 'dist/[name].js')
+  // output:path.join(config.root, './dist/[name].js')
   //对象形式
   output: {
     //  出口文件的目录地址
-    path: path.join(__dirname,'dist'),
+    path: path.join(config.root, 'dist'),
     //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
     filename: '[name]_[contenthash].js'
   },
 
   //devtool:false, //'eval'
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      //  template的title优先级大于当前数据
-      title: 'my-cli',
-      //  文件名称
-      filename: 'index.html',
+  // module:{
+  //   rules:[
+  //     {
+  //       test:/\.css$/,
+  //       include: ath.join(config.root,'src'),
+  //       exclude: path.join(config.root,'node_modules'),
+  //       ////  字符串形式
+  //       // use:'css-loader',
+  //       //  数组形式，可以设置多个loader
+  //       // use:[
+  //       //   {
+  //       //     loader:'css-loader',
+  //       //     options:{
+  //       //
+  //       //     }
+  //       //   }
+  //       // ]
+  //     }
+  //   ]
+  // }
 
-      //  模板路径
-      template: './src/index.html',
-      // 用于打包后引用脚本时的路径
-      publicPath: './',
-
-      //  是否将打包的资源引用到当前HTML， false代表不引用
-      //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
-      //  默认为true
-      inject: 'body',
-      //  加载js方式，值为defer/blocking
-      //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
-      scriptLoading: 'blocking',
-
-      //  是否进行缓存，默认为true，在开发环境可以设置成false
-      cache: false,
-      //  添加mate属性
-      meta: {}
-    }),
-    new CleanWebpackPlugin({
-
-      //  假装文件删除
-      //  如果为false则代表真实删除，如果为true，则代表不删除
-      dry: false,
-      //  是否打印日志到控制台 默认为false
-      verbose: true,
-      cleanStaleWebpackAssets: false,
-      //  允许保留本次打包的文件
-      //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
-      //  默认为true
-      protectWebpackAssets: true,
-      //  每次打包之前删除匹配的文件
-      cleanOnceBeforeBuildPatterns: ['**/*'],
-
-      //  每次打包之后删除匹配的文件
-    }),
-    new webpack.DefinePlugin({ "global_a": JSON.stringify("我是一个打包配置的全局变量") }),
-
-
-  ],
 
   optimization: {
     minimize: false,
@@ -803,40 +847,70 @@ const modules = {
     ]
   },
 
-  // module:{
-  //   rules:[
-  //     {
-  //       test:/\.css$/,
-  //       include:path.join(__dirname,'src'),
-  //       exclude:path.join(__dirname,'node_modules'),
-  //       ////  字符串形式
-  //       // use:'css-loader',
-  //       //  数组形式，可以设置多个loader
-  //       // use:[
-  //       //   {
-  //       //     loader:'css-loader',
-  //       //     options:{
-  //       //
-  //       //     }
-  //       //   }
-  //       // ]
-  //     }
-  //   ]
-  // }
+  plugins: [
+    new HtmlWebpackPlugin({
+      //  template的title优先级大于当前数据
+      title: 'my-cli',
+      //  文件名称
+      filename: 'index.html',
+
+      //  模板路径
+      template: path.join(config.root, 'src/index.html') ,
+      // 用于打包后引用脚本时的路径
+      publicPath: './',
+
+      //  是否将打包的资源引用到当前HTML， false代表不引用
+      //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
+      //  默认为true
+      inject: 'body',
+      //  加载js方式，值为defer/blocking
+      //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
+      scriptLoading: 'blocking',
+
+      //  是否进行缓存，默认为true，在开发环境可以设置成false
+      cache: false,
+      //  添加mate属性
+      meta: {}
+    }),
+
+    new CleanWebpackPlugin({
+
+      //  假装文件删除
+      //  如果为false则代表真实删除，如果为true，则代表不删除
+      dry: false,
+      //  是否打印日志到控制台 默认为false
+      verbose: true,
+      cleanStaleWebpackAssets: false,
+      //  允许保留本次打包的文件
+      //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
+      //  默认为true
+      protectWebpackAssets: true,
+      //  每次打包之前删除匹配的文件
+      cleanOnceBeforeBuildPatterns: ['**/*'],
+
+      //  每次打包之后删除匹配的文件
+    }),
+
+
+    new webpack.DefinePlugin({ "global_a": JSON.stringify("我是一个打包配置的全局变量") }),
+  ],
 
   resolve: {
     alias:{
       //  设置路径别名
-      '@':path.join(__dirname,'src'),
+      '@': path.join(config.root, 'src') ,
 
-      '~': path.resolve(__dirname, '../src/assets')
+      '~':  path.join(config.root, 'src/assets') ,
     },
-    extensions:['.js','.json'],
-    mainFiles:['index','main'],
+    //  可互忽略的后缀
+    extensions:['.js', '.json'],
+    //  默认读取的文件名
+    mainFiles:['index', 'main'],
   }
 }
 
 //  使用node。js的导出，将配置进行导出
 module.exports = modules
+
 ```
 
