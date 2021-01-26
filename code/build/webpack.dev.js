@@ -15,14 +15,19 @@ module.exports = merge([
   {
     mode: 'development',
 
-    //  监听文件变化
-    watch: true,
-    //  监听选项
-    watchOptions: {
-      //  忽略某些目录  可以为正则或者数组
-      ignored: /node_modules/,
-      //  启动轮询， 默认为false  设置true或毫秒数来启动轮询
-      poll: false
+    // //  监听文件变化
+    // watch: true,
+    // //  监听选项
+    // watchOptions: {
+    //   //  忽略某些目录  可以为正则或者数组
+    //   ignored: /node_modules/,
+    //   //  启动轮询， 默认为false  设置true或毫秒数来启动轮询
+    //   poll: false
+    // }
+    devServer:{
+      contentBase: path.join(__dirname, 'build'),
+      compress: true,
+      port: 9000
     }
 
   }

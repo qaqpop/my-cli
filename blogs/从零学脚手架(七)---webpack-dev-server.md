@@ -18,6 +18,8 @@
 
 <img src="./images/image-07-01.png" width="400">
 
+TODO:
+
 
 
 #### 监听代码文件更改
@@ -70,13 +72,31 @@ module.exports = merge([
 
 #### 将打包文件内存化
 
-在使用**vue-cli**或**react-cli**进行开发时，*yarn start*之后，细心的诸君会发现，并没有任何的生成文件。这其实是<font style="color:#f03d3d">webpack-dev-server</font>将打包生成的代码缓存到了内存之中。而完成这个操作的是<font style="color:#f03d3d">webpack-dev-middleware</font>中间件。
+在使用**vue-cli**或**react-cli**进行开发时，*yarn start*之后，细心的诸君会发现，并没有任何的生成文件。这其实是<font style="color:#f03d3d">webpack-dev-server</font>将打包生成的代码缓存到了内存之中。而完成这个操作并不是<font style="color:#f03d3d">webpack-dev-server</font>库  而是它依赖的<font style="color:#f03d3d">webpack-dev-middleware</font>中间件。
 
-<font style="color:#f03d3d">webpack-dev-middleware</font>会监听的**webpack**的**compiler**。 并告诉**webpack**将代码打包到内存之中
+<font style="color:#f03d3d">webpack-dev-middleware</font>会重新设置**webpack.compiler**的***output***。
+
+<img src="./images/image-07-05.png" width="400">
+
+
+
+从上面代码<font style="color:#f03d3d">webpack-dev-middleware</font>源码可以看到默认情况下<font style="color:#f03d3d">webpack-dev-middleware</font>会设置`createFsFromVolume(new Volume())`为**output**
+
+而`createFsFromVolume(new Volume())`是<font style="color:#f03d3d">memfs</font>库的API。<font style="color:#f03d3d">memfs</font>是一个内存流库。
+
+<img src="./images/image-07-06.png" width="400">
+
+
+
+而这些代码可以得出，<font style="color:#f03d3d">webpack-dev-server</font>库使用了<font style="color:#f03d3d">webpack-dev-middleware</font>中间件将**webpack**打包后的结果输出到的内存流之中。
+
+> :whale2: <font style="color:#f03d3d">webpack-dev-server</font>依赖<font style="color:#f03d3d">webpack-dev-middleware</font> 。  <font style="color:#f03d3d">webpack-dev-middleware</font>依赖<font style="color:#f03d3d">memfs</font>
+
+
 
 这个中间件有兴趣的诸君可以去[Github](https://github.com/webpack/webpack-dev-middleware)看一下。
 
-那么为什么将代码打包到内存中。原因就是快。众所周知，内存的读取要快于硬盘。所以为了能更快的处理文件，可以将打包文件缓存内存进行处理。
+那么又为什么将代码打包到内存中。原因就是快。众所周知，内存的读取要快于硬盘。所以为了能更快的处理文件，可以将打包文件缓存内存进行处理。
 
 
 
@@ -92,7 +112,7 @@ module.exports = merge([
 
 > <font style="color:#f03d3d">webpack-dev-server</font>内部源码，可以看到如果当前开启了热更新（hot）,并且没有添加<font style="color:#f03d3d">HotModuleReplacementPlugin</font>，<font style="color:#f03d3d">webpack-dev-server</font>就会自动添加
 
-<img src="./images/image-07-05.png" width="400">
+<img src="./images/image-07-07.png" width="400">
 
 
 
