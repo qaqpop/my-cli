@@ -5,6 +5,7 @@ export const CSSTest = ()=>{
   return (
     <>
       <CSSDemo1 />
+      <CSSDemo1 />
     </>
   )
 }
