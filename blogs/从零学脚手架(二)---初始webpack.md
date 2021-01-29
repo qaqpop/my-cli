@@ -46,7 +46,7 @@ webpack是一个优秀的***JavaScript应用程序***的静态模块打包器。
 
 #### webpack安装
 
-在上篇文章已经安装了<font style="color:#f03d3d">webpack@5.14.0</font>包，所以只需要再安装<font style="color:#f03d3d">webpack-cli</font>即可,webpack-cli用于在命令行中运行webpack，如果不安装<font style="color:#f03d3d">webpack-cli</font>运行webpack命令时会报错
+在上篇文章已经安装了<font style="color:#f03d3d">webpack@5.14.0</font>包，所以只需要再安装<font style="color:#f03d3d">webpack-cli</font>即可,<font style="color:#f03d3d">webpack-cli</font>用于在命令行中运行webpack，如果不安装<font style="color:#f03d3d">webpack-cli</font>运行webpack命令时会提示安装<font style="color:#f03d3d">webpack-cli</font>
 
 
 

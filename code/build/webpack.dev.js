@@ -14,7 +14,6 @@ module.exports = merge([
   common(true),
   {
     mode: 'development',
-
     // //  监听文件变化
     // watch: true,
     // //  监听选项
@@ -24,11 +23,5 @@ module.exports = merge([
     //   //  启动轮询， 默认为false  设置true或毫秒数来启动轮询
     //   poll: false
     // }
-    devServer:{
-      contentBase: path.join(__dirname, 'build'),
-      compress: true,
-      port: 9000
-    }
-
   }
 ])
