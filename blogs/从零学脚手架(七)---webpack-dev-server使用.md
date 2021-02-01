@@ -30,147 +30,123 @@
 
 
 
-<font style="color:#f03d3d">webpack-dev-server</font>在安装上面有一些小坑。
+截至目前，<font style="color:#f03d3d">webpack-dev-server</font>库具有有一点有坑。
 
 
 
-
-
-截止到目前 - **2021-01-29**。 <font style="color:#f03d3d">webpack-dev-server</font>这个库的**最新版本**还是让人头疼。
-
-在**NPM**上，<font style="color:#f03d3d">webpack-dev-server</font> **最新版本**为**wepack-dev-server**
-
-> :whale2::whale2: **最新版本** 是指不指定版本号下包获取。
+<font style="color:#f03d3d">webpack-dev-server</font> 目前最新版本为 `@3.11.2`
 
 <img src="./images/image-07-01.png" width="400">
 
 
 
-但是，如果以目前的配置直接使用这个包会有问题，这个问题让在下想爆粗。
-
-
-
-先按照这个版本的包走下去
-
-
+先来安装这个版本的<font style="color:#f03d3d">webpack-dev-server</font>
 
 > yarn add -D webpack-dev-server@3.11.2
 
 
 
-将`yarn start` 命令改为 `webpack-dev-server`
-
-> :whale2: `webpack-dev-server` 是执行<font style="color:#f03d3d">webpack-dev-server</font>库的命令，就像`webpack` 命令是执行<font style="color:#f03d3d">webpack</font>库一样。
+了解过<font style="color:#f03d3d">webpack-dev-server</font>的诸君会知道，执行<font style="color:#f03d3d">webpack-dev-server</font>的命令为`webpack-dev-server`
 
 
+
+官方NPM介绍文档也是`webpack-dev-server`命令
 
 <img src="./images/image-07-02.png" width="400">
 
+所以都会将`yarn start`命令设置为`webpack-dev-server`，
 
-
-正常情况下，此时执行`yarn start` 就会运行<font style="color:#f03d3d">webpack-dev-server</font>
-
-但是直接报错了，提示找不到<font style="color:#f03d3d">webpack-cli</font>库中的**config.yargs**模块
-
-
+在这里使用`yarn start:dev` 命令设置为`webpack-dev-server`，
 
 <img src="./images/image-07-03.png" width="400">
 
 
 
-这个问题其实很简单，是由于使用的 <font style="color:#f03d3d">webpack-cli</font>版本 与<font style="color:#f03d3d">webpack-dev-server</font>版本不兼容问题。
+按照正常来说，此时执行`yarn start:dev`便会执行<font style="color:#f03d3d">webpack-dev-server</font>。
 
-
-
-<font style="color:#f03d3d">webpack-cli</font>库使用的是**最新版本 - @4.4.0**。
+但是，并不是如此。如果，此时执行`yarn start:dev`会直接报错。
 
 <img src="./images/image-07-04.png" width="400">
 
 
 
-原因是<font style="color:#f03d3d">webpack-cli@4.X</font>中，代码结构进行大变更了，在**bin**目录下只有一个**cli**模块。而没有<font style="color:#f03d3d">webpack-dev-server</font>所需要的**config.yargs**模块， 所以就出问题了。
+提示找不到<font style="color:#f03d3d">webpack-cli</font>库中的**config.yargs**模块。我感觉很多刚学习**webpack**并且搜索能力稍微弱一些的新人会卡很久。
+
+
+
+这个问题其实很简单，直接在[github](https://github.com/webpack/webpack-dev-server/issues?q=yargs+)就能搜到答案
 
 <img src="./images/image-07-05.png" width="400">
 
 
 
-**config.yargs** 模块是在<font style="color:#f03d3d">webpack-cli@3.X</font>才有的。所以<font style="color:#f03d3d">webpack-dev-server@3.X</font>应该要对应使用<font style="color:#f03d3d">webpack-cli@3.X</font>
-
-
-
-在这里具有两个解决方案**。**
-
-
-
-##### 1. 降低webpack-cli版本
-
-将<font style="color:#f03d3d">webpack-cli</font>版本降到**@3.X**，最新的<font style="color:#f03d3d">webpack-cli@3.X</font>为**@3.3.12**
+可以看到答案，使用另一条命令就可以：`webpack serve`
 
 <img src="./images/image-07-06.png" width="400">
 
-> yarn add -D webpack-cli@3.3.12
->
-> yarn add -D webpack-dev-server@3.11.2
 
 
+此时使用`yarn start`就可以执行成功。默认启动的是**8080端口**号
 
 <img src="./images/image-07-07.png" width="400">
 
 
 
-可以看到此时在<font style="color:#f03d3d">webpack-cli</font>库中具有了**config.yargs**模块，此时执行命令就可以成功运行
+那么这到底怎么回事呢？通过查看源码和测试<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>略有猜测。
 
-
+先看一下<font style="color:#f03d3d">webpack-dev-server@3.11.2</font>的一段代码
 
 <img src="./images/image-07-08.png" width="400">
 
+这是**webpack-dev-server/bin/webpack-dev-server.js**中的一段代码。使用`webpack-dev-server`命令执行时便会执行此模块。
+
+在这个模块中加载了**webpack-cli/bin/** *config/* **config-yargs**和**webpack-cli/bin/** *utils/* **convert-argv**。
 
 
 
-
-##### 2. 升级webpack-dev-server版本
-
-<font style="color:#f03d3d">webpack-dev-server</font>这个库提供了一个**@4.X-beta**版，使用这个版本的<font style="color:#f03d3d">webpack-dev-server</font>也可以成功。
+但是在<font style="color:#f03d3d">webpack-cli@4.X</font>版本代码结构已经改变，并没有这两个模块
 
 <img src="./images/image-07-09.png" width="400">
 
+可以看到，在<font style="color:#f03d3d">webpack-cli@4.4.0</font>中*bin目录*只有一个**cli模块**，所以可想而知就找不到了。
 
 
-> yarn add -D webpack-cli@4.4.0
->
-> yarn add -D webpack-dev-server@4.0.0-beta.0
+
+在使用<font style="color:#f03d3d">webpack@4.X</font>版本时，使用的<font style="color:#f03d3d">webpack-cli@3.X</font>，<font style="color:#f03d3d">webpack-dev-server@3.X</font>
+
+后来更新到<font style="color:#f03d3d">webpack@5.X</font>时，<font style="color:#f03d3d">webpack-cli</font>也进行了大版本的更新，变成了<font style="color:#f03d3d">webpack-cli@4.X</font>，并且加入了`webpack serve`命令执行**webpack-dev-server**
 
 
+
+但是<font style="color:#f03d3d">webpack-dev-server</font>并没有跟着更新大版本，依然是<font style="color:#f03d3d">webpack-dev-server@3.X</font>。并且也没有去更新这段代码，也就造成了使用`webpack-dev-server`命令报错的问题。
+
+
+
+这个问题在<font style="color:#f03d3d">webpack-dev-server@4.X</font>进行了修复。不过<font style="color:#f03d3d">webpack-dev-server@4.X</font>目前只有一个<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>版本。
 
 <img src="./images/image-07-10.png" width="400">
 
 
 
-
-
-
-
-所以在下对<font style="color:#f03d3d">webpack-dev-server</font>和<font style="color:#f03d3d">webpack-cli</font>**最新版本**  感觉很恶心。很多人下载时都会使用默认最版本库。尤其是对于刚学习webpack的新人。
-
-
-
-升级迭代有先有后这是正常的，这样非正规操作对于熟练的开发者来说能轻易看出，但是对于学习的新手真的很痛苦。很多人就会在这一步停留好久，到处询问，
-
-哪怕在醒目的地方 备注 版本差异也可以啊。
-
-
-
-#### webpack-dev-server@4.X命令
-
-在<font style="color:#f03d3d">webpack-dev-server@4.0.0-beta.0</font>文档中提到了一个全新的执行命令:`webpack serve`，目前预览版还支持`webpack-dev-server`命令
+在<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>的[github](https://github.com/webpack/webpack-dev-server/blob/v4.0.0-beta.0/bin/webpack-dev-server.js)可以看到**/bin/webpack-dev-server.js**模块中没有了上面两段代码。
 
 <img src="./images/image-07-11.png" width="400">
 
 
 
+并且在<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>文档中的命令是`webpack serve`
+
 <img src="./images/image-07-12.png" width="400">
 
 
+
+
+
+也就是其实这个问题是这样的：
+
+:whale2::whale2:  <font style="color:#f03d3d">webpack-cli@4.X</font>版本开始，**webpack**团队将**dev-server**的命令改为了`webpack serve` 。<font style="color:#f03d3d">webpack</font>与<font style="color:#f03d3d">webpack-cli</font>都进行了大版本的更新。而<font style="color:#f03d3d">webpack-dev-server</font>并没有进行大版本更新，所以会导致老命令`webpack-dev-server`的错误。
+
+`webpack serve`命令在 <font style="color:#f03d3d">webpack-cli@4.0.0</font>版本文档中有提到。
 
 <img src="./images/image-07-13.png" width="400">
 
@@ -178,19 +154,27 @@
 
 
 
-##### 选择webpack-dev-server版本
+##### webpack serve
 
-目前<font style="color:#f03d3d">webpack-dev-server@4.X</font>还只是一个***beta***版本，所以真实项目还是安稳的用**@3.X**比较妥当，但是对于个人学习，使用***beta***版本也无伤大雅。
-
-在此就直接使用<font style="color:#f03d3d">webpack-dev-server@4.0.0-beta.0</font>了
+`webpack serve`命令的执行，入口是跟`webpack`命令一样，都是<font style="color:#f03d3d">webpack</font>库。在<font style="color:#f03d3d">webpack</font>库中调用<font style="color:#f03d3d">webpack-cli</font>库模块。然后在<font style="color:#f03d3d">webpack-cli</font>库根据其命令调用<font style="color:#f03d3d">@webpack-cli</font>库中的**serve模块**，开启<font style="color:#f03d3d">webpack-dev-server</font>中的服务器模块。这些代码都是<font style="color:#f03d3d">webpack-cli@4.X</font>新加的，所以并不会报错。详细内容在下一篇介绍。
 
 
+
+<img src="./images/image-07-14.png" width="400">
+
+
+
+> :whale2::whale2: <font style="color:#f03d3d">webpack</font>、<font style="color:#f03d3d">webpack-cli</font>、<font style="color:#f03d3d">webpack-dev-server</font>这三个跨库调用模块都是根据模块路径调用的。所以只要某个库文件结构稍微改动，就会像`webpack-dev-server`命令这样直接报错。 不过在新版本代码进行了优化，通过像`serve`这样的约定名称进行跨库调用。尽可能降低了耦合度。
+>
+> 
+>
+> :whale2:<font style="color:#f03d3d">@webpack-cli</font>是<font style="color:#f03d3d">webpack-cli4.X</font>依赖的一个库。
 
 
 
 #####   运行默认配置
 
-在安装完<font style="color:#f03d3d">webpack-dev-server</font>之后，直接`yarn start`运行就可以运行，只不过使用的是默认配置罢了，
+在安装完<font style="color:#f03d3d">webpack-dev-server</font>之后，便可以直接使用命令去运行，并且开启了一个**8080端口**的服务器，这是使用的默认配置。
 
 <img src="./images/image-07-10.png" width="400">
 

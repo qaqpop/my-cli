@@ -15,13 +15,5 @@ module.exports = merge([
   {
     mode: 'development',
 
-    devServer: {
-      compress: true,
-      //  服务器启动的端口号
-      port: 7777,
-
-      a:1
-
-    }
   }
 ])
