@@ -265,6 +265,12 @@
 
 ##### @3.11.2
 
+> :whale2:  webpack@4.X 分支
+
+
+
+> yarn add -D webpack@4.46.0 webpack-cli@3.3.12 webpack-dev-server@3.11.2
+
 
 
 
