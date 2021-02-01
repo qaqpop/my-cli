@@ -14,6 +14,14 @@ module.exports = merge([
   common(true),
   {
     mode: 'development',
-
+    //
+    // devServer:{
+    //   port: 3333,
+    //   contentBase: path.resolve(__dirname, 'dist'),
+    //   open: true,
+    //   transportMode:{
+    //     // server:'ws'
+    //   }
+    // }
   }
 ])
