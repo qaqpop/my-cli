@@ -269,7 +269,15 @@
 
 
 
-> yarn add -D webpack@4.46.0 webpack-cli@3.3.12 webpack-dev-server@3.11.2
+> yarn add -D webpack@4.46.0 webpack-cli@3.3.12 webpack-dev-server@3.11.2 terser-webpack-plugin@4.2.3
+
+
+
+> :whale2::whale2: <font style="color:#f03d3d">terser-webpack-plugin</font>包需要降到`@4.X`。 
+
+
+
+
 
 
 
