@@ -248,32 +248,17 @@
 
 目前<font style="color:#f03d3d">webpack@5.X</font>稳定版才4个月，并且<font style="color:#f03d3d">webpack-dev-server</font>还没有新版本的稳定版。所以<font style="color:#f03d3d">webpack@5.X</font>一般还是只是学习使用。
 
-<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>又更改了很多属性。
+在此直接使用<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>版进行学习，
 
-在此想将<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>和<font style="color:#f03d3d">webpack-dev-server@3.X</font>两个版本的配置都讲解一下。
+在<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>删除了好多配置属性，所以也会稍微讲一下<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>与<font style="color:#f03d3d">webpack-dev-server@3.X</font>的差异
 
-所以在此进行配置两套环境，分别在不同代码分支
 
-1. <font style="color:#f03d3d">webpack@4.X</font>、<font style="color:#f03d3d">webpack-cli@3.X</font>、<font style="color:#f03d3d">webpack-dev-server@3.X</font>
-2. <font style="color:#f03d3d">webpack@5.X</font>、<font style="color:#f03d3d">webpack-cli@4.X</font>、<font style="color:#f03d3d">webpack-dev-server@4.X</font>
+
+> yarn add -D webpack-dev-server@4.0.0beta.0
 
 
 
 #### webpack-dev-server配置
-
-
-
-##### @3.11.2
-
-> :whale2:  webpack@4.X 分支
-
-
-
-> yarn add -D webpack@4.46.0 webpack-cli@3.3.12 webpack-dev-server@3.11.2 terser-webpack-plugin@4.2.3
-
-
-
-> :whale2::whale2: <font style="color:#f03d3d">terser-webpack-plugin</font>包需要降到`@4.X`。 
 
 
 
