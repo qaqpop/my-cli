@@ -49,7 +49,6 @@ module.exports = merge([
       firewall: true,
 
       //  是否设置HTTP/2服务器。
-      //  对于nodeV10以上的版本  由于spdy有问题
       //  所以如果将此属性设置为true，则默认使用https作为服务
       http2: false,
 
@@ -84,7 +83,7 @@ module.exports = merge([
 
       //  静态文件属性
       static: {
-        //  提供静态文件的地址。 string | false   设置为false则代表关闭
+        //  提供静态文件的地址。 string    设置为false则代表关闭
         //  默认为为当前工作目录
         //  建议使用绝对地址
         //  例如设置为 dist后， dev时寻找文件会在/dist目录下寻找静态文件
@@ -96,15 +95,22 @@ module.exports = merge([
         //   相当于webpack-dev-server@3.X的 contentBasePublicPath属性
         publicPath: '/',
 
+        // 设置express.static的参数
         //   相当于webpack-dev-server@3.X的 staticOptions属性
         staticOptions: undefined,
 
+        //  是否加入serve-index中间件，默认为true
         //   相当于webpack-dev-server@3.X的 serveIndex属性
-        serveIndex: undefined,
+        serveIndex: true,
 
+        //  是否使用chokidar库进行监听文件变化。
+        //  webpack使用的是文件系统的的变化通知，但是有时候可能会不管用，例如使用网络文件系统
+        //  所以可以设置属性使用chokidar库进行轮询检测文件变化。
+        //  此属性可以设置为boolean类型也可以设置为对象类型指定轮询时间(毫秒数）
         //   相当于webpack-dev-server@3.X的 watchOptions属性
-        watch: true,
-
+        watch: {
+          poll: 3000
+        },
       },
 
       //  设置WS客户端的一些属性
