@@ -83,17 +83,16 @@ module.exports = merge([
 
       //  静态文件属性
       static: {
-        //  提供静态文件的地址。 string    设置为false则代表关闭
+        //  要挂载在服务器上文件的本地目录
         //  默认为为当前工作目录
         //  建议使用绝对地址
         //  例如设置为 dist后， dev时寻找文件会在/dist目录下寻找静态文件
         //   相当于webpack-dev-server@3.X的 contentBase属性
-        directory: path.join(config.root),
+        directory: path.join(config.root, 'assets'),
 
-        //  这个属性是提供directory设置目录的别名，
-        //  假如directory 设置了一个很深的目录：path.join(config.root,'assets/a/v')，并且此属性设置为/assets，那么使用/assets可以直接访问文件
+        //    挂载到服务器中间件的可访问地址
         //   相当于webpack-dev-server@3.X的 contentBasePublicPath属性
-        publicPath: '/',
+        publicPath: '/static',
 
         // 设置express.static的参数
         //   相当于webpack-dev-server@3.X的 staticOptions属性
@@ -137,7 +136,6 @@ module.exports = merge([
        public: undefined,
 
 
-      //  dev打包时所使用的一些属性
       dev:{
 
         headers:{
@@ -156,10 +154,8 @@ module.exports = merge([
         //   相当于webpack-dev-server@3.X的 writeToDisk属性
         writeToDisk: true,
 
-        //  设置路径的前缀路径
-        //  例如，如果设置为/assets
-        //  那么服务器启动后，访问所有数据都需要加入/assets/前缀
-        //  localhost:7777/assets
+        // 此属性表示生成打包文件存放的路径。默认为根目录
+
         //   相当于webpack-dev-server@3.X的 publicPath属性
         publicPath: '/',
 
@@ -196,12 +192,9 @@ module.exports = merge([
         errors: true
       },
 
-      // 是否注入webpack客户端
+      // 是否注入WS客户端,也就是是否要进行长链接通讯。
       // boolean | function (compilerConfig) => boolean
-      // 这个注入客户端意思是：是否要将webpack库注入进去
-      // dev-server中好多功能是由webpack提供实现的。将webpack注入到dev-server中进行通讯，
       //  将此属性设置为false，那么hot、overlay等功能都会失效
-      //  默认为true，  有兴趣的诸君可以设置为false测试一下
       injectClient: true,
 
       //  是否注入HOT， 这个属性可以算是injectClient的子集。只影响HOT
@@ -212,10 +205,34 @@ module.exports = merge([
       //  此属性设置为true，也就是放弃HOT，每次文件更新都会重新加载所有模块
       //  这个可以在 浏览器控制台中WS选项查看，
       //  默认值为false
-      liveReload: false,
+      liveReload: true,
 
       //  是否开启ZeroConf网络
       bonjour: false,
+
+      //  boolean | object
+      //  当此属性设置为true或为object时，如果使用的HTML5 API 所有404页面会跳转到index.html
+      //  使用的connect-history-api-fallback库 设置为对象，则会将此对象传参给connect-history-api-fallback库
+      historyApiFallback: false,
+
+      //  是否使用局域网IP打开页面
+      useLocalIp: false,
+
+      //  是否监听node中stdin.end事件， 关闭服务器
+      stdin: false,
+
+      //  终止信号，设置为true时 监听['SIGINT', 'SIGTERM'];事件，事件触发后结束进程
+      //  目前dev-server强制将此属性设置为true了，所以改为false不管用。
+      setupExitSignals: true,
+
+      transportMode:{
+        //  长链接服务类型， 值为 sockjs或者ws
+        //  sockjs 使用的sockjs库
+        //  ws 使用的ws库
+        //  webpack-dev-server@4.X使用的是WS  webpack-dev-server@3.X 使用的是sockjs
+        //  目前在webpack-dev-server@4.X使用sockjs会出错， webpack-dev-server@3.X使用WS也会报错
+         server: 'ws'
+      },
 
       //  自定义中间件钩子属性
       //    优先于server内部中间件执行
@@ -234,30 +251,6 @@ module.exports = merge([
         // const port = server.listeningApp.address().port;
         // console.log('Listening on port:', port);
       },
-
-      //  boolean | object
-      //  当此属性设置为true或为object时，如果使用的HTML5 API 所有404页面会跳转到index.html
-      //  使用的connect-history-api-fallback库 设置为对象，则会将此对象传参给connect-history-api-fallback库
-      historyApiFallback: false,
-
-      //  是否监听node中stdin.end事件， 关闭服务器
-      stdin: false,
-
-      //  是否使用局域网IP打开页面
-      useLocalIp: false,
-
-      //  终止信号，设置为true时 监听['SIGINT', 'SIGTERM'];事件，事件触发后结束进程
-      //  目前dev-server强制将此属性设置为true了，所以改为false不管用。
-      setupExitSignals: true,
-
-      transportMode:{
-        //  长链接服务类型， 值为 sockjs或者ws
-        //  sockjs 使用的sockjs库
-        //  ws 使用的ws库
-        //  webpack-dev-server@4.X使用的是WS  webpack-dev-server@3.X 使用的是sockjs
-        //  目前在webpack-dev-server@4.X使用sockjs会出错， webpack-dev-server@3.X使用WS也会报错
-         server: 'ws'
-      }
     },
 
   }
