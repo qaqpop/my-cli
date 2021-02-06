@@ -124,12 +124,18 @@ module.exports = merge([
         //   相当于webpack-dev-server@3.X的 progress属性
         progress: true,
 
+        //  WebSocket客户端使用的路径
         //  相当于webpack-dev-server@3.X的 sockPath属性
-        // path: '',
+
+         path: undefined,
+
+        //  WebSocket客户端使用的IP地址
         //  相当于webpack-dev-server@3.X的 sockHost属性
-        // host: '',
+         host: undefined,
+
+        //  WebSocket客户端使用的端口好
         //  相当于webpack-dev-server@3.X的 sockPort属性
-        // port: '',
+         port: undefined,
       },
 
 
@@ -170,7 +176,7 @@ module.exports = merge([
         //  none" | "summary" | "errors-only" | "errors-warnings" | "minimal" | "normal" | "detailed" | "verbose" | boolean | object { … }
         //  控制打包时控制台的输出结果等级，
         //   相当于webpack-dev-server@3.X的 stats属性
-        stats: 'minimal',
+        stats: 'errors-only',
 
         //  自定义dev-server打包文件的输出流
         //  默认情况下，输入流为memory
@@ -213,7 +219,7 @@ module.exports = merge([
       //  boolean | object
       //  当此属性设置为true或为object时，如果使用的HTML5 API 所有404页面会跳转到index.html
       //  使用的connect-history-api-fallback库 设置为对象，则会将此对象传参给connect-history-api-fallback库
-      historyApiFallback: false,
+      historyApiFallback: true,
 
       //  是否使用局域网IP打开页面
       useLocalIp: false,
