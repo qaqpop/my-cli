@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 //	引用config对象，因导出时为 module.exports.config 所以在此使用 { config }导入
 const { config }  = require('./config');
 
@@ -33,7 +34,86 @@ module.exports =  (isDev) => {
           test: /\.js(x?)$/,
           include: path.join(config.root, 'src'),
           loader: "babel-loader"
-        }
+        },
+        {
+          //  所有的.js文件都走babel-loader
+          test: /\.png$/,
+          loader: "file-loader"
+        },
+        {
+          //  解析.css文件
+          test: /\.css$/i,
+          use: [
+            {
+              loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: '../',
+              }
+            },
+            {
+              loader:  'css-loader',
+              options: {
+                // 是否解析  url/image-set 文件路径
+                // 党true时,会将相对路径的文件地址进行解析   url(yj.png) -> url(./yj.png)
+                //  默认为true,
+                url: true,
+
+                //  是否解析 @import 文件路径
+                //  当为true时,会将@import导入的css地址进行解析   @import 'app2.css' -> @import './app2.css'
+                //  默认为true,
+                import: true,
+
+                //  是否使用 ES modules ,默认为true
+                //  也可以设置为false 使用 common module
+                esModule: true,
+
+                //  是否显示映射信息,默认使用的webpack devtool属性
+                // sourceMap: true
+
+                //  使用@import之前应该应用多少loader
+                //  默认为0
+                //https://zhuanlan.zhihu.com/p/94706976
+                importLoaders: 2,
+
+                //  是否使用css-module
+                //  属性值可以为 boolean | local | global| object
+                //  当属性值为 true 或 local 时代表使用 css-module
+                //  当属性值为 false 或 global 时代表不使用css-module
+                //  object可以深度自定义
+                //  默认情况下当css文件名称以 module.css结尾，则代表时css-module
+                modules: {
+                  //  控制CSS编译级别
+                  //  module | icss 默认为 module
+                  compileType: 'module',
+
+                  //   哪些文件允许CSS Modules
+                  //  RegExp | boolean | path => boolean
+                  //  默认为true， 当为true时，使用 /\.module\.\w+$/i 正则匹配
+                  auto: /\.module\.\w+$/i,
+
+                  //  生成的本地标识名称
+                  //  默认为[hash:base64]
+                  localIdentName: '[path][name]__[local]--[hash:base64:5]',
+
+                  //  设置生成本地标识名时的基本加载程序上下文，默认为项目根目录
+                  localIdentContext: path.join(config.root, 'src'),
+
+                  //  asIs: 原始名称导出
+                  //  camelCase: 按照驼峰命名方式导出,但是不删除原始名称     驼峰+原始名称
+                  //  camelCaseOnly: 按照驼峰命名导出,删除原始名称          驼峰
+                  //  dashes: 只有“-”连接符被转换为驼峰方式.    不删除原始名称
+                  //  dashesOnly: 只有“-”连接符被转换为驼峰方式.    删除原始名称
+                  exportLocalsConvention: "camelCase",
+
+                  //  指定函数生成类名,其优先级高于localIdentName
+                  // getLocalIdent: (context, localIdentName, localName, options) => {
+                  //   return "whatever_random_class_name";
+                  // },
+                },
+              }
+            }
+          ],
+        },
       ]
     },
 
@@ -142,6 +222,11 @@ module.exports =  (isDev) => {
       }),
 
       new webpack.DefinePlugin({ "global_a": JSON.stringify("我是一个打包配置的全局变量") }),
+
+      new MiniCssExtractPlugin({
+        filename: isDev ? 'css/[name].css' : 'css/[name].css',
+        chunkFilename: isDev ? 'css/[name].css' : 'css/[name].css',
+      }),
     ],
 
     resolve: {

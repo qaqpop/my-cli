@@ -142,7 +142,7 @@ const webpack = require("webpack");
 
 在前面提到过在*development*预设了***devtool***属性，那么这个属性是什么呢。webpack是一个打包器，将我们开发的代码进行打包部署运行，但是打包的代码有这么一个问题：无法进行调试。
 
-应该都看到过打包生成的代码，那代码简直了。也就表示在调试排查时是一场噩梦。
+看到过打包生成的代码，那代码简直了。也就表示在调试排查时是一场噩梦。
 
 所以Google提供了一种工具叫做<font style="color:#f03d3d">source-map</font>，<font style="color:#f03d3d">source-map</font>提供一个映射信息，将转换后的代码与转换前所写的开发代码进行对应，以方便开发时调试代码
 

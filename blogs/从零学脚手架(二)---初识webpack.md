@@ -1,14 +1,44 @@
 ### webpack是什么
 
-在开始代码前，首先我觉得需要明白webpack到底是个什么东西，在几乎所有文章（包括官网）中都说webpack是一个<font style="color:#f03d3d">打包器</font>，用于打包所有资源。<font style="color:#f03d3d">打包器</font>的确是webpack的作用，但是对于不知道<font style="color:#f03d3d">打包器</font>的人来说这又是一个新概念，又会迷惑于什么是<font style="color:#f03d3d">打包器</font>，我以前也迷惑了好久
+#### 打包器的概念
 
-抛开webpack去看本质问题，在当前时代，前端起到的作用越来越大，对于写过mvc或者更早的jsp或asp的朋友可能更有体会，那时的前端只是作为展示作用。
+在使用<font style="color:cornflowerblue">webpack</font>之前，首先需要明白<font style="color:cornflowerblue">webpack</font>到底是个什么东西。
 
-随着移动端和Node的崛起，前端与后端开始了分离，前端开始独立起来，逐渐走入了前端工程化的步伐，其实所谓的工程化只不过是开发者的<font style="color:#f03d3d">约定规范</font>，因为这样可以大大提高开发和学习成本，但其实对于程序运行环境（浏览器/Node）来说代码只要能识别出，就完美可以执行，
+几乎所有文章（包括官网）中说<font style="color:cornflowerblue">webpack</font>是一个<font style="color:cornflowerblue">**打包器**</font>，用于打包所有资源。
 
-在开发者与执行环境之间就出现了差异，开发者想要更规范、更效率的编写代码，而执行环境需要能更快、兼容性越好的代码。这时候就需要一个桥梁，来架起开发者与执行环境之间的差异，然后就有了<font style="color:#f03d3d">打包器</font>
+<font style="color:cornflowerblue">webpack</font>的确是一个<font style="color:cornflowerblue">打包器</font>，但是对于不知道<font style="color:cornflowerblue">打包器</font>的新人来说这又是一个新概念。
 
-<font style="color:#f03d3d">**打包器就是一个将<font style="color:#007FFF">开发代码</font>编译成<font style="color:#007FFF">可部署代码</font>的编译器**	</font>。
+抛开<font style="color:cornflowerblue">webpack</font>去看问题本质。
+
+
+
+当前时代，前端起到的作用越来越大，对于写过<font style="color:cornflowerblue">MVC</font>或者更早的<font style="color:cornflowerblue">JSP</font>或<font style="color:cornflowerblue">ASP.NET</font>的朋友可能更有体会，那时的前端只是作为y展示作用。
+
+随着**移动端**和<font style="color:cornflowerblue">Node.JS</font>的崛起，前端与后端进行了分离，前端开始独立部署，逐渐走入了工程化的步伐。
+
+> :whale2:所谓工程化只不过是开发者的<font style="color:#f03d3d">约定规范</font>，<font style="color:#f03d3d">约定规范</font>可以大大提高开发和学习成本。但其实对于程序运行环境（浏览器/Node）来说代码只要没有**Error**，就可以运行，
+
+
+
+对于独立部署这个问题，前端就得做大量的工作。最容易考虑到的就是压缩。
+
+<font style="color:cornflowerblue">MVC</font>时代，压缩的工作都是由后端进行完成。但是对于独立部署的前端，这项工作就得由前端完成。
+
+还有逐渐更新的**JS**和**CSS**和需要兼容老版本的浏览器之间的矛盾，项目可读性管理等一系列问题。
+
+
+
+这些问题其实可以总结为<font style="color:#007FFF">可部署环境代码</font>和<font style="color:#007FFF">开发环境代码</font>之间的冲突。
+
+
+
+那么能不能提供一个桥梁来连接两种环境代码呢？最好能够提供一个***黑匣子***，能够让我们使用一个命令将<font style="color:#007FFF">开发环境代码</font>进行编译为<font style="color:#007FFF">可部署环境代码</font>
+
+
+
+<font style="color:cornflowerblue">打包器</font>就是这么一个***黑匣子***
+
+<font style="color:cornflowerblue">打包器</font>允许使用一个命令将<font style="color:#007FFF">开发环境代码</font>***编译***为<font style="color:#007FFF">可部署环境代码</font>
 
 
 
@@ -16,29 +46,47 @@
 
 
 
-将<font style="color:#007FFF">“开发代码”</font>编译为<font style="color:#007FFF">“可部署代码”</font>之间就有很多需求需要实现，CSS兼容、压缩、浏览器语法问题等等，而这些功能都是由打包器来完成。
+<font style="color:cornflowerblue">打包器</font>是个***黑匣子***这是对于大部分写业务的程序员来说的。
+
+但是对于项目搭建者，<font style="color:cornflowerblue">打包器</font>就得需要掌握，毕竟前端运行机制不像后端那样简单。前端不同的项目对<font style="color:#007FFF">可部署环境代码</font>的要求不一致，而这样就需要项目搭建者去完成，所以对于<font style="color:cornflowerblue">打包器</font>的了解也基本属于前端必修课。
+
+<font style="color:cornflowerblue">打包器</font>这玩意又是一个极度恶心的东西。诸位共勉吧。共同进步
 
 
 
-市面上也有好几个主流的打包工具：<font style="color:#f03d3d">grunt</font>，<font style="color:#f03d3d">gulp</font>，<font style="color:#f03d3d">webpack</font>，<font style="color:#f03d3d">rollup</font>，每一个都有各自的优缺点。目前主流的脚手架都是使用的<font style="color:#f03d3d">webpack</font> 所以我也是学习webpack，以webpack来学习脚手架
+
+
+#### webpack
+
+<font style="color:cornflowerblue">webpack</font>就属于一个<font style="color:cornflowerblue">打包器</font>工具。目前市面上也有好多其它主流的<font style="color:cornflowerblue">打包器</font>工具：[grunt](https://gruntjs.com/)，[gulp](https://gulpjs.com/)，[rollup](https://rollupjs.org/guide/en/)、还有尤大新开发[vite](https://vite-design.surge.sh/guide/chinese-doc.html)。每一个<font style="color:cornflowerblue">打包器</font>都有各自的优缺点。
+
+不过截止到目前最流行的还是<font style="color:cornflowerblue">webpack</font> 。所以我也是以<font style="color:cornflowerblue">webpack</font>作为学习和使用
 
 
 
-webpack是一个优秀的***JavaScript应用程序***的静态模块打包器。具有高度可配置的优势，前面说过：打包就是将开发代码编译成可发布代码，而不同的项目他们的对浏览器等要求不一样，例如有的要求兼容ie，有的直接只兼容google即可，所以不同的项目中打包需求不一样。所以webpack并没有提供一个全而大的打包器，而只是提供了一个<font style="color:#007FFF">**核心引擎**</font>， 只负责JS的打包，而其它功能则交给<font style="color:#f03d3d">**插件**</font>进行完成。 
-
-> :whale2::whale2:	 这里说的<font style="color:#f03d3d">**插件**</font>并不是指的webpack中的***plugins***，而是<font style="color:#f03d3d">**插件化**</font>的意思，为了避免与webpack中的<font style="color:#f03d3d">**plugins**</font>名称冲突，在文章中webpack中***plugins***统一叫做<font style="color:#f03d3d">**plugins**</font>，这里所说的插件统一叫做<font style="color:#f03d3d">**扩展**</font>
+<font style="color:cornflowerblue">webpack</font>是一个优秀的<font style="color:#f03d3d">***JavaScript应用程序***</font>的静态模块打包器，具有高度可配置的优势，但也被业界称为最麻烦之一。
 
 
 
- 开发人员只需要安装符合自己需求的*扩展*就可以达到自己的目的，而*扩展*则可以交给社区去完成。社区中具有大量的插件，相同功能的插件有的都有好多。所以，在学习webpack时，我个人建议转换一下思想： <font style="color:#f03d3d">**不要想这个东西是什么，而要想我们需要什么**	</font> 需要压缩，那么寻找压缩的插件，需要css打包，寻找关于css的插件。  只不过经过了这么多年的发展，已经挑选出了最优解，所以使用的都是指定的插件。就像现在所有虚拟机的JC算法设计都相同一样。
+前面说过：<font style="color:cornflowerblue">打包器</font>就是将<font style="color:#007FFF">开发环境代码</font>进行编译为<font style="color:#007FFF">可部署环境代码</font>。而不同的项目对<font style="color:#007FFF">可部署环境代码</font>的要求不一致。所以<font style="color:cornflowerblue">webpack</font>并没有提供一个全而大功能，而只是提供了一个<font style="color:#007FFF">**核心引擎**</font>， 只负责JS的打包，而其它功能进行<font style="color:#f03d3d">**插件化**</font>管理 。 
+
+> :whale2:::whale2::whale2: 这里说的<font style="color:#f03d3d">**插件化**</font>并不是指的<font style="color:cornflowerblue">webpack</font>中的***plugins***，而是***扩展***的意思，为了 避免和<font style="color:cornflowerblue">webpack</font>中***plugins***翻译歧义。<font style="color:cornflowerblue">webpack</font>中***plugins***在此不做翻译。
 
 
 
-在上一篇文章中讲到package文件中的<font style="color:#f03d3d">devDependencies</font>留了一个问题：什么是开发环境依赖，这里其实就可以总结出：<font style="color:#f03d3d">**部署之前的依赖环境，也就是构建工程化使用到的依赖环境**	</font> 。在判断其环境依赖时，可以思考一下，这个包是否是在浏览器中执行时所用的包，如果是，就添加到<font style="color:#f03d3d">dependencies</font>依赖，如果不是，就添加到<font style="color:#f03d3d">devDependencies</font>依赖
+开发人员在使用<font style="color:cornflowerblue">webpack</font>时，只需要寻找符合自己需求的***插件***就可以。***插件***则由社区开发。
+
+社区中具有海量的***插件***，相同功能的***插件***都有好多。所以，在学习<font style="color:cornflowerblue">webpack</font>时，我个人建议转换一下思想： <font style="color:#f03d3d">**不要想这个东西是什么，而要想我们需要什么**	</font>。根据自己需求去寻找合适的***插件***。
+
+只不过经过了这么多年的发展，大部分功能的***插件***已经具有了最优解，所以使用的都是固定的的***插件***。就像现在大部分语言运行环境的**GC算法**都是**引用跟踪算法**一样。
 
 
 
-> :whale2:	<font style="color:#f03d3d">构建工程化依赖环境</font>包括打包使用依赖、开发时的eslint、还有脚手架中使用的测试依赖
+在上一篇文章中讲到**package.json**文件中的**devDependencies**留了一个问题：*什么是开发环境依赖*。
+
+其实就可以总结出：<font style="color:#f03d3d">构建工程化依赖环境</font>时使用的依赖库。
+
+> :whale2:	<font style="color:#f03d3d">构建工程化依赖环境</font>包括<font style="color:cornflowerblue">打包器</font>、还有<font style="color:cornflowerblue">eslint</font>和<font style="color:cornflowerblue">单元测试库</font>
 
 
 
@@ -46,15 +94,17 @@ webpack是一个优秀的***JavaScript应用程序***的静态模块打包器。
 
 #### webpack安装
 
-在上篇文章已经安装了<font style="color:#f03d3d">webpack@5.14.0</font>包，所以只需要再安装<font style="color:#f03d3d">webpack-cli</font>即可,<font style="color:#f03d3d">webpack-cli</font>用于在命令行中运行webpack，如果不安装<font style="color:#f03d3d">webpack-cli</font>运行webpack命令时会提示安装<font style="color:#f03d3d">webpack-cli</font>
+在之前已经安装了[webpack@5.14.0](https://www.npmjs.com/package/webpack/v/5.24.0)依赖库，
+
+在这里只需要安装<font style="color:#f03d3d">webpack-cli</font>即可，<font style="color:#f03d3d">webpack-cli</font>作用是命令行运行
+
+如果不安装<font style="color:#f03d3d">webpack-cli</font>执行`webpack`命令时会提示安装<font style="color:#f03d3d">webpack-cli</font>
+
+> yarn add -D  webpack-cli@4.5.0     // 安装到**devDependencies**依赖。
 
 
 
-> yarn add -D  webpack-cli@4.2.0     // 安装到<font style="color:#f03d3d">devDependencies</font>依赖。
-
-
-
-然后在package文件中的***scripts***属性中加入一个<font style="color:#f03d3d">build：webpack</font>指令
+在**package.json**文件***scripts***属性中加入`build：webpack`命令
 
 <img src=".//images//image-02-02.png" width="400">
 
@@ -62,33 +112,53 @@ webpack是一个优秀的***JavaScript应用程序***的静态模块打包器。
 
 
 
-此时使用*yarn build*会执行webpack命令，虽然会因为我们没有配置而失败，但是webpack还是能运行的。诸君有兴趣的可以将<font style="color:#f03d3d">webpack-cli</font>包移除再build，会发现webpack无法运行，并且提示安装<font style="color:#f03d3d">webpack-cli</font>
+此时执行`yarn build`就会执行`webpack`命令，虽然会因为没有配置项而失败，但是<font style="color:cornflowerblue">webpack</font>还是能运行的。
+
+> :whale2:有兴趣的朋友可以将<font style="color:#f03d3d">webpack-cli</font>包移除再build，会发现webpack无法运行，并且提示安装<font style="color:#f03d3d">webpack-cli</font>
 
 
 
-接下来在根目录创建以下文件/目录
+接下来就开始创建简单的项目文件
 
 <img src=".//images//image-02-03.png" width="400">
 
+> :whale2: <font style="color:cornflowerblue">webpack</font>可以直接使用命令行参数打包文件，不过在此就不赘述，有兴趣的朋友可以参考官网
 
 
-* ***webpack.config.js***此文件是编写webpack配置的文件，webpack在执行时会去执行此文件，以此文件去进行打包
 
-  > :whale2:	根目录webpack.config.js 文件为一个默认约定文件，在你不指定配置文件时，便会执行根目录的这个文件，当然也可以使用参数去控制配置文件，也推荐使用参数配置，参数配置可以改变其目录和名称。
+***webpack.config.js***文件就是编写<font style="color:cornflowerblue">webpack</font>配置的代码文件，<font style="color:cornflowerblue">webpack</font>会去执行此文件，根据此文件配置信息进行打包
 
-  <img src=".//images//image-02-04.png" width="400">
+> :whale2:	根目录**webpack.config.js** 文件名称为一个**约定文件名称**，在不指定配置文件情况下，<font style="color:cornflowerblue">webpack</font>会执行根目录**webpack.config.js**文件。当然也可以使用参数指定配置文件，也推荐这样做，参数指令可以改变其目录和名称。
 
-* ***src***此目录作为工作目录，约定其目录为开发文件目录，当然目录名称可以随意，但是目前约定都是使用src这个名称。在src目录下拥有一个js文件，这个文件作为配置入口文件，在前面说过，webpack(打包器)是一个将开发代码编译为可发布代码类似的编译工具，所以必须具有入口（读取）和输出（写入），否则就不能称之为“桥梁”。在webpack配置中<font style="color:#f03d3d">entry</font>（入口）、<font style="color:#f03d3d">output</font>（输出）是必备的两个属性。在index.js就作为其入口文件，在主流的脚手架中都具有一个index.js文件
+<img src=".//images//image-02-04.png" width="400">
 
-接下来就可以在***webpack.config.js***编写配置项了
+
+
+***/src***目录为工作目录，此目录名称可以随意，但目前业界约定使用**src**。
+
+> :whale2::whale2: 约定大于配置
+
+
+
+***/src***下拥有一个**index.js**文件，这是一个<font style="color:cornflowerblue">entry（入口）</font>文件。
+
+<font style="color:cornflowerblue">打包器</font>作为一个将<font style="color:#007FFF">开发环境代码</font>***编译***为<font style="color:#007FFF">可部署环境代码</font>的桥梁，那么就必须存在至少拥有一个<font style="color:cornflowerblue">entry（开发环境代码）</font>和一个<font style="color:#007FFF">output（可部署环境代码）</font>
+
+**index.js**就做为这个<font style="color:cornflowerblue">entry（入口）</font>文件
+
+> :whale2: **index.js**文件名称也是约定
+
+
+
+接下来就可以编写配置项了
 
 > :whale2::whale2:
 >
-> * webpack是基于node.js运行的，  你写webpack不是在写<font style="color:#007FFF">**JS**</font>，而是在写<font style="color:#007FFF">**Node.JS**</font> 。所以webpack中的语法都是<font style="color:#007FFF">**Node.JS**</font> 语法。
+> * <font style="color:cornflowerblue">webpack</font>是基于<font style="color:cornflowerblue">Node.JS</font>运行，  所以写的**webpack配置项** 其实是<font style="color:#007FFF">**Node.JS**</font> 。
 >
-> * 在webpack中也会经常使用到node.js的基本包，例如使用<font style="color:#f03d3d">require('path')</font>来获取当前目录
-> * 打包器其实不一定非要使用node.js，也可以使用java、c#等任何一门语言
-> * 打包器其实就是IO操作，将<font style="color:#f03d3d">entry</font>（入口）文件数据读取并经过扩展的包装写入到<font style="color:#f03d3d">output</font>（输出）文件
+> * <font style="color:cornflowerblue">webpack</font>中会经常使用到<font style="color:cornflowerblue">Node.JS</font>的基础库，例如使用**require('path')**来获取当前目录
+> * 打包器其实不一定非要使用<font style="color:cornflowerblue">Node.JS</font>，也可以使用<font style="color:cornflowerblue">JAVA</font>、<font style="color:cornflowerblue">.NET</font>等任何一门语言
+> * 打包器其实就是***IO***操作，将<font style="color:cornflowerblue">entry（入口）</font>文件数据读取并经过一系列操作最终写入到<font style="color:cornflowerblue">output（出口）</font>文件
 
 
 
