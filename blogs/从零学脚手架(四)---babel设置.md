@@ -1,24 +1,18 @@
-接下来学习一个能愉快写代码的东西--<font style="color:#f03d3d">babel</font>，这是个什么东西，诸君请整理好思路看下去。
+接下来介绍一个打包编译过程中一个极为重要的工具--<font style="color:cornflowerblue">babel</font>。
 
 ### ES6的枷锁
 
-在之前各种打包测试时，都是使用**ES5**的简单特性，并没有使用过**ES6（ES2015+）**的特性（*import除外*）。
+细心的朋友可以知道，在之前打包编译测试都是使用简单的<font style="color:cornflowerblue">ES5</font>特性，并没有使用过<font style="color:cornflowerblue">ES6（ES2015+）</font>特性（**import**除外）
 
-自从**ES6**时代来临后，开发者编写代码越来越方便：箭头函数避免this、const和let块级作用域避免闭包问题等等。开发者使用**ES6**后基本都不会再想写**ES5**。
+<font style="color:cornflowerblue">webpack</font>本身不会处理代码中的<font style="color:cornflowerblue">ES6（ES2015+）</font>
 
-但是在前面提过，前端代码的执行环境（浏览器）版本是取决于用户，有的用户可能会一直不更新浏览器版本，	而新特性无法在那些浏览器运行。
+先来做一个测试
 
-介绍打包器时说过，打包器会完成这一系列操作。其实，在打包器打包环节，**ES6**特性转**ES5**特性操作其实是<font style="color:#f03d3d">babel</font>扩展完成的。
-
-
-
-先来测试之前webpack配置中所生成出来**ES6**特性
+在**/src/index.js**文件使用部分<font style="color:cornflowerblue">ES6（ES2015+）</font>，然后观察打包编译代码。
 
 <img src="./images/image-04-01.png" width="400">
 
-
-
-打包生成代码如下，可以看到并没有处理**ES6**特性，但是必须要处理这么特性，于是<font style="color:#f03d3d">babel</font>就诞生了
+此时使用`yarn build`执行打包代码就会看到：<font style="color:cornflowerblue">webpack</font>并没有处理<font style="color:cornflowerblue">ES6（ES2015+）</font>特性。
 
 <img src="./images/image-04-02.png" width="400">
 
@@ -28,93 +22,79 @@
 
 
 
-> :whale2::whale2::whale2: 测试生成的语句都是 ***yarn build***, 也就是 **devtool:none**, 使用***yarn start*** 代码不太好查看
->
-> 
->
-> :whale2::whale2:  ES6是ES2015之后的所有版本   有的文章会写成ES7、ES8这些，但是其实都是ES6。
->
-> 
->
-> :whale2: 上面代码使用到了ES2015的 **Promise**类型、**块级声明（const）**、**箭头函数**、**for-of语法**、**数组API**和ES2017的**await**,不了解这些的诸君可以看看阮一峰老师的[ES6入门教程](https://es6.ruanyifeng.com/)
+自从<font style="color:cornflowerblue">ES6（ES2015+）</font>时代来临后，前端才算具有了飞速发展。<font style="color:cornflowerblue">ES6（ES2015+）</font>各种特性也给开发人员带来了编译，毫不客气的说，现在没有人再想写<font style="color:cornflowerblue">ES5</font>代码了。
 
-:whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2:
+但是，前端代码的<font style="color:cornflowerblue">执行环境（浏览器）</font>是由用户决定的，如果用户一直使用旧版本浏览器，那么新特性就无法运行。
 
+那么就需要一种工具：将使用的<font style="color:cornflowerblue">ES6（ES2015+）</font>特性转换为<font style="color:cornflowerblue">ES5</font>特性
 
+这个工具就叫做：<font style="color:cornflowerblue">babel</font>
 
-### babel介绍
+> :whale2::whale2: :whale2:<font style="color:cornflowerblue">webpack</font>作为一个<font style="color:cornflowerblue">打包器</font>。为<font style="color:cornflowerblue">babel</font>提供了扩展支持。
 
-<font style="color:#f03d3d">babel</font>并不是仅仅是<font style="color:#f03d3d">webpack</font>的一个扩展。看起来<font style="color:#f03d3d">babel</font>没多少东西，只是将**ES6**转为**ES5**特性罢了，但是这里面的门门道道就多了。
+> :whale2::whale2:  <font style="color:cornflowerblue">ES6</font>是<font style="color:cornflowerblue">ES2015+</font>所有版本统称   有的文章会写成<font style="color:cornflowerblue">ES7</font>、<font style="color:cornflowerblue">ES8</font>。但其实都是<font style="color:cornflowerblue">ES6</font>。
 
-**ES6**的新语法，新API，还有扩展Typescript、JSX语法等等。。。。
-
-可以说**ES6**转**ES5**也是一个大坑，里面需要处理很多东西
-
-那么该怎么设计才是最好的选择呢，诸君可以在此思考一下
-
->:whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2:
-
->:whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2:
-
->:whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2:
+> :whale2: 上面代码使用到了<font style="color:cornflowerblue">ES6</font>的 **Promise类型**、**块级声明（const）**、**箭头函数**、**for-of语法**、**数组API**、**await**属性，不了解<font style="color:cornflowerblue">ES6</font>的朋友可以学习阮一峰老师的[ES6入门教程](https://es6.ruanyifeng.com/)
 
 
 
-答案就是与<font style="color:#f03d3d">webpack</font>设计思想一样，提供一个核心，然后以插件化扩展形式向外暴露
+### babel
 
-<font style="color:#f03d3d">babel</font>就是这样设计的，与<font style="color:#f03d3d">webpack</font>一样，<font style="color:#f03d3d">babel</font>提供了一个<font style="color:#007FFF">**核心引擎**</font>，然后提供插件化进行扩展。
+#### babel介绍
 
-这个<font style="color:#007FFF">**核心引擎**</font>库就是<font style="color:#f03d3d">@babel/core</font>
+<font style="color:cornflowerblue">babel</font>并不只是<font style="color:cornflowerblue">webpack</font>一个<font style="color:cornflowerblue">扩展插件</font>。而是一个可以独立运行的工具。
 
+<font style="color:cornflowerblue">ES6</font>来临后，前端开启了百花绽放的时代。从而也导致了<font style="color:cornflowerblue">ES6</font>转<font style="color:cornflowerblue">ES5</font>的工作并不仅仅局限于**JS**语言的原始特性。
 
-
-所以<font style="color:#f03d3d">babel</font>与<font style="color:#f03d3d">webpack</font>一样，是一个单独的存在，只不过所做的功能不一样。
-
-
-
-> :whale2: <font style="color:#f03d3d">babel</font>提供了一个<font style="color:#f03d3d">@babel/cli</font>库，这个库与<font style="color:#f03d3d">webpack-cli</font>功能一样，允许直接运行<font style="color:#f03d3d">babel</font>
->
-> ```javascript
-> {
->  "scripts": {
->   "build": "babel src -d lib"
-> }
-> }
-> ```
->
-> 但是在此就不去学习这一块的知识了，有兴趣的诸君可以去看一下[官网](https://www.babeljs.cn/docs/usage)
->
-> 
->
-> :whale2: <font style="color:#f03d3d">babel</font>也可以使用在任意打包器中
+例如：<font style="color:cornflowerblue">Typescript</font>、<font style="color:cornflowerblue">JSX</font>语法等等。
 
 
 
-在这里直接学习<font style="color:#f03d3d">webpack</font>中使用<font style="color:#f03d3d">babel</font>。
+所以<font style="color:cornflowerblue">babel</font>工具的设计思想也与<font style="color:cornflowerblue">webpack</font>一致：提供<font style="color:#06f">**核心引擎**</font> + <font style="color:#06f">**插件化**</font>的管理方式
 
-既然<font style="color:#f03d3d">babel</font>是一个独立的东西，那么又怎么在<font style="color:#f03d3d">webpack</font>中使用呢？
-
-
-
-在软件设计中有一种说法：解决耦合的问题就是再拆一层。其实这里跟这种说法有些雷同。只是这是将两个非耦合的连接起来，而连接起来的办法就是**适配器**。
-
-做一个<font style="color:#f03d3d">babel</font>适配器以便可以在<font style="color:#f03d3d">webpack</font>中使用。有后端经验的诸君会知道这是一种设计模式--**适配器模式**。没有后端经验的诸君可以参考电源适配器，就跟那个类似，或者去网上查看下相关资料。
-
-<font style="color:#f03d3d">babel</font>就提供了这么一种**适配器**：<font style="color:#f03d3d">babel-loader</font>，这是一个***loader***，在前面说过***loader***是将**非JS模块**转换为**JS模块**的转换器。<font style="color:#f03d3d">babel</font>看起来是将**JS模块**转换为**JS模块**，其实也并非如此，<font style="color:#f03d3d">babel</font>还支持TS、JSX等模块，只要<font style="color:#f03d3d">babel</font>处理这些模块就行
-
-所以<font style="color:#f03d3d">babel-loader</font>只是<font style="color:#f03d3d">@babel/core</font>的桥梁，调用它的API。真正执行的还是<font style="color:#f03d3d">@babel/core</font>引擎。
+<font style="color:cornflowerblue">babel</font>提供了一个<font style="color:#06f">**核心引擎**</font>库：[@babel/core](https://www.npmjs.com/package/@babel/core) 和 允许扩展插件库的设置。
 
 
 
-先来配置这两个库
+#### @babel/cli
 
-> yarn add -D babel-loader@8.2.2 @babel/core@7.12.10
+<font style="color:cornflowerblue">babel</font>其实并不是<font style="color:cornflowerblue">webpack</font>一个<font style="color:cornflowerblue">扩展插件</font>，它是一个独立的工具。可以进行单独配置、运行。
+
+<font style="color:cornflowerblue">babel</font>提供了一个[@babel/cli](https://www.npmjs.com/package/@babel/cli)库，与[webpack-cli](https://www.npmjs.com/package/webpack-cli)库一样，允许命令行直接运行<font style="color:cornflowerblue">babel</font>
+
+``` js
+{
+  "scripts": {
+	"build": "babel src -d lib"
+  }
+}
+```
+
+在此就不介绍<font style="color:cornflowerblue">@babel/cli</font>这一块的内容了，有兴趣的朋友可以去[官网](https://www.babeljs.cn/docs/usage)学习
+
+> :whale2::whale2::whale2: <font style="color:cornflowerblue">babel</font>作为一个独立工具，理论上可以配置在所以<font style="color:cornflowerblue">打包器</font>中。
 
 
 
-> :whale2: 在<font style="color:#f03d3d">babel@6.X</font>版本时，核心引擎的包名叫做<font style="color:#f03d3d">babel-core</font>，而从<font style="color:#f03d3d">babel@7.X</font>版本之后，官方提供的包都以<font style="color:#f03d3d">@babel/</font>为冠名，目的应该是区别于第三方包，有兴趣的的诸君可以在npm中对比下两个包的版本
+####  babel-loader
+
+<font style="color:cornflowerblue">babel</font>作为一个独立的工具，那么就肯定不能直接使用在<font style="color:cornflowerblue">webpack</font>中，毕竟它们的接口都不一致
+
+那么想要<font style="color:cornflowerblue">babel</font>执行在<font style="color:cornflowerblue">webpack</font>，就必须提供一个<font style="color:cornflowerblue">适配器</font>，来桥接两个库。
+
+而这个<font style="color:cornflowerblue">适配器</font>就是[babel-loader](https://www.npmjs.com/package/babel-loader)。
+
+<font style="color:#f03d3d">babel-loader</font>在<font style="color:cornflowerblue">webpack</font>执行时拦截需要转换文件，将文件代码先交给<font style="color:cornflowerblue">babel</font>进行转换，然后再传回<font style="color:cornflowerblue">webpack</font>执行接下来的操作。
+
+而<font style="color:#f03d3d">babel-loader</font>只是调用了<font style="color:#f03d3d">@babel/core</font>库中的API。最后执行的还是<font style="color:#f03d3d">@babel/core</font>引擎
 
 
+
+下面先安装<font style="color:#f03d3d">babel-loader</font>和<font style="color:#f03d3d">@babel/core</font>
+
+> yarn add -D babel-loader@8.2.2 @babel/core@7.13.1
+
+然后在**webpack.config.js**中配置所有的**.js**文件都使用<font style="color:#f03d3d">babel-loader</font>进行转换。
 
 ```javascript
 {
@@ -125,237 +105,219 @@
         test:/\.js$/,
         include: path.join(config.root,'src'),
         loader: "babel-loader",
-
       }
     ]
   },
 }
 ```
 
-代码中设置了所有的**.js**文件都走<font style="color:#f03d3d">babel-loader</font>这个***loader***，然后将**ES6**转换为**ES5**
+> :whale2: <font style="color:cornflowerblue">babel@6.X</font>版本时，<font style="color:#06f">**核心引擎**</font>库名为<font style="color:#f03d3d">babel-core</font>。从<font style="color:cornflowerblue">babel@7.X</font>版本之后，官方对库名称做了统一的修改，官方提供的包都以<font style="color:cornflowerblue">@babel/</font>为冠名，所以<font style="color:#f03d3d">babel-core</font>和<font style="color:#f03d3d">@babel/core</font>实际上是一个库 。有兴趣朋友可以在<font style="color:cornflowerblue">NPM</font>中对比下两个包的版本  ：[@babel/core](https://www.npmjs.com/package/@babel/core)、[babel-core](https://www.npmjs.com/package/babel-core)
 
-:whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2:
+> :whale2:后面会陆续加入其它文件执行<font style="color:#f03d3d">babel-loader</font>。例如：<font style="color:cornflowerblue">.ts</font>、<font style="color:cornflowerblue">.jsx</font>
 
-
-
-### @babel/preset-env 介绍
-
-<font style="color:#f03d3d">@babel/core</font>只是一个**执行引擎**，并不会去转换代码。要想转换代码，必须设置对应的**plugin**。
+但是目前依然无法转换<font style="color:cornflowerblue">ES6（ES2015+）</font>代码。因为只添加了<font style="color:cornflowerblue">引擎（@babel/core）</font>，并没有添加具体转换库。
 
 
 
-先看这个plugin：<font style="color:#f03d3d">@babel/preset-env</font>
+#### @babel/preset-env
+
+先来介绍一下[@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)库，来完成部分转换功能。
+
+<font style="color:#f03d3d">@babel/preset-env</font>是<font style="color:cornflowerblue">babel </font>***预设***的一个<font style="color:cornflowerblue">plugin</font>
+
+> yarn add -D @babel/preset-env@7.13.5
 
 
 
-> yarn add -D @babel/preset-env@7.12.11
-
-
-
-这是一个什么**plugin**呢，请诸君跟着思路接着走下去
-
-
-
-在***loader***设置项时，其实还有一个选项，那就是**options**，也就是设置当前**loader**的附加使用选项。每一个***loader***的**options**都不尽相同。不过多数都有一个共同的设置，那就是**plugins**，也就是当前***loader***使用到的**plugin**。
+在配置<font style="color:cornflowerblue">loader</font>时，可以设置当前<font style="color:cornflowerblue">loader</font>使用的属性和依赖库。<font style="color:#f03d3d">babel-loader</font>中具有一个**presets**属性来依赖的<font style="color:cornflowerblue">预设插件（preset）</font>
 
 ```javascript
 {
-   module:{
-    rules:[
-      {
-        //  所有的.js文件都走babel-loader
-        test:/\.js$/,
-       	include: path.join(config.root,'src'),
-        loader: "babel-loader",
-        options: {
-          presets:[
-            "@babel/preset-env",
-          ]
-        }
-
-      }
-    ]
+    module:{
+        rules:[
+            {
+                //  所有的.js文件都走babel-loader
+                test:/\.js$/,
+                include: path.join(config.root,'src'),
+                loader: "babel-loader",
+                options: {
+                    presets:[
+                        "@babel/preset-env",
+                    ]
+                }
+            }
+        ]
+    }  
 }
 ```
 
-看到代码诸君可能会有些疑惑，不是**plugins**吗？怎么是**presets**。诸君请听我慢慢道来。
+> :whale2::whale2: **presets**的执行是从后往前执行的，官方说为了确保向后兼容
 
-<font style="color:#007FFF">preset</font>的中文翻译是：预设、预置。
+> :whale2: **presets**配置可以设置短名称，
+>
+> 1. <font style="color:cornflowerblue">preset</font>库名称以**babel-preset-**前缀，可以省去前缀。 例如：**babel-preset-my-custom**，可以直接设置为：**custom**
+> 2. 短名称也适用于冠名，例如：**@org/preset-env**，可以设置为：**@org/env**
+>
 
- 也就是**presets**属性是<font style="color:#f03d3d">@babel/core</font>自己约定的一个属性，就是<font style="color:#f03d3d">babel</font>给开发人员预置了许多常用**plugin**，将这些**常用plugin**根据某些规则进行封装为一个库，以便可以方便配置。
 
-所有的**preset**库都应该应该**preset**，（官方的都具有**preset**，自定义的如果有人不按照规则则没有**preset**）   配置在**presets**参数中
 
-这些预设plugin的库名称都有**preset**词语。当然也可以使用真正的plugin，设置在**plugins**中
+此时执行`yarn build`操作后生成的代码就会处理<font style="color:cornflowerblue">部分ES6（ES2015+）</font>
 
-```javascript
- options: {
-          presets:[
-            "@babel/preset-env",
-          ],
-          plugins:[]
-        }
+<img src="./images/image-04-04.png" width="400">
+
+生成代码中可以看到：**await**、**for-of**、**const** 这些<font style="color:cornflowerblue">ES6</font>代码被转换了。
+
+> :whale2: 代码中的那堆 **case** 语句，是**await**  <font style="color:cornflowerblue">ES5</font>的写法。**await** 本质只是一个 ***将异步同步化***的<font style="color:cornflowerblue">状态机</font>。不熟悉 **await** 机制的朋友可以忽略，只需知道代码为**await**语法<font style="color:cornflowerblue">ES5</font>写法即可。
+
+
+
+但细心的朋友朋友可以发现，并不是所有的<font style="color:cornflowerblue">ES6</font>特性被转换了。
+
+还有部分<font style="color:cornflowerblue">ES6</font>特性并没有被转换（**promise**、**includes**、**filter**），并且代码被一个**箭头函数**包裹着。
+
+代码被箭头函数包裹这个问题稍后在解决。
+
+先来了解下为什么有的<font style="color:cornflowerblue">ES6</font>没有被转换。
+
+> :whale2: <font style="color:#f03d3d">@babel/preset-env</font>取代了<font style="color:cornflowerblue">preset-es20**</font>系列的<font style="color:cornflowerblue">预设插件（preset）</font>
+
+> :whale2: 目前打包生成代码无法在浏览器运行，缺少**regeneratorRuntime**
+
+
+
+#### Syntax和API
+
+思考一个问题：刚才***被转换***的<font style="color:cornflowerblue">ES6</font>特性与***未被转换***的<font style="color:cornflowerblue">ES6</font>特性有何不同。
+
+答案是***被转换***的<font style="color:cornflowerblue">ES6</font>特性是<font style="color:#06f">**Syntax（语法）**</font>，而为被转换的是<font style="color:#06f">**API（类型、函数）**</font>
+
+<font style="color:cornflowerblue">babel</font>编写<font style="color:cornflowerblue">预设插件（preset）</font>库时将<font style="color:#06f">**Syntax（语法）**</font>和<font style="color:#06f">**API（类型、函数）**</font>进行了分别处理。
+
+
+
+为什么要这样做呢？
+
+原因是两者本质的不同：<font style="color:#06f">**Syntax（语法）**</font>是***一个语言本身客观存在的事实***，而<font style="color:#06f">**API（类型、函数）**</font>，则只是***对一系列操作的封装***
+
+当<font style="color:cornflowerblue">执行环境</font>不支持某<font style="color:#06f">**Syntax（语法）**</font>时，那么就必须使用其它<font style="color:#06f">**Syntax（语法）**</font>进行替换。
+
+而<font style="color:cornflowerblue">执行环境</font>中没有某<font style="color:#06f">**API（类型、函数）**</font>时，可以使用自己编写的<font style="color:#06f">**API（类型、函数）**</font>进行替代。
+
+> :whale2:  **JS**中<font style="color:#06f">**Syntax（语法）**</font>错误提示是：<font style="color:#f03d3d">Uncaught SyntaxError</font>；<font style="color:#06f">**API（类型、函数）**</font>错误提示是：<font style="color:#f03d3d">Uncaught ReferenceError</font>。
+
+<font style="color:#f03d3d">@babel/preset-env</font>只是<font style="color:cornflowerblue">babel</font>提供处理<font style="color:#06f">**Syntax（语法）**</font>的<font style="color:cornflowerblue">预设插件（preset）</font>
+
+至于<font style="color:#06f">**API（类型、函数）**</font>的处理，则是由其它<font style="color:cornflowerblue">插件</font>处理的。
+
+
+
+#### babel配置形式
+
+在处理<font style="color:#06f">**API（类型、函数）**</font>之前，先介绍下<font style="color:cornflowerblue">babel</font>配置文件。
+
+刚才在配置<font style="color:#f03d3d">@babel/preset-env</font>时，直接配置在了<font style="color:cornflowerblue">babel-loader</font>中**presets**属性。
+
+除了<font style="color:cornflowerblue">babel-loader</font>，<font style="color:#f03d3d">@babel/core</font>还支持其它方式进行配置
+
+
+
+#####  package.json
+
+<font style="color:#f03d3d">@babel/core</font>支持在**package.json**文件设置
+
+**package.json**文件**babel**属性设置<font style="color:cornflowerblue">babel 插件</font>
+
+<font style="color:#f03d3d">@babel/core</font>执行时会尝试读取此属性。
+
+```json
+ "babel": {
+   "presets": [
+     "@babel/preset-env"
+   ],
+   "plugins": [
+   ]
+ }
 ```
 
 
 
+#####  配置文件
 
+<font style="color:cornflowerblue">babel</font>支持使用配置文件设置。
 
-> :whale2::whale2: preset的执行是按照*presets*设置的倒序执行，这个官方说主要是为了确保向后兼容
+这种方式与**webpack.config.js**文件一样，使用<font style="color:#007FFF">.**约定文件名称**</font>设置。<font style="color:#f03d3d">@babel/core</font>执行时会尝试读取<font style="color:#007FFF">.**约定文件**</font>。
 
+<font style="color:#007FFF">.**约定文件名称**</font>可以为**babel.config.js**或**.babelrc.json**。 较为常用的是**.babelrc.json**。不过一般都会省略后缀， 名称叫做***.babelrc***
 
-
-> :whale2: presets参数配置可以设置短名称，
->
-> 1. 如果preset以**babel-preset-**为前缀，则可以省去前缀。 例如*babel-preset-my-custom*，可以设置为*custom*
-> 2. 也适用于冠名的，例如*@babel/preset-env*，也可以设置为*@babel/env*
->
-> 
+<img src="./images/image-04-05.png" width="400">
 
 
 
-下面来看看代码结果
+**package.json**形式和**配置文件**形式 只能选择一种形式设置。如果同时存在会直接报错。
 
-<img src="./images/image-04-04.png" width="400">
+<img src="./images/image-04-06.png" width="400">
 
-
-
-可以看到生成的代码中**await**、**for-of**、**const**都不见了，倒是出现了许多**case**，这个是**await**转换为的ES5语法，await本身就是异步同步化的状态机，如果不认识的诸君可以忽略，只需要知道是将**await**转换为**ES语法**就行了，
-
-看起来挺完美，但是如果细心的诸君，可以看出有问题，还是大问题：
-
-1. 顶部竟然还有箭头函数
-2. 写的好几个ES6特性都没有被转换：**Promise**、**includes**、**filter**
-
-第一个问题放在后面说，先来看看第二个问题，诸君请思考一下，被完成转换的是什么，被忽略转换的是什么
+<font style="color:cornflowerblue">babel-loader</font>的优先级高于其他两种方式
 
 
 
-答案是被转换的是**ES6语法（syntax）**，未转换的是**类型和函数（API）**，也就是<font style="color:#f03d3d">babel</font>将两者分开处理了，为什么要分开呢？诸君可以再思考下。
+##### 参数设置
 
+在使用<font style="color:cornflowerblue">plugin/preset</font>时，可以进行设置自定义参数。
 
+不过参数形式有些奇葩。
 
-其实就是两者的不同，**语法（syntax）**属于***语言本身客观存在的事实***。而**类型和函数（API）**则是封装了一系列**操作**。
+<font style="color:cornflowerblue">plugin/preset</font>与参数存在于一个数组内，第一个为<font style="color:cornflowerblue">plugin/preset</font>，第二个为自定义参数
 
+```javascript
+{
+  "presets": [
+     ["@babel/preset-env", {
+          "targets": "defaults"
+     }]
+  ],
+  "plugins": [
+  ]
+}
+```
 
-
-运行环境如果不支持当前**语法（syntax）**，那么就必须换一种语法，没有第二种选择；而如果运行环境没有当前**类型和函数（API）**，那就有两种方案了。
-
-一：同语法（syntax）转换一样，转换成运行环境支持的*API*。
-
-二 创建一个与系统默认相同名称和功能的的**API**，运行时直接运行自定义的也可以
-
-
-
-> :whale2:  JS中语法（syntax）错误提示是：<font style="color:#f03d3d">Uncaught SyntaxError</font>，API错误提示是：<font style="color:#f03d3d">Uncaught ReferenceError</font>。有兴趣的诸君可以在浏览器控制台中测试一下。
-
-
-
-诸君思考一下，哪个方案比较好。答案明显第二种方案，只需要将**ES6-API**写一遍。然后在项目中导入。
-
-看起来是不是一个很棒的设计。没错，<font style="color:#f03d3d">babel</font>就是这样设计的。<font style="color:#f03d3d">@babel/preset-env</font>库的作用就是转换**ES6**语法。而API操作，则是交给别的库完成。这种库被称为**垫片**
-
-> :whale2:<font style="color:#f03d3d">@babel/preset-env</font>这个预设插件取代了<font style="color:#f03d3d">preset-es20**</font>系列的预设插件，减少了繁琐的配置项
-
-> :whale2: 目前在浏览器中无法运行，如果诸君运行出现 *regeneratorRuntime未定义*，切莫慌忙。
-
-:whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2:
-
-
-
-### babel配置
-
-刚才将<font style="color:#f03d3d">@babel/preset-env</font>设置在了**loader**的**options**中，<font style="color:#f03d3d">@babel/core</font>还支持另外两种配置方式，
-
-1. 配置在***package.json***文件中，在**package.json**文件中**babel**属性设置，
-
-   ```json
-    "babel": {
-      "presets": [
-        "@babel/preset-env"
-      ],
-      "plugins": [
-      ]
-    }
-   ```
-
-2. 单独的配置文件。这种方式与**webpack.config.js**类似，使用**约定名称**的文件进行设置。约定名称可以为**babel.config.js**或**.babelrc.json**。一般使用的就是这种方式进行配置。名称一般都是使用**.babelrc.json**，不过一般都会省略.json的后缀，叫做：<font style="color:#007FFF">.babelrc</font>
-
-   <img src="./images/image-04-05.png" width="400">
+> :whale2::whale2::whale2:   以下会使用**配置文件**方式，所以一定要把<font style="color:cornflowerblue">babel-loader</font>中的设置删除掉。否则会因为优先级问题而失效。:我刚开始就因为没有删除被耽误了一天。
 
    
 
-   > 配置package.json文件和配置文件两种方式只能选一种，如果两种都使用会直接报错，配置在**loader**中的可以与这两种同时存在，会优先使用**loader**中
-   >
-   > <img src="./images/image-04-06.png" width="400">
+   #### 转换API（类型、函数）
+
+   ##### 设置低版本浏览器
+
+ 在转换<font style="color:#06f">**API（类型、函数）**</font>时要进行测试。
+
+而开发人员基本上使用的都是新版浏览器，所以需要具有一个不支持<font style="color:cornflowerblue">ES6</font><font style="color:#06f">**API（类型、函数）**</font>的浏览器。
+
+一般<font style="color:cornflowerblue">ES6</font>的新特性，都已经不再支持<font style="color:cornflowerblue">IE浏览器</font>了。所以<font style="color:cornflowerblue">IE浏览器</font>是一个天然的测试对象。=
+
+  例如<font style="color:cornflowerblue">ES6</font>**Promise**类型，就不再支持<font style="color:cornflowerblue">IE浏览器</font>
+
+<img src="./images/image-04-07.png" width="400">
+
+
+
+<font style="color:cornflowerblue">win 10</font>系统携带的<font style="color:cornflowerblue">IE浏览器</font>版本一般都为<font style="color:cornflowerblue">IE11</font>。<font style="color:cornflowerblue">IE浏览器</font>支持对版本进行修改<font style="color:cornflowerblue">IE浏览器</font>
+
+**F12-开发者模式--仿真--文档模式** 可以修改<font style="color:cornflowerblue">IE浏览器</font>版本，在这里使用的版本为<font style="color:cornflowerblue">IE9</font>
+
+<img src="./images/image-04-08.png" width="400">
+
+
 
    
 
-   
+##### 处理箭头函数包裹
 
-   使用**plugin**时，还可以给**plugin**设置参数，设置参数的写法有些奇怪
+在刚才打包编译时，发现生成的代码使用了一个**箭头函数**包裹。
 
-   **plugin**与参数写到一个数组中，*下标0的为plugin*，*下标1的为参数*，一种比较奇怪的写法。具体参数意义下面再说
+这个**箭头函数**函数是打包生成出来的。具体原因没有排查，在这里只介绍处理方案。
 
-   ```javascript
-   {
-     "presets": [
-        ["@babel/preset-env", {
-             "targets": "defaults"
-        }]
-     ],
-     "plugins": [
-     ]
-   }
-   ```
-
-   
-
-   > :whale2::whale2::whale2: 
->
-   > 下面全部使用配置文件形式，一定要把**loader**中的**options**进行删除，切记，切记，切记，我就被这玩意坑了1天多。
-
-   
-
-   :whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2:
-
-   
-
-   ### 处理ES6-API
-
-   
-
-   #### 设置低版本浏览器
-
-   测试**ES6-API**时导入，需要一个不支持ES6的低版本浏览器（如果自身浏览器版本过老可以忽略此操作），
-
-   在此使用IE浏览器测试，现在很多ES6特性已经不再支持IE，正好可以用来测试
-
-   例如**promise**，就不支持IE浏览器
-
-   
-
-   <img src="./images/image-04-07.png" width="400">
-
-    并且一般win10默认自带的为*IE11*，IE浏览器还支持修改版本，
-
-   在F12**开发者模式--仿真--文档模式** 中可以修改IE版本，在这里使用**IE9**
-
-   <img src="./images/image-04-08.png" width="400">
-
-   
-
-   
-
-   
-
-   在设置好测试环境后，还需要处理一个东西。
-
-   
-
-   诸君还记否刚才留了一个小问题：顶部具有一个箭头函数。这个箭头函数并不是代码编写的，而是生成出来的。处理一下这个箭头函数。
-
-   在**package.json**文件中添加一个**browserslist**属性
+在**package.json**文件中添加**browserslist**属性，设置打包代码支持<font style="color:cornflowerblue">IE9</font>浏览器。
 
    ```json
    "browserslist": [
@@ -363,19 +325,15 @@
      ]
    ```
 
-   这个属性代表打包的代码必须支持IE9，这个属性还可以用于CSS，后面会详细介绍
+> :whale2: **browserslist**属性是[browserslist](https://www.npmjs.com/package/browserslist)库提供的一个属性，<font style="color:#f03d3d">browserslist</font>是提供浏览器版本支持的库。多个库中都依赖了<font style="color:#f03d3d">browserslist</font>。  <font style="color:#f03d3d">browserslist</font>库详情在下一篇介绍。
 
-   
+此时使用`yarn build`执行打包编译，生成代码就不再由**箭头函数**包裹
 
-   现在打包生成的就没有箭头函数了
+<img src="./images/image-04-09.png" width="400">
 
-   <img src="./images/image-04-09.png" width="400">
 
-   
 
-   
-
-   #### regenerator-runtime和core-js
+   ##### regenerator-runtime和core-js
 
    在打完包后的代码为什么一直无法运行呢？ 这是因为缺少了<font style="color:#f03d3d">regenerator-runtime</font>库 ，
 
