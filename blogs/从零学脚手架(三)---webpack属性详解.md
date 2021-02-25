@@ -504,59 +504,59 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-* **keep_fnames**：是否保留原始函数名称
-
-  刚才测试看到了，默认情况下会更改函数名称，此属性就是设置是否保留函数名称。
-
-  属性可设置为：*Boolean*
-
-  属性值为***false***：表示不保留原始名称
-
-  属性值为***true***：表示保留原始名称
-
-  默认值为***false***
-
-  
-
-* **keep_classnames**： 是否保留原始类名称  
-
-  与**keep_fnames**属性类似，只不过设置的是类名称
-
-  属性可设置为：*Boolean*
-
-  属性值为***false***：表示不保留原始名称
-
-  属性值为***true***：表示保留原始名称
-
-  默认值为***false***
-
-  
-
-* **compress**：设置压缩选项
-
-  属性可设置为：*Boolean*、*Object*
-
-  属性值为***false***：表示不压缩。
-
-  属性值为***object***：自定义压缩设置。
-
-  
-
-* **format/output**：指定压缩格式。例如是否保留*注释*，是否始终为*if*、*for*等设置大括号。
-
-  **format**和**output**的配置相同。**output**官方不再推荐使用。这个属性就不介绍，具体请参考[官方](https://github.com/terser/terser#format-options)  
-
-  属性可设置为：*Object*
-
-  默认值为***null***
-
-  
-
-* **ie8**：是否支持IE8
-
-  属性可设置为：*Boolean*
-
-  默认值为***false***
+> * **keep_fnames**：是否保留原始函数名称
+>
+>   刚才测试看到了，默认情况下会更改函数名称，此属性就是设置是否保留函数名称。
+>
+>   属性可设置为：*Boolean*
+>
+>   属性值为***false***：表示不保留原始名称
+>
+>   属性值为***true***：表示保留原始名称
+>
+>   默认值为***false***
+>
+>   
+>
+> * **keep_classnames**： 是否保留原始类名称  
+>
+>   与**keep_fnames**属性类似，只不过设置的是类名称
+>
+>   属性可设置为：*Boolean*
+>
+>   属性值为***false***：表示不保留原始名称
+>
+>   属性值为***true***：表示保留原始名称
+>
+>   默认值为***false***
+>
+>   
+>
+> * **compress**：设置压缩选项
+>
+>   属性可设置为：*Boolean*、*Object*
+>
+>   属性值为***false***：表示不压缩。
+>
+>   属性值为***object***：自定义压缩设置。
+>
+>   
+>
+> * **format/output**：指定压缩格式。例如是否保留*注释*，是否始终为*if*、*for*等设置大括号。
+>
+>   **format**和**output**的配置相同。**output**官方不再推荐使用。这个属性就不介绍，具体请参考[官方](https://github.com/terser/terser#format-options)  
+>
+>   属性可设置为：*Object*
+>
+>   默认值为***null***
+>
+>   
+>
+> * **ie8**：是否支持IE8
+>
+>   属性可设置为：*Boolean*
+>
+>   默认值为***false***
 
 
 
