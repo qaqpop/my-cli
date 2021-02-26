@@ -331,19 +331,21 @@ const TerserPlugin = require('terser-webpack-plugin');
     minimize: true,
     minimizer: [
       new TerserPlugin({
-         //  包含哪些文件
+        //  指定压缩的文件
         include: /\.js(\?.*)?$/i,
-        // //  排除哪些文件
+          
+        // 排除压缩的文件
         // exclude:/\.js(\?.*)?$/i,
-        //  多进程并行运行，默认为true，开启，默认并发数量为os.cpus()-1
+          
+        //  是否启用多线程运行，默认为true，开启，默认并发数量为os.cpus()-1
         //  可以设置为false(不使用多线程)或者数值（并发数量）
         parallel: true,
 
-        //  可以设置一个function，使用其它压缩plugin覆盖当前的压缩plugin，默认为undefined，
+        //  可以设置一个function，使用其它压缩插件覆盖默认的压缩插件，默认为undefined，d，
         minify: undefined,
 
-        //  是否将注释提出到单独的文件中
-        //  值Boolean|String|RegExp|Function<(node, comment) -> Boolean|Object>|Object
+        //  是否将代码注释提取到一个单独的文件。
+        //  属性值：Boolean | String | RegExp | Function<(node, comment) -> Boolean|Object> | Object
         //  默认为true， 只提取/^\**!|@preserve|@license|@cc_on/i注释
         //  感觉没什么特殊情况直接设置为false即可
         extractComments: false,
@@ -432,9 +434,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 <img src="./images/image-03-05.png" width="400">
 
-使用默认压缩配置进行打包，结果可以看到生成的代码只有真实执行的那两句。
+使用默认压缩配置进行打包，结果可以看到生成的代码只有真实执行的代码。
 
-所以其实默认配置中，<font style="color:#f03d3d">terser-webpack-plugin</font>基本上做到了最优解。
+默认<font style="color:#f03d3d">terser-webpack-plugin</font>配置基本上做到了最优解。
 
 <img src="./images/image-03-06.png" width="400">
 
@@ -444,9 +446,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 
-接下来来一个测试，在**terserOptions**对象中***compress***属性，这个才是真正的压缩配置。
+<font style="color:#f03d3d">terser-webpack-plugin</font>配置属性中：**terserOptions.compress**属性才是控制压缩。
 
-**terserOptions.compress** 设置类型为 **Boolean**、**Object**。下面来将此属性设置为***false***。再查看打包结果
+**terserOptions.compress** 设置类型为 **Boolean**、**Object**。
+
+接下来将此属性设置为***false***。查看打包结果
 
 ```javascript
 {
@@ -465,7 +469,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-可以发现，生成代码只改变了属性名称和函数函数
+可以发现，代码并没有被压缩，只是改变了属性名称和函数函数
 
 <img src="./images/image-03-07.png" width="400">
 
@@ -484,19 +488,24 @@ const TerserPlugin = require('terser-webpack-plugin');
       new TerserPlugin({
           //  压缩时的选项设置
           terserOptions: {
-              //  是否防止篡改函数名称，true代表防止篡改，即保留函数名称，false即可以篡改，
+              //  是否保留原始函数名称，true代表保留，false即保留
               //  此属性对使用Function.prototype.name
               //  默认为false
               keep_fnames:false,
-              //  是否防止篡改类名称
+              
+              // 是否保留原始类名称
               keep_classnames:false,
-              //  ·压缩配置
-              compress: {  },
+            
               //  format和output是同一个属性值，，名称不一致，output不建议使用了，被放弃
-              format:{comments:true},
-              output:null,
+              // 指定压缩格式。例如是否保留*注释*，是否始终为*if*、*for*等设置大括号。
+              format: {comments:true},
+              output: undefined,
+              
               //  是否支持IE8，默认不支持
               ie8:true,
+              
+                //  ·压缩配置
+              compress: {  },
         }
       })
     ]
@@ -516,7 +525,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 >
 >   默认值为***false***
 >
->   
+> 
 >
 > * **keep_classnames**： 是否保留原始类名称  
 >
@@ -530,18 +539,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 >
 >   默认值为***false***
 >
->   
->
-> * **compress**：设置压缩选项
->
->   属性可设置为：*Boolean*、*Object*
->
->   属性值为***false***：表示不压缩。
->
->   属性值为***object***：自定义压缩设置。
->
->   
->
 > * **format/output**：指定压缩格式。例如是否保留*注释*，是否始终为*if*、*for*等设置大括号。
 >
 >   **format**和**output**的配置相同。**output**官方不再推荐使用。这个属性就不介绍，具体请参考[官方](https://github.com/terser/terser#format-options)  
@@ -550,13 +547,23 @@ const TerserPlugin = require('terser-webpack-plugin');
 >
 >   默认值为***null***
 >
->   
+> 
 >
 > * **ie8**：是否支持IE8
 >
 >   属性可设置为：*Boolean*
 >
 >   默认值为***false***
+>   
+>   
+>   
+> * **compress**：设置压缩选项
+>
+>   属性可设置为：*Boolean*、*Object*
+>
+>   属性值为***false***：表示不压缩。
+>
+>   属性值为***object***：自定义压缩设置。
 
 
 
@@ -572,21 +579,25 @@ const TerserPlugin = require('terser-webpack-plugin');
           //  压缩时的选项设置
           terserOptions: {
                 compress: {
-                // 是否使用默认设置，这个属性当只启用指定某些选项时可以设置为false
-                //	默认为true
-                defaults:true,
-                //  是否移除无法访问的代码,默认为true
-                dead_code:true,
+                   // 是否使用默认配置项，这个属性当只启用指定某些选项时可以设置为false
+                  defaults: false,
+                  // 是否移除无法访问的代码
+                  dead_code: false,
 
-                // 折叠仅仅使用一次的变量,默认为true
-                collapse_vars:true,
-                //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
-                drop_console:true,
-                //  是否删除所有debugger语句，默认为true
-                drop_debugger:true,
-                //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
-                pure_funcs: ['console.log'], //移除console
-          }
+                  // 是否优化只使用一次的变量
+                  collapse_vars: true,
+
+                  warnings: true,
+
+                  //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
+                  drop_console: false,
+
+                  //  是否删除所有debugger语句，默认为true
+                  drop_debugger: true,
+
+                  //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
+                  // pure_funcs: ['console.log'], //移除console
+          	}
         }
       })
     ]
@@ -648,7 +659,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 <font style="color:#f03d3d">terser-webpack-plugin</font>配置项还有好多，但是一般使用默认属性即可，几乎不需要任何配置。
 
-> :whale2::whale2: 暂时先将**optimization.minimize**属性设置**false**,以便可以更好的观察代码2: 
+> :whale2::whale2: 暂时先将**optimization.minimize**属性设置**false**，可以更方便的查看生成代码
 
 
 
@@ -1003,14 +1014,14 @@ const modules = {
   //   'index':  path.join(config.root, 'src/index.js'),
   // },
 
-  //  出口文件
+  //  输出文件
   //  字符串形式
   // output:path.join(config.root, './dist/[name].js')
   //对象形式
   output: {
-    //  出口文件的目录地址
+    //  输出文件的目录地址
     path: path.join(config.root, 'dist'),
-    //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
+    //  输出文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
     filename: '[name]_[contenthash].js'
   },
 
@@ -1043,103 +1054,120 @@ const modules = {
     minimize: false,
     minimizer: [
       new TerserPlugin({
-        //  包含哪些文件
-        include:  /\.js(\?.*)?$/i,
-        // //  排除哪些文件
+        //  指定压缩的文件
+        include: /\.js(\?.*)?$/i,
+          
+        // 排除压缩的文件
         // exclude:/\.js(\?.*)?$/i,
-        //  多进程并行运行，默认为true，开启，默认并发数量为os.cpus()-1
+          
+        //  是否启用多线程运行，默认为true，开启，默认并发数量为os.cpus()-1
         //  可以设置为false(不使用多线程)或者数值（并发数量）
-        parallel:true,
+        parallel: true,
 
         //  可以设置一个function，使用其它压缩插件覆盖默认的压缩插件，默认为undefined，
-        minify:undefined,
+        minify: undefined,
+          
+        //  是否将代码注释提取到一个单独的文件。
+        //  属性值：Boolean | String | RegExp | Function<(node, comment) -> Boolean|Object> | Object
+        //  默认为true， 只提取/^\**!|@preserve|@license|@cc_on/i注释
+        //  感觉没什么特殊情况直接设置为false即可
+        extractComments: false,
 
+        // 压缩时的选项设置
         terserOptions: {
-          // //  是否防止篡改函数名称，true代表防止篡改，即保留函数名称，false即可以篡改，
-          // //  此属性对使用Function.prototype.name
-          // //  默认为false
+          //  是否保留原始函数名称，true代表保留，false即保留
+          //  此属性对使用Function.prototype.name
+          //  默认为false
           keep_fnames:false,
-          // //  是否防止篡改类名称
+            
+          // 是否保留原始类名称
           keep_classnames:false,
-          // //  设置一些其它的解析
-          parse: {},
-          //  最小化es6模块。默认为false
-          module:true,
-          //  ·压缩配置
-
+            
           //  format和output是同一个属性值，，名称不一致，output不建议使用了，被放弃
+          // 指定压缩格式。例如是否保留*注释*，是否始终为*if*、*for*等设置大括号。
           format: {
             comments:false,
           },
+          output: undefined,
+            
           //  是否支持IE8，默认不支持
           ie8:false,
+         
           compress: {
-            // 是否使用默认设置，这个属性当只启用指定某些选项时可以设置为false
+            // 是否使用默认配置项，这个属性当只启用指定某些选项时可以设置为false
             defaults:false,
-            //  是否移除无法访问的代码
+              
+             // 是否移除无法访问的代码
             dead_code:false,
 
-            // 折叠仅仅使用一次的变量
+            // 是否优化只使用一次的变量
             collapse_vars:true,
+              
             warnings:true,
+            
             //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
+            drop_console: false,
+           
             //  是否删除所有debugger语句，默认为true
             drop_debugger:true,
+              
             //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
             // pure_funcs: ['console.log'], //移除console
           },
-        },
-        //  是否将注释提出到单独的文件中
-        //  值Boolean|String|RegExp|Function<(node, comment) -> Boolean|Object>|Object
-        //  默认为true， 只提取/^\**!|@preserve|@license|@cc_on/i注释
-        //  感觉没什么特殊情况直接设置为false即可
-        extractComments:false,
+        }
       })
     ]
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      //  template的title优先级大于当前数据
-      title: 'my-cli',
-      //  文件名称
-      filename: 'index.html',
+       //  HTML的标题，
+        //  template的title优先级大于当前数据
+        title: 'my-cli',
 
-      //  模板路径
-      template: path.join(config.root, 'src/index.html') ,
-      // 用于打包后引用脚本时的路径
-      publicPath: './',
+        //  输出的html文件名称
+        filename: 'index.html',
 
-      //  是否将打包的资源引用到当前HTML， false代表不引用
-      //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
-      //  默认为true
-      inject: 'body',
-      //  加载js方式，值为defer/blocking
-      //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
-      scriptLoading: 'blocking',
+        //  本地HTML模板文件地址
+        template: path.join(config.root, 'src/index.html'),
 
-      //  是否进行缓存，默认为true，在开发环境可以设置成false
-      cache: false,
-      //  添加mate属性
-      meta: {}
+        // 引用JS文件的目录路径
+        publicPath: './',
+
+        //  引用JS文件的位置
+        //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
+        //  默认为true
+        inject: 'body',
+
+        //  加载js方式，值为defer/blocking
+        //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
+        scriptLoading: 'blocking',
+
+        //  是否进行缓存，默认为true，在开发环境可以设置成false
+        cache: false,
+
+        //  添加mate属性
+        meta: {}
     }),
 
-    new CleanWebpackPlugin({
+      new CleanWebpackPlugin({
+        // 是否假装删除文件
+        //  如果为false则代表真实删除，如果为true，则代表不删除
+        dry: false,
 
-      //  假装文件删除
-      //  如果为false则代表真实删除，如果为true，则代表不删除
-      dry: false,
-      //  是否打印日志到控制台 默认为false
-      verbose: true,
-      cleanStaleWebpackAssets: false,
-      //  允许保留本次打包的文件
-      //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
-      //  默认为true
-      protectWebpackAssets: true,
-      //  每次打包之前删除匹配的文件
-      cleanOnceBeforeBuildPatterns: ['**/*'],
+        //  是否将删除日志打印到控制台 默认为false
+        verbose: true,
 
-      //  每次打包之后删除匹配的文件
+        //  允许保留本次打包的文件
+        //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
+        //  默认为true
+        protectWebpackAssets: true,
+
+        //  每次打包之前删除匹配的文件
+        cleanOnceBeforeBuildPatterns: ['**/*'],
+
+        //  每次打包之后删除匹配的文件
+        cleanAfterEveryBuildPatterns:["*.js"],
     }),
 
 
@@ -1153,14 +1181,14 @@ const modules = {
 
       '~':  path.join(config.root, 'src/assets') ,
     },
-    //  可互忽略的后缀
+    //  可忽略的后缀
     extensions:['.js', '.json'],
     //  默认读取的文件名
     mainFiles:['index', 'main'],
   }
 }
 
-//  使用node。js的导出，将配置进行导出
+//  使用node.js的导出，将配置进行导出
 module.exports = modules
 
 ```

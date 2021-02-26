@@ -50,7 +50,7 @@
 
 
 
-所以<font style="color:cornflowerblue">babel</font>工具的设计思想也与<font style="color:cornflowerblue">webpack</font>一致：提供<font style="color:#06f">**核心引擎**</font> + <font style="color:#06f">**插件化**</font>的管理方式
+所以<font style="color:cornflowerblue">babel</font>工具的设计思想也与<font style="color:cornflowerblue">webpack</font>一致：提供<font style="color:#06f">**核心引擎**</font> + <font style="color:#06f">**插件化**</font>的设计模式
 
 <font style="color:cornflowerblue">babel</font>提供了一个<font style="color:#06f">**核心引擎**</font>库：[@babel/core](https://www.npmjs.com/package/@babel/core) 和 允许扩展插件库的设置。
 
@@ -181,7 +181,9 @@
 
 > :whale2: <font style="color:#f03d3d">@babel/preset-env</font>取代了<font style="color:cornflowerblue">preset-es20**</font>系列的<font style="color:cornflowerblue">预设插件（preset）</font>
 
-> :whale2: 目前打包生成代码无法在浏览器运行，缺少**regeneratorRuntime**
+ 目前生成代码还无法在浏览器运行，缺少**regeneratorRuntime**，这个稍后再说
+
+<img src="./images/image-04-new-01.png" width="400">
 
 
 
@@ -199,15 +201,15 @@
 
 原因是两者本质的不同：<font style="color:#06f">**Syntax（语法）**</font>是***一个语言本身客观存在的事实***，而<font style="color:#06f">**API（类型、函数）**</font>，则只是***对一系列操作的封装***
 
-当<font style="color:cornflowerblue">执行环境</font>不支持某<font style="color:#06f">**Syntax（语法）**</font>时，那么就必须使用其它<font style="color:#06f">**Syntax（语法）**</font>进行替换。
+当<font style="color:cornflowerblue">执行环境</font>***不支持***某<font style="color:#06f">**Syntax（语法）**</font>时，那么就必须使用其它<font style="color:#06f">**Syntax（语法）**</font>进行替换。
 
-而<font style="color:cornflowerblue">执行环境</font>中没有某<font style="color:#06f">**API（类型、函数）**</font>时，可以使用自己编写的<font style="color:#06f">**API（类型、函数）**</font>进行替代。
+而<font style="color:cornflowerblue">执行环境</font>中***不存在***某<font style="color:#06f">**API（类型、函数）**</font>时，可以使用自定义<font style="color:#06f">**API（类型、函数）**</font>进行替代。
 
 > :whale2:  **JS**中<font style="color:#06f">**Syntax（语法）**</font>错误提示是：<font style="color:#f03d3d">Uncaught SyntaxError</font>；<font style="color:#06f">**API（类型、函数）**</font>错误提示是：<font style="color:#f03d3d">Uncaught ReferenceError</font>。
 
 <font style="color:#f03d3d">@babel/preset-env</font>只是<font style="color:cornflowerblue">babel</font>提供处理<font style="color:#06f">**Syntax（语法）**</font>的<font style="color:cornflowerblue">预设插件（preset）</font>
 
-至于<font style="color:#06f">**API（类型、函数）**</font>的处理，则是由其它<font style="color:cornflowerblue">插件</font>处理的。
+至于<font style="color:#06f">**API（类型、函数）**</font>的处理，则是由其它<font style="color:cornflowerblue">插件</font>处理，这个<font style="color:cornflowerblue">插件</font>俗称：<font style="color:#06f">**垫片、腻子**</font>。
 
 
 
@@ -315,14 +317,14 @@
 
 在刚才打包编译时，发现生成的代码使用了一个**箭头函数**包裹。
 
-这个**箭头函数**函数是打包生成出来的。具体原因没有排查，在这里只介绍处理方案。
+这个**箭头函数**函数我怀疑是打包时<font style="color:cornflowerblue">webpack</font>添加的，但具体原因没有排查，在这里只介绍下处理方案。
 
 在**package.json**文件中添加**browserslist**属性，设置打包代码支持<font style="color:cornflowerblue">IE9</font>浏览器。
 
    ```json
-   "browserslist": [
-       "ie 9"
-     ]
+"browserslist": [
+    "ie 9"
+]
    ```
 
 > :whale2: **browserslist**属性是[browserslist](https://www.npmjs.com/package/browserslist)库提供的一个属性，<font style="color:#f03d3d">browserslist</font>是提供浏览器版本支持的库。多个库中都依赖了<font style="color:#f03d3d">browserslist</font>。  <font style="color:#f03d3d">browserslist</font>库详情在下一篇介绍。
@@ -335,134 +337,273 @@
 
    ##### regenerator-runtime和core-js
 
-   在打完包后的代码为什么一直无法运行呢？ 这是因为缺少了<font style="color:#f03d3d">regenerator-runtime</font>库 ，
+###### regenerator-runtime
 
-<font style="color:#f03d3d">regenerator-runtime</font>库是一个提供：生成器函数、async、await函数这些功能实现的库。<font style="color:#f03d3d">babel</font>就使用此库提供生成后的代码。
+ 先来说一下打包代码缺少**regeneratorRuntime**问题。
 
-<font style="color:#f03d3d">regenerator-runtime</font>一般都是与<font style="color:#f03d3d">core-js</font>一块出现。  
+**regeneratorRuntime**函数是由[regenerator-runtime](https://www.npmjs.com/package/regenerator-runtime)库提供的，
 
- <font style="color:#f03d3d">core-js</font>又是什么呢，诸君请整理好思路接着看下去
-
-   
-
-   在前面说过，现在需要一个ES6-API库，在浏览器不支持ES6版本使用此库。而<font style="color:#f03d3d">core-js</font>就是一个这样库，这个库预设了所有的**ES6-API**，以满足运行时的需求。
-
-   > :whale2:<font style="color:#f03d3d">core-js</font>是一个私人开发的项目，并非<font style="color:#f03d3d">babel</font>所有，<font style="color:#f03d3d">babel</font>只不过是使用它进行处理**ES6**的**API**罢了。
-
-   [core-js](https://www.npmjs.com/package/core-js)项目现在最新版本为3.8.1，而<font style="color:#f03d3d">core-js</font>在*2.X版本*和*3.X版本*进行更新时发生了巨大的变化，以至于<font style="color:#f03d3d">babel</font>配置时也有所不同，不过现在基本都是使用**3.X版本**，在这里也以**3.X版本**为基础
+<font style="color:#f03d3d">regenerator-runtime</font>库是一个转换<font style="color:cornflowerblue">ES6</font>中 **generator函数**、**await函数**  功能的库。<font style="color:cornflowerblue">babel</font>直接使用此库处理两种函数。
 
 
 
-   ##### regenerator-runtime、core-js和@babel/polyfill关系
+###### core-js
 
-   在使用之前，先说一下为什么在这里介绍<font style="color:#f03d3d">regenerator-runtime</font>库，有了解或者查过<font style="color:#f03d3d">babel</font>相关资料的诸君或许会知道这个库：<font style="color:#f03d3d">@babel/polyfill</font>，这个也是处理**ES6-API**的，那么这个库与<font style="color:#f03d3d">core-js</font>有什么区别呢？
+很多文章介绍时<font style="color:#f03d3d">regenerator-runtime</font>都与<font style="color:#f03d3d">core-js</font>一起介绍。所以在此也将这两个库放在一起介绍。
 
-   在<font style="color:#f03d3d">@babel/polyfill</font>官方介绍中对于这个包是这样说的
+处理<font style="color:cornflowerblue">ES6 API（类型、函数）</font>的解决方案在上面介绍过。
 
-   <img src="./images/image-04-10.png" width="400">
+当<font style="color:cornflowerblue">执行环境</font>中***不存在***某<font style="color:#06f">**API（类型、函数）**</font>时，可以使用自定义<font style="color:#06f">**API（类型、函数）**</font>进行替代。
 
-   1. 上面那段话的意思是：在***babel7.4.0版本***之后，就不建议使用<font style="color:#f03d3d">@babel/polyfill</font>，而是建议直接使用<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>。
+而<font style="color:#f03d3d">core-js</font>库就是一个自定义的<font style="color:#06f">**API（类型、函数）**</font>库。也就是俗称的**腻子库**
 
-   2. 下面那段话的意思是：<font style="color:#f03d3d">@babel/polyfill</font>库包含了<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>
+[core-js](https://www.npmjs.com/package/core-js)是一个个人开源项目，并不属于任何公司。<font style="color:cornflowerblue">babel</font>依赖了<font style="color:#f03d3d">core-js</font>进行处理<font style="color:#06f">**API（类型、函数）**</font>
 
-   
+<font style="color:#f03d3d">core-js</font>截至到编写文章时的最新版本为<font style="color:cornflowerblue">@3.9.0</font>
 
-   通过上面这两段可以理解：<font style="color:#f03d3d">@babel/polyfill</font>就是<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>的再封装，并且在***babel7.4.0版本***之后就不要再使用<font style="color:#f03d3d">@babel/polyfill</font>了。
+<font style="color:#f03d3d">core-js</font>的<font style="color:cornflowerblue">@3.X</font>与<font style="color:cornflowerblue">@2.X</font>两个大版本间具有巨大的差异性，以至于影响到了<font style="color:cornflowerblue">babel</font>。不过目前基本都是使用<font style="color:cornflowerblue">core-js@3.X</font>版本。
 
-   这是因为**core2.X**与**core3.X**的差异性，而<font style="color:#f03d3d">@babel/polyfill</font>无法过渡适配，所以新版本最好都使用<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>，当然也可以使用<font style="color:#f03d3d">@babel/polyfill</font>的，只是不太建议
+> :whale2: <font style="color:#f03d3d">core-js</font>开发者目前在开发<font style="color:cornflowerblue">core-js@4.X</font>版本。可能到时候配置又会具有大变化。
 
-   
+> :whale2: 社区强大的原因就在于每个人都会提供自己的微薄之力，个人开发者，也可以提供优秀的项目。
 
-   先来安装这两个库，这两个库在运行时用到了，所以需要安装到<font style="color:#f03d3d">dependencies</font>环境
 
-   > yarn add core-js@3.8.1 regenerator-runtime@0.13.7
 
-   
+##### @babel/polyfill
 
-   在index.js中进行引用这两个库
+关于<font style="color:cornflowerblue">babel</font>的文章中，有很多都会介绍<font style="color:#f03d3d">@babel/polyfill</font>。
 
-   <img src="./images/image-04-11.png" width="400">
+[@babel/polyfill](https://www.npmjs.com/package/@babel/polyfill)库其实就是<font style="color:cornflowerblue">babel</font>对<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>的封装库。
+
+不过在<font style="color:cornflowerblue">babel</font>官网，这个库已经被弃用了。<font style="color:cornflowerblue">babel@7.4.0</font>版本之后就建议直接使用<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>
+
+<img src="./images/image-04-10.png" width="400">
 
    
 
-   > :whale2: 引用的：import "core-js/stable" 和import "regenerator-runtime/runtime";
+上面那段话的大致意思为：<font style="color:cornflowerblue">@babel@7.4.0</font>开始，<font style="color:#f03d3d">@babel/polyfill</font>会被弃用，直接使用<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>。
+
+下面那段话的大致意思为：<font style="color:cornflowerblue">babel</font>具有一个<font style="color:cornflowerblue">polyfill</font>包含了<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>。
+
+> :whale2::whale2::whale2: 关于<font style="color:#f03d3d">@babel/polyfill</font>库被弃用的原因好像是因为：<font style="color:cornflowerblue">core-js@3.X</font>和<font style="color:cornflowerblue">core-js@2.X</font>的巨大差异导致<font style="color:#f03d3d">@babel/polyfill</font>无法***过渡适配***。
 
    
 
-   执行打包命令后会发现生成的代码生成了好多东西
 
-   <img src="./images/image-04-12.png" width="400">
 
-   
+#####  core-js、regenerator-runtime使用
 
-   
+> yarn add regenerator-runtime@0.13.7  core-js@3.9.0    //	这个两个库都会在代码运行中使用，所以安装在**dependencies**
 
-   这些就是<font style="color:#f03d3d">core-js</font>生成替换**ES6-API**的垫片，诸君可以使用**filter**或者**includes**查找一下，在此就不贴图了。
+  
 
-   
+直接使用<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>需要在代码中手动引用。<font style="color:cornflowerblue">babel</font>当然也支持配置，慢慢来
 
-   这时再用IE打开HTML运行会发现已经可以运行了
+**index.js**文件引用。
 
-   <img src="./images/image-04-13.png" width="400">
+<img src="./images/image-04-11.png" width="400">
 
-   
-
-   
-
-   看起来一切那么完美，但是真是如此吗？恐怕得说声：**No No No**。
-
-   来看一下打包后的大小
-
-   <img src="./images/image-04-14.png" width="400">
-
-   > :whale2:诸君打包后大小可能与我稍微有些出入，但是基本一致
-
-   
-
-   看到这个文件大小时，我有一种“山雨欲来风满楼”的感觉。不知诸君是否有同感。这个大小着实有些恐怖。虽然代码是未压缩的，又这是什么原因呢？
-
-   
-
-   原来在默认引入<font style="color:#f03d3d">core-js</font>时，会将<font style="color:#f03d3d">core-js</font>所有函数进行导入。 哪怕只是使用一个新API  。这真是：*大炮打蚊子--小题大做*
-
-   
-
-   所以需要在处理时做到按需导入。有需求就有方案，***babel***配置提供了可以按需导入的方法。
-
-   
-
-   :whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2::whale2:
-
-   
-
-   
-
-   #### @babel/preset-env 参数设置
-
-   
-
-   #### useBuiltIns 属性
-
-   在介绍怎么按需导入之前，先说明一下所谓的**按需导入**
-
-   > :whale2::whale2::whale2: 
-   >
-   > **按需加载**具有两种情况
-   >
-> 1. 按浏览器版本导入：根据浏览器版本打包，例如只想运行最新的Chrome浏览器，那么无须进行导入（语法也不需要转换）
-   > 2. 按使用导入：根据代码中使用到的API进行导入，只需要导入使用到的API进行
+> :whale2::whale2: 
 >
-   > 两者之和是最优选择。
+> 1. 导入<font style="color:#f03d3d">core-js</font>库时，导入方式为：**"core-js/stable"**，为为了只导入稳定版本特性， 关于stage请参考：[[ECMAScript] TC39 process](https://www.jianshu.com/p/b0877d1fc2a4)
+> 2. 导入<font style="color:#f03d3d">regenerator-runtime</font>时，导入方式为：**regenerator-runtime/runtime**，为了节省文件大小
+
+   此时执行`yarn build`打包会在生成代码中看到生成的代码。这些都是<font style="color:#f03d3d">core-js</font>处理<font style="color:cornflowerblue">ES6 API（类型、函数）</font>的<font style="color:#06f">垫片</font>
+
+<img src="./images/image-04-12.png" width="400">
+
+ 
+
+例如搜索**promise**类型，就可以找到<font style="color:#f03d3d">core-js</font>自定义的实现方式。
+
+<img src="./images/image-04-new-02.png" width="400">
+
+这时候使用<font style="color:cornflowerblue">IE9</font>运行打包生成代码可以运行成功，也就是说<font style="color:cornflowerblue">ES6 API（类型、函数）</font>被成功替代了。
+
+<img src="./images/image-04-13.png" width="400">
 
    
 
-   在<font style="color:#f03d3d">@babel/preset-env</font>中有个**useBuiltIns**参数是用来设置**按需导入**，这个属性具有三个值，***false*** 、***entry***、***usage***,默认值是**false**（全部导入）
+   
 
-   > :whale2: 这里其实还有一个区别，`entry`是将按需导入这件事做到了babel的入口，在入口会寻找所有用到的api并引用，而`usage`是在每个用到模块上单独引用，并保证不会一个api在各处只引用一次
+ #### @babel/preset-env 属性设置
 
-   ##### entry
+##### 按需加载
 
-   ***entry***属性实现了**按需导入**的第一种情况：按照浏览器版本导入、转换。
+刚才加入<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>后打包运行，可以知道<font style="color:cornflowerblue">ES6 API（类型、函数）</font>被成功替代了。
+
+但其实这里还具有一个非常严重的问题，那就是文件大小。
+
+<img src="./images/image-04-14.png" width="400">
+
+可以看到打包生成的文件现在高达**428K**。虽然打包代码压缩，但也不应该这个大小
+
+在代码中仅写了两个函数。那么原因大概是引入<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>导致。
+
+<font style="color:#f03d3d">core-js</font>是<font style="color:cornflowerblue">ES6 API（类型、函数）</font>的垫片，但是<font style="color:#f03d3d">core-js</font>并不知道你使用哪些<font style="color:cornflowerblue">ES6 API（类型、函数）</font>，所以直接引用会为所有<font style="color:cornflowerblue">ES6 API（类型、函数）</font>生成替代方案，也就造成了这个恐怖的文件大小
+
+
+
+前端对于文件的大小非常敏感，这直接影响到网站的加载速度。所以必须要做到<font style="color:cornflowerblue">**按需加载**</font>垫片 （仅加在需要使用的垫片）
+
+
+
+不同项目对<font style="color:cornflowerblue">浏览器支持版本</font>需求不一样，所以在处理<font style="color:cornflowerblue">ES6 API（类型、函数）</font>**垫片**时的<font style="color:cornflowerblue">**按需加载**</font>垫片具有三种含义
+
+1. 按照**浏览器版本加载**垫片
+2. 按照**代码中使用加载**垫片
+3. 按照**浏览器版本+代码中使用加载**垫片
+
+> :whale2:<font style="color:cornflowerblue">浏览器支持版本</font>需求 取决于项目的使用用户，例如有的项目只是公司管理项目，无须兼容老版本浏览器
+
+
+
+<font style="color:cornflowerblue">babel</font>中的<font style="color:#f03d3d">@babel/preset-env</font>库提供了两种配置方式实现：***按照浏览器版本加载（1）***和***按照浏览器版本+代码中使用加载（3）***两种方案
+
+
+
+@babel/preset-env 属性配置
+
+###### 设置浏览器版本（browserslist、targets）
+
+<font style="color:cornflowerblue">**按需加载**</font>垫片中有一个**浏览器版本加载**的含义，如果想要实现**浏览器版本加载**那就必须设置浏览器版本，
+
+<font style="color:cornflowerblue">babel</font>提供了两种设置浏览器版本的方案：
+
+
+
+ <strong>**browserslist**</strong>
+
+**browserslist**方案在刚才处理函数包裹代码时使用到了，设置在**package.json**中的**browserslist**属性
+
+```js
+"browserslist": [
+    "ie 9"
+]
+```
+
+<font style="color:cornflowerblue">browserslist</font>是一个提供浏览器版本的一个库，提供了多种配置规则，好多库都使用到了<font style="color:cornflowerblue">browserslist</font>，例如：<font style="color:cornflowerblue">babel</font>。
+
+**browserslist**属性是**Array**，允许设置多个浏览器版本。例如***ie 9***，便是支持<font style="color:cornflowerblue">IE9</font>浏览器。
+
+还可以设置范围版本，例如大于<font style="color:cornflowerblue">Chrome75</font>版本。
+
+```js
+"browserslist": [
+    "Chrome > 75"
+]
+```
+
+在这里只使用这两种规则进行测试，<font style="color:cornflowerblue">browserslist</font>在下一篇介绍
+
+
+
+ <strong>**targets**</strong>
+
+**targets**属性是<font style="color:cornflowerblue">babel</font>自身提供浏览器版本设置，配置在<font style="color:#f03d3d">@babel/preset-env</font>属性中
+
+**targets**属性类型为 **String**、**Object**。并且支持<font style="color:cornflowerblue">browserslist</font>格式规则。
+
+**targets**属性的优先级高于**browserslist**。
+
+```json
+{
+    "presets": [
+        ["@babel/preset-env",{
+            "targets": "chrome > 75",
+        }]
+    ],
+    "plugins": [
+    ]
+}
+```
+
+```json
+{
+    "presets": [
+        ["@babel/preset-env",{
+            "targets": {
+                "chrome": "58",
+                "ie": "11"
+            }]
+            ],
+        "plugins": [
+    ]
+}
+```
+
+
+
+推荐使用<font style="color:cornflowerblue">browserslist</font>设置，也就是**package.json**中**browserslist**属性。
+
+因为<font style="color:cornflowerblue">browserslist</font>库已经被社区高度认可。好多库都依赖了<font style="color:cornflowerblue">browserslist</font>，使用<font style="color:cornflowerblue">browserslist</font>库可以做到：配置统一管理，利于项目维护
+
+> :whale2:::whale2::whale2: 浏览器版本设置也会影响<font style="color:#06f">**Syntax（语法）**</font>的转换。 指定的浏览器版本支持的<font style="color:#06f">**Syntax（语法）**</font>不会被转换<font style="color:cornflowerblue">ES5</font>
+
+
+
+
+
+###### corejs
+
+在介绍<font style="color:cornflowerblue">**按需加载**</font>垫片之前再说一个<font style="color:#f03d3d">@babel/preset-env</font>属性：**corejs**
+
+**corejs**属性是<font style="color:cornflowerblue">@babel@7.4.0</font>时加入的，用于设置加载<font style="color:#f03d3d">core-js</font>版本的。
+
+**corejs**设置的类型为： **String**、**Object**。
+
+```json
+{
+    "presets": [
+        ["@babel/preset-env",{
+            "corejs": {
+                "version": "3.9",
+                "proposals":true
+            }
+        }]
+    ],
+    "plugins": [
+    ]
+}
+```
+
+> * **version**：设置加载的<font style="color:#f03d3d">core-js</font>版本。
+>
+>   此属性可以设置任何受支持的<font style="color:#f03d3d">core-js</font>
+>
+>   参数类型为 **String**
+>
+>   默认值为：***2.0***
+>
+>   
+>
+> * **proposals**：是否加载<font style="color:#f03d3d">core-js</font>支持的 **提议API**
+>
+>   参数类型为：**Boolean**
+>
+>   默认值为：***false***
+
+> :whale2::whale2: **corejs**属性只有在启用<font style="color:cornflowerblue">**按需加载**</font>垫片（**useBuiltIns**设置为***entry***、***usage***才有效。
+
+
+
+   ###### useBuiltIns 
+
+<font style="color:cornflowerblue">**按需加载**</font>垫片是由<font style="color:#f03d3d">@babel/preset-env</font>库提供的**useBuiltIns**属性设置的。
+
+**useBuiltIns**属性可以设置三个属性值：
+
+
+
+ <strong>**false**</strong>
+
+不启用<font style="color:cornflowerblue">**按需加载**</font>垫片功能，全部加载<font style="color:#f03d3d">core-js</font>垫片。此值为默认值。
+
+
+
+<strong>**entry**</strong>
+
+<font style="color:cornflowerblue">按照**浏览器版本加载**</font>垫片。
 
    ```json
    {
@@ -470,7 +611,7 @@
        ["@babel/preset-env",{
          "useBuiltIns": "entry",
          "corejs": {
-           "version": 3,
+           "version": "3.9",
            "proposals":true
          }
    
@@ -481,87 +622,47 @@
 }
    ```
 
-   在<font style="color:#f03d3d">@babel/preset-env</font>属性中设置了**useBuiltIns**，并且还设置了一个**corejs**属性，**corejs**又是什么呢
+  
 
-   
+**browserslist**属性为 ***Chrome > 75*** 时 打包出来的文件大小就会小很多
 
-   **corejs**是<font style="color:#f03d3d">babel@7.4.0</font>版本时添加的，是<font style="color:#f03d3d">@babel/preset-env</font>导入<font style="color:#f03d3d">core-js</font>版本时用到的。默认值为***2***，也就是导入<font style="color:#f03d3d">core-js@2X</font>，所以需要设置为***3***，
+```json
+"browserslist": [
+    "Chrome > 75"
+]
+```
 
-   **proposals**属性代表 是否填充core-js支持的**提议**API，默认情况下<font style="color:#f03d3d">core-js</font>只会注入*稳定*的API   。
+<img src="./images/image-04-15.png" width="400">
 
-   
 
-   > :whale2::whale2:**corejs**属性只有在**useBuiltIns**为***entry***和***usage***时设置才有效。
 
-   > :whale2: 在这里可以看到其实还是<font style="color:#f03d3d">@babel/preset-env</font>作为转换主导。<font style="color:#f03d3d">core-js</font>像是<font style="color:#f03d3d">@babel/preset-env</font>提供的扩展（其实并不是，而是<font style="color:#f03d3d">@babel/preset-env</font>适配<font style="color:#f03d3d">core-js</font>）
+可以看到，此时大小与刚才是天壤之别。设置的 ***Chrome > 75*** 属性，几乎支持全部新特性
 
-   
+<img src="./images/image-04-16.png" width="400">
 
-   设置完毕之后进行打包：**yarn build**
+可以看到打包生成代码中没有提供**filter**垫片，并且 **await** 语法都没有转换。这些特性在新版<font style="color:cornflowerblue">Chrome</font>都提供了。
 
-   打包结果出人意料，还是将所有API都进行了打包，并且发现还大了多么一丢丢
+如果将**browserslist**属性设置为 **ie 9**
 
-   <img src="./images/image-04-15.png" width="400">
+那么文件大小依然会很大。因为<font style="color:cornflowerblue">ES6</font> 新特性都不支持<font style="color:cornflowerblue">IE 9</font>
 
-   > :whale2:诸君打包后大小可能与我稍微有些出入，但是基本一致
+```json
+"browserslist": [
+    "ie 9"
+]
+```
 
-   
+<img src="./images/image-04-new-03.png" width="400">
 
-   为何呢？
+  
 
-   
+ <strong>**usage**</strong>
 
-   在前面刚说过一个问题：***entry***是按照浏览器版本进行导入，会将当前浏览器版本不支持的API全部导入，而<font style="color:#f03d3d">babel</font>是怎么判断浏览器版本呢?
+刚才使用***entry***属性值实现了按照**浏览器版本加载**垫片的功能。
 
-   
+不过并不能算是真正的<font style="color:cornflowerblue">**按需加载**</font>垫片。
 
-   还记得在**package.json**文件中设置的**browserslist**属性吗？答案就是它，<font style="color:#f03d3d">babel</font>会读取这个属性配置的浏览器版本，然后根据这些浏览器版本进行导入、转换，而在这里配置的是***ie 9***，***ie 9***不支持任何**ES6**特性，所以<font style="color:#f03d3d">babel</font>会将所有**API**全部导入。
-
-   
-
-   所以只需要设置**browserslist**属性只支持新版本浏览器就可以看到差异。例如
-
-   ```json
- "browserslist": [
-       "Chrome > 75"
-  ]
-   ```
-
-   
-
-   现在打包生成的代码就会少了好多。
-
-   <img src="./images/image-04-16.png" width="400">
-
-   
-
-   *Chrome75*支持所有新特性，连箭头函数都不需要转换。更别说**ES2015**的API了。
-
-   打包生成的代码不需要导入垫片，连语法都没有转换（在这里就不贴图了）。当然这样的代码在**IE**是无法运行的
-
-   
-
-   > :whale2::whale2: :whale2:：​**browserslist**同时控制了语法和API，<font style="color:#f03d3d">babel</font>根据**browserslist**属性进行转换和导入
-
-   
-
-   > :whale2:**browserslist**是一个独立于<font style="color:#f03d3d">babel</font>的规范库，只不过<font style="color:#f03d3d">babel</font>使用到了**browserslist**，不止<font style="color:#f03d3d">babel</font>，CSS打包也会使用到这个库，这个库后面再详细介绍
-
-   
-
-   诸君也可以试下其他版本浏览器，例如：***Chrome > 49***，在这里就不测试了。
-
-   
-
-   至于**useBuiltIns**为***false***时在新版浏览器打包时的结果，有兴趣的诸君也可以测试感受一下。
-
-   > :whale2: 写代码重在好奇、兴趣、折腾
-
-   
-
-   ##### usage
-
-   使用***entry***属性以浏览器版本的**按需导入**，但还不是真正需要的**按需导入**， 而***usage***值则提供了***理论上***真正按需导入：**浏览器版本+代码使用**
+**useBuiltIns**属性的***usage***值提供了***理论上***真正的<font style="color:cornflowerblue">**按需加载**</font>：**浏览器版本+代码中使用**
 
    ```json
    {
@@ -569,7 +670,7 @@
        	["@babel/preset-env",{
          "useBuiltIns": "usage",
          "corejs": {
-           "version": 3,
+           "version": "3.9",
            "proposals":true
          }
     	}]
@@ -579,117 +680,59 @@
    }
    ```
 
-   ```json
-  "browserslist": [
-       "ie 9"
-  ]
-   ```
 
-   
 
-   在**useBuiltIns**设置为***usage***，将**browserslist**设回***IE9***。
+在使用***usage***属性值时，就不用再手动引用<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>库了，<font style="color:cornflowerblue">babel</font>会自动去加载。
 
-   还需要一点，***usage***不需要手动引用**core-js**，会自动加载**core-js**库。
+<img src="./images/image-04-17.png" width="400">
 
-   所以，在*index.js*中删除引用
 
-   > :whale2:不删除import不会优化
 
-   <img src="./images/image-04-17.png" width="400">
+   此时哪怕设置**ie 9**。打包文件大小也不会像***entry***时那么大了。
 
-   
+```json
+"browserslist": [
+    "ie 9"
+]
+```
 
-   
+<img src="./images/image-04-18.png" width="400">
 
-   打完包以后就会发现文件比**entry**属性时小了不少
+​      
 
-   <img src="./images/image-04-18.png" width="400">
-
-   
-
-   并且也能IE9版本中正常运行。生成的代码中基本不存在未使用的**ES6**垫片。诸君可以试一下，在此就不在贴图。
-
-   
-
-   如果**browserslist**为**Chrome > 75**，则便不会导入和转换
+   而在**Chrome > 75**的情况下，代码都不需要进行处理了
 
    ```json
  "browserslist": [
        "Chrome > 75"
-  ]
+ ]
    ```
 
+<img src="./images/image-04-19.png" width="400">
+
+
+
+ <strong>**entry、usage有话说**</strong>
+
+1. <font style="color:cornflowerblue">babel</font>在处理***entry***属性值时，直接将<font style="color:cornflowerblue">**按需加载**</font>处理逻辑做到了入口。而在处理***usage***时，则在用到时进行了单独引用，并且保证每一个<font style="color:#06f">**API（类型、函数）**</font>只引用一次
+
+2. 在两者选择使用时，不要一味的追求***usage***，因为***usage***使用起来更为棘手
+
+   <img src="./images/image-04-new-05.png" width="400">
+   
    
 
-   <img src="./images/image-04-19.png" width="400">
+###### modules
 
-   
+<font style="color:#f03d3d">@babel/preset-env</font>属性中有一个**modules**。
 
+**modules**属性表示是否将**ES modules**转换为**指定模块类型**处理。
 
+**modules**属性值具有：***amd***、***systemjs***、***umd***、***commonjs***、***cjs***、***auto***、***false***。
 
-#### entry和usage有话说
+默认属性值为***auto***：默认情况下，使用**ES modules**来进行处理，但是会收到其它<font style="color:cornflowerblue">plugin</font>的**modules**属性影响。
 
-
-
-
-
-#### targets属性
-
-<font style="color:#f03d3d">@babel/preset-env</font>参数中具有一个**targets**属性，这个参数的意思与**browserslist**一样：设置目标浏览器版本，参数可以设置字符串和对象，支持**browserslist**格式。这个属性的优先级高于**browserslist**
-
-> :whale2:targets属于<font style="color:#f03d3d">babel</font>自己的设置目标浏览器属性，**browserslist**属性一种通用约定属性
-
-```json
-{
-  "presets": [
-    ["@babel/preset-env",{
-      "targets": "chrome > 75",
-      "useBuiltIns": "usage",
-      "corejs": {
-        "version": 3,
-        "proposals":true
-      }
-
-    }]
-  ],
-  "plugins": [
-  ]
-}
-```
-
-```json
-{
-  "presets": [
-    ["@babel/preset-env",{
-      "targets": {
-        "chrome": "58",
-        "ie": "11"
-    }]
-  ],
-  "plugins": [
-  ]
-}
-```
-
-不过并不建议使用此属性，建议使用**browserslist**，原因有二
-
-1. 无法处理自动生成的箭头函数
-
-   <img src="./images/image-04-20.png" width="400">
-
-2. 配置统一管理为最佳，使用**browserslist**属性的话，属于全局性质的。
-
-> :whale2:**browserslist**格式后续再说
-
-
-
-#### modules
-
-<font style="color:#f03d3d">@babel/preset-env</font>插件中具有一个**modules**属性，这个属性表示将**ES模块**转换为**指定模块类型**去处理。
-
-属性值具有：`"amd" | "umd" | "systemjs" | "commonjs" | "cjs" | "auto" | false`。默认值为`auto`
-
-但是，在打包过程中，往往需要具有***tree-shaking***需求，而***tree-shaking***只处理**ES模块**，所以往往要关闭转换类型。
+推荐使用**ES modules**，将属性值设置为***false***
 
 ```json
 {
@@ -704,47 +747,57 @@
 }
 ```
 
-> :whale2: **tree-shaking**在后面讲解
+> ::whale2: **ES6 modules** 可以***tree-shaking***优化
 
 
 
-<font style="color:#f03d3d">@babel/preset-env</font>插件还有其它一些属性，不过不常用。有兴趣的诸君可以看下[官网](https://www.babeljs.cn/docs/babel-preset-env#targets)。有些头疼的是官网只有英文版
+<font style="color:#f03d3d">@babel/preset-env</font>还有一些别的属性，在此就不赘述。有兴趣的朋友可以查询[官网](https://www.babeljs.cn/docs/babel-preset-env#targets)。
 
 
 
 #### @babel/plugin-transform-runtime
 
-下面来介绍下这个库：<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>
+在<font style="color:cornflowerblue">babel</font>，还提供了一个解决<font style="color:cornflowerblue">全局污染</font>的垫片库：[@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
+
+<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>也是一个经常被使用到的库。
 
 
 
-这是一个什么库？ 转换运行？
+在日常开发中都应该遵守的一个原则：*避免全局污染*。
 
-这个plugin也是用于设置**按需导入垫片**，与 **useBuiltIns=usage**功能一样，那么它有什么不同呢？
+***全局污染***是一件极为可怕的问题。在协同、代码运行时会出现不可预知的问题。
 
-在前面说垫片是创建一个与运行环境支持的相同名称的API，只不过是将原API进行了覆盖
+<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库就是将代码使用到的<font style="color:cornflowerblue">ES6 API（类型、函数）</font>名称转换为自定义名称，从而*避免污染运行环境自身API*。
 
-这样做其实具有一个问题：**污染全局**。
+> :whale2: <font style="color:#f03d3d">@babel/plugin-transform-runtime</font>与***usage***属性值一样：按照**浏览器版本+代码中使用加载**垫片
 
-这种情况原则上是不允许的，尤其是在写第三方库时，所以需要一个方案可以不污染原API
-
-<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库就是实现此方案的。
+开发***第三方库***，强烈建议使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>
 
 
 
-<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库依赖一个库<font style="color:#f03d3d">@babel/runtime-corejs3</font>（或<font style="color:#f03d3d">@babel/runtime-corejs2</font>  core-js2.X）
+##### @babel/runtime-corejs3
 
-<font style="color:#f03d3d">@babel/runtime-corejs3</font>这个库其实也就是一个<font style="color:#f03d3d">core-js</font>封装库，只不过做了一些处理，具体可以参考[这篇文章](https://segmentfault.com/a/1190000020237790)，不过这篇文章是**core-js2.X**版本，与**core-js3.X**具有一定差异
-
-> :whale2:  使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>包，那么在**package.json**文件中删除<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font> ,因为<font style="color:#f03d3d">@babel/runtime-corejs3</font>包会直接依赖。所以只是**package.json**文件中干净一些。
+<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库依赖了一个<font style="color:#f03d3d">@babel/runtime-corejs3</font>或<font style="color:#f03d3d">@babel/runtime-corejs3</font>库。
 
 
 
-> yarn add -D @babel/plugin-transform-runtime@7.12.10  @babel/runtime-corejs3@7.12.5    // 因为这个库是做转换的，所以只在打包时使用
+<font style="color:#f03d3d">@babel/runtime-corejs3</font>是<font style="color:cornflowerblue">babel</font>提供的<font style="color:#f03d3d">core-js</font>封装库，不过内部做了一些处理，具体可以参考[这篇文章](https://segmentfault.com/a/1190000020237790)。不过此文章是基于<font style="color:#f03d3d">@babel/runtime-corejs2</font>版本，与<font style="color:#f03d3d">@babel/runtime-corejs3</font>具有一定差异。
+
+> yarn add -D @babel/plugin-transform-runtime@7.13.7  @babel/runtime-corejs3@7.13.7   
+
+> :whale2::whale2::whale2: 
+>
+> <font style="color:#f03d3d">@babel/runtime-corejs3</font>对应的<font style="color:cornflowerblue">core-js@3.X</font>
+>
+> <font style="color:#f03d3d">@babel/runtime-corejs2</font>对应的<font style="color:cornflowerblue">core-js@2.X</font>
+
+> :whale2::whale2:  使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>时，就不需要安装<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font> ，<font style="color:#f03d3d">@babel/runtime-corejs3</font>中会依赖这两个包。
 
 
 
-在**.babelrc**文件配置中使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库代替<font style="color:#f03d3d">@babel/preset-env</font>配置。
+**.babelrc**文件中使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>配置替代<font style="color:#f03d3d">@babel/preset-env</font>中配置。
+
+不过注意的是<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>属性中**corejs.version**不再是字符串，而是***2***、***3***。 因为加载的是<font style="color:cornflowerblue">@babel/runtime-corejs[3/2]</font>
 
 ```json
 {
@@ -756,7 +809,7 @@
         //      "targets": "chrome > 75",
         //      "useBuiltIns": "usage",
         //      "corejs": {
-        //        "version": 3,
+        //        "version": "3.9",
         //        "proposals":true
         //      }
       }
@@ -776,15 +829,60 @@
 }
 ```
 
-> :whale2::whale2:使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>也不需要进行手动导入，会在打包时自动编译
+
+
+配置完毕后，不再需要任何引用就可以进行打包生成。
+
+```js
+"browserslist": [
+    "ie 9"
+]
+```
+
+在<font style="color:cornflowerblue">IE9</font>环境`yarn build`。
+
+可以看到使用到的**includes**、**filter** <font style="color:cornflowerblue">API</font>已经变成了其它了函数名称。
 
 <img src="./images/image-04-21.png" width="400">
 
-
-
 可以看到使用的**ES6-API**已经被转换为另外的API了，所以并不会再污染全局代码。至于打包的大小，诸君可以自己测试看看
 
+至于打包生成文件大小也并不大
 
+<img src="./images/image-04-22.png" width="400">
+
+至于在***Chrome > 75***的打包结果，有兴趣的朋友可以自行测试。
+
+
+
+#### preset和plugin
+
+在使用<font style="color:cornflowerblue">babel</font>库时，发现有两种类型：
+
+1. **preset**：<font style="color:#f03d3d">@babel/preset-env</font>
+2. **plugin**：<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>
+
+
+
+配置时也在不同的属性：
+
+```json
+{
+  "presets": [
+    
+  ],
+  "plugins": [
+  ]
+}
+```
+
+
+
+**preset**的中文翻译为：**预置**。其实也就是<font style="color:cornflowerblue">babel</font>提供的**预置插件库**
+
+<img src="./images/image-04-23.png" width="400">
+
+所以其本质都是<font style="color:cornflowerblue">插件</font>
 
 
 
@@ -792,17 +890,13 @@
 
 > :whale2::whale2::whale2:
 >
-> * **babel**是用来将**ES6代码**转换为**ES5代码**的工作
->
-> * **babel**提供了一个核心引擎，也是使用扩展形式进行执行
->
-> * 在**webpack**中，使用一种*转换器模式（**babel-loader**）*将**babel**应用到**webpack**中
->
-> * **babel**将 **语法（syntax）**和**API**分开进行处理，处理语法的是**@babel/preset-env**，处理API使用垫片**core-js**
->
-> * **babel**提供一种预设plugin的功能，所有的预设放在***presets***属性中
-> * **@babel/preset-env**设置**useBuiltIns**可以进行垫片优化：**entry**值是依据浏览器进行按需导入垫片，**usage**值是依据浏览器+项目使用进行按需导入垫片
-> * **@babel/plugin-transform-runtime**库可以做到不污染全局API
+> * <font style="color:cornflowerblue">babel</font>来用来处理<font style="color:cornflowerblue">ES6</font>特性的库
+> * <font style="color:cornflowerblue">babel</font>也是<font style="color:#06f">**核心引擎**</font> + <font style="color:#06f">**插件化**</font>的设计模式
+> * <font style="color:#f03d3d">babel-loader</font>是<font style="color:cornflowerblue">babel</font>的适配器，将<font style="color:cornflowerblue">babel</font>提供<font style="color:cornflowerblue">webpack</font>使用
+> * <font style="color:cornflowerblue">babel</font>使用不同的插件分别处理<font style="color:#06f">**Syntax（语法）**</font>和<font style="color:#06f">**API（类型、函数）**</font>
+> * <font style="color:cornflowerblue">babel</font>提供不少的**预设插件**，配置在**presets**属性中。
+> * <font style="color:#f03d3d">@babel/preset-env</font>中**useBuiltIns**属性用来设置<font style="color:cornflowerblue">按需加载</font>垫片
+> * <font style="color:#f03d3d">@babel/plugin-transform-runtime</font>提供了一种不污染全局情况下使用垫片方式。
 
 
 
@@ -822,15 +916,15 @@
 
 
 
-### 文本依赖
+### 本文依赖
 
 * [babel-loader@8.2.2]( https://www.npmjs.com/package/babel-loader/v/8.2.2)
-* [@babel/core@7.12.10]( https://www.npmjs.com/package/@babel/core/v/7.12.10)
-* [@babel/preset-env@7.12.11]( https://www.npmjs.com/package/@babel/preset-env/v/7.12.11)
+* [@babel/core@7.13.1]( https://www.npmjs.com/package/@babel/core/v/7.13.1)
+* [@babel/preset-env@7.13.5]( https://www.npmjs.com/package/@babel/preset-env/v/7.13.5)
 * [regenerator-runtime@0.13.7](https://www.npmjs.com/package/regenerator-runtime/v/0.13.7)
-* [core-js@3.8.1](https://www.npmjs.com/package/core-js/v/3.8.1)
-* [@babel/plugin-transform-runtime@7.12.10](https://www.npmjs.com/package/@babel/plugin-transform-runtime/v/7.12.10)
-* [@babel/runtime-corejs3@7.12.5](https://www.npmjs.com/package/@babel/runtime-corejs3/v/7.12.5)
+* [core-js@3.9.0](https://www.npmjs.com/package/core-js/v/3.9.0)
+* [@babel/plugin-transform-runtime@7.13.7](https://www.npmjs.com/package/@babel/plugin-transform-runtime/v/7.13.7)
+* [@babel/runtime-corejs3@7.13.7](https://www.npmjs.com/package/@babel/runtime-corejs3/v/7.13.7)
 
 
 
@@ -844,19 +938,18 @@
   "author": "mowenjinzhao<yanzhangshuai@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.12.10",
-    "@babel/plugin-transform-runtime": "7.12.10",
-    "@babel/preset-env": "7.12.11",
-    "@babel/runtime-corejs3": "7.12.5",
+    "@babel/core": "7.13.1",
+    "@babel/plugin-transform-runtime": "7.13.7",
+    "@babel/preset-env": "7.13.5",
+    "@babel/runtime-corejs3": "7.13.7",
     "babel-loader": "8.2.2",
     "clean-webpack-plugin": "3.0.0",
-    "html-webpack-plugin": "4.5.0",
-    "terser-webpack-plugin": "5.0.3",
-    "webpack": "5.14.0",
-    "webpack-cli": "4.2.0"
+    "html-webpack-plugin": "5.2.0",
+    "webpack": "5.24.0",
+    "webpack-cli": "4.5.0"
   },
   "dependencies": {
-    "core-js": "3.8.1",
+    "core-js": "3.9.0",
     "jquery": "3.5.1",
     "regenerator-runtime": "0.13.7"
   },
@@ -899,7 +992,7 @@ const modules = {
   //   'index':  path.join(config.root, 'src/index.js'),
   // },
 
-  //  出口文件
+  //  输出文件
   //  字符串形式
   // output:path.join(config.root, './dist/[name].js')
   //对象形式
@@ -927,104 +1020,121 @@ const modules = {
   optimization: {
     minimize: false,
     minimizer: [
-      new TerserPlugin({
-        //  包含哪些文件
-        include:  /\.js(\?.*)?$/i,
-        // //  排除哪些文件
-        // exclude:/\.js(\?.*)?$/i,
-        //  多进程并行运行，默认为true，开启，默认并发数量为os.cpus()-1
-        //  可以设置为false(不使用多线程)或者数值（并发数量）
-        parallel:true,
+    new TerserPlugin({
+          //  指定压缩的文件
+          include: /\.js(\?.*)?$/i,
 
-        //  可以设置一个function，使用其它压缩插件覆盖默认的压缩插件，默认为undefined，
-        minify:undefined,
+          // 排除压缩的文件
+          // exclude:/\.js(\?.*)?$/i,
 
-        terserOptions: {
-          // //  是否防止篡改函数名称，true代表防止篡改，即保留函数名称，false即可以篡改，
-          // //  此属性对使用Function.prototype.name
-          // //  默认为false
-          keep_fnames:false,
-          // //  是否防止篡改类名称
-          keep_classnames:false,
-          // //  设置一些其它的解析
-          parse: {},
-          //  最小化es6模块。默认为false
-          module:true,
-          //  ·压缩配置
+          //  是否启用多线程运行，默认为true，开启，默认并发数量为os.cpus()-1
+          //  可以设置为false(不使用多线程)或者数值（并发数量）
+          parallel: true,
 
-          //  format和output是同一个属性值，，名称不一致，output不建议使用了，被放弃
-          format: {
-            comments:false,
+          //  可以设置一个function，使用其它压缩插件覆盖默认的压缩插件，默认为undefined，
+          minify: undefined,
+
+          //  是否将代码注释提取到一个单独的文件。
+          //  属性值：Boolean | String | RegExp | Function<(node, comment) -> Boolean|Object> | Object
+          //  默认为true， 只提取/^\**!|@preserve|@license|@cc_on/i注释
+          //  感觉没什么特殊情况直接设置为false即可
+          extractComments: false,
+
+          // 压缩时的选项设置
+          terserOptions: {
+            //  是否保留原始函数名称，true代表保留，false即保留
+            //  此属性对使用Function.prototype.name
+            //  默认为false
+            keep_fnames: false,
+
+            // 是否保留原始类名称
+            keep_classnames: false,
+
+            //  format和output是同一个属性值，，名称不一致，output不建议使用了，被放弃
+            // 指定压缩格式。例如是否保留*注释*，是否始终为*if*、*for*等设置大括号。
+            format: {
+              comments: false,
+            },
+            output: undefined,
+
+            //  是否支持IE8，默认不支持
+            ie8: false,
+
+            compress: {
+              // 是否使用默认配置项，这个属性当只启用指定某些选项时可以设置为false
+              defaults: false,
+
+              // 是否移除无法访问的代码
+              dead_code: false,
+
+              // 是否优化只使用一次的变量
+              collapse_vars: true,
+
+              warnings: true,
+
+              //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
+              drop_console: false,
+
+              //  是否删除所有debugger语句，默认为true
+              drop_debugger: true,
+
+              //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
+              // pure_funcs: ['console.log'], //移除console
+            },
           },
-          //  是否支持IE8，默认不支持
-          ie8:false,
-          compress: {
-            // 是否使用默认设置，这个属性当只启用指定某些选项时可以设置为false
-            defaults:false,
-            //  是否移除无法访问的代码
-            dead_code:false,
-
-            // 折叠仅仅使用一次的变量
-            collapse_vars:true,
-            warnings:true,
-            //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
-            //  是否删除所有debugger语句，默认为true
-            drop_debugger:true,
-            //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
-            // pure_funcs: ['console.log'], //移除console
-          },
-        },
-        //  是否将注释提出到单独的文件中
-        //  值Boolean|String|RegExp|Function<(node, comment) -> Boolean|Object>|Object
-        //  默认为true， 只提取/^\**!|@preserve|@license|@cc_on/i注释
-        //  感觉没什么特殊情况直接设置为false即可
-        extractComments:false,
-      })
+    	})
     ]
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      //  template的title优先级大于当前数据
-      title: 'my-cli',
-      //  文件名称
-      filename: 'index.html',
+       //  HTML的标题，
+        //  template的title优先级大于当前数据
+        title: 'my-cli',
 
-      //  模板路径
-      template: path.join(config.root, 'src/index.html') ,
-      // 用于打包后引用脚本时的路径
-      publicPath: './',
+        //  输出的html文件名称
+        filename: 'index.html',
 
-      //  是否将打包的资源引用到当前HTML， false代表不引用
-      //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
-      //  默认为true
-      inject: 'body',
-      //  加载js方式，值为defer/blocking
-      //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
-      scriptLoading: 'blocking',
+        //  本地HTML模板文件地址
+        template: path.join(config.root, 'src/index.html'),
 
-      //  是否进行缓存，默认为true，在开发环境可以设置成false
-      cache: false,
-      //  添加mate属性
-      meta: {}
+        // 引用JS文件的目录路径
+        publicPath: './',
+
+        //  引用JS文件的位置
+        //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
+        //  默认为true
+        inject: 'body',
+
+        //  加载js方式，值为defer/blocking
+        //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
+        scriptLoading: 'blocking',
+
+        //  是否进行缓存，默认为true，在开发环境可以设置成false
+        cache: false,
+
+        //  添加mate属性
+        meta: {}
     }),
 
     new CleanWebpackPlugin({
+ 		// 是否假装删除文件
+        //  如果为false则代表真实删除，如果为true，则代表不删除
+        dry: false,
 
-      //  假装文件删除
-      //  如果为false则代表真实删除，如果为true，则代表不删除
-      dry: false,
-      //  是否打印日志到控制台 默认为false
-      verbose: true,
-      cleanStaleWebpackAssets: false,
-      //  允许保留本次打包的文件
-      //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
-      //  默认为true
-      protectWebpackAssets: true,
-      //  每次打包之前删除匹配的文件
-      cleanOnceBeforeBuildPatterns: ['**/*'],
+        //  是否将删除日志打印到控制台 默认为false
+        verbose: true,
 
-      //  每次打包之后删除匹配的文件
+        //  允许保留本次打包的文件
+        //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
+        //  默认为true
+        protectWebpackAssets: true,
+
+        //  每次打包之前删除匹配的文件
+        cleanOnceBeforeBuildPatterns: ['**/*'],
+
+        //  每次打包之后删除匹配的文件
+        cleanAfterEveryBuildPatterns:["*.js"],
     }),
 
 
