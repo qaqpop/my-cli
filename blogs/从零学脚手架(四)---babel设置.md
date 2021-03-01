@@ -949,9 +949,7 @@
     "webpack-cli": "4.5.0"
   },
   "dependencies": {
-    "core-js": "3.9.0",
     "jquery": "3.5.1",
-    "regenerator-runtime": "0.13.7"
   },
   "scripts": {
     "start": "webpack --mode=development  --config webpack.config.js",
@@ -997,9 +995,9 @@ const modules = {
   // output:path.join(config.root, './dist/[name].js')
   //对象形式
   output: {
-    //  出口文件的目录地址
+    //  输出文件的目录地址
     path: path.join(config.root, 'dist'),
-    //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
+    //  输出文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
     filename: '[name]_[contenthash].js'
   },
 
@@ -1155,7 +1153,7 @@ const modules = {
   }
 }
 
-//  使用node。js的导出，将配置进行导出
+//  使用node.js的导出，将配置进行导出
 module.exports = modules
 ```
 

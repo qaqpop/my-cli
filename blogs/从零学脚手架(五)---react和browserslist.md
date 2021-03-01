@@ -2,50 +2,50 @@
 
 #### react介绍
 
-在当前时代前端，主流的快速应用框架具有两个，[vue.js](https://cn.vuejs.org/)和[react.js](https://reactjs.org/)，关于vue和react哪一个比较“好”，网上众说纷纭。在下就不在此引战。直接介绍react
+目前，国内主流的前端应用框架具有两个：[vue.js](https://cn.vuejs.org/)和[react.js](https://reactjs.org/)，关于vue和react的优劣性，网上众说纷纭。在下就不在此引战。
 
-> :whale2: 以前都说是“三大框架”，还有一个Google开发的[angular](https://angular.cn/)，但是后来angular使用份额越来越少。
+而是直接介绍<font style="color:cornflowerblue">React</font>
+
+>:whale2::whale2::whale2: <font style="color:cornflowerblue">vue</font>和<font style="color:cornflowerblue">React</font>这种都是***快速应用开发工具***，可能也会像曾经如日中天的<font style="color:cornflowerblue">JQuery</font>被市场淘汰，所以个人建议不要盲目只追求快速工具的使用，而是花时间去学习***原点***。例如**设计思想**和**数据结构**。快速应用框架（或语言）只不过是应用工具而已。
+
+> :whale2: 以前都说是“三大框架”，还有一个Google开发的[Angular](https://angular.cn/)，但是国内<font style="color:cornflowerblue">Angular</font>使用份额越来越少。
 >
-> 个人感觉是angular的上手成本问题，angular比较偏向后端。angular很多概念对于前端初学者来说那就是噩梦。不过对于前端工程系，在下认为angular是集大成之作。所以在下个人建议，有经验的诸君，可以稍微去看看angular，学一下angular中的思想。 
+> 个人感觉<font style="color:cornflowerblue">Angular</font>主要问题是上手成本。<font style="color:cornflowerblue">Angular</font>比较偏向于后端，很多概念对于前端开发人员都是噩梦。不过对于前端工程化，个人认为<font style="color:cornflowerblue">Angular</font>是集大成之作。个人建议，对于有经验的朋友，可以稍微学习下<font style="color:cornflowerblue">Angular</font>中的思想。
 
 
 
-> :whale2::whale2::whale2:
+<font style="color:cornflowerblue">React</font>是一个用于构建用户界面的 *JavaScript* 库，<font style="color:cornflowerblue">React</font>本身是一个特别简单的库：将元素抽象为<font style="color:cornflowerblue">虚拟DOM</font>，更新DOM时对比<font style="color:cornflowerblue">虚拟DOM</font>，然后只更新那些真正需要更新的元素，以便更好的节省性能。
+
+先来根据问题推测<font style="color:cornflowerblue">React</font>框架的思路。
+
+> :whale2::whale2: 在这里并不会详细介绍<font style="color:cornflowerblue">React</font>细节，只会简单推测<font style="color:cornflowerblue">React</font>设计思路。
+
+
+
+##### 早期时代的枷锁
+
+在当早期网站时代，都是直接操作DOM来构建网站，哪怕有着<font style="color:cornflowerblue">JQuery</font>这种利器。
+
+直接操作DOM，对于程序员会有极高的要求。但是并不是每一个程序员都能掌握DOM优化， 所以极为容易带来性能浪费， 而随着项目的扩大，网站的性能问题会越来越严重。
+
+而最好的解决方案就是将优化这种细节进行封装。让程序员在开发时能够忽略这些细节。而这样项目只需要一个掌握全局的项目负责人和任意能完成功能的人就行。这也是催生出应用框架的原因之一。
+
+> :whale2::whale2: 时代的发展让开发人员已经忽略了各种东西。
 >
-> 在下认为vue和react这种都是快速应用开发工具，可能也会像曾经如日中天的jquery逐渐消失，所以在下个人认为不要盲目只追求这种快速工具，而是花时间去学习***原点***。例如**设计思想**和**数据结构**。这种就是***原点***，所有的*术*都是起源于此。而快速应用框架（或语言）只不过是应用工具罢了。
+> 就像当前时代无法体会90年代开发人员对存储空间的极限利用，当我在知道超级玛丽只有40KB时，我彻底震惊了。
+>
 
 
 
-<font style="color:#f03d3d">React</font>是一个用于构建用户界面的 JavaScript 库，<font style="color:#f03d3d">React</font>其本身其实一个特别简单的库，将页面抽象为虚拟DOM，在更新DOM时先进行对比哪些要更新的，然后只更新那些真正需要更新的，以此节省性能。其实这个操作很容易去想通。
+##### DOM优化
 
+###### 增加DOM
 
+有经验的朋友都知道在**增加复杂DOM**时：都是先在内存中构建好DOM结构，然后使用API一次完成操作。
 
-先来整理一<font style="color:#f03d3d">React</font>框架的背景思路。
+这种做法便是一种DOM优化。增加时先构建好结构再一次添加，这样与真实DOM只交互了一次，也只会重新渲染一次DOM。
 
-当早期网站时代，都是直接操作DOM来构建网站的，虽然有着<font style="color:#f03d3d">JQuery</font>这种利器，但是还是直接操作DOM年代。
-
-
-
-但是直接操作DOM，对于程序员会有极高的要求，DOM优化并不是每一个程序都能掌握的。  所以极为容易带来DOM性能浪费， 而随着项目的扩大，这种问题会带来网站性能问题。
-
-
-
-在这里只说一下DOM节点的操作优化
-
-DOM节点操作优化主要有两个方面，
-
-1.  增加DOM，
-2. 更新DOM
-
-
-
-##### 增加DOM
-
-有经验的诸君都知道在增加复杂DOM时，需要先在内存中构建好DOM结构，然后使用API去添加。
-
-这样的做法时只与真实DOM接触一次，所以也只会重新渲染一次DOM。从而提高性能
-
-例如下面代码，*appendDom2* 性能要比*appendDom1*， *appendDom2* 函数只是调用一次真实DOM，减少了渲染次数。
+例如下面代码，**appendDom2** 性能要优于 **appendDom1**。
 
 ```js
 function appendDom1(){
@@ -70,19 +70,30 @@ function appendDom2(){
 }
 ```
 
-
-
-但是这些细节往往是很多程序员的痛。在开发时很容易忽略。
-
-那么最好的办法并不是时刻刻惦记这些细节，而是能开发时忽略。
+这个优化很多新手程序员都不会知道，而对于知道此优化的开发人员，编写代码时也不想时时刻刻惦记。
 
 
 
-想做到这样那么就得封装，自己去封装一个**createElement**函数去替代原生的**createElement**
+可以做自定义函数进行封装。将数据结构封装为一个DOM结构进行返回。
 
-在自己封装的内部做好优化策略，别人使用自定义封装的函数去增加DOM
+```js
+function createElement(arr){
+   //	使用createDocumentFragment创建文档片段于内存
+  const  fragement = document.createDocumentFragment();
+  for(item of arr){
+    const li =  document.createElement('li');
+    li.innerText = item;
+    fragement.appendChild(li)
+  }
+  return fragement;
+}
+    
+document.body.appendChild(createElement([1,2,3,4]))
+```
 
-<font style="color:#f03d3d">React</font>就是这样干的，自定义了**createElement**，将优化策略进行了封装。从而可以忽略开发细节。
+
+
+在<font style="color:cornflowerblue">React</font>也提供了一个自定义函数（**createElement**）。
 
 ```js
 const element = React.createElement(
@@ -92,54 +103,41 @@ const element = React.createElement(
 );
 ```
 
-
-
-不过注意的是，这个函数并没有插入到真实DOM中，而是创建了一个**虚拟DOM**，也就是构成了DOM结构，这样做可以脱离平台限制，做到跨平台
-
->:whale2::whale2: **React.createElement**创建的是***虚拟DOM***，也就是DOM结构，是通过另一个库来插入到真实DOM中，这样做达到了解耦效果
+> :whale2::whale2: <font style="color:cornflowerblue">React</font>的**createElement**返回的是定义类DOM类型，并不是真实的DOM类型。这样做能够更好的实现跨平台
 
 
 
 ##### 更新DOM
 
-更新时的问题是往往会更新了不必更新DOM，或者DＯＭ频繁更新造成多次渲染，从而带来了性能浪费。
+更新DOM时的问题是： 在更新DOM时，会因为某些原因对不必更新DOM进行更新或者对DＯＭ的频繁更新造成的多次渲染。
 
 > :whale2: DOM更新包括 增删改
 
+解决这个问题一般想到的做法就是做一个*DOM缓存*。创建DOM时将DOM信息缓存，更新时对比新旧DOM。排除掉不必要的更新DOM。
+
+这种缓存DOM数据的方案就叫<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>， 而排除算法就叫做<font style="color:cornflowerblue">diff算法</font>
+
+也就是<font style="color:cornflowerblue">React</font>常说的两个核心。
+
+<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>和<font style="color:cornflowerblue">diff算法</font> 是对数据结构和算法的考验。每一个人都可以模拟出简单的方案，但不是每一个人都可以写出优秀的解决方案。
+
+在下愚钝，对于数据结构并不太好。所以对<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>和<font style="color:cornflowerblue">diff算法</font>也只有浅薄的认知。有兴趣的朋友可以看一下这篇文章：[深度剖析：如何实现一个 Virtual DOM 算法](https://github.com/livoras/blog/issues/13)
 
 
 
-解决这一问题一般想到的就是做一个真实DOM数据缓存，更新DOM前进行排除掉不必要的更新，以节省性能。
+##### 模板语言
 
-> :whale2: DOM缓存不需要存储DOM所有信息，只存储基础信息能进行排查即可
+编写自定义函数、<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>、<font style="color:cornflowerblue">diff算法</font>  这三者加起来就可以封装一系列的DOM操作，允许使用者可以忽略相对的一些优化细节。
 
+如果仅仅是对于个人来说这样就够了，但是对于一个可以广泛应用的框架来说。还是缺个<font style="color:cornflowerblue">模板语言</font>
 
-
-这种缓存DOM数据的方案就叫***虚拟DOM（Virtual DOM）***， 而排除算法就叫做***diff***算法
-
-
-
-也就是<font style="color:#f03d3d">React</font>常说的**VD**和**diff**两个核心。
-
-***虚拟DOM***和***diff算法***听起来很简单，简单实现起来也不难，但是实现高性能就有很大难度了。
-
-React的***diff***就是一个高性能的算法
+毕竟使用函数去操作DOM总是感觉没有结构感。
 
 
 
+<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>便提供了一种<font style="color:cornflowerblue">JSX</font>语言模板来解决这样问题。
 
-
-有了自定义函数、虚拟DOM和diff算法，就可以在编码时忽略各种细节也可以构建高性能的代码了。
-
-但是使用这种原生DOM操作方式总感觉不太舒服：没有结构感、不美观。
-
-最好能使用一种类HTML模板结构去编写代码，这样才会舒服很多。
-
-
-
-<font style="color:#f03d3d">React</font>便提供了一种模板解决了这种痛处---<font style="color:#f03d3d">JSX</font>模板
-
-这是一种JS的扩展语言模板。允许在JS中以**标签**形式构建元素。
+<font style="color:cornflowerblue">JSX</font>是一种JS扩展语言。允许在JS中以**标签形式构建元素**。
 
 ```js
 const element = (
@@ -149,182 +147,163 @@ const element = (
 );
 ```
 
+<font style="color:cornflowerblue">JSX</font>只是**React.createElement()**语法糖，打包过程中会将<font style="color:cornflowerblue">JSX</font>语法转换为**React.createElement()**。
 
+> :whale2::whale2::whale2: <font style="color:cornflowerblue">JSX</font>本质是**React.createElement()**语法糖。所以<font style="color:cornflowerblue">React</font>还支持使用**React.createElement()**创建<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>。
 
-<font style="color:#f03d3d">JSX</font>其实是**React.createElement**语法糖，在打包过程中会转换为此方法。
+> :whale2::whale2: <font style="color:cornflowerblue">JSX</font>是<font style="color:cornflowerblue">React</font>提供构建代码方式的一种扩展语言，本质是一个语法糖。<font style="color:cornflowerblue">JSX</font>定义的**事件**、**style**、**class**是<font style="color:cornflowerblue">JSX</font>自身语法，并不是原生DOM。所以有些属性名称不一致。
 
-毕竟<font style="color:#f03d3d">JSX</font>只是**React**提供的一种模板，浏览器根本不认识。
+> :whale2::whale2: <font style="color:cornflowerblue">JSX</font>转换**React.createElement()**操作使用的是<font style="color:cornflowerblue">babel</font>提供的一个***plugin***，在下面再介绍
 
-
-
-> :whale2::whale2::whale2:<font style="color:#f03d3d">JSX</font>本质是**React.createElement**语法糖，并且支持使用**React.createElement**方式构建DOM，所以React极为灵活，有的时候灵活的让人头疼
-
-​	
-
-> :whale2::whale2: <font style="color:#f03d3d">JSX</font>只是一个扩展语言，或者可以说是<font style="color:#f03d3d">React</font>提供的一种构建代码方式，本质是一个语法糖。 <font style="color:#f03d3d">JSX</font>中定义的事件、style、class其实是<font style="color:#f03d3d">JSX</font>语法。并不是DOM原生语法。所以类似*class*在DOM语法为*class*，而在<font style="color:#f03d3d">JSX</font>中为*className*
-
-
-
-> :whale2::whale2: <font style="color:#f03d3d">JSX</font>转换<font style="color:#f03d3d">React.createElement</font>操作使用的是**Babel**提供的一个**plugin**，在下面再介绍
-
-
-
->  :whale2: <font style="color:#f03d3d">JSX</font>目前被业界通用化。<font style="color:#f03d3d">Vue@3.X</font>也支持<font style="color:#f03d3d">JSX</font>
+>  :whale2: <font style="color:cornflowerblue">JSX</font>目前被社区认可。<font style="color:cornflowerblue">Vue@3.X</font>也支持<font style="color:cornflowerblue">JSX</font>
 >
->  :whale2:<font style="color:#f03d3d">Vue</font>底层也使用了虚拟DOM，:whale2:<font style="color:#f03d3d">Vue</font>模板语言则是**template**
+>  :whale2: <font style="color:cornflowerblue">Vue</font>设计思路与<font style="color:cornflowerblue">React</font>有很多共同之处。尤其<font style="color:cornflowerblue">Vue@3.X</font>。只不过各有优劣
 
 
 
-这就是<font style="color:#f03d3d">React</font>的整体思路。而<font style="color:#f03d3d">React</font>本质也就这么简单，只不过<font style="color:#f03d3d">React</font>做到了高性能的算法。
+以上便是对<font style="color:cornflowerblue">React</font>设计思路的一种思考。<font style="color:cornflowerblue">React</font>核心部分东西并不多。
 
 
 
 
 
-#### 安装react
+#### 添加 React
 
-<font style="color:#f03d3d">React</font>目前最新版本为***17.0.1***，对<font style="color:#f03d3d">React</font>有兴趣的诸君可以从老版本循循渐进的学习一下<font style="color:#f03d3d">React</font>。
+##### 安装 react
+
+<font style="color:cornflowerblue">React</font>目前最新版本为***17.0.1***，在这里就直接引用此版本来介绍，对<font style="color:cornflowerblue">React</font>有兴趣的朋友在从老版本循循渐进的学习。
 
 > yarn add react@17.0.1
 
 
 
-<font style="color:#f03d3d">react</font>这个库是一个核心库，里面具有**虚拟DOM**、**JSX语法支持**等一系列核心内容。
+[react](https://www.npmjs.com/package/react)库是<font style="color:cornflowerblue">React</font>的核心库，具有**虚拟DOM**、**JSX语法支持**等一系列核心内容。
 
-但是此库并不支持将**虚拟DOM**插入到**真实DOM**中，做这一步的库是<font style="color:#f03d3d">react-dom</font>库。
+但是此库并不没有提供与**真实DOM交互**。与真实DOM交互的代码则由[react-dom](https://www.npmjs.com/package/react-dom)提供
 
 > yarn add react-dom@17.0.1
 
-
-
-> :whale2: 将react核心库与跟真实DOM转换的库分离开，这样可以做到平台的隔离性。例如在其它平台可以使用另外的库转换为平台识别的元素。
-
-
-
-接下来仿照**react-cli**组织代码。
+分为两个库，做到了平台的隔离性。就像写<font style="color:cornflowerblue">React Native</font>时，使用了[react-native](https://www.npmjs.com/package/react-native)来做交互。
 
 
 
-第一步：在html页面中创建一个元素，以此元素作为*react顶级节*点。
+##### 使用 react
+
+接下来就仿照<font style="color:cornflowerblue">react-cli</font>来组织代码。
+
+###### 根节点
+
+第一步就是在HTML页面中创建一个元素作为<font style="color:cornflowerblue">React</font>承载的根节点。
 
 <img src="./images/image-05-01.png" width="400">
 
-> :whale2:**vue.cli**中也具有这个节点，只不过ID名称不一样，有兴趣的诸君可以去看看。
+> :whale2: <font style="color:cornflowerblue">vue-cli</font>也具有这么一个根节点用来承载<font style="color:cornflowerblue">vue</font>，只不过元素ID名称不一样，有兴趣的朋友可以自行查看。
 
 
 
-接下来处理JS，在之前各种打包中都是使用***index.js***文件作为打包文件。**react**只不过是承载在webpack上的应用框架罢了。
+接下来j就要处理**JS**，在之前打包测试中都是使用***/src/index.js***文件作为*源文件*。
 
+也是使用此文件作为*源文件*。
 
-
-在***index.js***文件中使用react。
+> :whale2::whale2: <font style="color:cornflowerblue">React</font>只是承载在<font style="color:cornflowerblue">打包器</font>中的一个应用框架。经过<font style="color:cornflowerblue">打包器</font>打包将<font style="color:cornflowerblue">JSX</font>转换为可运行的代码。
 
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render((
+const root = (
   <h1 className="greeting">
     Hello, world!
   </h1>
-), document.getElementById('root'));
+);
+ReactDOM.render(root, document.getElementById('root'));
 
 ```
 
+在***/src/index.js***文件中使用了<font style="color:cornflowerblue">JSX</font>创建元素，然后使用**ReactDOM.render()**添加到根节点中。
 
-
-可以看到，<font style="color:#f03d3d">React</font>执行了**ReactDOM.render**方法，这个方法就是将**虚拟DOM** 添加到指定DOM节点之中。
-
-> :whale2::whale2: vue中也是这样设置，有兴趣的诸君可以看一下vue.cli。本质它们都是搭载在webpack上的应用框架。
+> :whale2:  <font style="color:cornflowerblue">react-cli</font>也同样如此，有兴趣的朋友可以自行查看
 
 
 
-不过如果现在打包查看结果的话，打包时会报错
+###### @babel/preset-react
+
+不过如果此时执行`yarn build`操作，会直接报错。
 
 <img src="./images/image-05-02.png" width="400">
 
 
 
-这个原因就是**JSX**语法问题， 在前面说过**JSX**是**React**提供的一种模板语言，在非**React**外是无法识别的，
+这是因为<font style="color:cornflowerblue">JSX</font>无法被识别的问题。前面说过，<font style="color:cornflowerblue">JSX</font>只是<font style="color:cornflowerblue">React</font>提供的一种<font style="color:cornflowerblue">模板语言</font>。本质上并不属于**JS**模块。
 
-所以需要将**JSX**语法转换为**React.createElement**函数。
-
-
-
-提供这个转换操作的是**Babel**中<font style="color:#f03d3d">@Babel/plugin-syntax-jsx</font>
-
-不过不需要引用这个**plugin**。 **Babel** 预设了一个**preset**--[@babel/preset-react](https://www.babeljs.cn/docs/babel-preset-react)， 对**React**使用到的**plugin**进行了封装
+所以需要将<font style="color:cornflowerblue">JSX</font>转换为**React.createElement()**
 
 
 
-所以只需要安装<font style="color:#f03d3d">@babel/preset-react</font>即可
+提供这个转换操作的是<font style="color:cornflowerblue">babel</font>中提供的一个***plugin***：[@Babel/plugin-syntax-jsx](https://www.npmjs.com/package/@babel/plugin-syntax-jsx)
 
-> yarn add -D @babel/preset-react@7.12.10
+不过<font style="color:cornflowerblue">babel</font>为<font style="color:cornflowerblue">React</font>提供了一个**preset**：[@babel/preset-react](https://www.babeljs.cn/docs/babel-preset-react)。可以直接安装此库。
+
+<img src="./images/image-05-new-01.png" width="400">
+
+> yarn add -D @babel/preset-react@7.12.13
+
+> :whale2:  [Babel官网](https://www.babeljs.cn/repl)提供了<font style="color:cornflowerblue">JSX</font>转换为**React.createElement()**的测试，有兴趣的朋友可以测试测试
+
+然后配置在**.babelrc**文件中
+
+<img src="./images/image-05-new-06.png" width="400">
 
 
 
-> :whale2: 在[Babel官网](https://www.babeljs.cn/repl)可以进行测试React组件转换情况，有兴趣的诸君可以去试一试
-
-这时候再进行build就会打包成功。
-
-
-
-打包生成的代码最后就是那段代码
+此时执行`yarn build`便可以执行成功，并且查看生成代码可以看到<font style="color:cornflowerblue">JSX</font>已经转换为了**React.createElement()**
 
 <img src="./images/image-05-03.png" width="400">
 
 
 
-并且在浏览器可以直接显示代码。
+在浏览器也可以正常运行代码
 
 <img src="./images/image-05-04.png" width="400">
 
-> :whale2:代码由于加入了babel，并且设置了ie9可支持，所以同样可以运行再IE上，有兴趣的诸君可以测试一下
-
-运行完美成功。
 
 
+##### .jsx文件
 
-**React**代码运行成功，接下来就该管理组织**React**代码了，刚刚只是测试，在**index.js**文件中写了一个固定的react组件。
+###### app.jsx
 
-要做的是利用**index.js**文件设置根节点，然后让**React**接管代码
+<font style="color:cornflowerblue">React</font>代码已经运行成功，接下来就需要组织<font style="color:cornflowerblue">React</font>代码了。
 
+刚才，直接在***/src/index.js***文件中编写了<font style="color:cornflowerblue">JSX</font>代码进行测试
 
+但是真正开发中，需要将<font style="color:cornflowerblue">JSX</font>代码编写在**.jsx**文件中，通过<font style="color:cornflowerblue">模块导入</font>导入方式提供给***/src/index.js***文件。
 
-其实在刚才就已经是根节点了，只不过这个根节点是直接写在了***index.js***文件之中。
-
-只要将根节点提出去，然后看起来就会舒服了
+所以需要<font style="color:cornflowerblue">JSX</font>提取到***/src/app.jsx***文件，在***/src/index.js***导入。
 
 <img src="./images/image-05-05.png" width="400">
 
 <img src="./images/image-05-06.png" width="400">
 
+> :whale2::whale2: **app.jsx**作为<font style="color:cornflowerblue">React</font>框架的根节点。用在承载<font style="color:cornflowerblue">React</font>组件。
 
 
 
+***/src/app.jsx***文件中组件作为<font style="color:cornflowerblue">React</font>的根节点。<font style="color:cornflowerblue">React</font>以也是树的组织方式管理，***/src/app.jsx***文件中组件就是树根。<font style="color:cornflowerblue">React</font>框架代码就像**托管**在了**/src/app.jsx**之中
 
-在**app.jsx**文件中创建一个默认组件作为**React**的根节点。在**index.js**使用此节点添加到DOM元素中。
-
-此时就可以在**app.jsx**组件之中随意添加子组件，整个代码就像**托管**在了**app.jsx**之中
-
-
-
-> :whale2: 
+> :whale2: :whale2:
 >
-> * React 组件分为函数组件和class组件，函数组件简单，编写颗粒度比较小的组件时是一个很好的选择。class组件封装性强，易作为组件主干。具体使用还是要看编写代码之人。
->* **app.jsx**中返回**<></>**代表*空标签*，React组件只允许返回一个元素，但是有时候组件为元素数组，所有可以在外部包一层空标签。React在渲染时会忽略*空标签*
-> * React组件名称约定为大写形式，以区分真实DOM标签。 
+> * <font style="color:cornflowerblue">React</font>组件分为**函数组件**和**类组件**，**函数组件**方便，再加上**Hooks**的助力，在编写颗粒度较小组件时使用**函数组件**是个非常好的选择。**类组件**封装性强，内部提供完善的钩子函数和一系列功能，再加上继承特性。比较适合使用在业务代码主干中。
+>* ***/src/app.jsx***中返回的**<></>**代表*空标签*，<font style="color:cornflowerblue">React</font>组件只允许返回一个元素，但有时候组件需要返回元素数组，可以在外部包一层空标签。与<font style="color:cornflowerblue">Vue</font>中的**template**标签功能一致。
+> * <font style="color:cornflowerblue">React</font>***组件名称约定为大写形式***。
 
 
 
-在使用**.jsx**文件时，还需要简单的设置一下**webpack**。
+###### webpack配置
 
-1. 忽略后缀引用。需要在***resolve.extensions***属性中设置忽略后缀
-2. **React语法**需要**Babel**做转换，所以所有的**.jsx**文件都需要走**babel-loader**
+**.jsx**作为作为一种新的文件格式，需要在<font style="color:cornflowerblue">webpack</font>进行配置使用<font style="color:cornflowerblue">babel</font>
 
 ```js
 const modules = {
-
   module:{
     rules:[
       {
@@ -334,19 +313,26 @@ const modules = {
         loader: "babel-loader"
       }
     ]
-  },
-  resolve:{
-    //  可互忽略的后缀
-    extensions:['.jsx', '.js', '.json'],
   }
 }
 ```
 
+并且可以提供引用时忽略后缀名称。
+
+```js
+ resolve:{
+    //  可被忽略的后缀
+    extensions:['.jsx', '.js', '.json'],
+  }
+```
 
 
-此刻就做到了在**webpack**中基本添加的框架，使用**React**托管代码。而像**React Router** 或**Redux**,只不过是*运行在React之上快速开发的扩展库*罢了。在此就不添加。
 
-> :whale2: Vue原理与React一致。只是各自框架的API不同
+此时就基本将<font style="color:cornflowerblue">React</font>搭建于项目中。
+
+而对于<font style="color:cornflowerblue">React Router</font>、<font style="color:cornflowerblue">Redux</font>只是用于扩展<font style="color:cornflowerblue">React</font>的开发库。在此就不再添加。
+
+> :whale2: <font style="color:cornflowerblue">vue-cli</font>搭建方式与<font style="color:cornflowerblue">react-cli</font>基本一致，只是各自框架暴露的API不同
 
 
 
@@ -358,131 +344,163 @@ const modules = {
 
 #### browserslist是什么
 
-在配置**babel**时使用到了一个**browserslist**属性来判断生成代码的环境，这个属性到底是什么东西，接下来看这玩意
+在介绍<font style="color:cornflowerblue">babel</font>时使用过**package.json**文件中**browserslist**属性设置浏览器版本，那么**browserslist**属性到底是怎么回事呢？
 
 
 
-在**babel**打包时，使用到了浏览器版本依赖，根据浏览器版本转换代码。
+前面介绍过，前端的<font style="color:cornflowerblue">运行环境（浏览器）</font>版本是由用户决定的，不同的项目对于浏览器版本要求不一样。
 
-不同公司项目对于浏览器版本有着不同要求，例如：
+而在打包过程中。需要指定支持的浏览器版本，以这些版本对开发代码做出适配。（CSS、JS都需要适配）。
 
-有些支持大部分用户使用的版本即可，
+**browserslist**属性就是提供指定浏览器版本功能。是由[browserslist](https://www.npmjs.com/package/browserslist)库提供的。
 
-有的像政府项目则需要支持IE，
-
-有的公司则可以直接替客户选择浏览器，而这种直接仅仅支持最新版本浏览器就可以。
+而这个简单的功能<font style="color:cornflowerblue">browserslist</font>却做出了强大的效果，得到了社区的高度认可。很多库都直接依赖<font style="color:cornflowerblue">browserslist</font>
 
 
 
-所以就需要在打包设置浏览器版本，这个需求像**babel**这类的库都是支持设置(`target`)
+#### browserslist配置方式
 
-但是，在打包时不仅仅**babel**才依赖浏览器版本，像CSS往往也需要去设置指定的版本环境。
+<font style="color:cornflowerblue">browserslist</font>提供了两种配置方式。
 
-而这时候对于开发来说的解决方案就是：将浏览器版本依赖编写在一个配置文件的属性中，然后设置时读取这个配置文件属性。
+一种就是配置在**package.json**文件中的***browserslist***属性。<font style="color:cornflowerblue">browserslist</font>执行时会默认读取此属性。
 
-这样能做到方便维护。
+<img src="./images/image-05-new-02.png" width="400">
 
+另一种是使用约定文件。可以在项目根目录（**package.json**所在目录）创建一个约定文件***.browserslistrc.json***，将属性配置在此。***.browserslistrc.json***文件名称一般会省略后缀：***.browserslistrc***
 
+<img src="./images/image-05-new-03.png" width="400">
 
-有一种想法，能否让**babel**这类的库默认支持（依赖）写在一个地方的配置，也就是写一个配置文件或者库，自定义配置地址等信息，让**babel**去支持。
+两种方式不可同时设置，否则会直接报错。
 
-如果要实现这样，那就得开发一个让业界普遍认可的设置库。
-
-<font style="color:#f03d3d">browserslist</font>就是这样的存在。   
-
-<font style="color:#f03d3d">browserslist</font>是一个极为强大的设置浏览器版本依赖库，很多库都依赖支持此库。
+<img src="./images/image-05-new-04.png" width="400">
 
 
 
-所在在设置浏览器依赖时支持设置<font style="color:#f03d3d">browserslist</font>，打包时依赖基本上都依赖此库
-
-> :whale2: 虽然不依赖此库则需要根据使用的库去设置，不过前端打包所使用到的库都支持<font style="color:#f03d3d">browserslist</font>
+个人推荐直接配置在**package.json**文件中，没必要创建一个文件了。在此也就直接使用此方案。
 
 
 
-#### browserslist设置
+#### browserslist环境变量
 
-<font style="color:#f03d3d">browserslist</font>库提供了两种配置方式，
+<font style="color:cornflowerblue">browserslist</font>可以使用不用属性来灵活的控制浏览器版本。
 
-1. 配置**package.json**的***browserslist***中
-2. 配置在根目录下约定文件：***.browserslistrc.json***中，文件名称一般为***.browserslistrc***
-
-个人感觉直接使用第一种方式就行，没必要单独再建立一个文件。
-
-
-
-<font style="color:#f03d3d">browserslist</font>还可以设置为对象形式，进而区分环境依赖。
+如下所示。可以设置在不同环境下设置不同浏览器版本。
 
 ```js
-  "browserslist": {
-    "production": [
-      "ie 10",
-       "Chrome > 75"
+"browserslist": {
+    "development": [
+        "chrome > 75"
     ],
-   "development": [
-      "Chrome > 75"
-    ],
-  }
+     "production": [
+         "ie 9"
+     ]
+}
 ```
 
-但是需要设置环境变量，环境变量名称为`process.env.BROWSERSLIST_ENV`，环境变量在**webpack**中配置
+属性值取自<font style="color:cornflowerblue">Node.js</font>中环境变量。环境变量名称为**BROWSERSLIST_ENV**。所以需要设置环境变量。
+
+<img src="./images/image-05-new-05.png" width="400">
+
+注意：在此虽然设置在**webpack.config.js**文件中，但设置的是<font style="color:cornflowerblue">Node.js</font>中的环境变量， 并不是<font style="color:cornflowerblue">webpack</font>提供的环境变量。
+
+<font style="color:cornflowerblue">browserslist</font>属性值名称可以随意命名。只要与<font style="color:cornflowerblue">Node.js</font>中**BROWSERSLIST_ENV**环境变量对应即可。
+
+在此就不贴图测试了，有兴趣的朋友可以自行测试。
+
+至于**BROWSERSLIST_ENV** 环境变量与 <font style="color:cornflowerblue">webpack</font>中不同模式的关联，在下一篇介绍。
 
 
 
 #### browserslist支持的浏览器
 
-<font style="color:#f03d3d">browserslist</font>支持设置当前基本上所有的浏览器，在Github上作者说明了可以设置的浏览器
-
-可以看到，<font style="color:#f03d3d">browserslist</font>几乎支持所有浏览器：PC、安卓、IOS 甚至还有国内Baidu。
-
-设置浏览器时名称不区分大小写
+<font style="color:cornflowerblue">browserslist</font>支持设置当前基本上所有的浏览器，在[Github](https://github.com/browserslist/browserslist#browsers)上作者说明了可以设置的浏览器
 
 <img src="./images/image-05-07.png" width="400">
 
+可以看到，<font style="color:cornflowerblue">browserslist</font>几乎支持所有浏览器：PC、安卓、IOS 甚至还有国内浏览器。
+
+> :whale2::whale2: 设置浏览器时名称不区分大小写
+
+
+
 #### browserslist属性
 
-<font style="color:#f03d3d">browserslist</font>能得到业界的认可，也就代表<font style="color:#f03d3d">browserslist</font>的功能强大，
+<font style="color:cornflowerblue">browserslist</font>能得到社区的认可，也就在于<font style="color:cornflowerblue">browserslist</font>提供了强大的属性设置。
 
-也的确是这样，<font style="color:#f03d3d">browserslist</font>设置各种的属性去配置自定义浏览器依赖。
-
-从最简单如 直接设置各种浏览器版本和大于某个浏览器版本，还可以设置使用浏览器的比例情况。下面简单介绍下
+如前面使用的 指定***区间浏览器（chrome > 75）***也只是<font style="color:cornflowerblue">browserslist</font>简单的属性配置
 
 
 
-* 指定版本号： 最简单的就是指定浏览器版本号，例如： `IE 11`
+下面简单列举部分<font style="color:cornflowerblue">browserslist</font>属性配置，想了解更多的朋友请参考[Github](https://github.com/browserslist/browserslist)
 
-* 范围版本号：<font style="color:#f03d3d">browserslist</font>支持设置指定范围的版本号，例如：`Chrome > 75`, <font style="color:#f03d3d">browserslist</font>还支持 *>=*、*<*、*<=*语法设置
+> * **defaults**：<font style="color:cornflowerblue">browserslist</font>设置的默认浏览器版本。属性只相当 ***> 0.5%, last 2 versions, Firefox ESR, not dead***
+>
+> * **指定版本号**： 支持直接指定某个浏览器版本号。
+>
+>   ***IE 11***：设置IE11浏览器
+>
+> 
+>
+> * **范围版本**：支持设置某个浏览器指定范围版本。
+>
+>   ***Chrome > 75***： 设置大于Chrome75版本的浏览器
+>
+>   并且支持 `>=`、`<`、`<=` 语法设置
+>
+> * **24个月内未更新版本**：支持设置24个月内未更新的版本
+>
+>   ***dead***
+>
+>   
+>
+> * **浏览器使用率**：支持设置指定浏览器使用率版本
+>
+>   ***>5%***：全球超过5%人使用的浏览器版本
+>
+>   **\> 5% in US**：美国超过5%使用的浏览器版本
+>
+>   ***\> 5% in alt-AS***：亚洲超过5%使用的浏览器版本
+>
+>   也自定义设置地区，具体参考[Github文档](https://github.com/browserslist/browserslist#custom-usage-data)
+>
+>   并且支持 `>=`、`<`、`<=` 语法设置
+>
+> 
+>
+> * **最新浏览器版本**：支持设置最新的几个版本浏览器。
+>
+>   ***last 2 versions***：设置所有浏览器最新的两个版本。
+>
+>   ***last 2 Chrome versions***：设置Chrome浏览器最新的两个版本
+>
+> 
+>
+> * **排除浏览器**：<font style="color:cornflowerblue">browserslist</font>支持排除指定浏览器，
+>
+>   ***not ie < 11***：排除IE11以下的浏览器
+>
+> 
+>
+> * **条件组合**：<font style="color:cornflowerblue">browserslist</font>强大的功能之一是支持多个条件做一个，这也是<font style="color:cornflowerblue">browserslist</font>灵活所在。
+>
+>   例如
+>
+>   ```json
+>   "browserslist": [
+>       "ie 9",
+>       "Chrome > 75"
+>   ],
+>   ```
+>
+>   这就是一个**并且（and）组合**设置。两者都必须满足
+>
+>   <font style="color:cornflowerblue">browserslist</font>同样支持 **或者（or）组合**：***> .5% or last 2 versions***
 
-* ===== >1%
 
-* 浏览器使用率：<font style="color:#f03d3d">browserslist</font>支持设置指定区域内浏览器份额的浏览器版本。例如：`cover 99.5%`代表设置全球内浏览器使用率达到99.5%比例的浏览器。 
 
-  并且还支持指定地区内的使用率： `cover 99.5% in US` 美国区域内的浏览器使用统计数据   `cover 99.5% in alt-AS` 亚洲区域浏览器使用统计数据
 
-  也自定义设置地区，具体参考[Github文档](https://github.com/browserslist/browserslist#custom-usage-data)
 
-* 最新版本的浏览器：<font style="color:#f03d3d">browserslist</font>支持设置最新的几个版本浏览器， 例如：`last 2 versions` 设置每个浏览器最新的两个版本，
-
-  还可以设置指定浏览器的最新版本：`last 2 Chrome versions` Chrome浏览器最新的两个版本
-
-* 支持not：<font style="color:#f03d3d">browserslist</font>支持***not***，也就是排除指定的浏览器，例如：`not ie <= 8` 排除IE8及以下的
-
-* 支持组合设置：<font style="color:#f03d3d">browserslist</font>支持组合设置，这也是<font style="color:#f03d3d">browserslist</font>灵活所在，例如上之前使用
-
-  ```json
-   "browserslist": [
-        "ie 9",
-         "Chrome > 75"
-      ],
-  ```
-
-  这就是一个**并且（and）组合**设置，<font style="color:#f03d3d">browserslist</font>还支持**或者（or）组合**：`> .5% or last 2 versions`。
-
-  
-
-组合设置配合配置其它各种设置，能灵活的控制各种需求。
-
-而这也代表了<font style="color:#f03d3d">browserslist</font>的强大之处，不过一般不会设置多么复杂.
+一般只需要简单的设置即可。
 
 
 
@@ -492,23 +510,22 @@ const modules = {
 
 > :whale2::whale2::whale2:
 >
-> * **React**是一个快速构建高性能网站的开发框架
+> * <font style="color:cornflowerblue">React</font>是一个快速构建高性能网站的开发框架
 >
-> * **React**使用了**虚拟DOM**和**diff**算法优化了DOM操作
-> * **React**利用**虚拟DOM**来解耦平台限制，可以实现跨平台
+> * <font style="color:cornflowerblue">React</font>使用了<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>和<font style="color:cornflowerblue">diff 算法</font>优化了DOM操作
+> * <font style="color:cornflowerblue">React</font>利用自定义DOM类型解耦平台限制，以此实现了跨平台
 >
-> * **JSX**只是一个模板扩展语法。其本质是**React.createElement**的语法糖
-> * **browserslist**是一个强大的浏览器版本设置库，能满足各种需求
+> * <font style="color:cornflowerblue">JSX</font>只是一个模板扩展语法。其本质是**React.createElement()**的语法糖
+> * <font style="color:cornflowerblue">browserslist</font>是一个强大的设置浏览器版本库。
 
 
 
 ### 本文参考
 
 * [vue核心之虚拟DOM(vdom)](https://www.jianshu.com/p/af0b398602bc)
-
+* [深度剖析：如何实现一个 Virtual DOM 算法](https://github.com/livoras/blog/issues/13)
 * [browserslist Github](https://github.com/browserslist/browserslist)
-
-* [babel-preset-react官网](https://www.babeljs.cn/docs/babel-preset-react)
+* [babel-preset-react](https://www.babeljs.cn/docs/babel-preset-react)
 
 
 
@@ -518,7 +535,7 @@ const modules = {
 
 * [react-dom@17.0.1](https://www.npmjs.com/package/react-dom/v/17.0.1)
 
-* [@babel/preset-react@7.12.0](https://www.npmjs.com/package/@babel/preset-react/v/7.12.10)
+* [@babel/preset-react@7.12.3](https://www.npmjs.com/package/@babel/preset-react/v/7.12.13)
 
 
 
@@ -532,33 +549,31 @@ const modules = {
   "author": "mowenjinzhao<yanzhangshuai@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.12.10",
-    "@babel/plugin-transform-runtime": "7.12.10",
-    "@babel/preset-env": "7.12.11",
-    "@babel/preset-react": "7.12.10",
-    "@babel/runtime-corejs3": "7.12.5",
+    "@babel/core": "7.13.1",
+    "@babel/plugin-transform-runtime": "7.13.7",
+    "@babel/preset-env": "7.13.5",
+    "@babel/preset-react": "7.12.13",
+    "@babel/runtime-corejs3": "7.13.7",
     "babel-loader": "8.2.2",
     "clean-webpack-plugin": "3.0.0",
-    "html-webpack-plugin": "4.5.0",
-    "terser-webpack-plugin": "5.0.3",
-    "webpack": "5.14.0",
-    "webpack-cli": "4.2.0"
+    "html-webpack-plugin": "5.2.0",
+    "webpack": "5.24.0",
+    "webpack-cli": "4.5.0"
   },
   "dependencies": {
-    "core-js": "3.8.1",
     "jquery": "3.5.1",
     "react": "17.0.1",
-    "react-dom": "^17.0.1",
-    "regenerator-runtime": "0.13.7"
+    "react-dom": "17.0.1"
   },
   "scripts": {
     "start": "webpack --mode=development  --config webpack.config.js",
     "build": "webpack --mode=production  --config webpack.config.js"
   },
+  
   "browserslist": [
     "ie 9",
     "Chrome > 75"
-  ]
+    ]
 }
 
 ```
@@ -574,6 +589,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
+//	browserslist环境变量
+process.env.BROWSERSLIST_ENV = 'development'
 
 const config = {
   root: path.join(__dirname, './'),
@@ -589,14 +606,14 @@ const modules = {
   //   'index':  path.join(config.root, 'src/index.js'),
   // },
 
-  //  出口文件
+  //  输出文件
   //  字符串形式
   // output:path.join(config.root, './dist/[name].js')
   //对象形式
   output: {
-    //  出口文件的目录地址
+    //  输出文件的目录地址
     path: path.join(config.root, 'dist'),
-    //  出口文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
+    //  输出文件名称，contenthash代表一种缓存，只有文件更改才会更新hash值，重新打包
     filename: '[name]_[contenthash].js'
   },
 
@@ -605,7 +622,7 @@ const modules = {
   module:{
     rules:[
       {
-        //  所有的.js或者.jsx文件都走babel-loader
+        //  所有的.js(x?)文件都走babel-loader
         test: /\.js(x?)$/,
         include: path.join(config.root,'src'),
         loader: "babel-loader"
@@ -617,104 +634,121 @@ const modules = {
   optimization: {
     minimize: false,
     minimizer: [
-      new TerserPlugin({
-        //  包含哪些文件
-        include:  /\.js(\?.*)?$/i,
-        // //  排除哪些文件
-        // exclude:/\.js(\?.*)?$/i,
-        //  多进程并行运行，默认为true，开启，默认并发数量为os.cpus()-1
-        //  可以设置为false(不使用多线程)或者数值（并发数量）
-        parallel:true,
+    new TerserPlugin({
+          //  指定压缩的文件
+          include: /\.js(\?.*)?$/i,
 
-        //  可以设置一个function，使用其它压缩插件覆盖默认的压缩插件，默认为undefined，
-        minify:undefined,
+          // 排除压缩的文件
+          // exclude:/\.js(\?.*)?$/i,
 
-        terserOptions: {
-          // //  是否防止篡改函数名称，true代表防止篡改，即保留函数名称，false即可以篡改，
-          // //  此属性对使用Function.prototype.name
-          // //  默认为false
-          keep_fnames:false,
-          // //  是否防止篡改类名称
-          keep_classnames:false,
-          // //  设置一些其它的解析
-          parse: {},
-          //  最小化es6模块。默认为false
-          module:true,
-          //  ·压缩配置
+          //  是否启用多线程运行，默认为true，开启，默认并发数量为os.cpus()-1
+          //  可以设置为false(不使用多线程)或者数值（并发数量）
+          parallel: true,
 
-          //  format和output是同一个属性值，，名称不一致，output不建议使用了，被放弃
-          format: {
-            comments:false,
+          //  可以设置一个function，使用其它压缩插件覆盖默认的压缩插件，默认为undefined，
+          minify: undefined,
+
+          //  是否将代码注释提取到一个单独的文件。
+          //  属性值：Boolean | String | RegExp | Function<(node, comment) -> Boolean|Object> | Object
+          //  默认为true， 只提取/^\**!|@preserve|@license|@cc_on/i注释
+          //  感觉没什么特殊情况直接设置为false即可
+          extractComments: false,
+
+          // 压缩时的选项设置
+          terserOptions: {
+            //  是否保留原始函数名称，true代表保留，false即保留
+            //  此属性对使用Function.prototype.name
+            //  默认为false
+            keep_fnames: false,
+
+            // 是否保留原始类名称
+            keep_classnames: false,
+
+            //  format和output是同一个属性值，，名称不一致，output不建议使用了，被放弃
+            // 指定压缩格式。例如是否保留*注释*，是否始终为*if*、*for*等设置大括号。
+            format: {
+              comments: false,
+            },
+            output: undefined,
+
+            //  是否支持IE8，默认不支持
+            ie8: false,
+
+            compress: {
+              // 是否使用默认配置项，这个属性当只启用指定某些选项时可以设置为false
+              defaults: false,
+
+              // 是否移除无法访问的代码
+              dead_code: false,
+
+              // 是否优化只使用一次的变量
+              collapse_vars: true,
+
+              warnings: true,
+
+              //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
+              drop_console: false,
+
+              //  是否删除所有debugger语句，默认为true
+              drop_debugger: true,
+
+              //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
+              // pure_funcs: ['console.log'], //移除console
+            },
           },
-          //  是否支持IE8，默认不支持
-          ie8:false,
-          compress: {
-            // 是否使用默认设置，这个属性当只启用指定某些选项时可以设置为false
-            defaults:false,
-            //  是否移除无法访问的代码
-            dead_code:false,
-
-            // 折叠仅仅使用一次的变量
-            collapse_vars:true,
-            warnings:true,
-            //  是否删除所有 console.*语句，默认为false，这个可以在线上设置为true
-            //  是否删除所有debugger语句，默认为true
-            drop_debugger:true,
-            //  移除指定func，这个属性假定函数没有任何副作用，可以使用此属性移除所有指定func
-            // pure_funcs: ['console.log'], //移除console
-          },
-        },
-        //  是否将注释提出到单独的文件中
-        //  值Boolean|String|RegExp|Function<(node, comment) -> Boolean|Object>|Object
-        //  默认为true， 只提取/^\**!|@preserve|@license|@cc_on/i注释
-        //  感觉没什么特殊情况直接设置为false即可
-        extractComments:false,
-      })
+    	})
     ]
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      //  template的title优先级大于当前数据
-      title: 'my-cli',
-      //  文件名称
-      filename: 'index.html',
+       //  HTML的标题，
+        //  template的title优先级大于当前数据
+        title: 'my-cli',
 
-      //  模板路径
-      template: path.join(config.root, 'src/index.html') ,
-      // 用于打包后引用脚本时的路径
-      publicPath: './',
+        //  输出的html文件名称
+        filename: 'index.html',
 
-      //  是否将打包的资源引用到当前HTML， false代表不引用
-      //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
-      //  默认为true
-      inject: 'body',
-      //  加载js方式，值为defer/blocking
-      //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
-      scriptLoading: 'blocking',
+        //  本地HTML模板文件地址
+        template: path.join(config.root, 'src/index.html'),
 
-      //  是否进行缓存，默认为true，在开发环境可以设置成false
-      cache: false,
-      //  添加mate属性
-      meta: {}
+        // 引用JS文件的目录路径
+        publicPath: './',
+
+        //  引用JS文件的位置
+        //  true或者body将打包后的js脚本放入body元素下，head则将脚本放到中
+        //  默认为true
+        inject: 'body',
+
+        //  加载js方式，值为defer/blocking
+        //  默认为blocking, 如果设置了defer，则在js引用标签上加上此属性，进行异步加载
+        scriptLoading: 'blocking',
+
+        //  是否进行缓存，默认为true，在开发环境可以设置成false
+        cache: false,
+
+        //  添加mate属性
+        meta: {}
     }),
 
     new CleanWebpackPlugin({
+ 		// 是否假装删除文件
+        //  如果为false则代表真实删除，如果为true，则代表不删除
+        dry: false,
 
-      //  假装文件删除
-      //  如果为false则代表真实删除，如果为true，则代表不删除
-      dry: false,
-      //  是否打印日志到控制台 默认为false
-      verbose: true,
-      cleanStaleWebpackAssets: false,
-      //  允许保留本次打包的文件
-      //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
-      //  默认为true
-      protectWebpackAssets: true,
-      //  每次打包之前删除匹配的文件
-      cleanOnceBeforeBuildPatterns: ['**/*'],
+        //  是否将删除日志打印到控制台 默认为false
+        verbose: true,
 
-      //  每次打包之后删除匹配的文件
+        //  允许保留本次打包的文件
+        //  true为允许，false为不允许，保留本次打包结果，也就是会删除本次打包的文件
+        //  默认为true
+        protectWebpackAssets: true,
+
+        //  每次打包之前删除匹配的文件
+        cleanOnceBeforeBuildPatterns: ['**/*'],
+
+        //  每次打包之后删除匹配的文件
+        cleanAfterEveryBuildPatterns:["*.js"],
     }),
 
 
@@ -729,13 +763,13 @@ const modules = {
       '~':  path.join(config.root, './src/assets') ,
     },
     //  可互忽略的后缀
-    extensions:['.jsx', '.js', '.json'],
+    extensions:['.JSX', '.js', '.json'],
     //  默认读取的文件名
     mainFiles:['index', 'main'],
   }
 }
 
-//  使用node。js的导出，将配置进行导出
+//  使用node.js的导出，将配置进行导出
 module.exports = modules
 ```
 
