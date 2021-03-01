@@ -10,9 +10,10 @@ const { config }  = require('./config');
 //  isDev  boolean
 
 //  使用node。js的导出，将配置进行导出
-module.exports =  (isDev) => {
-//  当前模式是否为dev模式，使用此属性来做一个简单显示判断
-  isDev = isDev === undefined ? true : isDev;
+module.exports =  (isDev = true) => {
+
+  //  根据参数设置browserslist环境变量
+  process.env.BROWSERSLIST_ENV = isDev ? 'development' : 'production'
 
   return {
 
@@ -34,7 +35,7 @@ module.exports =  (isDev) => {
     module: {
       rules: [
         {
-          //  .js文件都走babel-loader
+          //  所有的.js(x?)文件都走babel-loader
           test: /\.js(x?)$/,
           include: path.join(config.root, 'src'),
           loader: "babel-loader"
@@ -258,7 +259,7 @@ module.exports =  (isDev) => {
         '~': path.join(config.root, 'src/assets'),
       },
       //  可互忽略的后缀
-      extensions: ['.jsx', '.js', '.json', '.css'],
+      extensions: ['.jsx', '.js', '.json'],
       //  默认读取的文件名
       mainFiles: ['index', 'main'],
     }
