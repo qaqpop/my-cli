@@ -617,9 +617,8 @@ module.exports = merge([
     "babel-loader": "8.2.2",
     "clean-webpack-plugin": "3.0.0",
     "html-webpack-plugin": "5.2.0",
-    "terser-webpack-plugin": "5.0.3",
-    "webpack": "5.14.0",
-    "webpack-cli": "4.4.0",
+    "webpack": "5.24.0",
+    "webpack-cli": "4.5.0",
     "webpack-merge": "5.7.3"
   },
   "dependencies": {
