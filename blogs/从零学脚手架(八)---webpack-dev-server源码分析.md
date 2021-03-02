@@ -1,34 +1,46 @@
-在此篇想简单的梳理下<font style="color:#f03d3d">webpack-dev-server</font>内部实现，源码解析可能涉及到一些比较难啃的知识，我会尽量做到简单化。但是觉得还是有些难度或者对<font style="color:#f03d3d">webpack-dev-server</font>源码没有兴趣的朋友，也可以完全可以跳过此篇
+在此篇简单的梳理下<font style="color:cornflowerblue">webpack-dev-server</font>内部实现。
+
+由于涉及到源码解析，所以会涉及到一些比较难啃的知识，我会尽量进行简单化描述。
+
+但如果还是具有具有难度 或 对 <font style="color:cornflowerblue">webpack-dev-server</font>内部实现不敢兴趣的朋友，也可以完全跳过此篇。
 
 
 
 ### 调试webpack-dev-server
 
+#### 配置调试方式
 
+在日常开发开发中，如果对代码逻辑不熟悉，最简单的方法就是**调试**，一步步观察流程。
 
-#### 调试方式
+学习<font style="color:cornflowerblue">webpack-dev-server</font>源码，最简单的方法也就是就行调试，不过调试<font style="color:cornflowerblue">webpack-dev-server</font>源码毕竟不像调试本身项目代码那样简单，必定需要做一些配置，
 
-在开发中，如果对程序代码不太清楚，最简单的方案就是调试，一步步去观察流程。学习<font style="color:#f03d3d">webpack-dev-server</font>源码，最简单的也不过如是，但调试源码毕竟不像调试自己项目代码，必定需要做一些配置，下面简单介绍两种<font style="color:#f03d3d">webpack-dev-server</font>源码方式
+下面先简单介绍两种源码<font style="color:cornflowerblue">webpack-dev-server</font>方式
 
 
 
 ##### 浏览器调试
 
-现在都知道<font style="color:#f03d3d">webpack</font>是执行于**Node**环境下，所以其实是调试<font style="color:#f03d3d">webpack</font>，就是调试**Node**程序。 **Chrome**浏览器中提供了调试**Node**程序的方案。
+现在都知道<font style="color:cornflowerblue">webpack</font>是执行于<font style="color:cornflowerblue">Node.js</font>环境下，所以调试<font style="color:cornflowerblue">webpack</font>也就是调试<font style="color:cornflowerblue">Node.js</font>程序。
+
+伟大的<font style="color:cornflowerblue">Chrome</font>浏览器就给我们提供了调试<font style="color:cornflowerblue">Node.js</font>程序的方案。
 
 
 
-首先在`package.json`文件`scripts`属性中添加了一个`debug`指令，这个命令就是启动浏览器调试`Node`程序
+首先在**package.json**文件**scripts**属性中添加了一个`debug`指令，使用这个命令启动调试<font style="color:cornflowerblue">Node.js</font>程序
 
 <img src="./images/image-08-01.png" width="400">
 
 
 
-`inspect-brk` 属性设置调试的参数  ***5858***代表端口号，***./node_modules/webpack-dev-server/bin/webpack-dev-server.js***代表调试指定文件，
+**inspect-brk**属性就是设置调试<font style="color:cornflowerblue">Node.js</font>程序参数 ：
+
+***5858***代表启动<font style="color:cornflowerblue">Node.js</font>程序的端口号
+
+**./node_modules/webpack-dev-server/bin/webpack-dev-server.js** 文件代表调试的指定文件，
 
 
 
-然后设置浏览器：
+接下来就该设置浏览器
 
 在**Chrome浏览器**地址栏输入`chrome://inspect`便可以进入设置页面
 
@@ -696,25 +708,26 @@ if (module.hot) {
   "author": "mowenjinzhao<yanzhangshuai@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.12.10",
-    "@babel/plugin-transform-runtime": "7.12.10",
-    "@babel/preset-env": "7.12.11",
-    "@babel/preset-react": "7.12.10",
-    "@babel/runtime-corejs3": "7.12.5",
+    "@babel/core": "7.13.1",
+    "@babel/plugin-transform-runtime": "7.13.7",
+    "@babel/preset-env": "7.13.5",
+    "@babel/preset-react": "7.12.13",
+    "@babel/runtime-corejs3": "7.13.7",
     "babel-loader": "8.2.2",
     "clean-webpack-plugin": "3.0.0",
-    "html-webpack-plugin": "4.5.0",
-    "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.22.0",
-    "webpack-cli": "4.4.0",
+    "css-loader": "5.0.2",
+    "file-loader": "6.2.0",
+    "html-webpack-plugin": "5.2.0",
+    "mini-css-extract-plugin": "1.3.8",
+    "style-loader": "2.0.0",
+    "webpack": "5.24.0",
+    "webpack-cli": "4.5.0",
     "webpack-dev-server": "4.0.0-beta.0",
     "webpack-merge": "5.7.3"
   },
   "dependencies": {
-    "core-js": "3.8.1",
     "react": "17.0.1",
-    "react-dom": "^17.0.1",
-    "regenerator-runtime": "0.13.7"
+    "react-dom": "17.0.1"
   },
   "scripts": {
     "start:dev": "webpack-dev-server  --config build/webpack.dev.js",
@@ -722,8 +735,18 @@ if (module.hot) {
     "build": "webpack  --config build/webpack.pro.js",
     "debug": "node --inspect-brk=5858 ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "watch": "webpack  --config build/webpack.watch.js"
+  },
+
+  "browserslist": {
+    "development": [
+      "chrome > 75"
+    ],
+    "production": [
+      "ie 9"
+    ]
   }
 }
+
 ```
 
 

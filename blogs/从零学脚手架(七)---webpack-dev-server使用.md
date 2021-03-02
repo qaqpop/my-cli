@@ -886,49 +886,63 @@ module.exports = merge([
 
 相对于<font style="color:cornflowerblue">webpack-dev-server@3.X</font>，<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>版本对配置属性做了更好的整合。
 
-一般情况下只需要配置主要属性即可。
-
 
 
 ##### host / port
 
-这两个属性很好理解，就是设置服务器IP地址和端口号。<font style="color:#f03d3d">webpack-dev-server</font>是使用的[express](https://www.npmjs.com/package/express)库。在<font style="color:#f03d3d">webpack-dev-server</font>库中**lib**目录具有一个**Server.js**，这个文件就是启动服务器的文件。
+这两个属性是最容易理解并且使用最多属性之一。
 
-**Server.js**具有一个函数，这个函数就是监听启动服务器的
+<font style="color:cornflowerblue">webpack-dev-server</font>内部使用express](https://www.npmjs.com/package/express)框架。
+
+<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>库中**/lib/Server.js**文件就是<font style="color:cornflowerblue">webpack-dev-server</font>服务器模块。
+
+**/lib/Server.js**具有一个 **listen()**，**listen()**就是启动服务器函数。
 
 <img src="./images/image-07-21.png" width="400">
 
-而调用这个函数则是在<font style="color:#f03d3d">@webpack-cli</font>库的**serve/lib/startDevServer.js**。
+而**listen()**的调用是在<font style="color:#f03d3d">@webpack-cli</font>库的**serve/lib/startDevServer.js**。
+
+
 
 <img src="./images/image-07-22.png" width="400">
 
-可以看到使用了**options.port**和**options.host**两个属性值。这两个属性值就是`webpack.devServer`中是属性。
+可以看到在**serve/lib/startDevServer.js**中使用了**options.port**和**options.host**属性值来启动服务器。
+
+这两个属性就是来自<font style="color:cornflowerblue">webpack</font>配置中的**devServer**。
 
 
 
-至于默认8080端口号就是在**findPort**函数设置的
+至于默认**8080**端口号的提供是在**findPort()**
 
 <img src="./images/image-07-23.png" width="400">
 
 <img src="./images/image-07-24.png" width="400">
 
-> :whale2::whale2:源码是基于<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>。**webpack-dev-server@3.X**中没有<font style="color:#f03d3d">@webpack-cli</font>库。
+> :whale2::whale2: 源码是基于<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>。
 
 
 
 ##### open、 openPath
 
-这两个属性是在服务器启动时判断是否启动浏览器，代码执行在**Server.listen**中调用的**showStatus**函数中。最后**/lib/util/runOpen.js**中启动浏览器
+这两个属性在服务器启动后判断是否启动浏览器。
+
+**Server.listen()** 回调函数调用了**showStatus()**。
+
+随后调用了 **/lib/util/runOpen.js**模块启动浏览器
 
 <img src="./images/image-07-25.png" width="400">
 
-可以看到，这两个参数做了类型判断。`open`支持配置字符串打开指定浏览器。`openPath`可以配置为数组打开多个页签。最后使用了[open](https://www.npmjs.com/package/open)库来打开浏览器
+可以看到，**open**和**openPath**属性都做了类型判断。
+
+**open**属性支持设置字符串打开指定浏览器；
+
+**openPath**可以配置为数组打开多个页签。最后使用了[open](https://www.npmjs.com/package/open)库来打开浏览器
 
 
 
 ##### hot
 
-在**Server.js**中启动服务以后，如果具有设置`hot`则会去创建**WebSocket**链接，具体hot流程在下一篇介绍
+在**Server.listen()** 回调函数中使用 **hot**属性做了判断 ，当设置了**hot**或**liveReoad**属性时，就会创建<font style="color:cornflowerblue">WebSocket· Server</font> 。
 
 <img src="./images/image-07-26.png" width="400">
 
@@ -936,47 +950,63 @@ module.exports = merge([
 
 ##### static
 
-**static**属性在上面说了，是设置静态文件的一系列属性的封装，有静态文件的访问路径、文件监听等。
+**static**属性刚才说了，是<font style="color:cornflowerblue">webpack-dev-server@4.X</font>对关于静态文件属性的封装：访问路径、文件监听等。
 
-
+在这里只是详细介绍下部分属性。
 
 ###### directory、publicPath、staticOptions
 
-这三个属性是**express服务器**设置静态文件使用的属性。在**Server.js**中**setupStaticFeature**函数中
+这三个属性是<font style="color:cornflowerblue">express服务器</font>设置静态文件使用的属性。
+
+在**Server.setupStaticFeature()**，使用了<font style="color:cornflowerblue">express服务器</font>挂载了**静态文件中间件（express.static）**。
+
+将中间件挂载到服务器上的访问地址是：**static.publicPath**。
+
+而挂载的本地静态文件地址是：**static.directory**。
 
 <img src="./images/image-07-27.png" width="400">
 
-可以看到，**express服务器**挂载了**静态文件中间件（express.static）**其访问目录为***publicPath***。而要挂载本地静态文件目录为***directory***。
+可以看到，**express服务器**挂载了其访问目录为***publicPath***。而要挂载本地静态文件目录为***directory***。
 
-***staticOptions***则是其挂载时的参数
+静态文件中间件使用的参数是：**static.staticOptions**
+
+<img src="./images/image-07-27.png" width="400">
+
+例如
+
+将**static.directory**属性设置为： ***path.join(config.root, 'assets')***；**static.publicPath**属性设置为：***/static***
+
+在访问**/assets/images/yj.png**图片时就应该使用**/static/images/yj.png**
 
 <img src="./images/image-07-28.png" width="400">
-
-例如，如果将`directory`设置为 ***path.join(config.root, 'assets')***，`publicPath`设置为***'/static'***，那么在访问**assets/images/yj.png**时就应该是**static/images/yj.png**
 
 <img src="./images/image-07-29.png" width="400">
 
 <img src="./images/image-07-30.png" width="400">
 
-> :whale2::whale2: 在设置`publicPath`和`directory`时，要注意设置好目录地址，在build时依然能找到静态文件。
->
-> 
->
-> :whale2: 源码中`static`和`publicPath`都是数组形式。所以可以配置多个
->
-> 
->
-> :whale2: 在此只是以图片做一个例子，还并不涉及到文件的打包。
+
+
+
+
+
+
+> :whale2::whale2:  **static.publicPath**和**static.directory**属性一般不会自定义，如需自定义，需要注意将目录地址设置好，避免在<font style="color:cornflowerblue">production</font>找不到
+
+> :whale2:  源码中**static**和**static.publicPath**属性都是*Array*。所以配置属性时可以配置为*Array*
+
+> :whale2: 在此只是以图片做一个例子，并不涉及到文件打包。
 
 
 
 ###### serveIndex
 
-这个属性是设置能否在浏览器中查看静态文件，使用的是[serve-index](https://www.npmjs.com/package/serve-index)库
+此属性是设置能否在浏览器中查看静态文件。<font style="color:cornflowerblue">webpack-dev-server</font>内部使用的是[serve-index](https://www.npmjs.com/package/serve-index)库
 
 <img src="./images/image-07-31.png" width="400">
 
-来做一个测试,将此属性设置为***false***，然后在浏览器查看静态文件路径，会发现直接报404。
+
+
+如果将**static.serverIndex**属性设置为***false***，那么在浏览器中查看静态文件路径，会直接是404
 
 <img src="./images/image-07-32.png" width="400">
 
@@ -984,7 +1014,7 @@ module.exports = merge([
 
 
 
-但是如果将`serveIndex`设置为***true***，就可以访问到静态文件
+如果**static.serverIndex**属性为***true***，那就可以在浏览器中查看静态文件
 
 <img src="./images/image-07-34.png" width="400">
 
@@ -994,61 +1024,87 @@ module.exports = merge([
 
 ##### dev
 
-这个属性是对打包解决存储操作的一系列属性的封装。dev-server内部使用了<font style="color:#f03d3d">webpack-dev-middleware</font>处理这个操作。所以`dev`中大部分属性都是<font style="color:#f03d3d">webpack-dev-middleware</font>使用的。
+此属性是<font style="color:#f03d3d">webpack-dev-middleware</font>库使用的一系列属性汇总。
+
+
 
 ###### index
 
-这个属性是是控制默认指向的文件名称。代码在<font style="color:#f03d3d">webpack-dev-middleware</font>库中**/dist/utils/getFilenameFromUrl.js**
+此属性是设置根目录所指向的文件，代码在<font style="color:#f03d3d">webpack-dev-middleware</font>库中**/dist/utils/getFilenameFromUrl.js**文件
 
 <img src="./images/image-07-36.png" width="400">
 
-可以看到，`index`属性类型判断为 **string | boolean**。并且默认值为**index.html**，此属性可以进行更改，例如改为**i.index**
+可以看到，在处理**static.index**属性时做了类型判断。
+
+并且其默认值为**index.html**。
+
+由于<font style="color:#f03d3d">html-webpack-plugin</font>库中的**filename**属性默认值也是**index.html**
+
+也就可以在不做配置情况下默认就可以在根目录下访问代码。
+
+当然也可以更改此属性。不过在更改代码时也要将<font style="color:#f03d3d">html-webpack-plugin</font>库的**filename**属性进行更改。否则访问时会404
+
+
 
 <img src="./images/image-07-37.png" width="400">
 
-但是如果还想默认打开那么就必须更改<font style="color:#f03d3d">html-webpack-plugin</font>中的`filename`。所以它们这些库都是约定为**index.html**，以能够以极少配置便可以运行。
-
 <img src="./images/image-07-38.png" width="400">
 
-> :whale2::whale2::whale2: 约定大于配置，写代码时尽可能使用统一的约定规范，这样可以能达到最简易化。
+> :whale2::whale2::whale2: 约定大于配置，编写代码时尽量做到使用统一约定。
 
 
 
 ###### stats
 
-这个属性是控制文件打包统计的，在允许`start`之后，总是在控制台能看到好多信息，这个属性就控制此信息输出的。
+此属性是控制打包日志输出等级的。在默认情况的执行<font style="color:cornflowerblue">webpack-dev-server</font>。总是能在控制台输出好多日志信息。这些日志信息就是由此属性控制的。
 
 <img src="./images/image-07-39.png" width="400">
 
-打印源码是在<font style="color:#f03d3d">webpack-dev-middleware</font>库中**/dist/utils/setupHook.js**中。 代码中***stats***是内部的状态对象，而***statsOptions***才是配置信息。
+代码是在<font style="color:#f03d3d">webpack-dev-middleware</font>库中**/dist/utils/setupHook.js**模块。 
+
+代码中**stats**字段是内部提供的一个状态对象，根据**statsOptions（dev.stats）**属性获取指定的状态信息。
 
 <img src="./images/image-07-40.png" width="400">
 
-如果将`stats`改为***errors-only***，那么控制台就会干净很多，只有在代码打包错误时才打印，如果改为***none***，那么错误也不会打印。有兴趣的诸君可以自行测试.
+如果将**dev.stats**设置为***errors-only***，控制台就不会有这么多日志，***errors-only***属性值代表只有在代码打包错误时才输出日志。
 
 <img src="./images/image-07-41.png" width="400">
 
-
+而如果设置为***none***，那么连错误日志都不会再输出。.
 
 
 
 ##### overlay
 
-此属性是代码编译错误时是否在页面上显示错误信息，由**WebSocket**推送消息，属性在<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>版本有bug，在**Server.js**源码中使用的是`clientOverlay`，但是配置参数没有这个参数，应该是测试版遗漏了。所以在测试时只能改动一下源码，将`clientOverlay`改为`overlay`
+此属性是控制代码打包编译时出现警告和错误时，是否在页面上显示错误信息。
+
+此属性在<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>版本具有bug。
+
+在下面**Server.js**文件中可以看到使用了**clientOverlay**属性，但是在**dev**对象中并没有此属性。
+
+所需在测试时需要改动一下源码。将**clientOverlay**改为**overlay**。
 
 <img src="./images/image-07-42.png" width="400">
 
+所以在测试时需要改动一下源码。将**clientOverlay**改为**overlay**。
+
 <img src="./images/image-07-43.png" width="400">
 
-然后将`overlay`设置为true后，如果编译错误，那么页面会直接显示错误信息，这个功能我个人感觉还挺好用。可能有些人更喜欢使用控制台看错误信息，`dev.stats`属性值。
+当**overlay**属性值为***true***时，如果代码出现编译错误，会直接在页面上显示错误信息。
 
 <img src="./images/image-07-44.png" width="400">
+
+这个功能个人感觉还挺好用。不过可能有些人更喜欢使用控制台查看错误信息，也就是**dev.stats**属性。
 
 
 
 ##### historyApiFallback	
 
-这个属性有点意思，在使用HTML5 API时将所有无效路由（404）都跳转到指定页面。跟写项目中将所有无效路由（404）到转到404页面一样。内部使用的是[connect-history-api-fallback](https://www.npmjs.com/package/connect-history-api-fallback)中间件，默认约定的是**index.html**。
+ 此属性代表在使用**HTML5 API**时是否将所有**无效路由（404）**都跳转到指定页面。
+
+相当于一般项目中将所有**无效路由（404）**到转到**指定404页面**功能一样
+
+<font style="color:cornflowerblue">webpack-dev-server</font>内部使用的是[connect-history-api-fallback](https://www.npmjs.com/package/connect-history-api-fallback)中间件来做处理，默认跳转的页面是**index.html**。
 
 <img src="./images/image-07-45.png" width="400">
 
@@ -1064,11 +1120,9 @@ module.exports = merge([
 
 > :whale2::whale2::whale2:
 >
-> 1. **dev-server**是为了方便开发而设计出了一种模式， 主要是利用浏览器和长链接推送来交互
-> 2. **webpack-cli@4.X**更改目录结构和**webpack-dev-server**命令。导致与**webpack-dev-server@3.X**使用老命令会错误。
-> 3. **webpack-dev-server@4.0.0-bata.0**具有还不少的bug。
-> 4. **webpack-dev-server@4.0.0-bata.0**对`devServer`属性做了更好的汇总。
-> 5. 约定大于配置。
+> * <font style="color:cornflowerblue">webpack-dev-server</font>是为了方便开发而提供的一种功能， 利用<font style="color:cornflowerblue">WebSocket</font>与服务器建立长链接。
+> * <font style="color:cornflowerblue">webpack@4.X</font>版本对代码结构进行了大范围更改，导致与<font style="color:cornflowerblue">webpack-dev-server@3.X</font>使用`webpack-dev-server`命令会报错。
+> * <font style="color:cornflowerblue">webpack-dev-server@4.X</font>版本对**devServer**属性根据功能进行了更好的汇总。
 
 
 
@@ -1097,34 +1151,39 @@ module.exports = merge([
   "author": "mowenjinzhao<yanzhangshuai@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.12.10",
-    "@babel/plugin-transform-runtime": "7.12.10",
-    "@babel/preset-env": "7.12.11",
-    "@babel/preset-react": "7.12.10",
-    "@babel/runtime-corejs3": "7.12.5",
+    "@babel/core": "7.13.1",
+    "@babel/plugin-transform-runtime": "7.13.7",
+    "@babel/preset-env": "7.13.5",
+    "@babel/preset-react": "7.12.13",
+    "@babel/runtime-corejs3": "7.13.7",
     "babel-loader": "8.2.2",
     "clean-webpack-plugin": "3.0.0",
-    "css-loader": "5.0.1",
-    "html-webpack-plugin": "4.5.0",
-    "style-loader": "2.0.0",
-    "terser-webpack-plugin": "5.1.1",
-    "webpack": "5.14.0",
-    "webpack-cli": "4.4.0",
+    "html-webpack-plugin": "5.2.0",
+    "webpack": "5.24.0",
+    "webpack-cli": "4.5.0",
     "webpack-dev-server": "4.0.0-beta.0",
     "webpack-merge": "5.7.3"
   },
   "dependencies": {
-    "core-js": "3.8.1",
     "react": "17.0.1",
-    "react-dom": "^17.0.1",
-    "regenerator-runtime": "0.13.7"
+    "react-dom": "17.0.1"
   },
   "scripts": {
     "start:dev": "webpack-dev-server  --config build/webpack.dev.js",
     "start": "webpack serve  --config build/webpack.dev.js",
     "build": "webpack  --config build/webpack.pro.js",
+  },
+
+  "browserslist": {
+    "development": [
+      "chrome > 75"
+    ],
+    "production": [
+      "ie 9"
+    ]
   }
 }
+
 
 ```
 

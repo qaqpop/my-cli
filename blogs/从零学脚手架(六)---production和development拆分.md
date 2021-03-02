@@ -582,8 +582,8 @@ module.exports = merge([
 
 > :whale2::whale2::whale2:
 >
-> 1. 对<font style="color:cornflowerblue">开发模式（development）</font>和<font style="color:cornflowerblue">发布模式（production）</font>进行拆分主要是为了更方便管理代码，其具体结构依照每个人编码习惯具有差异性
-> 2. <font style="color:#f03d3d">webpack-merge</font> 是一个将多个JS对象属性合并的库，功能与**Object.assign()**一致，只是更为强大一些。
+> * 对<font style="color:cornflowerblue">开发模式（development）</font>和<font style="color:cornflowerblue">发布模式（production）</font>进行拆分主要是为了更方便管理代码，其具体结构依照每个人编码习惯具有差异性
+> * <font style="color:#f03d3d">webpack-merge</font> 是一个将多个JS对象属性合并的库，功能与**Object.assign()**一致，只是功能更为强大一些。
 
 
 
