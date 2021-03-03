@@ -156,7 +156,11 @@
 
 
 
-<font style="color:cornflowerblue">webpack-dev-server</font>服务器启动时跨了好几个库调用代码，<font style="color:cornflowerblue">webpack</font> ---> <font style="color:cornflowerblue">webpack-cli</font> ---> <font style="color:cornflowerblue">@webpack-cli</font> ---> <font style="color:cornflowerblue">webpack-dev-server</font>。不过只要弄清楚了执行逻辑，理解起来并不会有多大困难
+<font style="color:cornflowerblue">webpack-dev-server</font>服务器启动时跨了好几个库调用代码，  
+
+<font style="color:cornflowerblue">webpack</font> ---> <font style="color:cornflowerblue">webpack-cli</font> ---> <font style="color:cornflowerblue">@webpack-cli</font> ---> <font style="color:cornflowerblue">webpack-dev-server</font>。不过只要弄清楚了执行逻辑，理解起来并不会有多大困难
+
+<img src="./images/image-08-new-01.jpg" width="400">
 
 
 
