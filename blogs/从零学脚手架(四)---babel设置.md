@@ -2,31 +2,31 @@
 
 ### ES6的枷锁
 
-细心的朋友可以知道，在之前打包编译测试都是使用简单的<font style="color:cornflowerblue">ES5</font>特性，并没有使用过<font style="color:cornflowerblue">ES6（ES2015+）</font>特性（**import**除外）
+细心的朋友可以知道，在之前打包编译测试都是使用简单的<font style="color:cornflowerblue">ES5</font>特性，
 
-<font style="color:cornflowerblue">webpack</font>本身不会处理代码中的<font style="color:cornflowerblue">ES6（ES2015+）</font>
+并没有使用过<font style="color:cornflowerblue">ES6（ES2015+）</font>特性（**import**除外）
+
+这是因为<font style="color:cornflowerblue">webpack</font>本身不会处理代码中的<font style="color:cornflowerblue">ES6（ES2015+）</font>特性，所以也就没有使用。
+
+
 
 先来做一个测试
 
-在**/src/index.js**文件使用部分<font style="color:cornflowerblue">ES6（ES2015+）</font>，然后观察打包编译代码。
+在**/src/index.js**文件使用部分<font style="color:cornflowerblue">ES6（ES2015+）</font>，查看打包编译代码会发现<font style="color:cornflowerblue">webpack</font>并没有处理<font style="color:cornflowerblue">ES6（ES2015+）</font>特性。
 
 <img src="./images/image-04-01.png" width="400">
 
-此时使用`yarn build`执行打包代码就会看到：<font style="color:cornflowerblue">webpack</font>并没有处理<font style="color:cornflowerblue">ES6（ES2015+）</font>特性。
-
-<img src="./images/image-04-02.png" width="400">
-
-<img src="./images/image-04-03.png" width="400">
 
 
+自从<font style="color:cornflowerblue">ES6（ES2015+）</font>时代来临后，前端才具有了飞速发展。<font style="color:cornflowerblue">ES6（ES2015+）</font>各种特性也给开发人员带来了便利。
+
+毫不客气的说，没有人再想写<font style="color:cornflowerblue">ES5</font>代码了。
 
 
 
-自从<font style="color:cornflowerblue">ES6（ES2015+）</font>时代来临后，前端才算具有了飞速发展。<font style="color:cornflowerblue">ES6（ES2015+）</font>各种特性也给开发人员带来了编译，毫不客气的说，现在没有人再想写<font style="color:cornflowerblue">ES5</font>代码了。
+但是，前端代码的<font style="color:cornflowerblue">执行环境（浏览器）</font>是由用户决定的，如果用户一直使用旧版本浏览器，那么新特性就无法运行在用户浏览器中。
 
-但是，前端代码的<font style="color:cornflowerblue">执行环境（浏览器）</font>是由用户决定的，如果用户一直使用旧版本浏览器，那么新特性就无法运行。
-
-那么就需要一种工具：将使用的<font style="color:cornflowerblue">ES6（ES2015+）</font>特性转换为<font style="color:cornflowerblue">ES5</font>特性
+这时候就需要一种工具：将代码使用的<font style="color:cornflowerblue">ES6（ES2015+）</font>特性转换为<font style="color:cornflowerblue">ES5</font>特性
 
 这个工具就叫做：<font style="color:cornflowerblue">babel</font>
 
@@ -42,23 +42,23 @@
 
 #### babel介绍
 
-<font style="color:cornflowerblue">babel</font>并不只是<font style="color:cornflowerblue">webpack</font>一个<font style="color:cornflowerblue">扩展插件</font>。而是一个可以独立运行的工具。
-
 <font style="color:cornflowerblue">ES6</font>来临后，前端开启了百花绽放的时代。从而也导致了<font style="color:cornflowerblue">ES6</font>转<font style="color:cornflowerblue">ES5</font>的工作并不仅仅局限于**JS**语言的原始特性。
 
 例如：<font style="color:cornflowerblue">Typescript</font>、<font style="color:cornflowerblue">JSX</font>语法等等。
 
 
 
-所以<font style="color:cornflowerblue">babel</font>工具的设计思想也与<font style="color:cornflowerblue">webpack</font>一致：提供<font style="color:#06f">**核心引擎**</font> + <font style="color:#06f">**插件化**</font>的设计模式
+这些都可以使用<font style="color:cornflowerblue">babel</font>进行处理。
 
-<font style="color:cornflowerblue">babel</font>提供了一个<font style="color:#06f">**核心引擎**</font>库：[@babel/core](https://www.npmjs.com/package/@babel/core) 和 允许扩展插件库的设置。
+<font style="color:cornflowerblue">babel</font>的设计思想也与<font style="color:cornflowerblue">webpack</font>一致：提供<font style="color:#06f">**核心引擎**</font> + <font style="color:#06f">**插件化**</font>的模式管理
+
+<font style="color:cornflowerblue">babel</font>提供了一个<font style="color:#06f">**核心引擎**</font>库：[@babel/core](https://www.npmjs.com/package/@babel/core) 和 扩展插件库配置。
 
 
 
 #### @babel/cli
 
-<font style="color:cornflowerblue">babel</font>其实并不是<font style="color:cornflowerblue">webpack</font>一个<font style="color:cornflowerblue">扩展插件</font>，它是一个独立的工具。可以进行单独配置、运行。
+<font style="color:cornflowerblue">babel</font> 其实并不是<font style="color:cornflowerblue">webpack</font>一个<font style="color:cornflowerblue">扩展插件</font>，它是一个独立的工具。可以进行单独配置、运行。
 
 <font style="color:cornflowerblue">babel</font>提供了一个[@babel/cli](https://www.npmjs.com/package/@babel/cli)库，与[webpack-cli](https://www.npmjs.com/package/webpack-cli)库一样，允许命令行直接运行<font style="color:cornflowerblue">babel</font>
 
@@ -72,19 +72,19 @@
 
 在此就不介绍<font style="color:cornflowerblue">@babel/cli</font>这一块的内容了，有兴趣的朋友可以去[官网](https://www.babeljs.cn/docs/usage)学习
 
-> :whale2::whale2::whale2: <font style="color:cornflowerblue">babel</font>作为一个独立工具，理论上可以配置在所以<font style="color:cornflowerblue">打包器</font>中。
+> :whale2::whale2::whale2: <font style="color:cornflowerblue">babel</font>作为一个独立工具，理论可以配置在所有<font style="color:cornflowerblue">打包器</font>中。
 
 
 
 ####  babel-loader
 
-<font style="color:cornflowerblue">babel</font>作为一个独立的工具，那么就肯定不能直接使用在<font style="color:cornflowerblue">webpack</font>中，毕竟它们的接口都不一致
+<font style="color:cornflowerblue">babel</font>作为一个独立的工具，那么肯定不能直接配置在<font style="color:cornflowerblue">webpack</font>中。
 
 那么想要<font style="color:cornflowerblue">babel</font>执行在<font style="color:cornflowerblue">webpack</font>，就必须提供一个<font style="color:cornflowerblue">适配器</font>，来桥接两个库。
 
 而这个<font style="color:cornflowerblue">适配器</font>就是[babel-loader](https://www.npmjs.com/package/babel-loader)。
 
-<font style="color:#f03d3d">babel-loader</font>在<font style="color:cornflowerblue">webpack</font>执行时拦截需要转换文件，将文件代码先交给<font style="color:cornflowerblue">babel</font>进行转换，然后再传回<font style="color:cornflowerblue">webpack</font>执行接下来的操作。
+<font style="color:#f03d3d">babel-loader</font>在<font style="color:cornflowerblue">webpack</font>执行时拦截需要转换文件，将文件先交给<font style="color:cornflowerblue">babel</font>进行转换，然后再传回<font style="color:cornflowerblue">webpack</font>执行接下来的操作。
 
 而<font style="color:#f03d3d">babel-loader</font>只是调用了<font style="color:#f03d3d">@babel/core</font>库中的API。最后执行的还是<font style="color:#f03d3d">@babel/core</font>引擎
 
@@ -94,7 +94,7 @@
 
 > yarn add -D babel-loader@8.2.2 @babel/core@7.13.1
 
-然后在**webpack.config.js**中配置所有的**.js**文件都使用<font style="color:#f03d3d">babel-loader</font>进行转换。
+然后在**webpack.config.js**中配置所有的**js**文件都使用<font style="color:#f03d3d">babel-loader</font>进行转换。
 
 ```javascript
 {
@@ -111,7 +111,7 @@
 }
 ```
 
-> :whale2: <font style="color:cornflowerblue">babel@6.X</font>版本时，<font style="color:#06f">**核心引擎**</font>库名为<font style="color:#f03d3d">babel-core</font>。从<font style="color:cornflowerblue">babel@7.X</font>版本之后，官方对库名称做了统一的修改，官方提供的包都以<font style="color:cornflowerblue">@babel/</font>为冠名，所以<font style="color:#f03d3d">babel-core</font>和<font style="color:#f03d3d">@babel/core</font>实际上是一个库 。有兴趣朋友可以在<font style="color:cornflowerblue">NPM</font>中对比下两个包的版本  ：[@babel/core](https://www.npmjs.com/package/@babel/core)、[babel-core](https://www.npmjs.com/package/babel-core)
+> :whale2: <font style="color:cornflowerblue">babel@6.X</font>版本时，<font style="color:#06f">**核心引擎**</font>库名为<font style="color:#f03d3d">babel-core</font>。从<font style="color:cornflowerblue">babel@7.X</font>版本之后，官方对库名称做了统一的修改，官方提供的包都以<font style="color:cornflowerblue">@babel/</font>冠名，所以<font style="color:#f03d3d">babel-core</font>和<font style="color:#f03d3d">@babel/core</font>实际上是一个库 。有兴趣朋友可以在<font style="color:cornflowerblue">NPM</font>中对比下两个包的版本  ：[@babel/core](https://www.npmjs.com/package/@babel/core)、[babel-core](https://www.npmjs.com/package/babel-core)
 
 > :whale2:后面会陆续加入其它文件执行<font style="color:#f03d3d">babel-loader</font>。例如：<font style="color:cornflowerblue">.ts</font>、<font style="color:cornflowerblue">.jsx</font>
 
@@ -129,7 +129,7 @@
 
 
 
-在配置<font style="color:cornflowerblue">loader</font>时，可以设置当前<font style="color:cornflowerblue">loader</font>使用的属性和依赖库。<font style="color:#f03d3d">babel-loader</font>中具有一个**presets**属性来依赖的<font style="color:cornflowerblue">预设插件（preset）</font>
+在配置<font style="color:cornflowerblue">loader</font>时，可以设置当前<font style="color:cornflowerblue">loader</font>使用的属性和依赖库。<font style="color:#f03d3d">babel-loader</font>具有一个**presets**属性来依赖的<font style="color:cornflowerblue">预设插件（preset）</font>
 
 ```javascript
 {
@@ -171,13 +171,13 @@
 
 
 
-但细心的朋友朋友可以发现，并不是所有的<font style="color:cornflowerblue">ES6</font>特性被转换了。
+但细心的朋友可以发现，并不是所有的<font style="color:cornflowerblue">ES6</font>特性被转换了。
 
 还有部分<font style="color:cornflowerblue">ES6</font>特性并没有被转换（**promise**、**includes**、**filter**），并且代码被一个**箭头函数**包裹着。
 
 代码被箭头函数包裹这个问题稍后在解决。
 
-先来了解下为什么有的<font style="color:cornflowerblue">ES6</font>没有被转换。
+先来了解下为什么有的<font style="color:cornflowerblue">ES6</font>特性没有被转换。
 
 > :whale2: <font style="color:#f03d3d">@babel/preset-env</font>取代了<font style="color:cornflowerblue">preset-es20**</font>系列的<font style="color:cornflowerblue">预设插件（preset）</font>
 
@@ -191,9 +191,9 @@
 
 思考一个问题：刚才***被转换***的<font style="color:cornflowerblue">ES6</font>特性与***未被转换***的<font style="color:cornflowerblue">ES6</font>特性有何不同。
 
-答案是***被转换***的<font style="color:cornflowerblue">ES6</font>特性是<font style="color:#06f">**Syntax（语法）**</font>，而为被转换的是<font style="color:#06f">**API（类型、函数）**</font>
+答案是***被转换***的<font style="color:cornflowerblue">ES6</font>特性是<font style="color:#06f">**Syntax（语法）**</font>，而未被转换的则是：<font style="color:#06f">**API（类型、函数）**</font>
 
-<font style="color:cornflowerblue">babel</font>编写<font style="color:cornflowerblue">预设插件（preset）</font>库时将<font style="color:#06f">**Syntax（语法）**</font>和<font style="color:#06f">**API（类型、函数）**</font>进行了分别处理。
+<font style="color:cornflowerblue">babel</font>处理<font style="color:cornflowerblue">ES6</font>特性时将<font style="color:#06f">**Syntax（语法）**</font>和<font style="color:#06f">**API（类型、函数）**</font>进行了分开处理。
 
 
 
@@ -201,11 +201,13 @@
 
 原因是两者本质的不同：<font style="color:#06f">**Syntax（语法）**</font>是***一个语言本身客观存在的事实***，而<font style="color:#06f">**API（类型、函数）**</font>，则只是***对一系列操作的封装***
 
-当<font style="color:cornflowerblue">执行环境</font>***不支持***某<font style="color:#06f">**Syntax（语法）**</font>时，那么就必须使用其它<font style="color:#06f">**Syntax（语法）**</font>进行替换。
+当<font style="color:cornflowerblue">执行环境</font>***不支持***某<font style="color:#06f">**Syntax（语法）**</font>时，那么就只能使用其它<font style="color:#06f">**Syntax（语法）**</font>进行替换。
 
-而<font style="color:cornflowerblue">执行环境</font>中***不存在***某<font style="color:#06f">**API（类型、函数）**</font>时，可以使用自定义<font style="color:#06f">**API（类型、函数）**</font>进行替代。
+而<font style="color:cornflowerblue">执行环境</font>中***不存在***某<font style="color:#06f">**API（类型、函数）**</font>时，可以编写自定义<font style="color:#06f">**API（类型、函数）**</font>进行替换。
 
 > :whale2:  **JS**中<font style="color:#06f">**Syntax（语法）**</font>错误提示是：<font style="color:#f03d3d">Uncaught SyntaxError</font>；<font style="color:#06f">**API（类型、函数）**</font>错误提示是：<font style="color:#f03d3d">Uncaught ReferenceError</font>。
+
+
 
 <font style="color:#f03d3d">@babel/preset-env</font>只是<font style="color:cornflowerblue">babel</font>提供处理<font style="color:#06f">**Syntax（语法）**</font>的<font style="color:cornflowerblue">预设插件（preset）</font>
 
@@ -219,7 +221,7 @@
 
 刚才在配置<font style="color:#f03d3d">@babel/preset-env</font>时，直接配置在了<font style="color:cornflowerblue">babel-loader</font>中**presets**属性。
 
-除了<font style="color:cornflowerblue">babel-loader</font>，<font style="color:#f03d3d">@babel/core</font>还支持其它方式进行配置
+除了<font style="color:cornflowerblue">babel-loader</font>，<font style="color:cornflowerblue">babel</font>还支持其它方式配置
 
 
 
@@ -259,17 +261,17 @@
 
 <img src="./images/image-04-06.png" width="400">
 
-<font style="color:cornflowerblue">babel-loader</font>的优先级高于其他两种方式
+<font style="color:cornflowerblue">babel-loader</font>配置方式优先级高于其他两种方式
 
 
 
 ##### 参数设置
 
-在使用<font style="color:cornflowerblue">plugin/preset</font>时，可以进行设置自定义参数。
+在使用<font style="color:cornflowerblue">plugin/preset</font>时，可以设置属性。
 
 不过参数形式有些奇葩。
 
-<font style="color:cornflowerblue">plugin/preset</font>与参数存在于一个数组内，第一个为<font style="color:cornflowerblue">plugin/preset</font>，第二个为自定义参数
+<font style="color:cornflowerblue">plugin/preset</font>与参数存在于一个数组内，第一个为<font style="color:cornflowerblue">plugin/preset</font>，第二个为属性对象
 
 ```javascript
 {
@@ -283,7 +285,7 @@
 }
 ```
 
-> :whale2::whale2::whale2:   以下会使用**配置文件**方式，所以一定要把<font style="color:cornflowerblue">babel-loader</font>中的设置删除掉。否则会因为优先级问题而失效。:我刚开始就因为没有删除被耽误了一天。
+> :whale2::whale2::whale2:   以下会使用**配置文件**方式，所以一定要把<font style="color:cornflowerblue">babel-loader</font>中的设置删除掉。否则会因为优先级问题而失效。:我就因为这个疏漏曾经被耽误了一天
 
    
 
@@ -295,7 +297,7 @@
 
 而开发人员基本上使用的都是新版浏览器，所以需要具有一个不支持<font style="color:cornflowerblue">ES6</font><font style="color:#06f">**API（类型、函数）**</font>的浏览器。
 
-一般<font style="color:cornflowerblue">ES6</font>的新特性，都已经不再支持<font style="color:cornflowerblue">IE浏览器</font>了。所以<font style="color:cornflowerblue">IE浏览器</font>是一个天然的测试对象。=
+一般<font style="color:cornflowerblue">ES6</font>的新特性，都已经不再支持<font style="color:cornflowerblue">IE浏览器</font>了。所以<font style="color:cornflowerblue">IE浏览器</font>是一个天然的测试对象。
 
   例如<font style="color:cornflowerblue">ES6</font>**Promise**类型，就不再支持<font style="color:cornflowerblue">IE浏览器</font>
 
@@ -317,7 +319,7 @@
 
 在刚才打包编译时，发现生成的代码使用了一个**箭头函数**包裹。
 
-这个**箭头函数**函数我怀疑是打包时<font style="color:cornflowerblue">webpack</font>添加的，但具体原因没有排查，在这里只介绍下处理方案。
+这个**箭头函数**函数怀疑是打包时<font style="color:cornflowerblue">webpack</font>搞得鬼，具体原因没排查，在这里只介绍下处理方案。
 
 在**package.json**文件中添加**browserslist**属性，设置打包代码支持<font style="color:cornflowerblue">IE9</font>浏览器。
 
@@ -339,9 +341,9 @@
 
 ###### regenerator-runtime
 
- 先来说一下打包代码缺少**regeneratorRuntime**问题。
+介绍下关于之前打包代码缺少**regeneratorRuntime()**问题。
 
-**regeneratorRuntime**函数是由[regenerator-runtime](https://www.npmjs.com/package/regenerator-runtime)库提供的，
+**regeneratorRuntime()**是由[regenerator-runtime](https://www.npmjs.com/package/regenerator-runtime)库提供的，
 
 <font style="color:#f03d3d">regenerator-runtime</font>库是一个转换<font style="color:cornflowerblue">ES6</font>中 **generator函数**、**await函数**  功能的库。<font style="color:cornflowerblue">babel</font>直接使用此库处理两种函数。
 
@@ -355,17 +357,19 @@
 
 当<font style="color:cornflowerblue">执行环境</font>中***不存在***某<font style="color:#06f">**API（类型、函数）**</font>时，可以使用自定义<font style="color:#06f">**API（类型、函数）**</font>进行替代。
 
-而<font style="color:#f03d3d">core-js</font>库就是一个自定义的<font style="color:#06f">**API（类型、函数）**</font>库。也就是俗称的**腻子库**
+而<font style="color:#f03d3d">core-js</font>库就是一个自定义的<font style="color:#06f">**API（类型、函数）**</font>库。也就是俗称的**腻子**
 
-[core-js](https://www.npmjs.com/package/core-js)是一个个人开源项目，并不属于任何公司。<font style="color:cornflowerblue">babel</font>依赖了<font style="color:#f03d3d">core-js</font>进行处理<font style="color:#06f">**API（类型、函数）**</font>
+[core-js](https://www.npmjs.com/package/core-js)是 个人开源项目，并不属于任何公司。
+
+<font style="color:cornflowerblue">babel</font>直接使用了<font style="color:#f03d3d">core-js</font>进行处理<font style="color:#06f">**API（类型、函数）**</font>
+
+
 
 <font style="color:#f03d3d">core-js</font>截至到编写文章时的最新版本为<font style="color:cornflowerblue">@3.9.0</font>
 
 <font style="color:#f03d3d">core-js</font>的<font style="color:cornflowerblue">@3.X</font>与<font style="color:cornflowerblue">@2.X</font>两个大版本间具有巨大的差异性，以至于影响到了<font style="color:cornflowerblue">babel</font>。不过目前基本都是使用<font style="color:cornflowerblue">core-js@3.X</font>版本。
 
 > :whale2: <font style="color:#f03d3d">core-js</font>开发者目前在开发<font style="color:cornflowerblue">core-js@4.X</font>版本。可能到时候配置又会具有大变化。
-
-> :whale2: 社区强大的原因就在于每个人都会提供自己的微薄之力，个人开发者，也可以提供优秀的项目。
 
 
 
@@ -385,7 +389,7 @@
 
 下面那段话的大致意思为：<font style="color:cornflowerblue">babel</font>具有一个<font style="color:cornflowerblue">polyfill</font>包含了<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>。
 
-> :whale2::whale2::whale2: 关于<font style="color:#f03d3d">@babel/polyfill</font>库被弃用的原因好像是因为：<font style="color:cornflowerblue">core-js@3.X</font>和<font style="color:cornflowerblue">core-js@2.X</font>的巨大差异导致<font style="color:#f03d3d">@babel/polyfill</font>无法***过渡适配***。
+> :whale2::whale2::whale2: 关于<font style="color:#f03d3d">@babel/polyfill</font>库被弃用的原因好像是因为：<font style="color:cornflowerblue">core-js@3.X</font>版本和<font style="color:cornflowerblue">core-js@2.X</font>版本的巨大差异 导致<font style="color:#f03d3d">@babel/polyfill</font>无法***过渡适配***。
 
    
 
@@ -393,7 +397,7 @@
 
 #####  core-js、regenerator-runtime使用
 
-> yarn add regenerator-runtime@0.13.7  core-js@3.9.0    //	这个两个库都会在代码运行中使用，所以安装在**dependencies**
+> yarn add regenerator-runtime@0.13.7  core-js@3.9.0    // 安装在**dependencies**
 
   
 
@@ -405,20 +409,20 @@
 
 > :whale2::whale2: 
 >
-> 1. 导入<font style="color:#f03d3d">core-js</font>库时，导入方式为：**"core-js/stable"**，为为了只导入稳定版本特性， 关于stage请参考：[[ECMAScript] TC39 process](https://www.jianshu.com/p/b0877d1fc2a4)
+> 1. 导入<font style="color:#f03d3d">core-js</font>库时，导入方式为：**"core-js/stable"**，是为了只导入稳定版本特性， 关于stage请参考：[[ECMAScript] TC39 process](https://www.jianshu.com/p/b0877d1fc2a4)
 > 2. 导入<font style="color:#f03d3d">regenerator-runtime</font>时，导入方式为：**regenerator-runtime/runtime**，为了节省文件大小
 
-   此时执行`yarn build`打包会在生成代码中看到生成的代码。这些都是<font style="color:#f03d3d">core-js</font>处理<font style="color:cornflowerblue">ES6 API（类型、函数）</font>的<font style="color:#06f">垫片</font>
+   此时执行`yarn build`打包 编译生成代码中会看到好多引用代码。这些都是<font style="color:#f03d3d">core-js</font>处理<font style="color:cornflowerblue">ES6 API（类型、函数）</font>的<font style="color:#06f">垫片</font>
 
 <img src="./images/image-04-12.png" width="400">
 
  
 
-例如搜索**promise**类型，就可以找到<font style="color:#f03d3d">core-js</font>自定义的实现方式。
+例如**promise**类型，就可以在编译生成后的代码中找到<font style="color:#f03d3d">core-js</font>自定义的实现方式。
 
 <img src="./images/image-04-new-02.png" width="400">
 
-这时候使用<font style="color:cornflowerblue">IE9</font>运行打包生成代码可以运行成功，也就是说<font style="color:cornflowerblue">ES6 API（类型、函数）</font>被成功替代了。
+这时候使用<font style="color:cornflowerblue">IE9</font>运行代码可以运行成功，也就是说<font style="color:cornflowerblue">ES6 API（类型、函数）</font>被成功替代了。
 
 <img src="./images/image-04-13.png" width="400">
 
@@ -440,15 +444,21 @@
 
 在代码中仅写了两个函数。那么原因大概是引入<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>导致。
 
-<font style="color:#f03d3d">core-js</font>是<font style="color:cornflowerblue">ES6 API（类型、函数）</font>的垫片，但是<font style="color:#f03d3d">core-js</font>并不知道你使用哪些<font style="color:cornflowerblue">ES6 API（类型、函数）</font>，所以直接引用会为所有<font style="color:cornflowerblue">ES6 API（类型、函数）</font>生成替代方案，也就造成了这个恐怖的文件大小
+<font style="color:#f03d3d">core-js</font>是<font style="color:cornflowerblue">ES6 API（类型、函数）</font>的垫片。
+
+<font style="color:#f03d3d">core-js</font>本身并不知道你使用哪些<font style="color:cornflowerblue">ES6 API（类型、函数）</font>，而<font style="color:cornflowerblue">babel</font>默认情况会将所有的垫片引入，
+
+也就造成了这个恐怖的文件大小
 
 
 
-前端对于文件的大小非常敏感，这直接影响到网站的加载速度。所以必须要做到<font style="color:cornflowerblue">**按需加载**</font>垫片 （仅加在需要使用的垫片）
+前端对于文件大小非常敏感，文件大小直接影响到网站的加载速度。所以必须要做到<font style="color:cornflowerblue">**按需加载**</font>垫片 （仅加载需要使用的垫片）
 
 
 
-不同项目对<font style="color:cornflowerblue">浏览器支持版本</font>需求不一样，所以在处理<font style="color:cornflowerblue">ES6 API（类型、函数）</font>**垫片**时的<font style="color:cornflowerblue">**按需加载**</font>垫片具有三种含义
+不同项目对<font style="color:cornflowerblue">浏览器支持版本</font>需求不一样。
+
+<font style="color:cornflowerblue">babel</font>处理<font style="color:cornflowerblue">ES6 API（类型、函数）</font>垫片时的<font style="color:cornflowerblue">**按需加载**</font>垫片具有三种含义
 
 1. 按照**浏览器版本加载**垫片
 2. 按照**代码中使用加载**垫片
@@ -458,15 +468,17 @@
 
 
 
-<font style="color:cornflowerblue">babel</font>中的<font style="color:#f03d3d">@babel/preset-env</font>库提供了两种配置方式实现：***按照浏览器版本加载（1）***和***按照浏览器版本+代码中使用加载（3）***两种方案
+<font style="color:cornflowerblue">babel</font>中<font style="color:#f03d3d">@babel/preset-env</font>提供了两种按需加载配置方案：***按照浏览器版本加载（1）***和***按照浏览器版本+代码中使用加载（3）***
 
 
 
 @babel/preset-env 属性配置
 
+
+
 ###### 设置浏览器版本（browserslist、targets）
 
-<font style="color:cornflowerblue">**按需加载**</font>垫片中有一个**浏览器版本加载**的含义，如果想要实现**浏览器版本加载**那就必须设置浏览器版本，
+<font style="color:cornflowerblue">**按需加载**</font>垫片中有一个**浏览器版本加载**的含义，想要实现**浏览器版本加载**那就必须设置浏览器版本，
 
 <font style="color:cornflowerblue">babel</font>提供了两种设置浏览器版本的方案：
 
@@ -494,7 +506,7 @@
 ]
 ```
 
-在这里只使用这两种规则进行测试，<font style="color:cornflowerblue">browserslist</font>在下一篇介绍
+在这里只使用这两种规则测试，<font style="color:cornflowerblue">browserslist</font>会在下一篇介绍
 
 
 
@@ -502,7 +514,7 @@
 
 **targets**属性是<font style="color:cornflowerblue">babel</font>自身提供浏览器版本设置，配置在<font style="color:#f03d3d">@babel/preset-env</font>属性中
 
-**targets**属性类型为 **String**、**Object**。并且支持<font style="color:cornflowerblue">browserslist</font>格式规则。
+**targets**属性类型为 **String**、**Object**；支持<font style="color:cornflowerblue">browserslist</font>格式规则。
 
 **targets**属性的优先级高于**browserslist**。
 
@@ -548,7 +560,7 @@
 
 在介绍<font style="color:cornflowerblue">**按需加载**</font>垫片之前再说一个<font style="color:#f03d3d">@babel/preset-env</font>属性：**corejs**
 
-**corejs**属性是<font style="color:cornflowerblue">@babel@7.4.0</font>时加入的，用于设置加载<font style="color:#f03d3d">core-js</font>版本的。
+**corejs**属性是<font style="color:cornflowerblue">babel@7.4.0</font>时加入的，用于设置加载<font style="color:#f03d3d">core-js</font>版本。
 
 **corejs**设置的类型为： **String**、**Object**。
 
@@ -589,7 +601,7 @@
 
    ###### useBuiltIns 
 
-<font style="color:cornflowerblue">**按需加载**</font>垫片是由<font style="color:#f03d3d">@babel/preset-env</font>库提供的**useBuiltIns**属性设置的。
+<font style="color:cornflowerblue">**按需加载**</font>垫片是由<font style="color:#f03d3d">@babel/preset-env</font>库提供的**useBuiltIns**属性设置。
 
 **useBuiltIns**属性可以设置三个属性值：
 
@@ -636,7 +648,7 @@
 
 
 
-可以看到，此时大小与刚才是天壤之别。设置的 ***Chrome > 75*** 属性，几乎支持全部新特性
+可以看到，此时文件大小与刚才是天壤之别。因为浏览器设置的为 ***Chrome > 75*** ，几乎支持全部新特性
 
 <img src="./images/image-04-16.png" width="400">
 
@@ -660,7 +672,7 @@
 
 刚才使用***entry***属性值实现了按照**浏览器版本加载**垫片的功能。
 
-不过并不能算是真正的<font style="color:cornflowerblue">**按需加载**</font>垫片。
+不过并不能算是我们需要的真正<font style="color:cornflowerblue">**按需加载**</font>垫片。
 
 **useBuiltIns**属性的***usage***值提供了***理论上***真正的<font style="color:cornflowerblue">**按需加载**</font>：**浏览器版本+代码中使用**
 
@@ -682,7 +694,9 @@
 
 
 
-在使用***usage***属性值时，就不用再手动引用<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>库了，<font style="color:cornflowerblue">babel</font>会自动去加载。
+在使用***usage***属性值时，就不需要手动引用<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>库了
+
+<font style="color:cornflowerblue">babel</font>会自动加载。
 
 <img src="./images/image-04-17.png" width="400">
 
@@ -721,18 +735,22 @@
    <img src="./images/image-04-new-05.png" width="400">
    
    
+   
+   
 
 ###### modules
 
-<font style="color:#f03d3d">@babel/preset-env</font>属性中有一个**modules**。
+<font style="color:#f03d3d">@babel/preset-env</font>配置项中有一个**modules**。
 
 **modules**属性表示是否将**ES modules**转换为**指定模块类型**处理。
 
 **modules**属性值具有：***amd***、***systemjs***、***umd***、***commonjs***、***cjs***、***auto***、***false***。
 
-默认属性值为***auto***：默认情况下，使用**ES modules**来进行处理，但是会收到其它<font style="color:cornflowerblue">plugin</font>的**modules**属性影响。
+默认属性值为***auto***：默认情况下，使用**ES modules**来进行处理，但是会受到其它<font style="color:cornflowerblue">plugin</font>的**modules**属性影响。
 
 推荐使用**ES modules**，将属性值设置为***false***
+
+因为**ES6 modules** 可以进行***tree-shaking***优化
 
 ```json
 {
@@ -747,8 +765,6 @@
 }
 ```
 
-> ::whale2: **ES6 modules** 可以***tree-shaking***优化
-
 
 
 <font style="color:#f03d3d">@babel/preset-env</font>还有一些别的属性，在此就不赘述。有兴趣的朋友可以查询[官网](https://www.babeljs.cn/docs/babel-preset-env#targets)。
@@ -757,7 +773,7 @@
 
 #### @babel/plugin-transform-runtime
 
-在<font style="color:cornflowerblue">babel</font>，还提供了一个解决<font style="color:cornflowerblue">全局污染</font>的垫片库：[@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
+<font style="color:cornflowerblue">babel</font>处理<font style="color:cornflowerblue">ES6</font>特性时，还提供了一个解决<font style="color:cornflowerblue">全局污染</font>的垫片库：[@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
 
 <font style="color:#f03d3d">@babel/plugin-transform-runtime</font>也是一个经常被使用到的库。
 
@@ -777,13 +793,7 @@
 
 ##### @babel/runtime-corejs3
 
-<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库依赖了一个<font style="color:#f03d3d">@babel/runtime-corejs3</font>或<font style="color:#f03d3d">@babel/runtime-corejs3</font>库。
-
-
-
-<font style="color:#f03d3d">@babel/runtime-corejs3</font>是<font style="color:cornflowerblue">babel</font>提供的<font style="color:#f03d3d">core-js</font>封装库，不过内部做了一些处理，具体可以参考[这篇文章](https://segmentfault.com/a/1190000020237790)。不过此文章是基于<font style="color:#f03d3d">@babel/runtime-corejs2</font>版本，与<font style="color:#f03d3d">@babel/runtime-corejs3</font>具有一定差异。
-
-> yarn add -D @babel/plugin-transform-runtime@7.13.7  @babel/runtime-corejs3@7.13.7   
+<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>库依赖了一个<font style="color:#f03d3d">@babel/runtime-corejs3</font>或<font style="color:#f03d3d">@babel/runtime-corejs2</font>库。
 
 > :whale2::whale2::whale2: 
 >
@@ -791,7 +801,15 @@
 >
 > <font style="color:#f03d3d">@babel/runtime-corejs2</font>对应的<font style="color:cornflowerblue">core-js@2.X</font>
 
-> :whale2::whale2:  使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>时，就不需要安装<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font> ，<font style="color:#f03d3d">@babel/runtime-corejs3</font>中会依赖这两个包。
+
+
+<font style="color:#f03d3d">@babel/runtime-corejs3</font>是<font style="color:cornflowerblue">babel</font>提供的<font style="color:#f03d3d">core-js</font>封装库，内部做了一些处理，具体可以参考[这篇文章](https://segmentfault.com/a/1190000020237790)。不过此文章是基于<font style="color:#f03d3d">@babel/runtime-corejs2</font>版本，与<font style="color:#f03d3d">@babel/runtime-corejs3</font>具有一定差异。
+
+> yarn add -D @babel/plugin-transform-runtime@7.13.7  @babel/runtime-corejs3@7.13.7   
+
+
+
+> :whale2::whale2:  使用<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>时，就不需要安装<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font> ，<font style="color:#f03d3d">@babel/runtime-corejs3</font>中会依赖这两个库
 
 
 
@@ -841,15 +859,13 @@
 
 在<font style="color:cornflowerblue">IE9</font>环境`yarn build`。
 
-可以看到使用到的**includes**、**filter** <font style="color:cornflowerblue">API</font>已经变成了其它了函数名称。
+可以看到使用的**ES6-API**已经被转换为另外的API了，所以并不会再污染全局代码。至于打包的大小，并没有多大
 
 <img src="./images/image-04-21.png" width="400">
 
-可以看到使用的**ES6-API**已经被转换为另外的API了，所以并不会再污染全局代码。至于打包的大小，诸君可以自己测试看看
-
-至于打包生成文件大小也并不大
-
 <img src="./images/image-04-22.png" width="400">
+
+
 
 至于在***Chrome > 75***的打包结果，有兴趣的朋友可以自行测试。
 
@@ -862,9 +878,7 @@
 1. **preset**：<font style="color:#f03d3d">@babel/preset-env</font>
 2. **plugin**：<font style="color:#f03d3d">@babel/plugin-transform-runtime</font>
 
-
-
-配置时也在不同的属性：
+配置时也是不同属性：
 
 ```json
 {
@@ -878,11 +892,9 @@
 
 
 
-**preset**的中文翻译为：**预置**。其实也就是<font style="color:cornflowerblue">babel</font>提供的**预置插件库**
+**preset**的中文翻译为：**预置**。其实也就是<font style="color:cornflowerblue">babel</font>提供的**预置插件库**，其本质也都是<font style="color:cornflowerblue">plugin</font>
 
 <img src="./images/image-04-23.png" width="400">
-
-所以其本质都是<font style="color:cornflowerblue">插件</font>
 
 
 

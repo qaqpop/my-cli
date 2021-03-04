@@ -14,86 +14,26 @@
 
 
 
-<font style="color:cornflowerblue">React</font>是一个用于构建用户界面的 *JavaScript* 库，<font style="color:cornflowerblue">React</font>本身是一个特别简单的库：将元素抽象为<font style="color:cornflowerblue">虚拟DOM</font>，更新DOM时对比<font style="color:cornflowerblue">虚拟DOM</font>，然后只更新那些真正需要更新的元素，以便更好的节省性能。
+<font style="color:cornflowerblue">React</font>是一个用于构建用户界面的 *JavaScript* 库，
 
-先来根据问题推测<font style="color:cornflowerblue">React</font>框架的思路。
-
-> :whale2::whale2: 在这里并不会详细介绍<font style="color:cornflowerblue">React</font>细节，只会简单推测<font style="color:cornflowerblue">React</font>设计思路。
+<font style="color:cornflowerblue">React</font>本身是一个特别简单的库：将元素抽象为<font style="color:cornflowerblue">虚拟DOM</font>，更新DOM时对比<font style="color:cornflowerblue">虚拟DOM</font>，然后只更新那些真正需要更新的元素。
 
 
 
-##### 早期时代的枷锁
+##### React.createElement()
 
-在当早期网站时代，都是直接操作DOM来构建网站，哪怕有着<font style="color:cornflowerblue">JQuery</font>这种利器。
-
-直接操作DOM，对于程序员会有极高的要求。但是并不是每一个程序员都能掌握DOM优化， 所以极为容易带来性能浪费， 而随着项目的扩大，网站的性能问题会越来越严重。
-
-而最好的解决方案就是将优化这种细节进行封装。让程序员在开发时能够忽略这些细节。而这样项目只需要一个掌握全局的项目负责人和任意能完成功能的人就行。这也是催生出应用框架的原因之一。
-
-> :whale2::whale2: 时代的发展让开发人员已经忽略了各种东西。
->
-> 就像当前时代无法体会90年代开发人员对存储空间的极限利用，当我在知道超级玛丽只有40KB时，我彻底震惊了。
->
-
-
-
-##### DOM优化
-
-###### 增加DOM
-
-有经验的朋友都知道在**增加复杂DOM**时：都是先在内存中构建好DOM结构，然后使用API一次完成操作。
-
-这种做法便是一种DOM优化。增加时先构建好结构再一次添加，这样与真实DOM只交互了一次，也只会重新渲染一次DOM。
-
-例如下面代码，**appendDom2** 性能要优于 **appendDom1**。
+使用**Document**构建DOM时，都是使用**document.createElement()**来构建标签
 
 ```js
-function appendDom1(){
-  for(item of [1,2,3,4]){
-    const li =  document.createElement('li');
-    li.innerText = item;
-    document.body.appendChild(li)
-  }
-}
-
-
-function appendDom2(){
-   //	使用createDocumentFragment创建文档片段于内存
-  const  fragement = document.createDocumentFragment();
-  for(item of [1,2,3,4]){
-    const li =  document.createElement('li');
-    li.innerText = item;
-    fragement.appendChild(li)
-  }
-
-  document.body.appendChild(fragement)
-}
-```
-
-这个优化很多新手程序员都不会知道，而对于知道此优化的开发人员，编写代码时也不想时时刻刻惦记。
-
-
-
-可以做自定义函数进行封装。将数据结构封装为一个DOM结构进行返回。
-
-```js
-function createElement(arr){
-   //	使用createDocumentFragment创建文档片段于内存
-  const  fragement = document.createDocumentFragment();
-  for(item of arr){
-    const li =  document.createElement('li');
-    li.innerText = item;
-    fragement.appendChild(li)
-  }
-  return fragement;
-}
-    
-document.body.appendChild(createElement([1,2,3,4]))
+const li =  document.createElement('li');
+document.body.appendChild(li)
 ```
 
 
 
-在<font style="color:cornflowerblue">React</font>也提供了一个自定义函数（**createElement**）。
+在<font style="color:cornflowerblue">React</font>中, 也提供了这样一个自定义函数来<font style="color:cornflowerblue">React</font>组件。
+
+**React.createElement()**返回的是一个<font style="color:cornflowerblue">React</font>自定义的元素类型：**ReactElement**
 
 ```js
 const element = React.createElement(
@@ -103,41 +43,49 @@ const element = React.createElement(
 );
 ```
 
-> :whale2::whale2: <font style="color:cornflowerblue">React</font>的**createElement**返回的是定义类DOM类型，并不是真实的DOM类型。这样做能够更好的实现跨平台
+<font style="color:cornflowerblue">React</font>提供的**React.createElement()**和**ReactElement**提供了很好平台隔离性。
+
+使用同一套代码编写的元素组件只需要对接不同平台的APi，就可以实现跨平台。
+
+<font style="color:cornflowerblue">React</font>能够跨平台的原因也在于此。
+
+在日常开发中，也会经常写无关业务的通用封装，其思想与此类似。
 
 
 
-##### 更新DOM
+#### 虚拟DOM
 
-更新DOM时的问题是： 在更新DOM时，会因为某些原因对不必更新DOM进行更新或者对DＯＭ的频繁更新造成的多次渲染。
+在直接使用**Document**更新DOM元素时，很多时候会因为某些原因 对*不必更新DOM进行更新* 从而产生了性能浪费
 
-> :whale2: DOM更新包括 增删改
+
 
 解决这个问题一般想到的做法就是做一个*DOM缓存*。创建DOM时将DOM信息缓存，更新时对比新旧DOM。排除掉不必要的更新DOM。
 
-这种缓存DOM数据的方案就叫<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>， 而排除算法就叫做<font style="color:cornflowerblue">diff算法</font>
+这种缓存DOM数据的方案就叫<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>， 而排除算法叫做<font style="color:cornflowerblue">diff算法</font>
 
-也就是<font style="color:cornflowerblue">React</font>常说的两个核心。
+<font style="color:cornflowerblue">React</font>也使用了这种方案提升性能
+
+
 
 <font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>和<font style="color:cornflowerblue">diff算法</font> 是对数据结构和算法的考验。每一个人都可以模拟出简单的方案，但不是每一个人都可以写出优秀的解决方案。
 
-在下愚钝，对于数据结构并不太好。所以对<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>和<font style="color:cornflowerblue">diff算法</font>也只有浅薄的认知。有兴趣的朋友可以看一下这篇文章：[深度剖析：如何实现一个 Virtual DOM 算法](https://github.com/livoras/blog/issues/13)
+在下愚钝，对于数据结构和算法掌握的不好。所以对<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>和<font style="color:cornflowerblue">diff算法</font>只有浅薄的认知。有兴趣的朋友可以看一下这篇文章：[深度剖析：如何实现一个 Virtual DOM 算法](https://github.com/livoras/blog/issues/13)
 
 
 
 ##### 模板语言
 
-编写自定义函数、<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>、<font style="color:cornflowerblue">diff算法</font>  这三者加起来就可以封装一系列的DOM操作，允许使用者可以忽略相对的一些优化细节。
+<font style="color:cornflowerblue">React</font>是通过JS构建元素的，
 
-如果仅仅是对于个人来说这样就够了，但是对于一个可以广泛应用的框架来说。还是缺个<font style="color:cornflowerblue">模板语言</font>
+我们都知道使用JS编写页面痛苦是没有结构性。
 
-毕竟使用函数去操作DOM总是感觉没有结构感。
+使用HTML两个标签能搞定的事，使用JS就能写一大堆代码。
 
+<font style="color:cornflowerblue">React</font>为了解决这个问题，提供了一个<font style="color:cornflowerblue">模板语言</font>---<font style="color:cornflowerblue">JSX</font>
 
+<font style="color:cornflowerblue">JSX</font>是一种JS扩展语言。允许在JS中以**标签形式构建元素**。并且<font style="color:cornflowerblue">JSX</font>开发工具中还可以具有各种提示和快捷键。
 
-<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>便提供了一种<font style="color:cornflowerblue">JSX</font>语言模板来解决这样问题。
-
-<font style="color:cornflowerblue">JSX</font>是一种JS扩展语言。允许在JS中以**标签形式构建元素**。
+能够极大的提高开发效率
 
 ```js
 const element = (
@@ -147,7 +95,11 @@ const element = (
 );
 ```
 
-<font style="color:cornflowerblue">JSX</font>只是**React.createElement()**语法糖，打包过程中会将<font style="color:cornflowerblue">JSX</font>语法转换为**React.createElement()**。
+
+
+但<font style="color:cornflowerblue">JSX</font>只是**React.createElement()**语法糖，打包编译过程中会将<font style="color:cornflowerblue">JSX</font>语法转换为**React.createElement()**
+
+
 
 > :whale2::whale2::whale2: <font style="color:cornflowerblue">JSX</font>本质是**React.createElement()**语法糖。所以<font style="color:cornflowerblue">React</font>还支持使用**React.createElement()**创建<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>。
 
@@ -157,11 +109,6 @@ const element = (
 
 >  :whale2: <font style="color:cornflowerblue">JSX</font>目前被社区认可。<font style="color:cornflowerblue">Vue@3.X</font>也支持<font style="color:cornflowerblue">JSX</font>
 >
->  :whale2: <font style="color:cornflowerblue">Vue</font>设计思路与<font style="color:cornflowerblue">React</font>有很多共同之处。尤其<font style="color:cornflowerblue">Vue@3.X</font>。只不过各有优劣
-
-
-
-以上便是对<font style="color:cornflowerblue">React</font>设计思路的一种思考。<font style="color:cornflowerblue">React</font>核心部分东西并不多。
 
 
 
@@ -177,19 +124,23 @@ const element = (
 
 
 
-[react](https://www.npmjs.com/package/react)库是<font style="color:cornflowerblue">React</font>的核心库，具有**虚拟DOM**、**JSX语法支持**等一系列核心内容。
+[react](https://www.npmjs.com/package/react)库是<font style="color:cornflowerblue">React</font>的核心库，具有 **React.createElement()** 、**虚拟DOM**、**JSX语法支持**等一系列核心内容。
 
-但是此库并不没有提供与**真实DOM交互**。与真实DOM交互的代码则由[react-dom](https://www.npmjs.com/package/react-dom)提供
+但是此库并不没有提供与**真实DOM交互**。与真实DOM交互的代码则由[react-dom](https://www.npmjs.com/package/react-dom)提供，
 
 > yarn add react-dom@17.0.1
 
-分为两个库，做到了平台的隔离性。就像写<font style="color:cornflowerblue">React Native</font>时，使用了[react-native](https://www.npmjs.com/package/react-native)来做交互。
+<font style="color:#f03d3d">react</font>类似一个通用库，没有与任何平台具有相关性，只负责组织数据结构。
+
+就像写<font style="color:cornflowerblue">React Native</font>时，使用了[react-native](https://www.npmjs.com/package/react-native)来做平台交互。
 
 
 
 ##### 使用 react
 
 接下来就仿照<font style="color:cornflowerblue">react-cli</font>来组织代码。
+
+
 
 ###### 根节点
 
@@ -201,7 +152,7 @@ const element = (
 
 
 
-接下来j就要处理**JS**，在之前打包测试中都是使用***/src/index.js***文件作为*源文件*。
+接下来处理**JS**，在之前打包测试中都是使用***/src/index.js***文件作为*源文件*。
 
 也是使用此文件作为*源文件*。
 
@@ -220,9 +171,11 @@ ReactDOM.render(root, document.getElementById('root'));
 
 ```
 
-在***/src/index.js***文件中使用了<font style="color:cornflowerblue">JSX</font>创建元素，然后使用**ReactDOM.render()**添加到根节点中。
+在***/src/index.js***文件中使用了<font style="color:cornflowerblue">JSX</font>创建元素，然后使用
 
-> :whale2:  <font style="color:cornflowerblue">react-cli</font>也同样如此，有兴趣的朋友可以自行查看
+<font style="color:#f03d3d">react-dom</font>中的**ReactDOM.render()**添加到根节点中。
+
+> :whale2:  <font style="color:cornflowerblue">vue-cli</font>也同样如此，有兴趣的朋友可以自行查看
 
 
 
@@ -236,13 +189,17 @@ ReactDOM.render(root, document.getElementById('root'));
 
 这是因为<font style="color:cornflowerblue">JSX</font>无法被识别的问题。前面说过，<font style="color:cornflowerblue">JSX</font>只是<font style="color:cornflowerblue">React</font>提供的一种<font style="color:cornflowerblue">模板语言</font>。本质上并不属于**JS**模块。
 
-所以需要将<font style="color:cornflowerblue">JSX</font>转换为**React.createElement()**
+所以需要将<font style="color:cornflowerblue">JSX</font>转换为**React.createElement()**形式
 
 
 
-提供这个转换操作的是<font style="color:cornflowerblue">babel</font>中提供的一个***plugin***：[@Babel/plugin-syntax-jsx](https://www.npmjs.com/package/@babel/plugin-syntax-jsx)
+提供这个转换操作的是<font style="color:cornflowerblue">babel</font>中提供的一个**plugin**：[@Babel/plugin-syntax-jsx](https://www.npmjs.com/package/@babel/plugin-syntax-jsx)
 
-不过<font style="color:cornflowerblue">babel</font>为<font style="color:cornflowerblue">React</font>提供了一个**preset**：[@babel/preset-react](https://www.babeljs.cn/docs/babel-preset-react)。可以直接安装此库。
+不过不需要直接安装这个**plugin**
+
+<font style="color:cornflowerblue">babel</font>为<font style="color:cornflowerblue">React</font>提供了一个**preset**：[@babel/preset-react](https://www.babeljs.cn/docs/babel-preset-react)。
+
+<font style="color:#f03d3d">@babel/preset-react</font>中封装了所有处理<font style="color:cornflowerblue">React</font>的**plugin**
 
 <img src="./images/image-05-new-01.png" width="400">
 
@@ -272,13 +229,13 @@ ReactDOM.render(root, document.getElementById('root'));
 
 ###### app.jsx
 
-<font style="color:cornflowerblue">React</font>代码已经运行成功，接下来就需要组织<font style="color:cornflowerblue">React</font>代码了。
+<font style="color:cornflowerblue">React</font>代码已经运行成功，接下来就组织<font style="color:cornflowerblue">React</font>代码。
 
 刚才，直接在***/src/index.js***文件中编写了<font style="color:cornflowerblue">JSX</font>代码进行测试
 
 但是真正开发中，需要将<font style="color:cornflowerblue">JSX</font>代码编写在**.jsx**文件中，通过<font style="color:cornflowerblue">模块导入</font>导入方式提供给***/src/index.js***文件。
 
-所以需要<font style="color:cornflowerblue">JSX</font>提取到***/src/app.jsx***文件，在***/src/index.js***导入。
+将<font style="color:cornflowerblue">JSX</font>提取到***/src/app.jsx***文件，在***/src/index.js***导入。
 
 <img src="./images/image-05-05.png" width="400">
 
@@ -288,7 +245,7 @@ ReactDOM.render(root, document.getElementById('root'));
 
 
 
-***/src/app.jsx***文件中组件作为<font style="color:cornflowerblue">React</font>的根节点。<font style="color:cornflowerblue">React</font>以也是树的组织方式管理，***/src/app.jsx***文件中组件就是树根。<font style="color:cornflowerblue">React</font>框架代码就像**托管**在了**/src/app.jsx**之中
+***/src/app.jsx***文件中组件作为<font style="color:cornflowerblue">React</font>的根节点。<font style="color:cornflowerblue">React</font>也是以树的组织方式管理，***/src/app.jsx***文件中组件就是树根。<font style="color:cornflowerblue">React</font>框架代码就像**托管**在了**/src/app.jsx**之中
 
 > :whale2: :whale2:
 >
@@ -300,7 +257,7 @@ ReactDOM.render(root, document.getElementById('root'));
 
 ###### webpack配置
 
-**.jsx**作为作为一种新的文件格式，需要在<font style="color:cornflowerblue">webpack</font>进行配置使用<font style="color:cornflowerblue">babel</font>
+**.jsx**作为一种新的文件格式，需要在<font style="color:cornflowerblue">webpack</font>进行配置使用<font style="color:cornflowerblue">babel</font>
 
 ```js
 const modules = {
@@ -328,7 +285,7 @@ const modules = {
 
 
 
-此时就基本将<font style="color:cornflowerblue">React</font>搭建于项目中。
+此时就算成功将<font style="color:cornflowerblue">React</font>使用在脚手架中了。
 
 而对于<font style="color:cornflowerblue">React Router</font>、<font style="color:cornflowerblue">Redux</font>只是用于扩展<font style="color:cornflowerblue">React</font>的开发库。在此就不再添加。
 

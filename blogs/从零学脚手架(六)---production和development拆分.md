@@ -321,9 +321,11 @@ module.exports = modules
 
 #### webpack-merge
 
-根据文件拆分之后，发现两个模式中具有好多共同的配置信息。写两份反而不好管理了。
+根据文件拆分之后，发现两个文件中具有好多共同的配置信息。这样写两份反而不太方便管理了。
 
-也就是需要一种能提供出一个***公共配置文件模块（common）***和两个定制化配置文件。在定制化配置文件中导入***公共配置文件模块（common）***并进行合并配置
+
+
+此时就需要一种能提供出一个***公共配置文件模块（common）***和两个定制化配置文件。在定制化配置文件中导入***公共配置文件模块（common）***并进行合并配置
 
 webpack社区中提供了一个[webpack-merge](https://www.npmjs.com/package/webpack-merge)库，就是允许我们对<font style="color:cornflowerblue">webpack</font>配置属性合并。
 
@@ -524,7 +526,7 @@ module.exports =  (isDev = true) => {
 
 
 
-**webpack.common.js**文件导出的是一个函数 ，函数参数是一个是一个boolean类型的isDev，判断当前模式。将细小化的差异直接**webpack.common.js**文件中。
+**webpack.common.js**文件导出的是一个函数 ，函数参数是一个是一个*boolean*类型的**isDev**，判断当前模式。将细小化的差异直接**webpack.common.js**文件中。
 
 例如：**output.filename**中是否缓存和**optimization.minimize**属性
 
