@@ -38,7 +38,7 @@
 
 
 
-<img src=".//images//image-02-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-02-01.png?raw=true" width="600">
 
 
 
@@ -100,7 +100,7 @@
 
 在**package.json**文件***scripts***属性中加入`build：webpack`命令
 
-<img src=".//images//image-02-02.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-02-02.png?raw=true" width="600">
 
 
 
@@ -122,7 +122,7 @@
 
 <font style="color:cornflowerblue">webpack</font>执行时会读取**webpack.config.js**文件模块，根据此**Object**中的配置信息进行打包编译
 
-<img src=".//images//image-02-03.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-02-03.png?raw=true" width="600">
 
 ​	
 
@@ -132,7 +132,7 @@
 
 当然也可以使用参数指定配置文件，也推荐这样做，参数指令可以更改配置文件的目录和名称
 
-<img src=".//images//image-02-04.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-02-04.png?raw=true" width="600">
 
 
 
@@ -140,7 +140,7 @@
 
 接下来创建**/src**目录、**/src/index.js**文件
 
-<img src=".//images//image-02-new-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-02-new-01.png?raw=true" width="600">
 
 在使用<font style="color:cornflowerblue">vue-cli</font>、<font style="color:cornflowerblue">react-cli</font>时都会具有一个**/src**目录，这是一个**约定的工作目录**。
 
@@ -609,6 +609,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 > * <font style="color:cornflowerblue">webpack</font>是一个<font style="color:#06f">**JavaScript应用程序**</font>，默认只支持***JS模块***的打包，对于***非JS模块***需要使用**loader**转换为***JS模块***
 > * <font style="color:cornflowerblue">打包器</font>不一定非要使用<font style="color:cornflowerblue">Node.JS</font>，也可以使用<font style="color:cornflowerblue">JAVA</font>、<font style="color:cornflowerblue">.NET</font>等任何一门语言
 > * <font style="color:cornflowerblue">打包器</font>其实就是***IO***操作，将<font style="color:cornflowerblue">entry（入口）</font>文件数据读取并经过一系列操作最终写入到<font style="color:cornflowerblue">output（输出）</font>文件
+
+看完的朋友如果觉得对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
 
 
 
