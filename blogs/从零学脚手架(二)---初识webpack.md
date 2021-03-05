@@ -2,7 +2,7 @@
 
 #### 打包器
 
-在使用<font style="color:cornflowerblue">webpack</font>之前，首先需要明白<font style="color:cornflowerblue">webpack</font>到底是个什么东西。
+在使用<font style=color:cornflowerblue>webpack</font>之前，首先需要明白<font style="color:cornflowerblue">webpack</font>到底是个什么东西。
 
 几乎所有文章（包括官网）中都说<font style="color:cornflowerblue">webpack</font>是一个<font style="color:cornflowerblue">**打包器**</font>，用于打包所有资源。
 
