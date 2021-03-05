@@ -4,22 +4,22 @@
 
 <font style="color:cornflowerblue">webpack</font>打包时分为<font style="color:cornflowerblue">开发模式（development）</font>和<font style="color:cornflowerblue">发布模式（production）</font>，在前面使用命令参数做了简单区分。
 
-<img src="./images/image-03-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-01.png?raw=true" width="600">
 
 但这种方式区分在做定制化模式时有些不太方便，所以需要对两种模式做彻底拆分。
 
-之前介绍过，<font style="color:cornflowerblue">webpack</font>可以使用**--config**参数指定配置文件，所以可以不同模式使用不同配置文件。
+之前介绍过，<font style="color:cornflowerblue">webpack</font>可以使用 **--config** 参数指定配置文件，所以可以不同模式使用不同配置文件。
 
-<img src=".//images//image-06-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-06-01.png?raw=true" width="600">
 
-<img src=".//images//image-06-02.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-06-02.png?raw=true" width="400">
 
 > :whale2: 将<font style="color:cornflowerblue">webpack</font>配置文件放入一个指定的目录，方便管理，
 >
 
 
 
-**/buiild/config.js** 是控制路径的对象，在此进行管理, **config.js**文件位于**/build**下，所以所以**root**属性则改为指向上级目录
+**/buiild/config.js**  是控制路径的对象，在此进行管理,  **config.js** 文件位于 **/build** 下，所以所以 **root** 属性则改为指向上级目录
 
 ```js
 const path = require('path')
@@ -325,7 +325,7 @@ module.exports = modules
 
 
 
-此时就需要一种能提供出一个***公共配置文件模块（common）***和两个定制化配置文件。在定制化配置文件中导入***公共配置文件模块（common）***并进行合并配置
+此时就需要一种能提供出一个 ***公共配置文件模块（common）*** 和两个定制化配置文件。在定制化配置文件中导入 ***公共配置文件模块（common）*** 并进行合并配置
 
 webpack社区中提供了一个[webpack-merge](https://www.npmjs.com/package/webpack-merge)库，就是允许我们对<font style="color:cornflowerblue">webpack</font>配置属性合并。
 
@@ -333,9 +333,9 @@ webpack社区中提供了一个[webpack-merge](https://www.npmjs.com/package/web
 
 
 
-抽出一个**webpack.common.js**文件，将公共配置配置在此
+抽出一个 **webpack.common.js** 文件，将公共配置配置在此
 
-<img src=".//images//image-06-04.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-06-04.png?raw=true" width="600">
 
 
 
@@ -526,15 +526,15 @@ module.exports =  (isDev = true) => {
 
 
 
-**webpack.common.js**文件导出的是一个函数 ，函数参数是一个是一个*boolean*类型的**isDev**，判断当前模式。将细小化的差异直接**webpack.common.js**文件中。
+**webpack.common.js** 文件导出的是一个函数 ，函数参数是一个是一个*boolean*类型的**isDev**，判断当前模式。将细小化的差异直接 **webpack.common.js** 文件中。
 
-例如：**output.filename**中是否缓存和**optimization.minimize**属性
+例如： **output.filename** 中是否缓存和 **optimization.minimize** 属性
 
 > :whale2::whale2::whale2: 在**webpack.common.js**内部根据**isDev**设置了<font style="color:cornflowerblue">browserslist</font>使用的环境变量
 
 
 
-然后，就可以在 **webpack.dev.js** 和 **webpack.pro.js** 文件中使用<font style="color:#f03d3d">webpack-merge</font> 进行合并 **webpack.common.js** 文件中模块
+然后，就可以在  **webpack.dev.js**  和 **webpack.pro.js** 文件中使用<font style="color:#f03d3d">webpack-merge</font> 进行合并 **webpack.common.js** 文件中模块
 
 **webpack.dev.js**
 
@@ -570,9 +570,9 @@ module.exports = merge([
 
 
 
-可以看到 代码中直接调用了<font style="color:#f03d3d">webpack-merge</font>提供的一个**merge**函数合并然后导出。**merge**函数会将传入的多个对象属性进行合并，然后返回合并后对象。
+可以看到 代码中直接调用了<font style="color:#f03d3d">webpack-merge</font>提供的一个 **merge** 函数合并然后导出。 **merge** 函数会将传入的多个对象属性进行合并，然后返回合并后对象。
 
-**merge**函数其实与**Object.assign()**功能一样，对多个JS对象属性进行合并。只不过**merge**功能较为强大一些。
+ **merge** 函数其实与 **Object.assign()** 功能一样，对多个JS对象属性进行合并。只不过 **merge** 功能较为强大一些。
 
 > :whale2::whale2::whale2: <font style="color:cornflowerblue">webpack</font>配置导出的是一个JS对象，在代码中可以以任意形式组织此对象，只要最后进行导出就行。
 
@@ -585,7 +585,7 @@ module.exports = merge([
 > :whale2::whale2::whale2:
 >
 > * 对<font style="color:cornflowerblue">开发模式（development）</font>和<font style="color:cornflowerblue">发布模式（production）</font>进行拆分主要是为了更方便管理代码，其具体结构依照每个人编码习惯具有差异性
-> * <font style="color:#f03d3d">webpack-merge</font> 是一个将多个JS对象属性合并的库，功能与**Object.assign()**一致，只是功能更为强大一些。
+> * <font style="color:#f03d3d">webpack-merge</font> 是一个将多个JS对象属性合并的库，功能与 **Object.assign()** 一致，只是功能更为强大一些。
 
 如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
 

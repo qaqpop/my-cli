@@ -2,19 +2,19 @@
 
 #### 打包器
 
-在使用 <font style=color:cornflowerblue>webpack</font>之前，首先需要明白<font style="color:cornflowerblue">webpack</font>到底是个什么东西。
+在使用 <font style=color:cornflowerblue>webpack </font>之前，首先需要明白 <font style="color:cornflowerblue">webpack</font> 到底是个什么东西。
 
-几乎所有文章（包括官网）中都说<font style="color:cornflowerblue">webpack</font>是一个<font style="color:cornflowerblue">**打包器**</font>，用于打包所有资源。
+几乎所有文章（包括官网）中都说<font style="color:cornflowerblue">webpack</font>是一个 <font style="color:cornflowerblue">**打包器**</font> ，用于打包所有资源。
 
-<font style="color:cornflowerblue">webpack</font>确实是一个<font style="color:cornflowerblue">打包器</font>，但是对于不知道<font style="color:cornflowerblue">打包器</font>的朋友来说还是会有些迷惑。
+<font style="color:cornflowerblue">webpack</font>确实是一个 <font style="color:cornflowerblue">打包器</font> ，但是对于不知道<font style="color:cornflowerblue">打包器</font>的朋友来说还是会有些迷惑。
 
-抛开<font style="color:cornflowerblue">webpack</font>去看问题本质。
+抛开 <font style="color:cornflowerblue">webpack</font> 去看问题本质。
 
 
 
 当前时代，前端的作用越来越大，对于写过<font style="color:cornflowerblue">MVC</font>或者更早的<font style="color:cornflowerblue">JSP</font>或<font style="color:cornflowerblue">ASP.NET</font>的朋友可能更有体会，那时代的前端只是作为展示作用。
 
-随着<font style="color:cornflowerblue">移动端</font>和<font style="color:cornflowerblue">Node.JS</font>的崛起，前端进入了新的时代。
+随着 <font style="color:cornflowerblue">移动端</font>和 <font style="color:cornflowerblue">Node.JS</font> 的崛起，前端进入了新的时代。
 
 前端与后端进行了分离，前端开始独立部署，逐渐走入了工程化的步伐。
 
@@ -28,13 +28,13 @@
 
 
 
-这些问题其实可以总结为<font style="color:#007FFF">可部署环境代码</font>和<font style="color:#007FFF">开发环境代码</font>之间的冲突。
+这些问题其实可以总结为 <font style="color:#007FFF">可部署环境代码</font> 和 <font style="color:#007FFF">开发环境代码</font> 之间的冲突。
 
 
 
-那么能不能提供一个桥梁来连接两种环境代码呢？最好能够提供一个***黑匣子***，能够让我们使用一个命令将<font style="color:#007FFF">开发环境代码</font>编译为<font style="color:#007FFF">可部署环境代码</font>
+那么能不能提供一个桥梁来连接两种环境代码呢？最好能够提供一个 ***黑匣子*** ，能够让我们使用一个命令将 <font style="color:#007FFF">开发环境代码 </font>编译为 <font style="color:#007FFF">可部署环境代码</font>
 
-<font style="color:cornflowerblue">打包器</font>就是这么一个 ***黑匣子***
+<font style="color:cornflowerblue">打包器</font> 就是这么一个 ***黑匣子***
 
 
 
@@ -42,9 +42,9 @@
 
 
 
-<font style="color:cornflowerblue">打包器</font>是个***黑匣子***这是对于大部分写业务的程序员来说的，他们只需要完成业务模块。
+<font style="color:cornflowerblue">打包器</font>是个 ***黑匣子*** 这是对于大部分写业务的程序员来说的，他们只需要完成业务模块。
 
-但是对于项目管理者，<font style="color:cornflowerblue">打包器</font>就必须掌握，毕竟由于前端的特殊性，导致需要自己配置属于自己项目的<font style="color:cornflowerblue">打包器</font> 。所以对于<font style="color:cornflowerblue">打包器</font>的了解也基本属于前端必修课。
+但是对于项目管理者，<font style="color:cornflowerblue">打包器</font> 就必须掌握，毕竟由于前端的特殊性，导致需要自己配置属于自己项目的 <font style="color:cornflowerblue">打包器</font> 。所以对于 <font style="color:cornflowerblue">打包器</font> 的了解也基本属于前端必修课。
 
 
 
@@ -54,33 +54,33 @@
 
 不过截止到目前最流行的还是<font style="color:cornflowerblue">webpack</font> 。所以在此也是以<font style="color:cornflowerblue">webpack</font>作为学习、
 
-<font style="color:cornflowerblue">webpack</font>是一个优秀的<font style="color:#06f">***JavaScript应用程序***</font>的静态模块打包器，具有高度可配置的优势，因此也被业界称为最麻烦之一。
+<font style="color:cornflowerblue">webpack</font>是一个优秀的 <font style="color:#06f">***JavaScript应用程序***</font> 的静态模块打包器，具有高度可配置的优势，因此也被业界称为最麻烦之一。
 
 
 
-前面说过：<font style="color:cornflowerblue">打包器</font>就是将<font style="color:#007FFF">开发环境代码</font>进行编译为<font style="color:#007FFF">可部署环境代码</font>。
+前面说过：<font style="color:cornflowerblue">打包器</font> 就是将 <font style="color:#007FFF">开发环境代码</font> 进行编译为 <font style="color:#007FFF">可部署环境代码</font> 。
 
-而不同的项目对<font style="color:#007FFF">可部署环境代码</font>的要求又不一致。所以<font style="color:cornflowerblue">webpack</font>并没有提供一个全而大功能，而只是提供了一个<font style="color:#06f">**核心引擎**</font>， 只负责<font style="color:cornflowerblue">JS</font>文件的依赖打包，其它功能使用<font style="color:#06f">**插件化**</font>进行配置 。 
+而不同的项目对 <font style="color:#007FFF">可部署环境代码</font> 的要求又不一致。所以 <font style="color:cornflowerblue">webpack</font> 并没有提供一个全而大功能，而只是提供了一个 <font style="color:#06f">**核心引擎**</font>， 只负责<font style="color:cornflowerblue">JS</font>文件的依赖打包，其它功能使用 <font style="color:#06f">**插件化**</font> 进行配置 。 
 
-> :whale2::whale2::whale2: 这里说的<font style="color:#06f">**插件化**</font>并不是指的<font style="color:cornflowerblue">webpack</font>中的***plugin***，而是***扩展***的意思，为了 避免和<font style="color:cornflowerblue">webpack</font>中***plugin***翻译歧义。<font style="color:cornflowerblue">webpack</font>中***plugin***就不做翻译。
-
-
-
-一般开发人员使用<font style="color:cornflowerblue">webpack</font>实现某个功能时，只需要寻找符合自己需求的<font style="color:cornflowerblue">插件</font>就可以。<font style="color:cornflowerblue">插件</font>则由强大的社区维护。
-
-社区中具有海量的<font style="color:cornflowerblue">插件</font>，相同功能的都有好多。所以，在学习<font style="color:cornflowerblue">webpack</font>时，
-
-我个人建议转换一下思想： <font style="color:#06f">**不要想这个东西是什么，而要想我们需要什么**	</font>。根据自己需求去寻找合适的<font style="color:cornflowerblue">插件</font>。
-
-经过了这么多年的发展，大部分功能的<font style="color:cornflowerblue">插件</font>已经具有了最优解，形成了<font style="color:cornflowerblue">插件</font>固定化。就像现在大部分语言运行环境的**GC算法**都是**引用跟踪算法**一样。
+> :whale2::whale2::whale2: 这里说的 <font style="color:#06f">**插件化**</font> 并不是指的 <font style="color:cornflowerblue">webpack</font> 中的 ***plugin*** ，而是 ***扩展***  的意思，为了 避免和<font style="color:cornflowerblue">webpack</font>中 ***plugin*** 翻译歧义。 <font style="color:cornflowerblue">webpack</font> 中 ***plugin*** 就不做翻译。
 
 
 
-在上一篇文章中讲到**package.json**文件中的**devDependencies**留了一个问题：*什么是开发环境依赖*。
+一般开发人员使用 <font style="color:cornflowerblue">webpack</font> 实现某个功能时，只需要寻找符合自己需求的<font style="color:cornflowerblue">插件</font>就可以。<font style="color:cornflowerblue">插件</font>则由强大的社区维护。
 
-其实就可以总结出：<font style="color:#06f">构建工程化依赖环境</font>时使用的依赖库。
+社区中具有海量的 <font style="color:cornflowerblue">插件</font> ，相同功能的都有好多。所以，在学习 <font style="color:cornflowerblue">webpack</font> 时，
 
-> :whale2:	<font style="color:#06f">构建工程化依赖环境</font>包括<font style="color:cornflowerblue">打包器</font>、还有<font style="color:cornflowerblue">eslint</font>和<font style="color:cornflowerblue">单元测试库</font>
+我个人建议转换一下思想：  <font style="color:#06f">**不要想这个东西是什么，而要想我们需要什么**</font> 。根据自己需求去寻找合适的 <font style="color:cornflowerblue">插件</font>。
+
+经过了这么多年的发展，大部分功能的 <font style="color:cornflowerblue">插件</font> 已经具有了最优解，形成了 <font style="color:cornflowerblue">插件</font> 固定化。就像现在大部分语言运行环境的 **GC算法** 都是 **引用跟踪算法** 一样。
+
+
+
+在上一篇文章中讲到 **package.json** 文件中的 **devDependencies** 留了一个问题：*什么是开发环境依赖*。
+
+其实就可以总结出：<font style="color:#06f">构建工程化依赖环境 </font> 时使用的依赖库。
+
+> :whale2:	<font style="color:#06f">构建工程化依赖环境</font> 包括 <font style="color:cornflowerblue">打包器</font>、还有 <font style="color:cornflowerblue">eslint</font> 和 <font style="color:cornflowerblue">单元测试库</font>
 
 
 
@@ -88,35 +88,35 @@
 
 #### webpack安装
 
-在之前已经安装了[webpack@5.24.0](https://www.npmjs.com/package/webpack/v/5.24.0)依赖库，
+在之前已经安装了 [webpack@5.24.0](https://www.npmjs.com/package/webpack/v/5.24.0) 依赖库，
 
-在这里只需要安装<font style="color:#f03d3d">webpack-cli</font>即可，<font style="color:#f03d3d">webpack-cli</font>类似一个简易的客户端，用来以<font style="color:cornflowerblue">webpack</font>连接对应服务。
+在这里只需要安装 <font style="color:#f03d3d">webpack-cli </font>即可，<font style="color:#f03d3d">webpack-cli </font>类似一个简易的客户端，用来以  <font style="color:cornflowerblue">webpack </font>连接对应服务。
 
-如果不安装<font style="color:#f03d3d">webpack-cli</font>执行`webpack`命令时会提示安装<font style="color:#f03d3d">webpack-cli</font>
+如果不安装 <font style="color:#f03d3d">webpack-cli</font> 执行 `webpack` 命令时会提示安装 <font style="color:#f03d3d">webpack-cli</font>
 
 > yarn add -D  webpack-cli@4.5.0     // 安装到**devDependencies**依赖。
 
 
 
-在**package.json**文件***scripts***属性中加入`build：webpack`命令
+在 **package.json** 文件 **scripts** 属性中加入 `build：webpack` 命令
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-02-02.png?raw=true" width="600">
 
 
 
-此时执行`yarn build`就会执行`webpack`命令
+此时执行 `yarn build` 就会执行 `webpack` 命令
 
-虽然会因为没有配置项而失败，但<font style="color:cornflowerblue">webpack</font>成功运行了。
+虽然会因为没有配置项而失败，但 <font style="color:cornflowerblue">webpack</font> 成功运行了。
 
 
 
-> :whale2: <font style="color:cornflowerblue">webpack</font>可以直接使用命令行参数打包文件，不过在此就不赘述，有兴趣的朋友可以参考官网
+> :whale2: <font style="color:cornflowerblue">webpack </font>可以直接使用命令行参数打包文件，不过在此就不赘述，有兴趣的朋友可以参考官网
 
 
 
 #####  webpack.config.js
 
-在根目录中创建一个**webpack.config.js**，此文件是<font style="color:cornflowerblue">webpack</font>配置项文件
+在根目录中创建一个 **webpack.config.js**，此文件是 <font style="color:cornflowerblue">webpack</font> 配置项文件
 
 **webpack.config.js**文件必须抛出一个**模块**，这个**模块**可以是一个**Object**，也可以是一个返回值为**Object**的函数，<font style="color:cornflowerblue">webpack</font>属性就配置在这个**Object**中
 
