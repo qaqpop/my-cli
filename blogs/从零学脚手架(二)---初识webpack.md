@@ -2,7 +2,7 @@
 
 #### 打包器
 
-在使用<font style=color:cornflowerblue>webpack</font>之前，首先需要明白<font style="color:cornflowerblue">webpack</font>到底是个什么东西。
+在使用 <font style=color:cornflowerblue>webpack</font>之前，首先需要明白<font style="color:cornflowerblue">webpack</font>到底是个什么东西。
 
 几乎所有文章（包括官网）中都说<font style="color:cornflowerblue">webpack</font>是一个<font style="color:cornflowerblue">**打包器**</font>，用于打包所有资源。
 
@@ -34,7 +34,7 @@
 
 那么能不能提供一个桥梁来连接两种环境代码呢？最好能够提供一个***黑匣子***，能够让我们使用一个命令将<font style="color:#007FFF">开发环境代码</font>编译为<font style="color:#007FFF">可部署环境代码</font>
 
-<font style="color:cornflowerblue">打包器</font>就是这么一个***黑匣子***
+<font style="color:cornflowerblue">打包器</font>就是这么一个 ***黑匣子***
 
 
 
@@ -197,41 +197,41 @@ const modules = {
 //  使用node.js的导出，将配置进行导出
 module.exports = modules
 ```
-> * **entry**：入口文件。
->
->   属性可设置为：*String*、*Object*、*Array*
->
->   属性值为***String***：直接设置一个入口文件地址
->
->   属性值为***Object***：对入口文件进行详细设置和 可以设置多个入口文件
->
->   属性值为***Array***：设置多个入口文件
->
->   
->
->   > :whale2: <font style="color:cornflowerblue">webpack</font>允许设置多个<font style="color:cornflowerblue">entry（入口）</font>文件，打包编译出多个文件。一般用于<font style="color:cornflowerblue">多页面配置</font>
->   >
->   > 至于多页面开发配置，就不在此赘述，有兴趣的朋友可以去查阅下[参考资料](https://www.sohu.com/a/323226642_495695)，单页面程序直接设置*String*即可
->
->   
->
-> * **output**：输出文件。
->
->   属性可设置为：*String*、*Object*
->
->   属性值为***String***：直接设置一个输出文件地址
->
->   属性值为***Object***：输出文件地址和文件名称详细设置
->
->   > :whale2:  <font style="color:cornflowerblue">webpack</font>在设置**output.filename**时，允许使用**[name]** 保留 **entry**属性设置的文件名称。
->   >
->   > **entry**为**String**时，**[name]**为文件名称
->   >
->   > **entry**为*Object*时，**[name]**为 对象的***key***
->
->   > :whale2: **output**s属性中的**[contenthash]**，是一个<font style="color:cornflowerblue">webpack</font>提供的一种打包缓存的机制。 <font style="color:cornflowerblue">webpack</font>会为打包编译生成一个**hash**值。只有更改源文件后才会重新打包编译，生成新的**hash**。 缓存机制一般只会在<font style="color:cornflowerblue">生产模式（production）</font>使用。
->   >
->   > <font style="color:cornflowerblue">webpack</font>还提供了两个属性 **[hash]**、**[chunkhash]** 设置缓存，具体区别请参考：[webpack中hash、chunkhash、contenthash区别](https://www.cnblogs.com/giggle/p/9583940.html)
+* **entry**：入口文件。
+
+  属性可设置为：*String*、*Object*、*Array*
+
+  属性值为***String***：直接设置一个入口文件地址
+
+  属性值为***Object***：对入口文件进行详细设置和 可以设置多个入口文件
+
+  属性值为***Array***：设置多个入口文件
+
+  > :whale2: <font style="color:cornflowerblue">webpack</font>允许设置多个<font style="color:cornflowerblue">entry（入口）</font>文件，打包编译出多个文件。一般用于<font style="color:cornflowerblue">多页面配置</font>
+  >
+  > 至于多页面开发配置，就不在此赘述，有兴趣的朋友可以去查阅下[参考资料](https://www.sohu.com/a/323226642_495695)，单页面程序直接设置*String*即可
+
+  
+
+* **output**：输出文件。
+
+  属性可设置为：*String*、*Object*
+
+  属性值为***String***：直接设置一个输出文件地址
+
+  属性值为***Object***：输出文件地址和文件名称详细设置
+
+  > :whale2:  <font style="color:cornflowerblue">webpack</font>在设置**output.filename**时，允许使用**[name]** 保留 **entry**属性设置的文件名称。
+  >
+  > **entry**为**String**时，**[name]**为文件名称
+  >
+  > **entry**为*Object*时，**[name]**为 对象的***key***
+
+  > :whale2: **output**s属性中的**[contenthash]**，是一个<font style="color:cornflowerblue">webpack</font>提供的一种打包缓存的机制。 <font style="color:cornflowerblue">webpack</font>会为打包编译生成一个**hash**值。只有更改源文件后才会重新打包编译，生成新的**hash**。 缓存机制一般只会在<font style="color:cornflowerblue">生产模式（production）</font>使用。
+  >
+  > <font style="color:cornflowerblue">webpack</font>还提供了两个属性 **[hash]**、**[chunkhash]** 设置缓存，具体区别请参考：[webpack中hash、chunkhash、contenthash区别](https://www.cnblogs.com/giggle/p/9583940.html)
+
+---
 
 
 
@@ -265,9 +265,11 @@ module.exports = modules
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-02-07.png?raw=true" width="600">
 
-> :whale2::whale2: 打包后文件会进行压缩，并且代码会多出许多<font style="color:cornflowerblue">webpack</font>构建的代码。
+> :whale2::whale2:  打包后文件会进行压缩，并且代码会多出许多<font style="color:cornflowerblue">webpack</font>构建的代码。
 >
-> ​			代码压缩是因为<font style="color:cornflowerblue">webpack</font>默认使用的是<font style="color:cornflowerblue">生产模式（production）</font>。如果想要不压缩代码可以在**webpack.json**文件中添加一个				**mode:'development'**属性，至于这两个属性意思下一篇再详细讲解。 
+> 代码压缩是因为<font style="color:cornflowerblue">webpack</font>默认使用的是<font style="color:cornflowerblue">生产模式（production）</font>。
+>
+> 如果想要不压缩代码可以在**webpack.json**文件中添加一个				**mode:'development'**属性，至于这两个属性意思下一篇再详细讲解。 
 
 
 
@@ -318,7 +320,9 @@ module.exports = modules
 
 
 
->  yarn add -D  html-webpack-plugin@5.2.0      
+>  yarn add -D  html-webpack-plugin@5.2.0   
+
+   
 
 安装之后，需要在webpack文件中进行引用
 
@@ -385,77 +389,79 @@ plugins: [
   ]
 ```
 
-> * **title**：**HTML**的标题，   
->
->   属性可设置为：*String*
->
->   此属性在设置**template**属性后会失效
->
->   
->
-> * **filename**：输出的**HTML**文件名称， 
->
->   属性可设置为：*String*
->
->   默认值为：**index.html**
->
->   
->
-> * **template**：本地**HTML**模板文件地址。   
->
->   属性可设置为：*String*
->
->   使用**HTML**模板文件时，会将**HTML**模板文件内容原封不动的**copy**。
->
->   例如下面**HTML**模板引用了<font style="color:#f03d3d">jquery</font>，打包后的**HTML**依然存在<font style="color:#f03d3d">jquery</font>。  
->
->   
->
-> * **publicPath**：  引用**JS**文件的目录路径。
->
->   属性可设置为：*String*
->
->   例如设置路径为***./***，那么在**HTML**文件引用**JS**时就会为**<script src="./main_XXXXXX.js"></script>**。
->
->   此属性提供了更灵活的项目管理，可以将**HTML**文件和**JS**文件打包到不同目录。
->
->   
->
-> * **inject**：  引用编译后**JS**文件的位置。
->
->   属性可设置为：*Boolean*、*head*、*body*
->
->   属性值为***false***：代表不引用编译后**JS**文件
->
->   属性值为***true***和***body***：在**body**元素最后引用编译后**JS**文件 。推荐
->
->   属性值为***head***：在**head**元素中引用编译后**JS**文件，不推荐
->
->   默认值为***true***
->
->   
->
-> * **scriptLoading**：设置加载**JS**的方法
->
->   属性可设置为：*blocking*、*defer*
->
->   默认值为***blocking***
->
->   具体**blocking**、**defer**差别可参考[defer和async的区别](https://segmentfault.com/q/1010000000640869#)
->
->   
->
-> * **cache**：是否缓存**HTML**文件。
->
->   属性可设置为：*Boolean*
->
->   默认值为***true***
->
->   <font style="color:cornflowerblue">开发环境（development）</font>时可以设置为***false***
->
->   
->
-> * **meta**：设置**meta**属性
+ * **title**：**HTML**的标题，   
+
+   属性可设置为：*String*
+
+   此属性在设置**template**属性后会失效
+
+   
+
+ * **filename**：输出的**HTML**文件名称， 
+
+   属性可设置为：*String*
+
+   默认值为：**index.html**
+
+   
+
+ * **template**：本地**HTML**模板文件地址。   
+
+   属性可设置为：*String*
+
+   使用**HTML**模板文件时，会将**HTML**模板文件内容原封不动的**copy**。
+
+   例如下面**HTML**模板引用了<font style="color:#f03d3d">jquery</font>，打包后的**HTML**依然存在<font style="color:#f03d3d">jquery</font>。  
+
+   
+
+ * **publicPath**：  引用**JS**文件的目录路径。
+
+   属性可设置为：*String*
+
+   例如设置路径为***./***，那么在**HTML**文件引用**JS**时就会为**<script src="./main_XXXXXX.js"></script>**。
+
+   此属性提供了更灵活的项目管理，可以将**HTML**文件和**JS**文件打包到不同目录。
+
+   
+
+ * **inject**：  引用编译后**JS**文件的位置。
+
+   属性可设置为：*Boolean*、*head*、*body*
+
+   属性值为***false***：代表不引用编译后**JS**文件
+
+   属性值为***true***和***body***：在**body**元素最后引用编译后**JS**文件 。推荐
+   
+   属性值为***head***：在**head**元素中引用编译后**JS**文件，不推荐
+   
+   默认值为***true***
+   
+   
+   
+* **scriptLoading**：设置加载**JS**的方法
+
+  属性可设置为：*blocking*、*defer*
+
+  默认值为***blocking***
+
+  具体**blocking**、**defer**差别可参考[defer和async的区别](https://segmentfault.com/q/1010000000640869#)
+
+  
+
+* **cache**：是否缓存**HTML**文件。
+
+  属性可设置为：*Boolean*
+
+  默认值为***true***
+
+  <font style="color:cornflowerblue">开发环境（development）</font>时可以设置为 ***false***
+
+  
+
+* **meta**：设置**meta**属性
+
+---
 
 
 
@@ -544,51 +550,51 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
     })
 ```
 
-> * **dry**：是否假装删除文件，官方文档的描述是：*Simulate the removal of files*。
->
->   属性可设置为：*Boolean*
->
->   此属性当为***true***时，则不清空**/dist**目录；当为false时，会清空**/dist**目录
->
->   默认为***false***
->
->   
->
-> * **verbose**：是否将删除日志打印到控制台
->
->   属性可设置为：*Boolean*
->
->   默认为***false***
->
->   
->
-> * **protectWebpackAssets**：是否保留本次打包的文件
->
->   属性可设置为：*Boolean*
->
->   属性值为***false***时，本次打包文件也会被清除掉
->
->   默认为***true***
->
->   
->
-> * **cleanOnceBeforeBuildPatterns**：设置打包之前删除的文件
->
->   属性可设置为：*Array*
->
->   此属性类似一个钩子，在打包执行之前，删除此属性匹配到的文件
->
->   默认值为***['\*\*/\*']***
->
->   
->
-> * **cleanAfterEveryBuildPatterns**：设置打包之后删除的文件
->
->   属性可设置为：*Array*
->
->   此属性与**cleanOnceBeforeBuildPatterns**类似，触发时机是打包执行完毕后
->
->   默认值为***[]***
+* **dry**：是否假装删除文件，官方文档的描述是：*Simulate the removal of files*。
+
+  属性可设置为：*Boolean*
+
+  此属性当为***true***时，则不清空**/dist**目录；当为false时，会清空**/dist**目录
+
+  默认为***false***
+
+  
+
+* **verbose**：是否将删除日志打印到控制台
+
+  属性可设置为：*Boolean*
+
+  默认为***false***
+
+  
+
+* **protectWebpackAssets**：是否保留本次打包的文件
+
+  属性可设置为：*Boolean*
+
+  属性值为***false***时，本次打包文件也会被清除掉
+
+  默认为 ***true***
+
+  
+
+* **cleanOnceBeforeBuildPatterns**：设置打包之前删除的文件
+
+  属性可设置为：*Array*
+
+  此属性类似一个钩子，在打包执行之前，删除此属性匹配到的文件
+
+  默认值为 ***['\*\*/\*']***
+
+  
+
+* **cleanAfterEveryBuildPatterns**：设置打包之后删除的文件
+
+  属性可设置为：*Array*
+
+  此属性与**cleanOnceBeforeBuildPatterns**类似，触发时机是打包执行完毕后
+
+  默认值为 ***[]***
 
 
 

@@ -73,7 +73,7 @@ const element = React.createElement(
 
 
 
-##### 模板语言
+##### JSX
 
 <font style="color:cornflowerblue">React</font>是通过JS构建元素的，
 
@@ -97,11 +97,11 @@ const element = (
 
 
 
-但<font style="color:cornflowerblue">JSX</font>只是**React.createElement()**语法糖，打包编译过程中会将<font style="color:cornflowerblue">JSX</font>语法转换为**React.createElement()**
+但<font style="color:cornflowerblue">JSX</font>编写的组件只是**React.createElement()**语法糖，打包编译过程中会将<font style="color:cornflowerblue">JSX</font>语法转换为**React.createElement()**
 
 
 
-> :whale2::whale2::whale2: <font style="color:cornflowerblue">JSX</font>本质是**React.createElement()**语法糖。所以<font style="color:cornflowerblue">React</font>还支持使用**React.createElement()**创建<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>。
+> :whale2::whale2::whale2: <font style="color:cornflowerblue">JSX</font>编写的组件本质是 **React.createElement()** 语法糖。所以<font style="color:cornflowerblue">React</font>还支持使用**React.createElement()**创建<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>。
 
 > :whale2::whale2: <font style="color:cornflowerblue">JSX</font>是<font style="color:cornflowerblue">React</font>提供构建代码方式的一种扩展语言，本质是一个语法糖。<font style="color:cornflowerblue">JSX</font>定义的**事件**、**style**、**class**是<font style="color:cornflowerblue">JSX</font>自身语法，并不是原生DOM。所以有些属性名称不一致。
 
@@ -146,7 +146,7 @@ const element = (
 
 第一步就是在HTML页面中创建一个元素作为<font style="color:cornflowerblue">React</font>承载的根节点。
 
-<img src="./images/image-05-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-01.png" width="600">
 
 > :whale2: <font style="color:cornflowerblue">vue-cli</font>也具有这么一个根节点用来承载<font style="color:cornflowerblue">vue</font>，只不过元素ID名称不一样，有兴趣的朋友可以自行查看。
 
@@ -183,7 +183,7 @@ ReactDOM.render(root, document.getElementById('root'));
 
 不过如果此时执行`yarn build`操作，会直接报错。
 
-<img src="./images/image-05-02.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-02.png" width="600">
 
 
 
@@ -201,7 +201,7 @@ ReactDOM.render(root, document.getElementById('root'));
 
 <font style="color:#f03d3d">@babel/preset-react</font>中封装了所有处理<font style="color:cornflowerblue">React</font>的**plugin**
 
-<img src="./images/image-05-new-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-01.png" width="600">
 
 > yarn add -D @babel/preset-react@7.12.13
 
@@ -209,19 +209,19 @@ ReactDOM.render(root, document.getElementById('root'));
 
 然后配置在**.babelrc**文件中
 
-<img src="./images/image-05-new-06.png" width="400">
+<img src=" " width="400">
 
 
 
 此时执行`yarn build`便可以执行成功，并且查看生成代码可以看到<font style="color:cornflowerblue">JSX</font>已经转换为了**React.createElement()**
 
-<img src="./images/image-05-03.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-03.png" width="600">
 
 
 
 在浏览器也可以正常运行代码
 
-<img src="./images/image-05-04.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-04.png" width="600">
 
 
 
@@ -237,9 +237,9 @@ ReactDOM.render(root, document.getElementById('root'));
 
 将<font style="color:cornflowerblue">JSX</font>提取到***/src/app.jsx***文件，在***/src/index.js***导入。
 
-<img src="./images/image-05-05.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-05.png" width="600">
 
-<img src="./images/image-05-06.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-06.png" width="600">
 
 > :whale2::whale2: **app.jsx**作为<font style="color:cornflowerblue">React</font>框架的根节点。用在承载<font style="color:cornflowerblue">React</font>组件。
 
@@ -321,15 +321,15 @@ const modules = {
 
 一种就是配置在**package.json**文件中的***browserslist***属性。<font style="color:cornflowerblue">browserslist</font>执行时会默认读取此属性。
 
-<img src="./images/image-05-new-02.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-02.png" width="600">
 
 另一种是使用约定文件。可以在项目根目录（**package.json**所在目录）创建一个约定文件***.browserslistrc.json***，将属性配置在此。***.browserslistrc.json***文件名称一般会省略后缀：***.browserslistrc***
 
-<img src="./images/image-05-new-03.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-03.png" width="600">
 
 两种方式不可同时设置，否则会直接报错。
 
-<img src="./images/image-05-new-04.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-04.png" width="600">
 
 
 
@@ -356,7 +356,7 @@ const modules = {
 
 属性值取自<font style="color:cornflowerblue">Node.js</font>中环境变量。环境变量名称为**BROWSERSLIST_ENV**。所以需要设置环境变量。
 
-<img src="./images/image-05-new-05.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-05.png" width="600">
 
 注意：在此虽然设置在**webpack.config.js**文件中，但设置的是<font style="color:cornflowerblue">Node.js</font>中的环境变量， 并不是<font style="color:cornflowerblue">webpack</font>提供的环境变量。
 
@@ -372,7 +372,7 @@ const modules = {
 
 <font style="color:cornflowerblue">browserslist</font>支持设置当前基本上所有的浏览器，在[Github](https://github.com/browserslist/browserslist#browsers)上作者说明了可以设置的浏览器
 
-<img src="./images/image-05-07.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-07.png" width="600">
 
 可以看到，<font style="color:cornflowerblue">browserslist</font>几乎支持所有浏览器：PC、安卓、IOS 甚至还有国内浏览器。
 
@@ -390,68 +390,70 @@ const modules = {
 
 下面简单列举部分<font style="color:cornflowerblue">browserslist</font>属性配置，想了解更多的朋友请参考[Github](https://github.com/browserslist/browserslist)
 
-> * **defaults**：<font style="color:cornflowerblue">browserslist</font>设置的默认浏览器版本。属性只相当 ***> 0.5%, last 2 versions, Firefox ESR, not dead***
->
-> * **指定版本号**： 支持直接指定某个浏览器版本号。
->
->   ***IE 11***：设置IE11浏览器
->
-> 
->
-> * **范围版本**：支持设置某个浏览器指定范围版本。
->
->   ***Chrome > 75***： 设置大于Chrome75版本的浏览器
->
->   并且支持 `>=`、`<`、`<=` 语法设置
->
-> * **24个月内未更新版本**：支持设置24个月内未更新的版本
->
->   ***dead***
->
->   
->
-> * **浏览器使用率**：支持设置指定浏览器使用率版本
->
->   ***>5%***：全球超过5%人使用的浏览器版本
->
->   **\> 5% in US**：美国超过5%使用的浏览器版本
->
->   ***\> 5% in alt-AS***：亚洲超过5%使用的浏览器版本
->
->   也自定义设置地区，具体参考[Github文档](https://github.com/browserslist/browserslist#custom-usage-data)
->
->   并且支持 `>=`、`<`、`<=` 语法设置
->
-> 
->
-> * **最新浏览器版本**：支持设置最新的几个版本浏览器。
->
->   ***last 2 versions***：设置所有浏览器最新的两个版本。
->
->   ***last 2 Chrome versions***：设置Chrome浏览器最新的两个版本
->
-> 
->
-> * **排除浏览器**：<font style="color:cornflowerblue">browserslist</font>支持排除指定浏览器，
->
->   ***not ie < 11***：排除IE11以下的浏览器
->
-> 
->
-> * **条件组合**：<font style="color:cornflowerblue">browserslist</font>强大的功能之一是支持多个条件做一个，这也是<font style="color:cornflowerblue">browserslist</font>灵活所在。
->
->   例如
->
->   ```json
->   "browserslist": [
->       "ie 9",
->       "Chrome > 75"
->   ],
->   ```
->
->   这就是一个**并且（and）组合**设置。两者都必须满足
->
->   <font style="color:cornflowerblue">browserslist</font>同样支持 **或者（or）组合**：***> .5% or last 2 versions***
+* **defaults**：<font style="color:cornflowerblue">browserslist</font>设置的默认浏览器版本。属性只相当 ***> 0.5%, last 2 versions, Firefox ESR, not dead***
+
+  
+
+* **指定版本号**： 支持直接指定某个浏览器版本号。
+
+  ***IE 11***：设置IE11浏览器
+
+
+
+* **范围版本**：支持设置某个浏览器指定范围版本。
+
+  ***Chrome > 75***： 设置大于Chrome75版本的浏览器
+
+  并且支持 `>=`、`<`、`<=` 语法设置
+
+* **24个月内未更新版本**：支持设置24个月内未更新的版本
+
+  ***dead***
+
+
+
+* **浏览器使用率**：支持设置指定浏览器使用率版本
+
+  ***>5%***：全球超过5%人使用的浏览器版本
+
+  **\> 5% in US**：美国超过5%使用的浏览器版本
+
+  ***\> 5% in alt-AS***：亚洲超过5%使用的浏览器版本
+
+  也自定义设置地区，具体参考[Github文档](https://github.com/browserslist/browserslist#custom-usage-data)
+
+  并且支持 `>=`、`<`、`<=` 语法设置
+
+
+
+* **最新浏览器版本**：支持设置最新的几个版本浏览器。
+
+  ***last 2 versions***：设置所有浏览器最新的两个版本。
+
+  ***last 2 Chrome versions***：设置Chrome浏览器最新的两个版本
+
+
+
+* **排除浏览器**：<font style="color:cornflowerblue">browserslist</font>支持排除指定浏览器，
+
+  ***not ie < 11***：排除IE11以下的浏览器
+
+
+
+* **条件组合**：<font style="color:cornflowerblue">browserslist</font>强大的功能之一是支持多个条件做一个，这也是<font style="color:cornflowerblue">browserslist</font>灵活所在。
+
+  例如
+
+  ```json
+  "browserslist": [
+      "ie 9",
+      "Chrome > 75"
+  ],
+  ```
+
+  这就是一个**并且（and）组合**设置。两者都必须满足
+
+  <font style="color:cornflowerblue">browserslist</font>同样支持 **或者（or）组合**：***> .5% or last 2 versions***
 
 
 
@@ -472,7 +474,7 @@ const modules = {
 > * <font style="color:cornflowerblue">React</font>使用了<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>和<font style="color:cornflowerblue">diff 算法</font>优化了DOM操作
 > * <font style="color:cornflowerblue">React</font>利用自定义DOM类型解耦平台限制，以此实现了跨平台
 >
-> * <font style="color:cornflowerblue">JSX</font>只是一个模板扩展语法。其本质是**React.createElement()**的语法糖
+> * <font style="color:cornflowerblue">JSX</font>只是一个JS扩展语法。<font style="color:cornflowerblue">React</font>使用<font style="color:cornflowerblue">JSX</font>作为构建元素的模板语言
 > * <font style="color:cornflowerblue">browserslist</font>是一个强大的设置浏览器版本库。
 
 如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)

@@ -14,7 +14,7 @@
 
 在**/src/index.js**文件使用部分<font style="color:cornflowerblue">ES6（ES2015+）</font>，查看打包编译代码会发现<font style="color:cornflowerblue">webpack</font>并没有处理<font style="color:cornflowerblue">ES6（ES2015+）</font>特性。
 
-<img src="./images/image-04-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-01.png?raw=true" width="600">
 
 
 
@@ -163,7 +163,7 @@
 
 此时执行`yarn build`操作后生成的代码就会处理<font style="color:cornflowerblue">部分ES6（ES2015+）</font>
 
-<img src="./images/image-04-04.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-04.png?raw=true" width="600">
 
 生成代码中可以看到：**await**、**for-of**、**const** 这些<font style="color:cornflowerblue">ES6</font>代码被转换了。
 
@@ -183,7 +183,7 @@
 
  目前生成代码还无法在浏览器运行，缺少**regeneratorRuntime**，这个稍后再说
 
-<img src="./images/image-04-new-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-new-01.png?raw=true" width="600">
 
 
 
@@ -253,13 +253,13 @@
 
 <font style="color:#007FFF">.**约定文件名称**</font>可以为**babel.config.js**或**.babelrc.json**。 较为常用的是**.babelrc.json**。不过一般都会省略后缀， 名称叫做***.babelrc***
 
-<img src="./images/image-04-05.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-05.png?raw=true" width="600">
 
 
 
 **package.json**形式和**配置文件**形式 只能选择一种形式设置。如果同时存在会直接报错。
 
-<img src="./images/image-04-06.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-06.png?raw=true" width="600">
 
 <font style="color:cornflowerblue">babel-loader</font>配置方式优先级高于其他两种方式
 
@@ -301,7 +301,7 @@
 
   例如<font style="color:cornflowerblue">ES6</font>**Promise**类型，就不再支持<font style="color:cornflowerblue">IE浏览器</font>
 
-<img src="./images/image-04-07.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-07.png?raw=true" width="600">
 
 
 
@@ -309,7 +309,7 @@
 
 **F12-开发者模式--仿真--文档模式** 可以修改<font style="color:cornflowerblue">IE浏览器</font>版本，在这里使用的版本为<font style="color:cornflowerblue">IE9</font>
 
-<img src="./images/image-04-08.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-08.png?raw=true" width="600">
 
 
 
@@ -333,7 +333,7 @@
 
 此时使用`yarn build`执行打包编译，生成代码就不再由**箭头函数**包裹
 
-<img src="./images/image-04-09.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-09.png?raw=true" width="600">
 
 
 
@@ -381,7 +381,7 @@
 
 不过在<font style="color:cornflowerblue">babel</font>官网，这个库已经被弃用了。<font style="color:cornflowerblue">babel@7.4.0</font>版本之后就建议直接使用<font style="color:#f03d3d">core-js</font>和<font style="color:#f03d3d">regenerator-runtime</font>
 
-<img src="./images/image-04-10.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-10.png?raw=true" width="600">
 
    
 
@@ -405,7 +405,7 @@
 
 **index.js**文件引用。
 
-<img src="./images/image-04-11.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-11.png?raw=true" width="600">
 
 > :whale2::whale2: 
 >
@@ -414,17 +414,17 @@
 
    此时执行`yarn build`打包 编译生成代码中会看到好多引用代码。这些都是<font style="color:#f03d3d">core-js</font>处理<font style="color:cornflowerblue">ES6 API（类型、函数）</font>的<font style="color:#06f">垫片</font>
 
-<img src="./images/image-04-12.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-12.png?raw=true" width="600">
 
  
 
 例如**promise**类型，就可以在编译生成后的代码中找到<font style="color:#f03d3d">core-js</font>自定义的实现方式。
 
-<img src="./images/image-04-new-02.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-new-02.png?raw=true" width="600">
 
 这时候使用<font style="color:cornflowerblue">IE9</font>运行代码可以运行成功，也就是说<font style="color:cornflowerblue">ES6 API（类型、函数）</font>被成功替代了。
 
-<img src="./images/image-04-13.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-13.png?raw=true" width="600">
 
    
 
@@ -438,7 +438,7 @@
 
 但其实这里还具有一个非常严重的问题，那就是文件大小。
 
-<img src="./images/image-04-14.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-14.png?raw=true" width="600">
 
 可以看到打包生成的文件现在高达**428K**。虽然打包代码压缩，但也不应该这个大小
 
@@ -644,13 +644,13 @@
 ]
 ```
 
-<img src="./images/image-04-15.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-15.png?raw=true" width="600">
 
 
 
 可以看到，此时文件大小与刚才是天壤之别。因为浏览器设置的为 ***Chrome > 75*** ，几乎支持全部新特性
 
-<img src="./images/image-04-16.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-16.png?raw=true" width="600">
 
 可以看到打包生成代码中没有提供**filter**垫片，并且 **await** 语法都没有转换。这些特性在新版<font style="color:cornflowerblue">Chrome</font>都提供了。
 
@@ -664,7 +664,7 @@
 ]
 ```
 
-<img src="./images/image-04-new-03.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-new-03.png?raw=true" width="600">
 
   
 
@@ -698,7 +698,7 @@
 
 <font style="color:cornflowerblue">babel</font>会自动加载。
 
-<img src="./images/image-04-17.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-17.png?raw=true" width="600">
 
 
 
@@ -710,7 +710,7 @@
 ]
 ```
 
-<img src="./images/image-04-18.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-18.png?raw=true" width="600">
 
 ​      
 
@@ -722,7 +722,7 @@
  ]
    ```
 
-<img src="./images/image-04-19.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-19.png?raw=true" width="600">
 
 
 
@@ -732,7 +732,7 @@
 
 2. 在两者选择使用时，不要一味的追求***usage***，因为***usage***使用起来更为棘手
 
-   <img src="./images/image-04-new-05.png" width="400">
+   <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-new-05.png?raw=true" width="600">
    
    
    
@@ -861,9 +861,9 @@
 
 可以看到使用的**ES6-API**已经被转换为另外的API了，所以并不会再污染全局代码。至于打包的大小，并没有多大
 
-<img src="./images/image-04-21.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-21.png?raw=true" width="600">
 
-<img src="./images/image-04-22.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-22.png?raw=true" width="600">
 
 
 
@@ -894,7 +894,7 @@
 
 **preset**的中文翻译为：**预置**。其实也就是<font style="color:cornflowerblue">babel</font>提供的**预置插件库**，其本质也都是<font style="color:cornflowerblue">plugin</font>
 
-<img src="./images/image-04-23.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-23.png?raw=true" width="600">
 
 
 

@@ -1,6 +1,6 @@
 在上一篇中，介绍了<font style="color:cornflowerblue">webpack</font>的**entry**、**output**、**plugins**属性。
 
-<font style="color:cornflowerblue">webpack</font>当然不只有这三个属性， 在这一篇，接着介绍其它配置属性。
+在这一篇，接着介绍其它配置属性。
 
 
 
@@ -28,7 +28,7 @@
 
 也可以使用**CLI参数**进行设置
 
-<img src="./images/image-03-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-01.png?raw=true" width="600">
 
 > :whale2::whale2:
 >
@@ -176,11 +176,11 @@ optimization: {
 
 在**/src/index.js**中输出**process.env.NODE_ENV**属性
 
-<img src="./images/image-03-02.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-02.png?raw=true" width="600">
 
 在执行`yarn start`后查看打包生成代码会看到**process.env.NODE_ENV** 替换为了***development***字符串
 
-<img src="./images/image-03-03.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-03.png?raw=true" width="600">
 
 同样如果执行`yarn build`  **process.env.NODE_ENV** 属性 会替换成***production***字符串
 
@@ -219,7 +219,7 @@ const webpack = require("webpack");
 
 而想要对这些代码调试排查错误，那简直是个噩梦。
 
-<img src="./images/image-03-new-05.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-05.png?raw=true" width="600">
 
 
 
@@ -241,7 +241,7 @@ const webpack = require("webpack");
 
 ***eval***属性值生成的代码都是由**eval**语法编译，并提供了一个**sourceURL**属性用于指向文件源路径
 
-<img src="./images/image-03-04.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-04.png?raw=true" width="600">
 
 
 
@@ -292,13 +292,13 @@ const webpack = require("webpack");
 
 此时使用`yarn build`执行打包可以看到代码并没有进行压缩
 
-<img src="./images/image-03-new-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-01.png?raw=true" width="600">
 
 也就是**optimization.minimize**属性是控制代码压缩的。
 
 而**production**模式只是将**optimization.minimize**设置为了***true***
 
-<img src="./images/image-03-new-08.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-08.png?raw=true" width="600">
 
 ```javascript
   optimization:{
@@ -325,13 +325,13 @@ const webpack = require("webpack");
 
 也就是**optimization.minimize**是控制**optimization.minimizer**属性的开关。
 
-<img src="./images/image-03-new-02.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-02.png?raw=true" width="600">
 
 
 
 <font style="color:#f03d3d">terser-webpack-plugin</font> 默认情况下是设置在**optimization.minimizer**属性中，所以**optimization.minimize**属性设置为***false*** 代码会不压缩。
 
-<img src="./images/image-03-new-03.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-03.png?raw=true" width="600">
 
 
 
@@ -339,7 +339,7 @@ const webpack = require("webpack");
 
 那么就算**optimization.minimize**为***false***，代码依然会压缩。
 
-<img src="./images/image-03-new-04.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-04.png?raw=true" width="600">
 
 > :whale2: <font style="color:#f03d3d">webpack</font>已经依赖了<font style="color:#f03d3d">terser-webpack-plugin</font>，所以就不需要再安装 
 
@@ -409,71 +409,71 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-> * **include**：指定压缩的文件
->
->   属性可设置为：*String*、*String[]*、*Regex*
->
->   默认值为：***undefined***
->
-> 
->
-> * **exclude**：排除压缩的文件
->
->   属性可设置为：*String*、*String[]*、*Regex*
->
->   默认值为：***undefined***
->
-> 
->
-> * **parallel**：是否启用多线程运行
->
->   属性可设置为：*Boolean*、*Number*
->
->   属性值为***false***：不启动多线程
->
->   属性值为***true***：启动多线程，多线程数量为：**os.cpus()-1**
->
->   属性值为***Number***：表示使用的多线程数量
->
->   默认值为：***true***
->
->   
->
-> * **minify**：设置其它压缩工具覆盖<font style="color:#f03d3d">terser-webpack-plugin</font>
->
->   此属性可以设置一个函数，函数内允许使用其它压缩工具替代<font style="color:#f03d3d">terser-webpack-plugin</font>， 其实相当于做了一个拦截，基本上不会使用此属性。 详细介绍可以参考 [官方](https://github.com/webpack-contrib/terser-webpack-plugin#minify)
->
->   属性可设置为：*Function*
->
->   默认值为***undefined***
->
->   
->
-> * **extractComments**：是否将代码注释提取到一个单独的文件。
->
->   经过压缩的代码都会去除注释，此属性就是设置是否提取注释，个人感觉这个属性也没什么用。详细介绍可以参考 [官方](https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments)
->
->   属性可设置为：*Boolean*、*String*、*RegExp*、*Function<(node, comment) -> Boolean | Object>*、 *Object*
->
->   属性值为***false***或者函数返回***false***：表示不提取
->
->   属性值为***String***时： ***all***表示全部提取。***some***表示使用默认正则匹配：/^\**!|@preserve|@license|@cc_on/i
->
->   属性值为***true***或者函数返回***true***时：表示提取，使用默认正则匹配：/^\*\*!|@preserve|@license|@cc_on/i
->
->   属性值为***Regex***时：自定义提取规则。
->
->   属性值为***Object***时：允许自定义提取条件。
->
->   默认值为***true***
->
->   
->
-> * **terserOptions**：设置压缩选项
->
->   此属性才是详细设置压缩选项的参数。
->
->   属性可设置为：*Object*
+* **include**：指定压缩的文件
+
+  属性可设置为：*String*、*String[]*、*Regex*
+
+  默认值为：***undefined***
+
+
+
+* **exclude**：排除压缩的文件
+
+  属性可设置为：*String*、*String[]*、*Regex*
+
+  默认值为：***undefined***
+
+
+
+* **parallel**：是否启用多线程运行
+
+  属性可设置为：*Boolean*、*Number*
+
+  属性值为***false***：不启动多线程
+
+  属性值为***true***：启动多线程，多线程数量为：**os.cpus()-1**
+
+  属性值为***Number***：表示使用的多线程数量
+
+  默认值为：***true***
+
+
+
+* **minify**：设置其它压缩工具覆盖<font style="color:#f03d3d">terser-webpack-plugin</font>
+
+  此属性可以设置一个函数，函数内允许使用其它压缩工具替代<font style="color:#f03d3d">terser-webpack-plugin</font>， 其实相当于做了一个拦截，基本上不会使用此属性。 详细介绍可以参考 [官方](https://github.com/webpack-contrib/terser-webpack-plugin#minify)
+
+  属性可设置为：*Function*
+
+  默认值为***undefined***
+
+
+
+* **extractComments**：是否将代码注释提取到一个单独的文件。
+
+  经过压缩的代码都会去除注释，此属性就是设置是否提取注释，个人感觉这个属性也没什么用。详细介绍可以参考 [官方](https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments)
+
+  属性可设置为：*Boolean*、*String*、*RegExp*、*Function<(node, comment) -> Boolean | Object>*、 *Object*
+
+  属性值为***false***或者函数返回***false***：表示不提取
+
+  属性值为***String***时： ***all***表示全部提取。***some***表示使用默认正则匹配：/^\**!|@preserve|@license|@cc_on/i
+
+  属性值为***true***或者函数返回***true***时：表示提取，使用默认正则匹配：/^\*\*!|@preserve|@license|@cc_on/i
+
+  属性值为***Regex***时：自定义提取规则。
+
+  属性值为***Object***时：允许自定义提取条件。
+
+  默认值为***true***
+
+
+
+* **terserOptions**：设置压缩选项
+
+  此属性才是详细设置压缩选项的参数。
+
+  属性可设置为：*Object*
 
 
 
@@ -483,11 +483,11 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 先来做一个测试，在**index.js**中创建这么一个函数
 
-<img src="./images/image-03-05.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-05.png?raw=true" width="600">
 
 使用默认压缩配置进行打包编译，结果可以看到生成的代码只有真实执行的代码。
 
-<img src="./images/image-03-06.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-06.png?raw=true" width="600">
 
 默认<font style="color:#f03d3d">terser-webpack-plugin</font>配置基本上做到了最优解。
 
@@ -520,7 +520,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-<img src="./images/image-03-07.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-07.png?raw=true" width="600">
 
 
 
@@ -562,57 +562,57 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-> * **keep_fnames**：是否保留原始函数名称
->
->   刚才测试看到了，默认情况下会更改函数名称，此属性就是设置是否保留函数名称。
->
->   属性可设置为：*Boolean*
->
->   属性值为***false***：表示不保留原始名称
->
->   属性值为***true***：表示保留原始名称
->
->   默认值为***false***
->
-> 
->
-> * **keep_classnames**： 是否保留原始类名称  
->
->   与**keep_fnames**属性类似，只不过设置的是类名称
->
->   属性可设置为：*Boolean*
->
->   属性值为***false***：表示不保留原始名称
->
->   属性值为***true***：表示保留原始名称
->
->   默认值为***false***
->
-> * **format/output**：指定压缩格式。例如是否保留*注释*，是否始终为*if*、*for*等设置大括号。
->
->   **format**和**output**的配置相同。**output**官方不再推荐使用。这个属性就不介绍，具体请参考[官方](https://github.com/terser/terser#format-options)  
->
->   属性可设置为：*Object*
->
->   默认值为***null***
->
-> 
->
-> * **ie8**：是否支持IE8
->
->   属性可设置为：*Boolean*
->
->   默认值为***false***
->   
->   
->   
-> * **compress**：设置压缩选项
->
->   属性可设置为：*Boolean*、*Object*
->
->   属性值为***false***：表示不压缩。
->
->   属性值为***object***：自定义压缩设置。
+* **keep_fnames**：是否保留原始函数名称
+
+  刚才测试看到了，默认情况下会更改函数名称，此属性就是设置是否保留函数名称。
+
+  属性可设置为：*Boolean*
+
+  属性值为***false***：表示不保留原始名称
+
+  属性值为***true***：表示保留原始名称
+
+  默认值为***false***
+
+
+
+* **keep_classnames**： 是否保留原始类名称  
+
+  与**keep_fnames**属性类似，只不过设置的是类名称
+
+  属性可设置为：*Boolean*
+
+  属性值为***false***：表示不保留原始名称
+
+  属性值为***true***：表示保留原始名称
+
+  默认值为***false***
+
+* **format/output**：指定压缩格式。例如是否保留*注释*，是否始终为*if*、*for*等设置大括号。
+
+  **format**和**output**的配置相同。**output**官方不再推荐使用。这个属性就不介绍，具体请参考[官方](https://github.com/terser/terser#format-options)  
+
+  属性可设置为：*Object*
+
+  默认值为***null***
+
+
+
+* **ie8**：是否支持IE8
+
+  属性可设置为：*Boolean*
+
+  默认值为***false***
+
+
+
+* **compress**：设置压缩选项
+
+  属性可设置为：*Boolean*、*Object*
+
+  属性值为***false***：表示不压缩。
+
+  属性值为***object***：自定义压缩设置。
 
 
 
@@ -654,55 +654,55 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-> * **defaluts**：是否使用默认配置项
->
->   此属性表示是否使用官方设置默认配置项
->
->   属性可设置为：*Boolean*
->
->   默认值为***true***
->
->   
->
-> * **dead_code**：是否移除无法访问的代码
->
->   属性可设置为：*Boolean*
->
->   默认值为***true***
->
->   
->
-> * **collapse_vars**：是否优化只使用一次的变量
->
->   此属性表示是否将只使用一次的变量直接进行替换优化
->
->   属性可设置为：*Boolean*
->
->   默认值为***true***
->
->   
->
-> * **drop_console**：是否删除所有**console**语句
->
->   此属性可以在发布时设置为***true***
->
->   属性可设置为：*Boolean*
->
->   默认值为***false***
->
->   
->
-> * **drop_debugger**：是否删除所有**debugger**语句
->
->   属性可设置为：*Boolean*
->
->   默认值为***true***
->
->   
->
-> * **pure_funcs**：移除指定的函数。
->
->   此属性可以设置移除指定的函数，但是需要缺点要移除的函数没有任何<font style="color:cornflowerblue">副作用（没有使用）</font>，有兴趣的朋友可以测试删除自定义函数
+* **defaluts**：是否使用默认配置项
+
+  此属性表示是否使用官方设置默认配置项
+
+  属性可设置为：*Boolean*
+
+  默认值为***true***
+
+
+
+* **dead_code**：是否移除无法访问的代码
+
+  属性可设置为：*Boolean*
+
+  默认值为***true***
+
+
+
+* **collapse_vars**：是否优化只使用一次的变量
+
+  此属性表示是否将只使用一次的变量直接进行替换优化
+
+  属性可设置为：*Boolean*
+
+  默认值为***true***
+
+
+
+* **drop_console**：是否删除所有**console**语句
+
+  此属性可以在发布时设置为***true***
+
+  属性可设置为：*Boolean*
+
+  默认值为***false***
+
+
+
+* **drop_debugger**：是否删除所有**debugger**语句
+
+  属性可设置为：*Boolean*
+
+  默认值为***true***
+
+
+
+* **pure_funcs**：移除指定的函数。
+
+  此属性可以设置移除指定的函数，但是需要缺点要移除的函数没有任何<font style="color:cornflowerblue">副作用（没有使用）</font>，有兴趣的朋友可以测试删除自定义函数
 
 
 
@@ -757,39 +757,39 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-> * **test**：设置拦截文件
->
->   使用此属性设置拦截的文件。例如：***/\.css$*** 表示拦截所有的[.css]()文件。使用*Regex*可以拦截多种文件类型使用同一<font style="color:cornflowerblue">loader</font>
->
->   属性可设置为：*Regex*
->
->   
->
-> * **include**：包含拦截的文件目录。
->
->   此属性可以设置拦截指定目录的文件，一般使用此属性设置只拦截**/src**目录中文件
->
->   属性可设置为：*String*
->
->   
->
-> * **exclude**：排除拦截的文件目录。
->
->   此属性与**include**类似，只不过功能相反，指定要排除的目录。一般使用此属性排除**node_modules**目录。
->
->   此属性与**include**只使用一种。
->
->   属性可设置为：*String*
->
->   
->
-> * **use**：拦截到的文件所使用的<font style="color:cornflowerblue">loader</font>。
->
->   属性可设置为：*String*、*Array*
->
->   属性值为***String***：设置<font style="color:cornflowerblue">loader </font>名称
->
->   属性值为***Array***：可以指定多个<font style="color:cornflowerblue">loader </font>处理，并且可以对每一个<font style="color:cornflowerblue">loader </fon>设置属性配置。
+* **test**：设置拦截文件
+
+  使用此属性设置拦截的文件。例如：***/\.css$*** 表示拦截所有的[.css]()文件。使用*Regex*可以拦截多种文件类型使用同一<font style="color:cornflowerblue">loader</font>
+
+  属性可设置为：*Regex*
+
+
+
+* **include**：包含拦截的文件目录。
+
+  此属性可以设置拦截指定目录的文件，一般使用此属性设置只拦截**/src**目录中文件
+
+  属性可设置为：*String*
+
+
+
+* **exclude**：排除拦截的文件目录。
+
+  此属性与**include**类似，只不过功能相反，指定要排除的目录。一般使用此属性排除**node_modules**目录。
+
+  此属性与**include**只使用一种。
+
+  属性可设置为：*String*
+
+
+
+* **use**：拦截到的文件所使用的<font style="color:cornflowerblue">loader</font>。
+
+  属性可设置为：*String*、*Array*
+
+  属性值为***String***：设置<font style="color:cornflowerblue">loader </font>名称
+
+  属性值为***Array***：可以指定多个<font style="color:cornflowerblue">loader </font>处理，并且可以对每一个<font style="color:cornflowerblue">loader </font> 设置属性配置。
 
 > :whale2::whale2::whale2:  当指定多个<font style="color:cornflowerblue">loader </font>时，<font style="color:cornflowerblue">loader </font>加载顺序为从右往左。具体请参考[Webpack的Loader为什么是从右往左写？](https://segmentfault.com/q/1010000008622548#)
 
@@ -827,9 +827,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 此时在引用文件模块时，就可以使用***@***来代替**/src**工作目录（工作根目录）
 
-<img src="./images/image-03-08.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-08.png?raw=true" width="600">
 
-<img src="./images/image-03-09.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-09.png?raw=true" width="600">
 
 
 
@@ -865,7 +865,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 此时由于引用**index2.js**时还是没有添加后缀，打包编译时就直接报错了。
 
-<img src="./images/image-03-10.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-10.png?raw=true" width="600">
 
 而引用**index2.js**添加**.js**后缀名称才可以打包成功。。
 
@@ -875,9 +875,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 在此以<font style="color:cornflowerblue">react-cli</font>为例
 
-<img src="./images/image-03-new-06.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-06.png?raw=true" width="600">
 
-<img src="./images/image-03-new-07.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-07.png?raw=true" width="600">
 
 > :whale2::whale2::whale2: 打包编译时匹配**resolve.extensions**，使用的是队列形式。**Array**从先到后
 
@@ -889,7 +889,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 这种方式常见于以 目录为组件单元的代码风格。例如<font style="color:cornflowerblue">antd</font>，就是以目录为组件单元。
 
-<img src="./images/image-03-11.png" height="200">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-11.png?raw=true" width="600">
 
 
 
@@ -916,9 +916,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-<img src="./images/image-03-12.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-12.png?raw=true" width="600">
 
-<img src="./images/image-03-13.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-13.png?raw=true" width="600">
 
 
 
@@ -958,7 +958,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 此时执行`yarn build`打包也可以进行打包成功。
 
-<img src="./images/image-03-14.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-14.png?raw=true" width="600">
 
 
 
@@ -985,7 +985,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 例如**output**属性就只允许使用绝对路径。
 
-<img src="./images/image-03-14.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-15.png?raw=true" width="600">
 
 
 
