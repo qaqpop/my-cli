@@ -475,7 +475,7 @@ const modules = {
 > * <font style="color:cornflowerblue">JSX</font>只是一个模板扩展语法。其本质是**React.createElement()**的语法糖
 > * <font style="color:cornflowerblue">browserslist</font>是一个强大的设置浏览器版本库。
 
-
+如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
 
 ### 本文参考
 

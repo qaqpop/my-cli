@@ -737,7 +737,7 @@ if (module.hot) {
 > * **wating**状态是<font style="color:cornflowerblue">webpack</font>提供的功能，其属性为：**watch**
 > * <font style="color:cornflowerblue">热更新（HMR）</font>是使用了<font style="color:cornflowerblue">webpack</font>内置的<font style="color:#f03d3d">HotModuleReplacementPlugin</font>，<font style="color:cornflowerblue">webpack-dev-server</font>每次在代码编译完成后将***hash***值推送给浏览器
 
-
+如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
 
 ### 本文参考
 

@@ -1135,7 +1135,7 @@ module.exports = merge([
 > * <font style="color:cornflowerblue">webpack@4.X</font>版本对代码结构进行了大范围更改，导致与<font style="color:cornflowerblue">webpack-dev-server@3.X</font>使用`webpack-dev-server`命令会报错。
 > * <font style="color:cornflowerblue">webpack-dev-server@4.X</font>版本对**devServer**属性根据功能进行了更好的汇总。
 
-
+如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
 
 ### 本文参考
 

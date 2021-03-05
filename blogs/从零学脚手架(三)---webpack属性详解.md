@@ -1039,7 +1039,7 @@ const {
 > * **optimization**属性是<font style="color:cornflowerblue">webpack</font>提供的控制优化的属性， **optimization**只是一系列优化功能的集合，主要是为了方便管理，本质还是由<font style="color:cornflowerblue">插件</font>完成功能
 > * **resolve**属性提供了打包编译时的解析规则，
 
-
+如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
 
 ### 本文参考
 
