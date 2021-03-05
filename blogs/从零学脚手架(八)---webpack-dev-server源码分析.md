@@ -1,8 +1,10 @@
-在此篇简单的梳理下<font style="color:cornflowerblue">webpack-dev-server</font>内部实现。
+上一篇中介绍了<font style="color:cornflowerblue">webpack-dev-server</font>属性配置
+
+这一篇就简单的梳理下<font style="color:cornflowerblue">webpack-dev-server</font>内部实现。
 
 由于涉及到源码解析，所以会涉及到一些比较难啃的知识，我会尽量进行简单化描述。
 
-但如果还是具有具有难度 或 对 <font style="color:cornflowerblue">webpack-dev-server</font>内部实现不敢兴趣的朋友，也可以完全跳过此篇。
+但如果还是具有具有难度 或 对 <font style="color:cornflowerblue">webpack-dev-server</font>内部实现不感兴趣的朋友，也可以完全跳过此篇。
 
 
 
@@ -10,7 +12,7 @@
 
 #### 配置调试方式
 
-在日常开发开发中，如果对代码逻辑不熟悉，最简单的方法就是**调试**，一步步观察流程。
+日常开发开发中，如果对代码逻辑不熟悉，最简单的方法就是**调试**，一步步观察流程。
 
 学习<font style="color:cornflowerblue">webpack-dev-server</font>源码，最简单的方法也就是就行调试，不过调试<font style="color:cornflowerblue">webpack-dev-server</font>源码毕竟不像调试本身项目代码那样简单，必定需要做一些配置，
 
@@ -174,9 +176,9 @@
 
 <font style="color:cornflowerblue">webpack-dev-server</font>的服务器是**/lib/Server.js**文件模块。
 
-关于<font style="color:cornflowerblue">express</font>也就是在此文件中。
+关于<font style="color:cornflowerblue">express</font>也就是在此模块中。
 
-**/lib/Server.js**模块构造函数中，初始化了许多东西，其中就有<font style="color:#f03d3d">express</font>
+**/lib/Server.js**模块构造函数中，初始化了许多东西，其中就有<font style="color:cornflowerblue">express</font>
 
 在**/lib/Server.js**构造函数中便初始化了<font style="color:cornflowerblue">express</font>
 
@@ -597,7 +599,13 @@ var onSocketMessage = {
 
 **webpack/hot/emitter**模块是<font style="color:cornflowerblue">webpack</font>中热更新定义的事件。
 
-而当**liveReload**时，就直接刷新了顶级页面。
+而当**liveReload**时，就直接刷新页面重新获取数据
+
+也就是这两个**hot**和**liveReload**两个属性控制了能否实时更新代码
+
+只不过**hot**采取热更新方式，而**liveReload**是直接刷新页面
+
+并且**hot**优先级高于**liveReload**
 
 <img src="./images/image-08-42.png" width="400">
 
@@ -607,7 +615,7 @@ var onSocketMessage = {
 
 提到<font style="color:cornflowerblue">webpack-dev-server</font>，总是离不开<font style="color:cornflowerblue">热更新（HMR）</font>的话题。<font style="color:cornflowerblue">热更新（HMR）</font>是<font style="color:cornflowerblue">webpack-dev-server</font>提供的比较重要的功能
 
-开发时，往往只只更新一小段代码，就需要在浏览器中查看效果。
+开发时，往往只更新一小段代码，就需要在浏览器中查看效果。
 
 而如果仅仅更新一小段代码，让浏览器刷新重新加载所有数据。那样会极大的浪费时间。
 

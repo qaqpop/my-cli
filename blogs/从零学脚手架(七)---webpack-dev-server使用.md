@@ -2,23 +2,23 @@
 
 #### 什么是webpack-dev-server
 
-在使用<font style="color:cornflowerblue">vue-cli</font> 、<font style="color:cornflowerblue">react-cli</font>脚手架时，执行`yarn start`命令会启动一个本地服务器，浏览器访问服务器就可以看到代码，并且代码文件更新后页面会自动刷新，非常方便，这样的功能就叫做<font style="color:cornflowerblue">dev-server</font>。
+使用<font style="color:cornflowerblue">vue-cli</font> 、<font style="color:cornflowerblue">react-cli</font>脚手架时，执行`yarn start`命令会启动一个本地服务器，浏览器访问服务器就可以预览代码，并且代码文件更新后页面会重新加载数据，非常方便，这个功能就叫做<font style="color:cornflowerblue">dev-server</font>。
 
 在<font style="color:cornflowerblue">webpack</font>中，由[webpack-dev-server](https://www.npmjs.com/package/webpack-dev-server)提供。
 
-<font style="color:cornflowerblue">webpack-dev-server</font> 就是运行了一个服务器。浏览器访问服务器时，与浏览器使用<font style="color:cornflowerblue">WebSocket</font>进行长链接。
+<font style="color:cornflowerblue">webpack-dev-server</font> 库作用开启一个服务器。浏览器访问服务器时，与浏览器使用<font style="color:cornflowerblue">WebSocket</font>进行长链接。
 
 并且<font style="color:cornflowerblue">webpack-dev-server</font> 会开启<font style="color:cornflowerblue">webpack</font>监听本地代码文件功能。当本地代码文件更新后，进行重新打包编译，<font style="color:cornflowerblue">webpack-dev-server</font> 通过<font style="color:cornflowerblue">WebSocket</font>将更新模块信息推送给浏览器。浏览器根据此次编译信息，去获取最新代码，一个大致这样的操作。
 
 > :whale2: <font style="color:#f03d3d">webpack</font>本身就支持监听文件变化，<font style="color:#f03d3d">webpack-dev-server</font>只是默认开启<font style="color:#f03d3d">webpack</font>的监听属性。
 
-<font style="color:cornflowerblue">webpack-dev-server</font>库并不复杂，不过里面涉及到的东西比较多。
+<font style="color:cornflowerblue">webpack-dev-server</font>库并不复杂，不过里面涉及到的东西有些多。
 
-所以关于<font style="color:cornflowerblue">webpack-dev-server</font>库，想深入的介绍下。
+关于<font style="color:cornflowerblue">webpack-dev-server</font>库，想深入的介绍下。
 
 在此分为两篇来介绍：
 
-1. 介绍<font style="color:cornflowerblue">webpack-dev-server</font>属性配置，并且介绍部分属性源码设置
+1. 介绍<font style="color:cornflowerblue">webpack-dev-server</font>属性配置，并且介绍部分属性源码中的设置
 2. 稍微介绍<font style="color:cornflowerblue">webpack-dev-server</font>流程和原理。
 
 
@@ -33,11 +33,11 @@
 
 有使用过此版本的朋友会知道，<font style="color:cornflowerblue">webpack-dev-server@3.11.2</font>与<font style="color:cornflowerblue">webpack@5.X</font>共同使用时会具有一个错误：<font style="color:red">**Cannot find module 'webpack-cli/bin/config-yargs**</font>
 
-这个个人感觉是官方有些坑了。
+这个问题个人感觉是官方有些坑了。
 
 
 
-先安装<font style="color:cornflowerblue">webpack-dev-server@3.11.2</font>，复现这个错误。
+先来安装<font style="color:cornflowerblue">webpack-dev-server@3.11.2</font>，看看这个错误。
 
 > yarn add -D webpack-dev-server@3.11.2
 
@@ -63,19 +63,19 @@
 
 
 
-错误提示是找不到<font style="color:#f03d3d">webpack-cli</font>库中的**config.yargs**模块。感觉会有不少刚学习<font style="color:cornflowerblue">webpack</font>并且搜索能力稍微弱一些的同学会卡在这很长时间。
+错误提示是找不到<font style="color:#f03d3d">webpack-cli</font>库中的**config.yargs**模块。感觉会有不少刚学习<font style="color:cornflowerblue">webpack</font>并且搜索能力稍微弱一些的朋友会卡在这。
 
 > :whale2:  配置使用的<font style="color:cornflowerblue">webpack-cli@4.5.0</font>和<font style="color:cornflowerblue">webpack@5.24.0</font>
 
 
 
-这个错误很简单，直接在[issues](https://github.com/webpack/webpack-dev-server/issues?q=yargs+)就可以找到答案。
+这个错误其实很简单，直接在[issues](https://github.com/webpack/webpack-dev-server/issues?q=yargs+)就可以找到答案。
 
 <img src="./images/image-07-05.png" width="400">
 
 
 
-原来是使用了执行命令了：`webpack serve`。现在将新命令进行配置
+原来是使用了新的执行命令了：`webpack serve`。现在将新命令进行配置
 
 <img src="./images/image-07-06.png" width="400">
 
@@ -111,11 +111,13 @@
 
 现在更新到了<font style="color:cornflowerblue">webpack@5.X</font>，<font style="color:cornflowerblue">webpack-cli</font>也进行了大版本的更新：<font style="color:cornflowerblue">webpack-cli@4.X</font>。并且内部结构发生了巨大的变化。
 
-但是<font style="color:cornflowerblue">webpack-dev-server</font>的***最新版本***并没有更新，并且对于<font style="color:cornflowerblue">webpack-dev-server@3.X</font>代码没有修复这个问题。
+但是<font style="color:cornflowerblue">webpack-dev-server</font>的新版本还没有开发完成，并且<font style="color:cornflowerblue">webpack-dev-server@3.X</font>代码没有修复这个问题。
 
 <font style="color:cornflowerblue">webpack-cli@4.X</font>中加入了`webpack serve`这个新命令。`webpack serve`也是以后<font style="color:cornflowerblue">webpack</font>推荐的命令。
 
-`webpack-dev-server`这个指令问题在<font style="color:cornflowerblue">webpack-dev-server@4.X</font>中修复了。不过目前<font style="color:cornflowerblue">webpack-dev-server@4.X</font>只有一个<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>。还没有稳定版本
+`webpack-dev-server`这个，命令问题在<font style="color:cornflowerblue">webpack-dev-server@4.X</font>中修复了。不过目前<font style="color:cornflowerblue">webpack-dev-server@4.X</font>只有一个<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>。
+
+还没有稳定版本
 
 <img src="./images/image-07-10.png" width="400">
 
@@ -149,7 +151,7 @@
 
 关于`webpack serve`命令的执行，执行入口文件与`webpack`命令一样，都是<font style="color:#f03d3d">webpack</font>库的***/bin/index.js***。在此文件模块中调用了<font style="color:#f03d3d">webpack-cli</font>库模块。
 
-然后在<font style="color:#f03d3d">webpack-cli</font>库根据其命令参数调用<font style="color:#f03d3d">@webpack-cli</font>库中的**/serve/lib/index.js**，在此模块文件中启动webpack-dev-server</font>服务器。这些代码都是<font style="color:cornflowerblue">webpack-cli@4.X</font>版本新增加的。详细内容在下一篇介绍。
+然后在<font style="color:#f03d3d">webpack-cli</font>库根据其命令参数调用<font style="color:#f03d3d">@webpack-cli</font>库中的**/serve/lib/index.js**，在此模块文件中启动 <font style="color:cornflowerblue">webpack-dev-server</font>服务器。这些代码都是<font style="color:cornflowerblue">webpack-cli@4.X</font>版本新增加的。详细内容在下一篇介绍。
 
 
 
@@ -165,11 +167,11 @@
 
 #####  webpack-dev-server@3.X 和webpack@5.X  WebSocket问题
 
-执行`yarn start`后，会开启了一个**8080端口**的服务器。
+执行`yarn start`后，会开启一个**8080端口**的服务器。
 
-但是<font style="color:cornflowerblue">webpack@5.X</font>和<font style="color:cornflowerblue">webpack-dev-server@3.X</font>一起使用时<font style="color:cornflowerblue">WebSocket</font>还具有问题
+但是<font style="color:cornflowerblue">webpack@5.X</font>和<font style="color:cornflowerblue">webpack-dev-server@3.X</font>一起使用时<font style="color:cornflowerblue">WebSocket</font>还有问题
 
-上面简单说过<font style="color:cornflowerblue">WebSocket</font>是与浏览器建立长链接，编译成功后，通过<font style="color:cornflowerblue">WebSocket</font>向浏览器推送信息进行改变浏览器状态。
+上面简单说过<font style="color:cornflowerblue">WebSocket</font>是与浏览器建立长链接，通过<font style="color:cornflowerblue">WebSocket</font>向浏览器推送信息进行改变浏览器状态。
 
 
 
@@ -197,7 +199,7 @@
 
 最后在[github](https://github.com/webpack/webpack-dev-server/issues/2980)中找到了答案。
 
-原因是**package.json**文件中的**browserslist**属性，将此属性去掉进行推送。
+原因是**package.json**文件中的**browserslist**属性，将此属性去掉就可以进行推送。
 
 <img src="./images/image-07-19.png" width="400">
 
@@ -231,9 +233,9 @@
 
 #### webpack-dev-server配置
 
-<font style="color:cornflowerblue">webpack-dev-server</font>配置属性是设置在<font style="color:cornflowerblue">webpack</font>配置文件中的**devServer**属性。<font style="color:cornflowerblue">webpack-dev-server</font>执行时会读取这个属性来做配置。
+<font style="color:cornflowerblue">webpack-dev-server</font>属性是配置在<font style="color:cornflowerblue">webpack</font>配置文件中的**devServer**属性。<font style="color:cornflowerblue">webpack-dev-server</font>执行时会读取这个属性来做配置。
 
-由于<font style="color:cornflowerblue">webpack-dev-server</font>是只在开发时使用的一个服务，所以配置属性写在**webpack.dev.js**文件中
+由于<font style="color:cornflowerblue">webpack-dev-server</font>只是开发时使用的一个功能，所以配置属性写在**webpack.dev.js**文件中就可以
 
 ```js
 const path = require('path');
@@ -445,6 +447,8 @@ module.exports = merge([
       //  是否注入HMR， 这个属性是injectClient的子集。只影响热更新
       injectHot: true,
 
+      //	是否开启自动刷新浏览器功能
+      //	此属性优先级低于hot
       liveReload: false,
 
       //  是否开启ZeroConf网络
@@ -507,13 +511,6 @@ module.exports = merge([
 >
 >   默认值：***localhost***
 >
->
-> * **host**：服务器启动使用的host地址
->
->   属性可设置为：*String*
->
->   默认值：***localhost***
->
 > 
 >
 > * **port**：服务器启动使用的端口号
@@ -533,6 +530,8 @@ module.exports = merge([
 >   属性值为***String***：设置打开指定的浏览器，例如：***chrome***
 >
 >   默认值：***false***
+>
+>   
 >
 > * **openPage**：自动打开浏览器时的路由地址。
 >
@@ -616,7 +615,7 @@ module.exports = merge([
 >
 > 
 >
-> * **static**：对静态文件属性的一些配置
+> * **static**：对静态文件属性的配置
 >
 >   属性可设置为：*Object*、*Array*
 >
@@ -635,52 +634,52 @@ module.exports = merge([
 >     默认值：***/***      **package.json**文件所在地址。
 >
 >     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**contentBase**属性
->     
->   - **publicPath**：静态文件挂载到服务器中的***虚拟地址***，
->   
->     例如设置为***/static***后， 那么使用静态文件时必须加入**/static**前缀
->   
->     属性可设置为：*String*
->   
->     默认值：***/***      
->   
->     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**contentBasePublicPath**属性
->   
->   - **staticOptions**：服务器挂载静态文件时使用到的参数
->   
->     <font style="color:cornflowerblue">webpack-dev-server</font>挂在静态文件使用的是***express.static(directory,staticOptions)***中间件，此属性进行**express.static(directory,staticOptions)**使用的参数，具体请参考[express框架](http://expressjs.com/en/4x/api.html#express.static)
->   
->     属性可设置为：*Object*
->   
->   - **serveIndex**： 是否可以在浏览器访问静态文件列表。
->   
->     <font style="color:cornflowerblue">webpack-dev-server</font>使用的是[serve-index](https://www.npmjs.com/package/serve-index)库作为浏览器访问静态文件功能。
->   
->     属性可设置为：*Boolean*
->   
->     默认值：***true***
->   
->     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**serveIndex**属性
->   
->   - **watch**：是否使用轮询方式检查文件变化。
->   
->     <font style="color:cornflowerblue">webpack</font>默认使用的是文件系统的变化通知。但是在特殊情况下（例如网络文件系统）时消息通知会失效
->   
->     所以可以使用轮询方式进行检查文件变化。使用的[chokidar](https://www.npmjs.com/package/chokidar)来做轮询检测
->   
->     属性可设置为：*Boolean*、*Object*
->   
->     属性值为***Boolean***：是否开启轮询检测
->   
->     属性值为***Object***：配置轮询参数，例如配置轮询时间等
->   
->     默认值：***false***
->   
->     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**watchOptions**属性   
->   
->     
 >
->   * **client**：<font style="color:cornflowerblue">WebSocket</font>客户端属性设置。
+>   - **publicPath**：静态文件挂载到服务器中的***虚拟地址***，
+>
+>     例如设置为***/static***后， 那么使用静态文件时必须加入**/static**前缀
+>
+>     属性可设置为：*String*
+>
+>     默认值：***/***      
+>
+>     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**contentBasePublicPath**属性
+>
+>   - **staticOptions**：服务器挂载静态文件时使用到的参数
+>
+>     <font style="color:cornflowerblue">webpack-dev-server</font>挂在静态文件使用的是***express.static(directory,staticOptions)***中间件，此属性进行**express.static(directory,staticOptions)**使用的参数，具体请参考[express框架](http://expressjs.com/en/4x/api.html#express.static)
+>
+>     属性可设置为：*Object*
+>
+>   - **serveIndex**： 是否可以在浏览器访问静态文件列表。
+>
+>     <font style="color:cornflowerblue">webpack-dev-server</font>使用的是[serve-index](https://www.npmjs.com/package/serve-index)库作为浏览器访问静态文件功能。
+>
+>     属性可设置为：*Boolean*
+>
+>     默认值：***true***
+>
+>     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**serveIndex**属性
+>
+>   - **watch**：是否使用轮询方式检查文件变化。
+>
+>     <font style="color:cornflowerblue">webpack</font>默认使用的是文件系统的变化通知。但是在特殊情况下（例如网络文件系统）时消息通知会失效
+>
+>     所以可以使用轮询方式进行检查文件变化。使用的[chokidar](https://www.npmjs.com/package/chokidar)来做轮询检测
+>
+>     属性可设置为：*Boolean*、*Object*
+>
+>     属性值为***Boolean***：是否开启轮询检测
+>
+>     属性值为***Object***：配置轮询参数，例如配置轮询时间等
+>
+>     默认值：***false***
+>
+>     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**watchOptions**属性   
+>
+> 
+>
+>   * **client**：<font style="color:cornflowerblue">WebSocket</font>客户端属性的设置。
 >
 >     属性可设置为：*Object*
 >
@@ -695,13 +694,13 @@ module.exports = merge([
 >       例如设置为***verbose*** 便会将所有日志输出在浏览器控制台；***none***则不会输出任何日志
 >
 >       > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**clientLogLevel**属性 
->     
+>
 >     - **progress**：是否将打包进度输出在浏览器控制台中（浏览器控制台是否显示打包进度）
->     
+>
 >       属性可设置为：*Boolean*
->     
+>
 >       默认值：***false***
->     
+>
 >       > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**progress**属性 
 >
 > 
@@ -725,51 +724,51 @@ module.exports = merge([
 >     - **writeToDisk**：是否将打包编译文件写入磁盘
 >
 >        <font style="color:cornflowerblue">webpack-dev-middleware</font>默认会将打包编译文件写入到内存流，以达到更快的访问速度。 
->     
+>
 >       属性可设置为：*Boolean*
->     
+>
 >       默认值：***false***
->     
+>
 >       > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**writeToDisk**属性 
->     
+>
 >     - **publicPath**：设置打包编译文件存放的目录地址
->     
+>
 >       例如设置为***/public***，那么在访问打包编译生成的文件资源时都需要添加**/public**前缀
->     
+>
 >       属性可设置为：*String*
->       
+>
 >       默认值：***/***
->       
+>
 >       > :whale2::whale2: **static.publicPath**和**dev.publicPath**属性设置不一样， **static.publicPath** 
 >       >
 >       > **static.publicPath** 代表静态文件在服务器中存储的地址，代码使用静态文件时需要添加目录前缀
 >       >
 >       > **dev.publicPath**  代表将代码编译打包的目录地址，浏览器访问时需要添加目录前缀
->       
+>
 >       > :whale2: 此属性就是的**publicPath**属性 
->       
+>
 >     - **index**：根目录所指向的文件。
->     
+>
 >       此属性就是能够在浏览器访问根目录指向**index.html**的原因。 
->     
+>
 >       属性可设置为：*String*
->     
+>
 >       默认值：***index.html***
->     
+>
 >       > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**index**属性
->     
+>
 >     - **stats**：设置打包文件时日志输出级别。
->     
+>
 >       启动<font style="color:cornflowerblue">dev-server</font>时会在控制台中看到好多打包信息：文件大小、文件名称等信息，就是使用此属性进行控制。
->     
+>
 >       属性可设置为：*“none" | "summary" | "errors-only" | "errors-warnings" | "minimal" | "normal" | "detailed" | "verbose" | boolean | object { … }*
->     
+>
 >       默认值：***normal***
->     
+>
 >       > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**stats**属性 
->     
+>
 >     - **outputFileSystem**：控制打包文件的输出流。
->     
+>
 >       默认输出流是内存流，之将文件编译打包至内存中，此属性可以更改输出流。 
 >
 > 
@@ -792,21 +791,29 @@ module.exports = merge([
 >
 >    默认值：***true***
 >
->    
+> 
 >
 >  * **injectHot**：是否注入<font style="color:cornflowerblue">热更新（HMR）</font>。
 >
 >    此属性是相当于**injectClient**属性的一个子集，只控制<font style="color:cornflowerblue">热更新（HMR）</font>
->    
+>
 >    属性可设置为：*Boolean*、*function (compilerConfig) => boolean*
->    
+>
 >    默认值：***true***
->    
+>
 >    > :whale2::whale2: 此属性在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>源码中还可以设置***only***字符串，也就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font> 中的**hotOnly**属性。但是属性校验中只允许设置**Boolean**。
 >
 > 
 >
-> * **liveReload**：
+> * **liveReload**：是否启动刷新浏览器
+>
+>   此属性开启后会在在更新代码数据后重新刷新浏览器
+>
+>   但是此属性优先级低于**hot**，当开启热更新后，会优先使用热更新。
+>
+>   属性可设置为：*Boolean*
+>
+>   默认值：***false***
 >
 > 
 >
@@ -838,7 +845,7 @@ module.exports = merge([
 >
 >   默认值：***false***
 >
->   
+> 
 >
 > * **stdin**：是否监听<font style="color:cornflowerblue">Node.js</font>中**stdin.end**事件关闭服务器
 >
@@ -892,7 +899,7 @@ module.exports = merge([
 
 这两个属性是最容易理解并且使用最多属性之一。
 
-<font style="color:cornflowerblue">webpack-dev-server</font>内部使用express](https://www.npmjs.com/package/express)框架。
+<font style="color:cornflowerblue">webpack-dev-server</font>内部使用[express](https://www.npmjs.com/package/express)框架。
 
 <font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>库中**/lib/Server.js**文件就是<font style="color:cornflowerblue">webpack-dev-server</font>服务器模块。
 
@@ -940,9 +947,11 @@ module.exports = merge([
 
 
 
-##### hot
+##### hot、lveReload
 
-在**Server.listen()** 回调函数中使用 **hot**属性做了判断 ，当设置了**hot**或**liveReoad**属性时，就会创建<font style="color:cornflowerblue">WebSocket· Server</font> 。
+在**Server.listen()** 回调函数中使用 **hot**属性做了判断 ，当设置了**hot**或**liveReload**属性时，就会创建<font style="color:cornflowerblue">WebSocket· Server</font> 。
+
+也就是只有设置了**hot**或者**liveReload**时，才会使用<font style="color:cornflowerblue">WebSocket</font> 与浏览器进行长链接
 
 <img src="./images/image-07-26.png" width="400">
 
@@ -953,6 +962,8 @@ module.exports = merge([
 **static**属性刚才说了，是<font style="color:cornflowerblue">webpack-dev-server@4.X</font>对关于静态文件属性的封装：访问路径、文件监听等。
 
 在这里只是详细介绍下部分属性。
+
+
 
 ###### directory、publicPath、staticOptions
 
