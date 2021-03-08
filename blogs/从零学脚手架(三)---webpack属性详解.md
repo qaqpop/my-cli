@@ -1031,13 +1031,15 @@ const {
 
 > :whale2::whale2::whale2:
 >
-> * <font style="color:cornflowerblue">webpack</font>提供了两种<font style="color:cornflowerblue">打包模式</font>：**开发测试打包编译 *(development)* ** 和 **线上发布打包编译 *(production)* ** 。两种打包模式能够更加方便管理<font style="color:cornflowerblue">插件</font>
+> * <font style="color:cornflowerblue">webpack</font>提供了两种<font style="color:cornflowerblue">打包模式</font>： **开发测试打包编译  *(development)***  和 **线上发布打包编译 *(production)*** 。两种打包模式能够更加方便管理<font style="color:cornflowerblue">插件</font>
 > * <font style="color:cornflowerblue">webpack</font>对**development**和 **production** 都预设了一些基础功能，大大减少了开发时的配置
 > * <font style="color:cornflowerblue">source-map</font>是<font style="color:cornflowerblue">Google</font>提供的打包编译后代码与开发代码的一种映射文件，主要用途是方便开发人员调试
 > * **optimization**属性是<font style="color:cornflowerblue">webpack</font>提供的控制优化的属性， **optimization**只是一系列优化功能的集合，主要是为了方便管理，本质还是由<font style="color:cornflowerblue">插件</font>完成功能
 > * **resolve**属性提供了打包编译时的解析规则，
 
-如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
+
+
+### 如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
 
 ### 本文参考
 

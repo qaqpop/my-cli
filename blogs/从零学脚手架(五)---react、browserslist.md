@@ -105,7 +105,7 @@ const element = (
 
 > :whale2::whale2: <font style="color:cornflowerblue">JSX</font>是<font style="color:cornflowerblue">React</font>提供构建代码方式的一种扩展语言，本质是一个语法糖。<font style="color:cornflowerblue">JSX</font>定义的**事件**、**style**、**class**是<font style="color:cornflowerblue">JSX</font>自身语法，并不是原生DOM。所以有些属性名称不一致。
 
-> :whale2::whale2: <font style="color:cornflowerblue">JSX</font>转换**React.createElement()**操作使用的是<font style="color:cornflowerblue">babel</font>提供的一个***plugin***，在下面再介绍
+> :whale2::whale2: <font style="color:cornflowerblue">JSX</font>转换 **React.createElement()** 操作使用的是<font style="color:cornflowerblue">babel</font>提供的一个 ***plugin***，在下面再介绍
 
 >  :whale2: <font style="color:cornflowerblue">JSX</font>目前被社区认可。<font style="color:cornflowerblue">Vue@3.X</font>也支持<font style="color:cornflowerblue">JSX</font>
 >
@@ -477,7 +477,9 @@ const modules = {
 > * <font style="color:cornflowerblue">JSX</font>只是一个JS扩展语法。<font style="color:cornflowerblue">React</font>使用<font style="color:cornflowerblue">JSX</font>作为构建元素的模板语言
 > * <font style="color:cornflowerblue">browserslist</font>是一个强大的设置浏览器版本库。
 
-如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
+
+
+### 如果此篇对您有所帮助，在此求一个star。项目地址： [OrcasTeam/my-cli](https://github.com/OrcasTeam/my-cli)
 
 ### 本文参考
 
