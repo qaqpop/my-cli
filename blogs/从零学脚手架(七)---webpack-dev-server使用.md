@@ -29,7 +29,7 @@
 
 截至到写此篇时，<font style="color:cornflowerblue">webpack-dev-server</font>的**最新版本**是**3.11.2**
 
-<img src="./images/image-07-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-01.png?raw=true" width="600">
 
 有使用过此版本的朋友会知道，<font style="color:cornflowerblue">webpack-dev-server@3.11.2</font>与<font style="color:cornflowerblue">webpack@5.X</font>共同使用时会具有一个错误：<font style="color:red">**Cannot find module 'webpack-cli/bin/config-yargs**</font>
 
@@ -47,19 +47,19 @@
 
 [官方NPM](https://www.npmjs.com/package/webpack-dev-server/v/3.11.2)文档中也是`webpack-dev-server`命令
 
-<img src="./images/image-07-02.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-02.png?raw=true" width="600">
 
 一般都会将`yarn start`命令设置为：`webpack-dev-server`，
 
 > :whale:在这里将`yarn start:dev` 命令设置为：`webpack-dev-server`。主要是为了这个错误
 
-<img src="./images/image-07-03.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-03.png?raw=true" width="600">
 
 此时，如果不出意外的话， 执行`yarn start:dev`  就可以执行<font style="color:cornflowerblue">webpack-dev-server</font>。
 
 但是，执行就会碰到那个错误：
 
-<img src="./images/image-07-04.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-04.png?raw=true" width="600">
 
 
 
@@ -71,19 +71,19 @@
 
 这个错误其实很简单，直接在[issues](https://github.com/webpack/webpack-dev-server/issues?q=yargs+)就可以找到答案。
 
-<img src="./images/image-07-05.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-05.png?raw=true" width="600">
 
 
 
 原来是使用了新的执行命令了：`webpack serve`。现在将新命令进行配置
 
-<img src="./images/image-07-06.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-06.png?raw=true" width="600">
 
 
 
 此时使用`yarn start`执行就可以成功执行。默认启动的是**8080端口**
 
-<img src="./images/image-07-07.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-07.png?raw=true" width="600">
 
 
 
@@ -93,13 +93,13 @@
 
 **/bin/webpack-dev-server.js**会是使用`webpack-dev-server`命令执行的文件模块
 
-<img src="./images/image-07-08.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-08.png?raw=true" width="600">
 
 在**/bin/webpack-dev-server.js**文件模块中加载了<font style="color:#f03d3d">webpack-cli</font>库中的**/bin/*[config/]*config-yargs**和**/bin/*[utils/]*convert-argv**。
 
 但是在版本 代码结构进行了巨大的改变，已经去掉了这两个文件模块，所以也就导致了报错。
 
-<img src="./images/image-07-09.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-09.png?raw=true" width="600">
 
 
 
@@ -119,19 +119,19 @@
 
 还没有稳定版本
 
-<img src="./images/image-07-10.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-10.png?raw=true" width="600">
 
 
 
 在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>的[代码](https://github.com/webpack/webpack-dev-server/blob/v4.0.0-beta.0/bin/webpack-dev-server.js)可以看到**/bin/webpack-dev-server.js**文件模块中没有了上面两段代码。
 
-<img src="./images/image-07-11.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-11.png?raw=true" width="600">
 
 
 
 在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>文档中的命令改为了`webpack serve`。不过`webpack-dev-server`依然可以使用。
 
-<img src="./images/image-07-12.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-12.png?raw=true" width="600">
 
 
 
@@ -141,7 +141,7 @@
 
 `webpack serve`命令在 <font style="color:#f03d3d">webpack-cli@4.0.0</font>版本文档中可以找到。
 
-<img src="./images/image-07-13.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-13.png?raw=true" width="600">
 
 
 
@@ -155,7 +155,7 @@
 
 
 
-<img src="./images/image-07-14.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-14.png?raw=true" width="600">
 
 
 
@@ -179,7 +179,7 @@
 
 
 
-<img src="./images/image-07-16.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-16.png?raw=true" width="400">
 
 此时如果将代码更新，会发现浏览器并没有同步更新，并且浏览器***WS***窗口没有推送数据
 
@@ -187,11 +187,11 @@
 
 
 
-<img src="./images/image-07-17.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-17.png?raw=true" width="600">
 
 
 
-<img src="./images/image-07-18.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-18.png?raw=true" width="600">
 
 
 
@@ -201,13 +201,13 @@
 
 原因是**package.json**文件中的**browserslist**属性，将此属性去掉就可以进行推送。
 
-<img src="./images/image-07-19.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-19.png?raw=true" width="600">
 
 
 
 这是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的一个问题。但是按照官方给出的解释好像只会在<font style="color:cornflowerblue">webpack-dev-server@4.X</font>中修复这个问题。
 
-<img src="./images/image-07-20.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-20.png?raw=true" width="600">
 
 我也使用<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>版本进行了测试，这个bug被修复了。
 
@@ -905,13 +905,13 @@ module.exports = merge([
 
 **/lib/Server.js**具有一个 **listen()**，**listen()**就是启动服务器函数。
 
-<img src="./images/image-07-21.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-21.png?raw=true" width="600">
 
 而**listen()**的调用是在<font style="color:#f03d3d">@webpack-cli</font>库的**serve/lib/startDevServer.js**。
 
 
 
-<img src="./images/image-07-22.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-22.png?raw=true" width="600">
 
 可以看到在**serve/lib/startDevServer.js**中使用了**options.port**和**options.host**属性值来启动服务器。
 
@@ -921,11 +921,11 @@ module.exports = merge([
 
 至于默认**8080**端口号的提供是在**findPort()**
 
-<img src="./images/image-07-23.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-23.png?raw=true" width="600">
 
-<img src="./images/image-07-24.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-24.png?raw=true" width="600">
 
-> :whale2::whale2: 源码是基于<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>。
+> :whale2::whale2: 源码是基于<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>。?raw=true
 
 
 
@@ -937,7 +937,7 @@ module.exports = merge([
 
 随后调用了 **/lib/util/runOpen.js**模块启动浏览器
 
-<img src="./images/image-07-25.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-25.png?raw=true" width="600">
 
 可以看到，**open**和**openPath**属性都做了类型判断。
 
@@ -953,7 +953,7 @@ module.exports = merge([
 
 也就是只有设置了**hot**或者**liveReload**时，才会使用<font style="color:cornflowerblue">WebSocket</font> 与浏览器进行长链接
 
-<img src="./images/image-07-26.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-26.png?raw=true" width="600">
 
 
 
@@ -975,13 +975,13 @@ module.exports = merge([
 
 而挂载的本地静态文件地址是：**static.directory**。
 
-<img src="./images/image-07-27.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-27.png?raw=true" width="600">
 
 可以看到，**express服务器**挂载了其访问目录为***publicPath***。而要挂载本地静态文件目录为***directory***。
 
 静态文件中间件使用的参数是：**static.staticOptions**
 
-<img src="./images/image-07-27.png" width="400">
+
 
 例如
 
@@ -989,11 +989,11 @@ module.exports = merge([
 
 在访问**/assets/images/yj.png**图片时就应该使用**/static/images/yj.png**
 
-<img src="./images/image-07-28.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-28.png?raa=true" width="600">
 
-<img src="./images/image-07-29.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-29.png?raw=true" width="600">
 
-<img src="./images/image-07-30.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-30.png?raw=true" width="600">
 
 
 
@@ -1013,23 +1013,23 @@ module.exports = merge([
 
 此属性是设置能否在浏览器中查看静态文件。<font style="color:cornflowerblue">webpack-dev-server</font>内部使用的是[serve-index](https://www.npmjs.com/package/serve-index)库
 
-<img src="./images/image-07-31.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-31.png?raw=true" width="600">
 
 
 
 如果将**static.serverIndex**属性设置为***false***，那么在浏览器中查看静态文件路径，会直接是404
 
-<img src="./images/image-07-32.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-32.png?raw=true" width="600">
 
-<img src="./images/image-07-33.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-33.png?raw=true" width="600">
 
 
 
 如果**static.serverIndex**属性为***true***，那就可以在浏览器中查看静态文件
 
-<img src="./images/image-07-34.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-34.png?raw=true" width="600">
 
-<img src="./images/image-07-35.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-35.png?raw=true" width="600">
 
 
 
@@ -1043,7 +1043,7 @@ module.exports = merge([
 
 此属性是设置根目录所指向的文件，代码在<font style="color:#f03d3d">webpack-dev-middleware</font>库中**/dist/utils/getFilenameFromUrl.js**文件
 
-<img src="./images/image-07-36.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-36.png?raw=true" width="600">
 
 可以看到，在处理**static.index**属性时做了类型判断。
 
@@ -1057,9 +1057,9 @@ module.exports = merge([
 
 
 
-<img src="./images/image-07-37.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-37.png?raw=true" width="600">
 
-<img src="./images/image-07-38.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-38.png?raw=true" width="600">
 
 > :whale2::whale2::whale2: 约定大于配置，编写代码时尽量做到使用统一约定。
 
@@ -1069,17 +1069,17 @@ module.exports = merge([
 
 此属性是控制打包日志输出等级的。在默认情况的执行<font style="color:cornflowerblue">webpack-dev-server</font>。总是能在控制台输出好多日志信息。这些日志信息就是由此属性控制的。
 
-<img src="./images/image-07-39.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-39.png?raw=true" width="600">
 
 代码是在<font style="color:#f03d3d">webpack-dev-middleware</font>库中**/dist/utils/setupHook.js**模块。 
 
 代码中**stats**字段是内部提供的一个状态对象，根据**statsOptions（dev.stats）**属性获取指定的状态信息。
 
-<img src="./images/image-07-40.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-40.png?raw=true" width="600">
 
 如果将**dev.stats**设置为***errors-only***，控制台就不会有这么多日志，***errors-only***属性值代表只有在代码打包错误时才输出日志。
 
-<img src="./images/image-07-41.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-41.png?raw=true" width="600">
 
 而如果设置为***none***，那么连错误日志都不会再输出。.
 
@@ -1095,15 +1095,15 @@ module.exports = merge([
 
 所需在测试时需要改动一下源码。将**clientOverlay**改为**overlay**。
 
-<img src="./images/image-07-42.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-42.png?raw=true" width="600">
 
 所以在测试时需要改动一下源码。将**clientOverlay**改为**overlay**。
 
-<img src="./images/image-07-43.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-43.png?raw=true" width="600">
 
 当**overlay**属性值为***true***时，如果代码出现编译错误，会直接在页面上显示错误信息。
 
-<img src="./images/image-07-44.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-44.png?raw=true" width="600">
 
 这个功能个人感觉还挺好用。不过可能有些人更喜欢使用控制台查看错误信息，也就是**dev.stats**属性。
 
@@ -1113,13 +1113,13 @@ module.exports = merge([
 
  此属性代表在使用**HTML5 API**时是否将所有**无效路由（404）**都跳转到指定页面。
 
-相当于一般项目中将所有**无效路由（404）**到转到**指定404页面**功能一样
+类似于项目中将所有**无效路由（404）**转到**指定404页面**
 
 <font style="color:cornflowerblue">webpack-dev-server</font>内部使用的是[connect-history-api-fallback](https://www.npmjs.com/package/connect-history-api-fallback)中间件来做处理，默认跳转的页面是**index.html**。
 
-<img src="./images/image-07-45.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-45.png?raw=true" width="600">
 
-<img src="./images/image-07-46.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-46.png?raw=true" width="600">
 
 
 
