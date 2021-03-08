@@ -765,7 +765,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 * **include**：包含拦截的文件目录。
 
-  此属性可以设置拦截指定目录的文件，一般使用此属性设置只拦截**/src**目录中文件
+  此属性可以设置拦截指定目录的文件，一般使用此属性设置只拦截 **/src** 目录中文件
 
   属性可设置为：*String*
 
@@ -805,7 +805,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 #### alias
 
-使用<font style="color:cornflowerblue">vue-cli</font>这类脚手架，开发时引入本地文件模块，通常可以使用一个<font style="color:cornflowerblue">符号（@）</font>来代替**/src**工作目录。
+使用<font style="color:cornflowerblue">vue-cli</font>这类脚手架，开发时引入本地文件模块，通常可以使用一个 <font style="color:cornflowerblue">符号（@）</font> 来代替 **/src** 工作目录。
 
 这个功能就是**resolve.alias**提供的。
 
@@ -823,7 +823,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 }
 ```
 
-此时在引用文件模块时，就可以使用***@***来代替**/src**工作目录（工作根目录）
+此时在引用文件模块时，就可以使用 ***@*** 来代替 **/src** 工作目录（工作根目录）
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-08.png?raw=true" width="600">
 
@@ -831,7 +831,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 
-> :whale2: <font style="color:cornflowerblue">webpack</font>允许设置除关键字外的任意符号作为别名。<font style="color:cornflowerblue">vue-cli</font>这类脚手架一般都预设<font style="color:cornflowerblue">符号（@）</font>代替**/src**工作目录。 
+> :whale2: <font style="color:cornflowerblue">webpack</font>允许设置除关键字外的任意符号作为别名。<font style="color:cornflowerblue">vue-cli</font>这类脚手架一般都预设<font style="color:cornflowerblue">符号（@）</font>代替 **/src** 工作目录。 
 
 
 
@@ -849,7 +849,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 
-下面将**resolve.extensions**设置为***['.json']***做一个测试
+下面将**resolve.extensions**设置为 ***['.json']*** 做一个测试
 
 ```javascript
 {
@@ -865,7 +865,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-10.png?raw=true" width="600">
 
-而引用**index2.js**添加**.js**后缀名称才可以打包成功。。
+而引用**index2.js**添加 **.js** 后缀名称才可以打包成功。。
 
 
 
