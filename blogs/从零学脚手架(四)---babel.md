@@ -581,21 +581,23 @@
 }
 ```
 
-> * **version**：设置加载的<font style="color:#f03d3d">core-js</font>版本。
->
->   此属性可以设置任何受支持的<font style="color:#f03d3d">core-js</font>
->
->   参数类型为 **String**
->
->   默认值为：***2.0***
->
->   
->
-> * **proposals**：是否加载<font style="color:#f03d3d">core-js</font>支持的 **提议API**
->
->   参数类型为：**Boolean**
->
->   默认值为：***false***
+* **version**：设置加载的<font style="color:#f03d3d">core-js</font>版本。
+
+  此属性可以设置任何受支持的<font style="color:#f03d3d">core-js</font>
+
+  参数类型为 **String**
+
+  默认值为：***2.0***
+
+
+
+* **proposals**：是否加载<font style="color:#f03d3d">core-js</font>支持的 **提议API**
+
+  参数类型为：**Boolean**
+
+  默认值为：***false***
+
+  
 
 > :whale2::whale2: **corejs**属性只有在启用<font style="color:cornflowerblue">**按需加载**</font>垫片（**useBuiltIns**设置为***entry***、***usage***才有效。
 
