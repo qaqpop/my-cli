@@ -30,7 +30,7 @@
 
 首先在**package.json**文件**scripts**属性中添加了一个`debug`指令，使用这个命令启动调试<font style="color:cornflowerblue">Node.js</font>程序
 
-<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-01.png？raw=true" width="600">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-01.png?raw=true" width="600">
 
 
 
