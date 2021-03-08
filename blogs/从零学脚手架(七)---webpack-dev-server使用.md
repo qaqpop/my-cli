@@ -89,13 +89,13 @@
 
 那么这到底怎么回事呢？通过查看源码和测试<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>个人略有些猜测。
 
-先看一下<font style="color:cornflowerblue">webpack-dev-server@3.11.2</font>中**/bin/webpack-dev-server.js**文件模块中一段代码。
+先看一下<font style="color:cornflowerblue">webpack-dev-server@3.11.2</font>中  **/bin/webpack-dev-server.js**  文件模块中一段代码。
 
 **/bin/webpack-dev-server.js**会是使用`webpack-dev-server`命令执行的文件模块
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-08.png?raw=true" width="600">
 
-在**/bin/webpack-dev-server.js**文件模块中加载了<font style="color:#f03d3d">webpack-cli</font>库中的**/bin/*[config/]*config-yargs**和**/bin/*[utils/]*convert-argv**。
+在 **/bin/webpack-dev-server.js** 文件模块中加载了<font style="color:#f03d3d">webpack-cli</font>库中的 **/bin/*[config/]*config-yargs** 和 **/bin/*[utils/]*convert-argv** 。
 
 但是在版本 代码结构进行了巨大的改变，已经去掉了这两个文件模块，所以也就导致了报错。
 
@@ -123,7 +123,7 @@
 
 
 
-在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>的[代码](https://github.com/webpack/webpack-dev-server/blob/v4.0.0-beta.0/bin/webpack-dev-server.js)可以看到**/bin/webpack-dev-server.js**文件模块中没有了上面两段代码。
+在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>的[代码](https://github.com/webpack/webpack-dev-server/blob/v4.0.0-beta.0/bin/webpack-dev-server.js)可以看到 **/bin/webpack-dev-server.js** 文件模块中没有了上面两段代码。
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-11.png?raw=true" width="600">
 
@@ -149,9 +149,9 @@
 
 ##### webpack serve
 
-关于`webpack serve`命令的执行，执行入口文件与`webpack`命令一样，都是<font style="color:#f03d3d">webpack</font>库的***/bin/index.js***。在此文件模块中调用了<font style="color:#f03d3d">webpack-cli</font>库模块。
+关于`webpack serve`命令的执行，执行入口文件与`webpack`命令一样，都是 <font style="color:#f03d3d">webpack</font> 库的 **/bin/index.js** 。在此文件模块中调用了<font style="color:#f03d3d">webpack-cli</font>库模块。
 
-然后在<font style="color:#f03d3d">webpack-cli</font>库根据其命令参数调用<font style="color:#f03d3d">@webpack-cli</font>库中的**/serve/lib/index.js**，在此模块文件中启动 <font style="color:cornflowerblue">webpack-dev-server</font>服务器。这些代码都是<font style="color:cornflowerblue">webpack-cli@4.X</font>版本新增加的。详细内容在下一篇介绍。
+然后在<font style="color:#f03d3d">webpack-cli</font>库根据其命令参数调用<font style="color:#f03d3d">@webpack-cli</font>库中的 **/serve/lib/index.js** ，在此模块文件中启动 <font style="color:cornflowerblue">webpack-dev-server</font>服务器。这些代码都是<font style="color:cornflowerblue">webpack-cli@4.X</font>版本新增加的。详细内容在下一篇介绍。
 
 
 
@@ -601,7 +601,7 @@ module.exports = merge([
 
   前后端分离时，前端请求API需要指定地址，此属性可以配置IP地址，当访问指定请求时就请求配置的IP地址。
 
-  例如在请求**/api**的接口时会访问http://localhost:3000。具体可参考官网：[devserverproxy](https://webpack.js.org/configuration/dev-server/#devserverproxy)。
+  例如在请求 **/api** 的接口时会访问http://localhost:3000。具体可参考官网：[devserverproxy](https://webpack.js.org/configuration/dev-server/#devserverproxy)。
 
   当然也可以不使用此属性，直接使用一个静态字符串或者配置文件。看个人编码习惯
 
@@ -625,9 +625,9 @@ module.exports = merge([
 
   <font style="color:cornflowerblue">webpack-dev-server@3.X</font>不具有此属性。此属性只是将<font style="color:cornflowerblue">webpack-dev-server@3.X</font>中关于静态文件配置的属性进行汇总封装
 
-  - **directory**：设置服务器挂在静态文件的***本地目录***。
+  - **directory**：设置服务器挂在静态文件的 ***本地目录***。
 
-    例如设置为***/assets***后， 会加载使用本地**/assets**目录下的静态文件到服务器
+    例如设置为 ***/assets*** 后， 会加载使用本地 **/assets** 目录下的静态文件到服务器
 
     属性可设置为：*String*
 
@@ -637,7 +637,7 @@ module.exports = merge([
 
   - **publicPath**：静态文件挂载到服务器中的***虚拟地址***，
 
-    例如设置为***/static***后， 那么使用静态文件时必须加入**/static**前缀
+    例如设置为 ***/static*** 后， 那么使用静态文件时必须加入 **/static** 前缀
 
     属性可设置为：*String*
 
@@ -647,7 +647,7 @@ module.exports = merge([
 
   - **staticOptions**：服务器挂载静态文件时使用到的参数
 
-    <font style="color:cornflowerblue">webpack-dev-server</font>挂在静态文件使用的是***express.static(directory,staticOptions)***中间件，此属性进行**express.static(directory,staticOptions)**使用的参数，具体请参考[express框架](http://expressjs.com/en/4x/api.html#express.static)
+    <font style="color:cornflowerblue">webpack-dev-server</font>挂在静态文件使用的是 ***express.static(directory,staticOptions)*** 中间件，此属性进行   **express.static(directory,staticOptions)** 使用的参数，具体请参考[express框架](http://expressjs.com/en/4x/api.html#express.static)
 
     属性可设置为：*Object*
 
@@ -733,7 +733,7 @@ module.exports = merge([
 
     - **publicPath**：设置打包编译文件存放的目录地址
 
-      例如设置为***/public***，那么在访问打包编译生成的文件资源时都需要添加**/public**前缀
+      例如设置为 ***/public*** ，那么在访问打包编译生成的文件资源时都需要添加 **/public** 前缀
 
       属性可设置为：*String*
 
@@ -855,7 +855,7 @@ module.exports = merge([
 
 
 
-* **setupExitSignals**：是否监听<font style="color:cornflowerblue">Node.js</font>中的**['SIGINT', 'SIGTERM']**事件关闭服务器。
+* **setupExitSignals**：是否监听<font style="color:cornflowerblue">Node.js</font>中的 **['SIGINT', 'SIGTERM']** 事件关闭服务器。
 
   此属性为<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>新增加，在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>版本测试，此属性内置了***true***属性，无法更改
 
@@ -901,9 +901,9 @@ module.exports = merge([
 
 <font style="color:cornflowerblue">webpack-dev-server</font>内部使用[express](https://www.npmjs.com/package/express)框架。
 
-<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>库中**/lib/Server.js**文件就是<font style="color:cornflowerblue">webpack-dev-server</font>服务器模块。
+<font style="color:#f03d3d">webpack-dev-server@4.0.0beta.0</font>库中 **/lib/Server.js** 文件就是<font style="color:cornflowerblue">webpack-dev-server</font>服务器模块。
 
-**/lib/Server.js**具有一个 **listen()**，**listen()**就是启动服务器函数。
+**/lib/Server.js** 具有一个 **listen()**，**listen()** 就是启动服务器函数。
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-21.png?raw=true" width="600">
 
@@ -987,7 +987,7 @@ module.exports = merge([
 
 将**static.directory**属性设置为： ***path.join(config.root, 'assets')***；**static.publicPath**属性设置为：***/static***
 
-在访问**/assets/images/yj.png**图片时就应该使用**/static/images/yj.png**
+在访问 **/assets/images/yj.png** 图片时就应该使用 **/static/images/yj.png**
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-28.png?raa=true" width="600">
 
@@ -1041,7 +1041,7 @@ module.exports = merge([
 
 ###### index
 
-此属性是设置根目录所指向的文件，代码在<font style="color:#f03d3d">webpack-dev-middleware</font>库中**/dist/utils/getFilenameFromUrl.js**文件
+此属性是设置根目录所指向的文件，代码在<font style="color:#f03d3d">webpack-dev-middleware</font>库中 **/dist/utils/getFilenameFromUrl.js** 文件
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-36.png?raw=true" width="600">
 
@@ -1071,9 +1071,9 @@ module.exports = merge([
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-39.png?raw=true" width="600">
 
-代码是在<font style="color:#f03d3d">webpack-dev-middleware</font>库中**/dist/utils/setupHook.js**模块。 
+代码是在<font style="color:#f03d3d">webpack-dev-middleware</font>库中 **/dist/utils/setupHook.js** 模块。 
 
-代码中**stats**字段是内部提供的一个状态对象，根据**statsOptions（dev.stats）**属性获取指定的状态信息。
+代码中 **stats** 字段是内部提供的一个状态对象，根据 **statsOptions（dev.stats）** 属性获取指定的状态信息。
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-40.png?raw=true" width="600">
 
@@ -1111,9 +1111,9 @@ module.exports = merge([
 
 ##### historyApiFallback	
 
- 此属性代表在使用**HTML5 API**时是否将所有**无效路由（404）**都跳转到指定页面。
+ 此属性代表在使用 **HTML5 API** 时是否将所有 **无效路由（404）** 都跳转到指定页面。
 
-类似于项目中将所有**无效路由（404）**转到**指定404页面**
+类似于项目中将所有 **无效路由（404）** 转到 **指定404页面**
 
 <font style="color:cornflowerblue">webpack-dev-server</font>内部使用的是[connect-history-api-fallback](https://www.npmjs.com/package/connect-history-api-fallback)中间件来做处理，默认跳转的页面是**index.html**。
 
