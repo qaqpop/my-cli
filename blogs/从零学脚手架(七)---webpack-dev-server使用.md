@@ -51,7 +51,7 @@
 
 一般都会将`yarn start`命令设置为：`webpack-dev-server`，
 
-> :whale:在这里将`yarn start:dev` 命令设置为：`webpack-dev-server`。主要是为了这个错误
+> :whale2: 在这里将`yarn start:dev` 命令设置为：`webpack-dev-server`。主要是为了这个错误
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-03.png?raw=true" width="600">
 
@@ -989,7 +989,7 @@ module.exports = merge([
 
 在访问 **/assets/images/yj.png** 图片时就应该使用 **/static/images/yj.png**
 
-<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-28.png?raa=true" width="600">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-28.png?raw=true" width="600">
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-29.png?raw=true" width="600">
 

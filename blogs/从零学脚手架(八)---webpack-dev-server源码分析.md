@@ -30,7 +30,7 @@
 
 首先在**package.json**文件**scripts**属性中添加了一个`debug`指令，使用这个命令启动调试<font style="color:cornflowerblue">Node.js</font>程序
 
-<img src="./images/image-08-01.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-01.png？raw=true" width="600">
 
 
 
@@ -46,7 +46,7 @@
 
 在<font style="color:cornflowerblue">Chrome</font>浏览器地址栏输入**chrome://inspect**会进入一个设置页面
 
-<img src="./images/image-08-02.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-02.png?raw=true" width="600">
 
 > :whale2: 因为我使用的是<font style="color:cornflowerblue">新版Edge</font> ，所以显示的为**edge://inspect**。
 
@@ -54,15 +54,15 @@
 
 点击**Open dedicated DevTools for Node**  便可以进入调试面板
 
-<img src="./images/image-08-03.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-03.png?raw=true" width="600">
 
 在调试面板中设置需要调试<font style="color:cornflowerblue">Node.js</font>端口号
 
-<img src="./images/image-08-04.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-04.png?raw=true" width="600">
 
 此时启动 `yarn debug` 便会被<font style="color:cornflowerblue">Chrome</font>捕捉，就可以进行调试
 
-<img src="./images/image-08-05.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-05.png?raw=true" width="600">
 
 
 
@@ -80,9 +80,9 @@
 
 
 
-<img src="./images/image-08-06.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-06.png?raw=true" width="600">
 
-<img src="./images/image-08-07.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-07.png?raw=true" width="600">
 
 
 
@@ -106,7 +106,7 @@
 
 在*<font style="color:#f03d3d">webpack</font>库的**/bin/webpack.js**文件模块*中调用了*<font style="color:#f03d3d">webpack-cli</font>库的**/bin/cli.js**文件模块*。
 
-<img src="./images/image-08-08.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-08.png?raw=true" width="600">
 
 > :whale2: 执行<font style="color:cornflowerblue">webpack-cli</font>时检测<font style="color:cornflowerblue">webpack-cli</font>是否安装就是在<font style="color:#f03d3d">webpack</font>库的**/bin/webpack.js**文件模块执行的，有兴趣的朋友可以自行查看。
 
@@ -116,11 +116,11 @@
 
 然后在**lib/bootstrap.js**启动文件模块中创建了**/lib/webpack-cli.js**模块实例（**WebpackCLI**）并调用***run()***
 
-<img src="./images/image-08-09.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-09.png?raw=true" width="600">
 
-<img src="./images/image-08-10.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-10.png?raw=true" width="600">
 
-<img src="./images/image-08-11.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-11.png?raw=true" width="600">
 
 
 
