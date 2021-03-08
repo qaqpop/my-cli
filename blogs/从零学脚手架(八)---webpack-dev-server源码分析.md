@@ -128,9 +128,9 @@
 
 如`webpack serve`，根据***serve***命令参数调用 <font style="color:cornflowerblue">@webpack-cli</font>库**/serve/**中模块 。
 
-<img src="./images/image-08-12.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-12.png?raw=true" width="600">
 
-<img src="./images/image-08-13.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-13.png?raw=true" width="600">
 
 
 
@@ -146,13 +146,13 @@
 
 
 
-<img src="./images/image-08-14.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-14.png?raw=true" width="600">
 
-<img src="./images/image-08-15.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-15.png?raw=true" width="600">
 
-<img src="./images/image-08-16.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-16.png?raw=true" width="600">
 
-<img src="./images/image-08-17.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-17.png?raw=true" width="600">
 
 以上，就是<font style="color:cornflowerblue">webpack-dev-server</font>服务器的启动流程。
 
@@ -162,7 +162,7 @@
 
 <font style="color:cornflowerblue">webpack</font> ---> <font style="color:cornflowerblue">webpack-cli</font> ---> <font style="color:cornflowerblue">@webpack-cli</font> ---> <font style="color:cornflowerblue">webpack-dev-server</font>。不过只要弄清楚了执行逻辑，理解起来并不会有多大困难
 
-<img src="./images/image-08-new-01.jpg" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-new-01.jpg?raw=true" width="400">
 
 
 
@@ -182,13 +182,13 @@
 
 在**/lib/Server.js**构造函数中便初始化了<font style="color:cornflowerblue">express</font>
 
-<img src="./images/image-08-18.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-18.png?raw=true" width="600">
 
-<img src="./images/image-08-19.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-19.png?raw=true" width="600">
 
-<img src="./images/image-08-20.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-20.png?raw=true" width="600">
 
-<img src="./images/image-08-21.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-21.png?raw=true" width="600">
 
 可以看到在**Server.setupApp()**中构建了<font style="color:cornflowerblue">express</font>服务器实例
 
@@ -243,17 +243,17 @@ module.exports = merge([
 
 在**package.json**中添加***watch***指令，命令执行`webapck`命令。
 
-<img src="./images/image-08-22.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-22.png?raw=true" width="600">
 
 此时执行`yarn watch`命令打包完成后也会一直处于**wating**状态，等待***代码文件***变化
 
-<img src="./images/image-08-23.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-23.png?raw=true" width="600">
 
 更新代码，便会触发重新打包，
 
-<img src="./images/image-08-24.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-24.png?raw=true" width="600">
 
-<img src="./images/image-08-25.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-25.png?raw=true" width="600">
 
 
 
@@ -275,17 +275,17 @@ module.exports = merge([
 
 <font style="color:cornflowerblue">webpack-dev-middleware</font>中间件也是在 **/lib/Server.js**构造函数中添加的
 
-<img src="./images/image-08-26.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-26.png?raw=true" width="600">
 
-<img src="./images/image-08-27.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-27.png?raw=true" width="600">
 
 
 
 <font style="color:cornflowerblue">webpack-dev-middleware</font>的**/dist/index.js**模块中调用了***/dist/utils/setupOutputFileSystem.js***模块，此模块就是设置输出流函数
 
-<img src="./images/image-08-28.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-28.png?raw=true" width="600">
 
-<img src="./images/image-08-29.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-29.png?raw=true" width="600">
 
 可以看到，默认情况下，<font style="color:cornflowerblue">webpack-dev-middleware</font>使用了[memfs](https://www.npmjs.com/package/memfs)作为输出流，<font style="color:#f03d3d">memfs</font>就是一个内存流库
 
@@ -317,7 +317,7 @@ module.exports = merge([
 
 在成功启动服务器后，判断是否设置了**hot**或**liveReload**。如果设置就调用**Server.createSocketServer()**实例化<font style="color:cornflowerblue">WebSocket Server</font>
 
-<img src="./images/image-08-30.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-30.png?raw=true" width="600">
 
 **Server.createSocketServer()**执行时，首先会根据配置选择<font style="color:cornflowerblue">WebSocket Server</font>类型。
 
@@ -333,13 +333,13 @@ module.exports = merge([
 >
 > 所以<font style="color:cornflowerblue">WebSocket Server</font>直接使用默认即可
 
-<img src="./images/image-08-31.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-31.png?raw=true" width="600">
 
-<img src="./images/image-08-32.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-32.png?raw=true" width="600">
 
-<img src="./images/image-08-33.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-33.png?raw=true" width="600">
 
-<img src="./images/image-08-34.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-34.png?raw=true" width="600">
 
 
 
@@ -347,7 +347,7 @@ module.exports = merge([
 
 在**Server.js**模块中具有一个**sockWrite()**，这个函数就是调用<font style="color:cornflowerblue">WebSocket Server</font>来推送消息。
 
-<img src="./images/image-08-35.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-35.png?raw=true" width="600">
 
 
 
@@ -361,7 +361,7 @@ module.exports = merge([
 
 <font style="color:cornflowerblue">WebSocket Server</font>会推送初始化信息。例如是否开启 <font style="color:cornflowerblue">热更新</font> 、overlay配置信息、是否要输出打包编译进度、输入日志级别等。
 
-<img src="./images/image-08-36.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-36.png?raw=true" width="600">
 
 
 
@@ -371,7 +371,7 @@ module.exports = merge([
 
 <font style="color:cornflowerblue">webpack</font>内部暴露了 编译结束后（编译成功、编译失败）的一系列钩子事件。
 
-<img src="./images/image-08-37.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-37.png?raw=true" width="600">
 
 <font style="color:cornflowerblue">webpack-dev-server</font>就是使用了此钩子函数。
 
@@ -379,9 +379,9 @@ module.exports = merge([
 
 编译完成后使用<font style="color:cornflowerblue">WebSocket Server</font>推送消息
 
-<img src="./images/image-08-38.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-38.png?raw=true" width="600">
 
-<img src="./images/image-08-39.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-39.png?raw=true" width="600">
 
 
 
@@ -389,7 +389,7 @@ module.exports = merge([
 
 <font style="color:cornflowerblue">webpack-dev-server</font>提供了当静态文件变化时，使用<font style="color:cornflowerblue">WebSocket Server</font>推送消息通知客户端（浏览器）自动刷新浏览器。
 
-<img src="./images/image-08-40.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-40.png?raw=true" width="600">
 
 
 
@@ -401,7 +401,7 @@ module.exports = merge([
 
 <font style="color:cornflowerblue">WebSocket client</font>代码存放在<font style="color:cornflowerblue">webpack-dev-server</font>的**/client**目录下。<font style="color:cornflowerblue">WebSocket client</font>也是具有**SockJSClient**和**WebsocketClient**两种类型，与<font style="color:cornflowerblue">WebSocket Server</font>对应
 
-<img src="./images/image-08-41.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-41.png?raw=true" width="600">
 
 ###### 消息处理
 
@@ -607,7 +607,7 @@ var onSocketMessage = {
 
 并且**hot**优先级高于**liveReload**
 
-<img src="./images/image-08-42.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-42.png?raw=true" width="600">
 
 
 
@@ -631,7 +631,7 @@ var onSocketMessage = {
 
 使用<font style="color:cornflowerblue">webpack-dev-server</font>时，如果设置了**hot**属性，<font style="color:cornflowerblue">webpack-dev-server</font>会自动添加这个**plugin**
 
-<img src="./images/image-08-43.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-43.png?raw=true" width="600">
 
 > :whale2:此代码在<font style="color:cornflowerblue">webpack-dev-server</font>的**/lib/utils/DevServerPlugin.js**
 
