@@ -22,7 +22,7 @@
 
 ##### React.createElement()
 
-使用**Document**构建DOM时，都是使用**document.createElement()**来构建标签
+使用**Document**构建DOM时，都是使用 **document.createElement()** 来构建标签
 
 ```js
 const li =  document.createElement('li');
@@ -33,7 +33,7 @@ document.body.appendChild(li)
 
 在<font style="color:cornflowerblue">React</font>中, 也提供了这样一个自定义函数来<font style="color:cornflowerblue">React</font>组件。
 
-**React.createElement()**返回的是一个<font style="color:cornflowerblue">React</font>自定义的元素类型：**ReactElement**
+**React.createElement()** 返回的是一个<font style="color:cornflowerblue">React</font>自定义的元素类型：**ReactElement**
 
 ```js
 const element = React.createElement(
@@ -101,7 +101,7 @@ const element = (
 
 
 
-> :whale2::whale2::whale2: <font style="color:cornflowerblue">JSX</font>编写的组件本质是 **React.createElement()** 语法糖。所以<font style="color:cornflowerblue">React</font>还支持使用**React.createElement()**创建<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>。
+> :whale2::whale2::whale2: <font style="color:cornflowerblue">JSX</font>编写的组件本质是 **React.createElement()** 语法糖。所以<font style="color:cornflowerblue">React</font>还支持使用 **React.createElement()** 创建<font style="color:cornflowerblue">虚拟DOM（Virtual DOM）</font>。
 
 > :whale2::whale2: <font style="color:cornflowerblue">JSX</font>是<font style="color:cornflowerblue">React</font>提供构建代码方式的一种扩展语言，本质是一个语法糖。<font style="color:cornflowerblue">JSX</font>定义的**事件**、**style**、**class**是<font style="color:cornflowerblue">JSX</font>自身语法，并不是原生DOM。所以有些属性名称不一致。
 
@@ -152,7 +152,7 @@ const element = (
 
 
 
-接下来处理**JS**，在之前打包测试中都是使用***/src/index.js***文件作为*源文件*。
+接下来处理**JS**，在之前打包测试中都是使用 **/src/index.js** 文件作为*源文件*。
 
 也是使用此文件作为*源文件*。
 
@@ -171,9 +171,9 @@ ReactDOM.render(root, document.getElementById('root'));
 
 ```
 
-在***/src/index.js***文件中使用了<font style="color:cornflowerblue">JSX</font>创建元素，然后使用
+在 **/src/index.js** 文件中使用了<font style="color:cornflowerblue">JSX</font>创建元素，然后使用
 
-<font style="color:#f03d3d">react-dom</font>中的**ReactDOM.render()**添加到根节点中。
+<font style="color:#f03d3d">react-dom</font>中的 **ReactDOM.render()** 添加到根节点中。
 
 > :whale2:  <font style="color:cornflowerblue">vue-cli</font>也同样如此，有兴趣的朋友可以自行查看
 
@@ -189,7 +189,7 @@ ReactDOM.render(root, document.getElementById('root'));
 
 这是因为<font style="color:cornflowerblue">JSX</font>无法被识别的问题。前面说过，<font style="color:cornflowerblue">JSX</font>只是<font style="color:cornflowerblue">React</font>提供的一种<font style="color:cornflowerblue">模板语言</font>。本质上并不属于**JS**模块。
 
-所以需要将<font style="color:cornflowerblue">JSX</font>转换为**React.createElement()**形式
+所以需要将<font style="color:cornflowerblue">JSX</font>转换为 **React.createElement()** 形式
 
 
 
@@ -205,9 +205,9 @@ ReactDOM.render(root, document.getElementById('root'));
 
 > yarn add -D @babel/preset-react@7.12.13
 
-> :whale2:  [Babel官网](https://www.babeljs.cn/repl)提供了<font style="color:cornflowerblue">JSX</font>转换为**React.createElement()**的测试，有兴趣的朋友可以测试测试
+> :whale2:  [Babel官网](https://www.babeljs.cn/repl)提供了<font style="color:cornflowerblue">JSX</font>转换为 **React.createElement()** 的测试，有兴趣的朋友可以测试测试
 
-然后配置在**.babelrc**文件中
+然后配置在 **.babelrc** 文件中
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-06.png" width="400">
 
@@ -231,11 +231,11 @@ ReactDOM.render(root, document.getElementById('root'));
 
 <font style="color:cornflowerblue">React</font>代码已经运行成功，接下来就组织<font style="color:cornflowerblue">React</font>代码。
 
-刚才，直接在***/src/index.js***文件中编写了<font style="color:cornflowerblue">JSX</font>代码进行测试
+刚才，直接在 **/src/index.js** 文件中编写了<font style="color:cornflowerblue">JSX</font>代码进行测试
 
-但是真正开发中，需要将<font style="color:cornflowerblue">JSX</font>代码编写在**.jsx**文件中，通过<font style="color:cornflowerblue">模块导入</font>导入方式提供给***/src/index.js***文件。
+但是真正开发中，需要将<font style="color:cornflowerblue">JSX</font>代码编写在 **.jsx** 文件中，通过<font style="color:cornflowerblue">模块导入</font>导入方式提供给 **/src/index.js** 文件。
 
-将<font style="color:cornflowerblue">JSX</font>提取到***/src/app.jsx***文件，在***/src/index.js***导入。
+将<font style="color:cornflowerblue">JSX</font>提取到 **/src/app.jsx** 文件，在 **/src/index.js** 导入。
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-05.png?raw=true" width="600">
 
@@ -245,13 +245,13 @@ ReactDOM.render(root, document.getElementById('root'));
 
 
 
-***/src/app.jsx***文件中组件作为<font style="color:cornflowerblue">React</font>的根节点。<font style="color:cornflowerblue">React</font>也是以树的组织方式管理，***/src/app.jsx***文件中组件就是树根。<font style="color:cornflowerblue">React</font>框架代码就像**托管**在了**/src/app.jsx**之中
+**/src/app.jsx** 文件中组件作为<font style="color:cornflowerblue">React</font>的根节点。<font style="color:cornflowerblue">React</font>也是以树的组织方式管理，**/src/app.jsx** 文件中组件就是树根。<font style="color:cornflowerblue">React</font>框架代码就像 **托管** 在了 **/src/app.jsx** 之中
 
 > :whale2: :whale2:
 >
-> * <font style="color:cornflowerblue">React</font>组件分为**函数组件**和**类组件**，**函数组件**方便，再加上**Hooks**的助力，在编写颗粒度较小组件时使用**函数组件**是个非常好的选择。**类组件**封装性强，内部提供完善的钩子函数和一系列功能，再加上继承特性。比较适合使用在业务代码主干中。
->* ***/src/app.jsx***中返回的**<></>**代表*空标签*，<font style="color:cornflowerblue">React</font>组件只允许返回一个元素，但有时候组件需要返回元素数组，可以在外部包一层空标签。与<font style="color:cornflowerblue">Vue</font>中的**template**标签功能一致。
-> * <font style="color:cornflowerblue">React</font>***组件名称约定为大写形式***。
+> * <font style="color:cornflowerblue">React</font>组件分为 **函数组件** 和 **类组件** ， **函数组件** 方便，再加上 **Hooks** 的助力，在编写颗粒度较小组件时使用 **函数组件** 是个非常好的选择。**类组件** 封装性强，内部提供完善的钩子函数和一系列功能，再加上继承特性。比较适合使用在业务代码主干中。
+>* **/src/app.jsx** 中返回的 **<></>** 代表 *空标签* ，<font style="color:cornflowerblue">React</font>组件只允许返回一个元素，但有时候组件需要返回元素数组，可以在外部包一层空标签。与<font style="color:cornflowerblue">Vue</font>中的**template**标签功能一致。
+> * <font style="color:cornflowerblue">React</font> ***组件名称约定为大写形式***。
 
 
 
@@ -323,7 +323,7 @@ const modules = {
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-02.png?raw=true" width="600">
 
-另一种是使用约定文件。可以在项目根目录（**package.json**所在目录）创建一个约定文件***.browserslistrc.json***，将属性配置在此。***.browserslistrc.json***文件名称一般会省略后缀：***.browserslistrc***
+另一种是使用约定文件。可以在项目根目录（**package.json**所在目录）创建一个约定文件 ***.browserslistrc.json*** ，将属性配置在此。***.browserslistrc.json***文件名称一般会省略后缀：***.browserslistrc***
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-03.png?raw=true" width="600">
 
@@ -384,7 +384,7 @@ const modules = {
 
 <font style="color:cornflowerblue">browserslist</font>能得到社区的认可，也就在于<font style="color:cornflowerblue">browserslist</font>提供了强大的属性设置。
 
-如前面使用的 指定***区间浏览器（chrome > 75）***也只是<font style="color:cornflowerblue">browserslist</font>简单的属性配置
+如前面使用的 指定 ***区间浏览器（chrome > 75）*** 也只是<font style="color:cornflowerblue">browserslist</font>简单的属性配置
 
 
 
