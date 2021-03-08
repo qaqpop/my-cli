@@ -62,7 +62,7 @@
 
 <font style="color:cornflowerblue">babel</font>提供了一个[@babel/cli](https://www.npmjs.com/package/@babel/cli)库，与[webpack-cli](https://www.npmjs.com/package/webpack-cli)库一样，允许命令行直接运行<font style="color:cornflowerblue">babel</font>
 
-<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-01.png?raw=true" width="600">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-02.png?raw=true" width="600">
 
 ``` js
 {
