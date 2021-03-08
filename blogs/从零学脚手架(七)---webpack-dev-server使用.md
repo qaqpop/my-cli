@@ -95,7 +95,7 @@
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-07-08.png?raw=true" width="600">
 
-在 **/bin/webpack-dev-server.js** 文件模块中加载了<font style="color:#f03d3d">webpack-cli</font>库中的 **/bin/*[config/]*config-yargs** 和 **/bin/*[utils/]*convert-argv** 。
+在 **/bin/webpack-dev-server.js** 文件模块中加载了<font style="color:#f03d3d">webpack-cli</font>库中的 **/bin/ *[config/]* config-yargs** 和 **/bin/ *[utils/]* convert-argv** 。
 
 但是在版本 代码结构进行了巨大的改变，已经去掉了这两个文件模块，所以也就导致了报错。
 
