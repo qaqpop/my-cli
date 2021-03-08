@@ -1,4 +1,4 @@
-在上一篇中，介绍了<font style="color:cornflowerblue">webpack</font>的**entry**、**output**、**plugins**属性。
+在上一篇中，介绍了 <font style="color:cornflowerblue">webpack</font> 的 **entry** 、 **output** 、 **plugins** 属性。
 
 在这一篇，接着介绍其它配置属性。
 
@@ -6,17 +6,17 @@
 
 ### mode
 
-这个属性在上一篇中使用过一次，设置<font style="color:cornflowerblue">webpack</font>编译模式的，那么这个属性到底是什么东西呢？
+这个属性在上一篇中使用过一次：设置 <font style="color:cornflowerblue">webpack</font> 编译模式，那么这个属性到底是什么东西呢？
 
 
 
-<font style="color:cornflowerblue">打包器</font>是将<font style="color:#007FFF">开发环境代码</font>***编译***为<font style="color:#007FFF">可部署环境代码</font>
+<font style="color:cornflowerblue">打包器</font>是将<font style="color:#007FFF">开发环境代码</font> ***编译*** 为<font style="color:#007FFF">可部署环境代码</font>
 
-搭建的<font style="color:cornflowerblue">工程化</font>代码基本都无法直接运行在浏览器，所以本地测试也都是使用打包编译后的代码预览。
+搭建的 <font style="color:cornflowerblue">工程化</font> 代码基本都无法直接运行在浏览器，所以本地测试也都是使用打包编译后的代码预览。
 
 但是本地开发预览又必须具有代码可读性、可调试性等条件。
 
-<font style="color:cornflowerblue">webpack</font>为了解决这个问题，就提供了两种<font style="color:cornflowerblue">打包模式</font>：<font style="color:cornflowerblue">开发模式（development）</font>和<font style="color:cornflowerblue">发布模式（production）</font> 
+<font style="color:cornflowerblue">webpack </font>为了解决这个问题，就提供了两种 <font style="color:cornflowerblue">打包模式</font>：<font style="color:cornflowerblue">开发模式（development）</font>和<font style="color:cornflowerblue">发布模式（production）</font> 
 
 由**mode**属性设置
 
@@ -26,59 +26,59 @@
  }
 ```
 
-也可以使用**CLI参数**进行设置
+也可以使用 **CLI参数** 进行设置
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-01.png?raw=true" width="600">
 
 > :whale2::whale2:
 >
-> * <font style="color:cornflowerblue">webpack</font>默认使用的是<font style="color:cornflowerblue">发布模式（production）</font>，缺少**mode**属性执行时，<font style="color:cornflowerblue">webpack</font>会进行提示
+> * <font style="color:cornflowerblue">webpack</font> 默认使用的是 <font style="color:cornflowerblue">发布模式（production）</font>，缺少 **mode** 属性执行时，<font style="color:cornflowerblue">webpack</font> 会进行提示
 >* **CLI参数**设置 优先级要高于 **webpack.config.js** 文件设置。
-> * 更好的方案是使用两个***webpack.config.js***文件，脚手架一般都是这样区分，在之后介绍<font style="color:cornflowerblue">webpack merge</font>时处理
+> * 更好的方案是使用两个 **webpack.config.js** 文件，脚手架一般都是这样区分，在之后介绍 <font style="color:cornflowerblue">webpack merge</font> 时处理
 
 
 
-测试两种模式的区别时，最直观区别就是查看编译生成的代码是否进行了压缩：在**production**模式下，<font style="color:cornflowerblue">webpack</font>会预设压缩**plugin**
+测试两种模式的区别时，最直观区别就是查看编译生成的代码是否进行了压缩：在 **production** 模式下，<font style="color:cornflowerblue">webpack</font> 会预设压缩 **plugin**
 
 
 
-<font style="color:cornflowerblue">webpack</font>中的**mode**属性值其实具有三个：***development***、***production***、***none***
+<font style="color:cornflowerblue">webpack</font>中的 **mode** 属性值其实具有三个：***development***、***production***、***none***
 
-**none**属性值与两者的区别只是没有预设任何<font style="color:#06f">插件</font>
+**none** 属性值与两者的区别只是没有预设任何 <font style="color:#06f">插件</font>
 
-> :whale2::whale2::whale2: ***development***和***production***两种模式只是针对不同场景下功能差异化的区分，其实现具体的功能还是使用的<font style="color:#06f">插件</font>
+> :whale2::whale2::whale2: ***development*** 和 ***production*** 两种模式只是针对不同场景下功能差异化的区分，其实现具体的功能还是使用的 <font style="color:#06f">插件</font>
 >
-> 为了配置简单化，***development***和***production***两种模式都预设了一些基本<font style="color:#06f">插件</font>。
+> 为了配置简单化，***development*** 和 ***production*** 两种模式都预设了一些基本 <font style="color:#06f">插件</font>。
 
 
 
-下面来介绍下 **development**和**production**两种模式中的预设的部分功能
+下面来介绍下 **development** 和 **production** 两种模式中的预设的部分功能
 
 #### development
 
 ##### process.env.NODE_ENV
 
-***development***模式时，<font style="color:cornflowerblue">webpack</font>使用内置<font style="color:cornflowerblue">**DefinePlugin**</font>
+***development*** 模式时，<font style="color:cornflowerblue">webpack</font> 使用内置 <font style="color:cornflowerblue">**DefinePlugin**</font>
 
-预设了一个环境变量属性**process.env.NODE_ENV**，属性值为***development***
+预设了一个环境变量属性 **process.env.NODE_ENV**，属性值为 ***development***
 
-开发人员可以编写业务代码时根据**process.env.NODE_ENV**属性判断当前编译模式，以此执行不同环境中的代码。
+开发人员可以编写业务代码时根据 **process.env.NODE_ENV** 属性判断当前编译模式，以此执行不同环境中的代码。
 
-**process.env.NODE_ENV**属性和<font style="color:cornflowerblue">**DefinePlugin**</font>稍后详细介绍
+**process.env.NODE_ENV** 属性和 <font style="color:cornflowerblue">**DefinePlugin**</font> 稍后详细介绍
 
 
 
 ##### 设置模块和模块名称设置有效性
 
-***development***模式时，<font style="color:cornflowerblue">webpack</font>会将**JS模块**、**模块名称**设置为有效名称，用来方便调试
+***development*** 模式时，<font style="color:cornflowerblue">webpack</font> 会将 **JS模块** 、 **模块名称** 设置为有效名称，用来方便调试
 
 
 
-<font style="color:cornflowerblue">webpack@4.X</font>版本设置代码可读性使用的是<font style="color:cornflowerblue">webpack</font>内置的<font style="color:cornflowerblue">plugin</font>：<font style="color:cornflowerblue">**NamedModulesPlugin**</font>和<font style="color:cornflowerblue">**NamedChunksPlugin**</font>
+<font style="color:cornflowerblue">webpack@4.X</font> 版本设置代码可读性使用的是 <font style="color:cornflowerblue">webpack</font> 内置的 <font style="color:cornflowerblue">plugin</font> ： <font style="color:cornflowerblue">**NamedModulesPlugin**</font> 和 <font style="color:cornflowerblue">**NamedChunksPlugin**</font>
 
-<font style="color:cornflowerblue">webpack@5.X</font>版本设置代码可读性使用的是  **optimization.moduleIds** 和**optimization.chunkIds** 两个属性。
+<font style="color:cornflowerblue">webpack@5.X</font>版本设置代码可读性使用的是  **optimization.moduleIds** 和 **optimization.chunkIds**  两个属性。
 
-但根源也是使用内置<font style="color:cornflowerblue">plugin</font>：<font style="color:cornflowerblue">**NamedModuleIdsPlugin**</font>和<font style="color:cornflowerblue">**NamedChunkIdsPlugin**</font>
+但根源也是使用内置<font style="color:cornflowerblue">plugin</font>：<font style="color:cornflowerblue">**NamedModuleIdsPlugin**</font> 和 <font style="color:cornflowerblue">**NamedChunkIdsPlugin**</font>
 
 ```javascript
 optimization: {
@@ -87,15 +87,15 @@ optimization: {
 }
 ```
 
-> **optimization**属性是<font style="color:cornflowerblue">webpack</font>提供的优化属性，与**mode**一样，只是为了方便管理，其根源还是使用<font style="color:#06f">插件</font>设置的。
+> :whale2: **optimization** 属性是<font style="color:cornflowerblue">webpack</font>提供的优化属性，与**mode**一样，只是为了方便管理，其根源还是使用 <font style="color:#06f">插件</font >设置的。
 
 
 
 ##### 设置devtool属性
 
-***development***模式时，<font style="color:cornflowerblue">webpack</font>会将**devtool**属性设置为***eval***
+***development*** 模式时，<font style="color:cornflowerblue">webpack</font>会将 **devtool** 属性设置为 ***eval***
 
-**devtool**属性是控制<font style="color:cornflowerblue">SourceMap</font>文件如何生成的。<font style="color:cornflowerblue">SourceMap</font>是用于将原始模块文件与打包后的代码映射文件。用于调试使用。具体稍候介绍
+**devtool** 属性是控制 <font style="color:cornflowerblue">SourceMap </font> 文件如何生成的。<font style="color:cornflowerblue">SourceMap</font> 是用于将原始模块文件与打包后的代码映射文件。用于调试使用。具体稍候介绍
 
 
 
@@ -103,27 +103,25 @@ optimization: {
 
 ##### process.env.NODE_ENV
 
-***production***模式时，<font style="color:cornflowerblue">webpack</font>使用内置<font style="color:cornflowerblue">**DefinePlugin**</font>
+***production*** 模式时，<font style="color:cornflowerblue">webpack</font> 使用内置 <font style="color:cornflowerblue">**DefinePlugin**</font>
 
-预设一个环境变量属性**process.env.NODE_ENV**，属性值为***production***
+预设一个环境变量属性 **process.env.NODE_ENV**，属性值为 ***production***
 
-开发人员可以编写业务代码时根据**process.env.NODE_ENV**属性判断当前编译模式，以此执行不同环境中的代码。
+开发人员可以编写业务代码时根据 **process.env.NODE_ENV** 属性判断当前编译模式，以此执行不同环境中的代码。
 
-**process.env.NODE_ENV**属性和<font style="color:cornflowerblue">**DefinePlugin**</font>稍后详细介绍
+**process.env.NODE_ENV** 属性和 <font style="color:cornflowerblue">**DefinePlugin**</font> 稍后详细介绍
 
 
 
 ##### 设置模块和模块名称混淆
 
-***production***模式时，<font style="color:cornflowerblue">webpack</font>将 **JS模块**、**模块名称**进行混淆，以保证代码安全性
+***production*** 模式时，<font style="color:cornflowerblue">webpack</font>将  **JS模块** 、 **模块名称** 进行混淆，以保证代码安全性
 
 
 
-<font style="color:cornflowerblue">webpack@4.X</font>版本设置代码可读性使用的是<font style="color:cornflowerblue">webpack</font>内置的<font style="color:cornflowerblue">plugin</font>：<font style="color:cornflowerblue">**NamedModulesPlugin**</font>和<font style="color:cornflowerblue">**NamedChunksPlugin**</font>
+<font style="color:cornflowerblue">webpack@4.X </font>版本设置代码可读性使用的是 <font style="color:cornflowerblue">webpack</font> 内置的<font style="color:cornflowerblue">plugin</font>：<font style="color:cornflowerblue">**NamedModulesPlugin**</font> 和 <font style="color:cornflowerblue">**NamedChunksPlugin**</font>
 
-<font style="color:cornflowerblue">webpack@5.X</font>版本设置代码可读性使用的是  **optimization.moduleIds** 和**optimization.chunkIds** 两个属性。
-
-但根源也是使用内置<font style="color:cornflowerblue">plugin</font>：<font style="color:cornflowerblue">**DeterministicModuleIdsPlugin**</font>和<font style="color:cornflowerblue">**DeterministicChunkIdsPlugin**</font>
+<font style="color:cornflowerblue">webpack@5.X</font> 版本设置代码可读性使用的是  **optimization.moduleIds** 和 **optimization.chunkIds**  两个属性，但根源也是使用内置<font style="color:cornflowerblue">plugin</font>：<font style="color:cornflowerblue">**DeterministicModuleIdsPlugin**</font> 和 <font style="color:cornflowerblue">**DeterministicChunkIdsPlugin**</font>
 
 ```javascript
 optimization: {
@@ -136,37 +134,37 @@ optimization: {
 
 ##### 代码压缩
 
-***production***模式时，<font style="color:cornflowerblue">webpack</font> 开启了代码压缩优化 ，使用[terser-webpack-plugin](https://www.npmjs.com/package/terser-webpack-plugin)库对打包生成代码进行压缩
+***production*** 模式时，<font style="color:cornflowerblue">webpack</font> 开启了代码压缩优化 ，使用[terser-webpack-plugin](https://www.npmjs.com/package/terser-webpack-plugin)库对打包生成代码进行压缩
 
-> :whale2::whale2:  <font style="color:cornflowerblue">webpack@5.X</font>默认使用[terser-webpack-plugin](https://www.npmjs.com/package/terser-webpack-plugin)压缩代码，<font style="color:cornflowerblue">webpack@4.X</font>版本及之前版本，默认使用的压缩库为[uglifyjs-webpack-plugin](https://www.npmjs.com/package/uglifyjs-webpack-plugin)。但[uglifyjs-webpack-plugin](https://www.npmjs.com/package/uglifyjs-webpack-plugin)已停止维护
+> :whale2::whale2:  <font style="color:cornflowerblue">webpack@5.X </font>默认使用[terser-webpack-plugin](https://www.npmjs.com/package/terser-webpack-plugin)压缩代码，<font style="color:cornflowerblue">webpack@4.X </font>版本及之前版本，默认使用的压缩库为[uglifyjs-webpack-plugin](https://www.npmjs.com/package/uglifyjs-webpack-plugin)。但[uglifyjs-webpack-plugin](https://www.npmjs.com/package/uglifyjs-webpack-plugin)已停止维护
 
 
 
 ##### 作用域提升
 
-***production***模式时，<font style="color:cornflowerblue">webpack</font> 会使用内置的<font style="color:cornflowerblue">**ModuleConcatenationPlugin**</font> 对代码的作用域进行提示。用于减少打包生成的代码量和执行速度。
+***production***模式时，<font style="color:cornflowerblue">webpack</font> 会使用内置的 <font style="color:cornflowerblue">**ModuleConcatenationPlugin**</font>  对代码的作用域进行提示。用于减少打包生成的代码量和执行速度。
 
 
 
 ##### 错误处理
 
-***production***模式时，<font style="color:cornflowerblue">webpack</font> 会预设内置<font style="color:cornflowerblue">**NoEmitOnErrorsPlugin**</font> 。
+***production***模式时，<font style="color:cornflowerblue">webpack</font> 会预设内置 <font style="color:cornflowerblue">**NoEmitOnErrorsPlugin**</font> 。
 
 打包编译时，如果出现代码错误，则不在生成代码。用于避免代码错误代码依然打包成功
 
 
 
-> :whale2::whale2:<font style="color:cornflowerblue">webpack@5.X</font>和<font style="color:cornflowerblue">webpack@4.X</font>对于***development***和***production*** 预设功能具有一定的差异，具体请参考 [webpack5-mode](https://webpack.js.org/configuration/mode/)、[webpack4-mode](https://v4.webpack.js.org/configuration/mode/)、[显微镜下的webpack4的新特性：mode详解](https://juejin.cn/post/6844903695033843726)
+> :whale2::whale2:<font style="color:cornflowerblue">webpack@5.X</font> 和 <font style="color:cornflowerblue">webpack@4.X</font> 对于 ***development*** 和 ***production*** 预设功能具有一定的差异，具体请参考 [webpack5-mode](https://webpack.js.org/configuration/mode/)、[webpack4-mode](https://v4.webpack.js.org/configuration/mode/)、[显微镜下的webpack4的新特性：mode详解](https://juejin.cn/post/6844903695033843726)
 
 
 
 #### DefinePlugin
 
-在***development***和***production***两种模式中， 都设置了一个环境变量属性：**process.env.NODE_ENV**，只是属性值不相同。
+在 ***development*** 和 ***production*** 两种模式中， 都设置了一个环境变量属性： **process.env.NODE_ENV** ，只是属性值不相同。
 
 
 
-环境变量用于编写业务代码时 针对不同环境下的差异化代码。例如调用第三方SDK时：区分<font style="color:cornflowerblue">开发环境</font> 和<font style="color:cornflowerblue">正式环境</font>。
+环境变量用于编写业务代码时 针对不同环境下的差异化代码。例如调用第三方SDK时：区分 <font style="color:cornflowerblue">开发环境</font> 和 <font style="color:cornflowerblue">正式环境</font>。
 
 当然可以选择每次发版时手动修改配置，只要自己不会觉得麻烦。
 
@@ -174,27 +172,27 @@ optimization: {
 
 做一个测试
 
-在**/src/index.js**中输出**process.env.NODE_ENV**属性
+在 **/src/index.js** 中输出 **process.env.NODE_ENV** 属性
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-02.png?raw=true" width="600">
 
-在执行`yarn start`后查看打包生成代码会看到**process.env.NODE_ENV** 替换为了***development***字符串
+在执行`yarn start`后查看打包生成代码会看到 **process.env.NODE_ENV** 替换为了 ***development*** 字符串
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-03.png?raw=true" width="600">
 
-同样如果执行`yarn build`  **process.env.NODE_ENV** 属性 会替换成***production***字符串
+同样如果执行`yarn build`  **process.env.NODE_ENV** 属性 会替换成 ***production*** 字符串
 
 
 
-这就是 **process.env.NODE_ENV**环境变量的作用，<font style="color:cornflowerblue">webpack</font> 在打包编译时会将设置的环境变量属性值进行替换，可以在编写业务代码时进行环境判断。
+这就是 **process.env.NODE_ENV** 环境变量的作用，<font style="color:cornflowerblue">webpack</font> 在打包编译时会将设置的环境变量属性值进行替换，可以在编写业务代码时进行环境判断。
 
 
 
 
 
-<font style="color:cornflowerblue">webpack</font> 使用了内置的<font style="color:cornflowerblue">**DefinePlugin**</font>设置 **process.env.NODE_ENV**。
+<font style="color:cornflowerblue">webpack</font> 使用了内置的 <font style="color:cornflowerblue">**DefinePlugin**</font> 设置 **process.env.NODE_ENV**。
 
-当然也可以使用<font style="color:cornflowerblue">**DefinePlugin**</font>设置自定义环境变量。具体详情请参考：[官网](https://www.webpackjs.com/plugins/define-plugin/)
+当然也可以使用 <font style="color:cornflowerblue">**DefinePlugin**</font> 设置自定义环境变量。具体详情请参考：[官网](https://www.webpackjs.com/plugins/define-plugin/)
 
 ```javascript
 const webpack = require("webpack");
@@ -209,13 +207,13 @@ const webpack = require("webpack");
 
 ### devtool
 
-在***development***模式中会设置**devtool**属性。
+在 ***development*** 模式中会设置 **devtool** 属性。
 
-**devtool**属性也是<font style="color:cornflowerblue">webpack</font>提供的一个属性项。用于设置<font style="color:cornflowerblue">javascript-source-map</font>
+**devtool** 属性也是 <font style="color:cornflowerblue">webpack</font> 提供的一个属性项。用于设置 <font style="color:cornflowerblue">javascript-source-map</font>
 
 
 
-我们都看过打包编译生成的代码，哪怕是**development**模式下生成的，也是超级混乱。
+我们都看过打包编译生成的代码，哪怕是 **development** 模式下生成的，也是超级混乱。
 
 而想要对这些代码调试排查错误，那简直是个噩梦。
 
@@ -223,33 +221,33 @@ const webpack = require("webpack");
 
 
 
-对于这个问题，<font style="color:cornflowerblue">Google</font>提供了一种工具叫做：<font style="color:cornflowerblue">javascript-source-map</font>
+对于这个问题，<font style="color:cornflowerblue">Google</font> 提供了一种工具叫做：<font style="color:cornflowerblue">javascript-source-map</font>
 
-<font style="color:cornflowerblue">javascript-source-map</font>提供一个映射信息，将 *打包编译生成的代码* 与 *开发编写的代码文件* 进行映射，调试时直接针对 开发编写的代码文件进行调试。
+<font style="color:cornflowerblue">javascript-source-map </font> 提供一个映射信息，将 *打包编译生成的代码* 与 *开发编写的代码文件* 进行映射，调试时直接针对 开发编写的代码文件进行调试。
 
-> :whale2: <font style="color:cornflowerblue">source-map</font>详细介绍请参考阮一峰老师的：[JavaScript Source Map 详解](http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html)
-
-
-
-<font style="color:cornflowerblue">webpack</font>提供了**devtool**属性来设置<font style="color:cornflowerblue">javascript-source-map</font>
-
-**development**模式  **devtool**属性默认值为 ***eval***；
-
-**production**模式 **devtool**属性默认值为 ***false(none)***
+> :whale2: <font style="color:cornflowerblue">source-map</font> 详细介绍请参考阮一峰老师的：[JavaScript Source Map 详解](http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html)
 
 
 
-***eval***属性值生成的代码都是由**eval**语法编译，并提供了一个**sourceURL**属性用于指向文件源路径
+<font style="color:cornflowerblue">webpack</font>提供了 **devtool** 属性来设置 <font style="color:cornflowerblue">javascript-source-map</font>
+
+**development** 模式  **devtool** 属性默认值为  ***eval***；
+
+**production** 模式 **devtool** 属性默认值为 ***false(none)***
+
+
+
+***eval*** 属性值生成的代码都是由 **eval** 语法编译，并提供了一个 **sourceURL** 属性用于指向文件源路径
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-04.png?raw=true" width="600">
 
 
 
-**devtool**属性具有非常多的属性值，不同的属性值 操作具有差异 和 打包消耗时间不同。
+**devtool** 属性具有非常多的属性值，不同的属性值 操作具有差异 和 打包消耗时间不同。
 
-有的属性值会生成一个**.map**文件，个文件中存放映射信息，有的直接在生成文件中显示映射信息。
+有的属性值会生成一个 **.map** 文件，个文件中存放映射信息，有的直接在生成文件中显示映射信息。
 
-在此就不不详细介绍**devtool**，有兴趣的朋友可以参考[官网](https://webpack.js.org/configuration/devtool/#root)自行测试
+在此就不不详细介绍 **devtool**，有兴趣的朋友可以参考[官网](https://webpack.js.org/configuration/devtool/#root)自行测试
 
 ```javascript
 {
@@ -262,17 +260,17 @@ const webpack = require("webpack");
 
 ### optimization
 
-<font style="color:cornflowerblue">webpack</font>针对代码优化管理，提供了**optimization**属性进行管理。
+<font style="color:cornflowerblue">webpack</font> 针对代码优化管理，提供了 **optimization** 属性进行管理。
 
-就像刚才介绍的**optimization.moduleIds**和**optimization.chunkIds**提供了对**模块**和**模块名称**管理。
+就像刚才介绍的 **optimization.moduleIds** 和 **optimization.chunkIds** 提供了对 **模块** 和 **模块名称** 管理。
 
 但其根源还是使用了<font style="color:#06f">插件</font>进行管理，属性只是为了方便管理。
 
 
 
-**optimization**对象具有好多属性，在此也不详细介绍，
+**optimization** 对象具有好多属性，在此也不详细介绍，
 
-只介绍**optimization.minimize**和**optimization.minimizer**。这两个也是经常被使用到属性。
+只介绍 **optimization.minimize** 和 **optimization.minimizer** 。这两个也是经常被使用到属性。
 
 
 
@@ -280,7 +278,7 @@ const webpack = require("webpack");
 
 ###### minimize
 
-先来做一个测试，将**optimization.minimize**手动改为***false***
+先来做一个测试，将 **optimization.minimize** 手动改为 ***false***
 
 ```javascript
   optimization:{
@@ -294,9 +292,9 @@ const webpack = require("webpack");
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-01.png?raw=true" width="600">
 
-也就是**optimization.minimize**属性是控制代码压缩的。
+也就是 **optimization.minimize** 属性是控制代码压缩的。
 
-而**production**模式只是将**optimization.minimize**设置为了***true***
+而 **production** 模式只是将 **optimization.minimize** 设置为了 ***true***
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-03-new-08.png?raw=true" width="600">
 
@@ -313,9 +311,9 @@ const webpack = require("webpack");
 
 
 
-在**optimization**对象中还具有一个**minimizer**属性，这个属性和**plugins**属性功能相同，都是用来设置<font style="color:cornflowerblue">plugin</font>的。
+在 **optimization** 对象中还具有一个 **minimizer** 属性，这个属性和 **plugins** 属性功能相同，都是用来设置<font style="color:cornflowerblue">plugin</font>的。
 
-而两者的区别在于：**optimization.minimizer**会受到**optimization.minimize**属性的管理
+而两者的区别在于：**optimization.minimizer** 会受到 **optimization.minimize** 属性的管理
 
 
 
@@ -905,7 +903,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 
-下面将**resolve.mainFiles**设置为***['index','main']***做测试
+下面将**resolve.mainFiles**设置为 ***['index','main']*** 做测试
 
 ```javascript
 {
@@ -922,7 +920,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 
-可以看到， 可以看到导入**/demo/main.js**时，忽略了文件名称，但是依然打包编译、导入成功
+可以看到， 可以看到导入 **/demo/main.js** 时，忽略了文件名称，但是依然打包编译、导入成功
 
 > :whale2::whale2::whale2:  打包编译时匹配**resolve.mainFiles**，使用的也是队列形式。**Array**从先到后
 
@@ -1017,9 +1015,9 @@ const {
 
  
 
-至于自定义**root**属性而不直接使用**__dirname**原因是：
+至于自定义**root**属性而不直接使用 **__dirname** 原因是：
 
-个人感觉自定义属性方便控制。 例如更换配置文件目录，直接使用**__dirname**，所有目录地址都需要更改，而自定义绝对路径基准就只需要更改**root**目录即可
+个人感觉自定义属性方便控制。 例如更换配置文件目录，直接使用 **__dirname** ，所有目录地址都需要更改，而自定义绝对路径基准就只需要更改**root**目录即可
 
 当然真实开发不会出现此类情况。
 
@@ -1033,7 +1031,7 @@ const {
 
 > :whale2::whale2::whale2:
 >
-> * <font style="color:cornflowerblue">webpack</font>提供了两种<font style="color:cornflowerblue">打包模式</font>：**开发测试打包编译*(development)***和**线上发布打包编译*(production)*** 。两种打包模式能够更加方便管理<font style="color:cornflowerblue">插件</font>
+> * <font style="color:cornflowerblue">webpack</font>提供了两种<font style="color:cornflowerblue">打包模式</font>：**开发测试打包编译 *(development)* ** 和 **线上发布打包编译 *(production)* ** 。两种打包模式能够更加方便管理<font style="color:cornflowerblue">插件</font>
 > * <font style="color:cornflowerblue">webpack</font>对**development**和 **production** 都预设了一些基础功能，大大减少了开发时的配置
 > * <font style="color:cornflowerblue">source-map</font>是<font style="color:cornflowerblue">Google</font>提供的打包编译后代码与开发代码的一种映射文件，主要用途是方便开发人员调试
 > * **optimization**属性是<font style="color:cornflowerblue">webpack</font>提供的控制优化的属性， **optimization**只是一系列优化功能的集合，主要是为了方便管理，本质还是由<font style="color:cornflowerblue">插件</font>完成功能
