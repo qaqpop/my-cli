@@ -98,23 +98,23 @@
 
 
 
-<font style="color:cornflowerblue">webpack-dev-server</font>执行的第一个文件是*<font style="color:#f03d3d">webpack</font>库的**/bin/webpack.js**文件模块*，也就是入口文件
+<font style="color:cornflowerblue">webpack-dev-server</font>执行的第一个文件是 *<font style="color:#f03d3d">webpack</font>库的 **/bin/webpack.js** 文件模块* ，也就是入口文件
 
 原因上一篇已经介绍过：<font style="color:cornflowerblue">webpack-cli@4.0</font>开始，<font style="color:cornflowerblue">webpack-dev-server</font>执行命令改为了 `webpack serve`。使用了<font style="color:cornflowerblue">webpack</font>命令
 
 
 
-在*<font style="color:#f03d3d">webpack</font>库的**/bin/webpack.js**文件模块*中调用了*<font style="color:#f03d3d">webpack-cli</font>库的**/bin/cli.js**文件模块*。
+在 *<font style="color:#f03d3d">webpack</font>库的 **/bin/webpack.js** 文件模块* 中调用了 *<font style="color:#f03d3d">webpack-cli</font>库的 **/bin/cli.js** 文件模块* 。
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-08.png?raw=true" width="600">
 
-> :whale2: 执行<font style="color:cornflowerblue">webpack-cli</font>时检测<font style="color:cornflowerblue">webpack-cli</font>是否安装就是在<font style="color:#f03d3d">webpack</font>库的**/bin/webpack.js**文件模块执行的，有兴趣的朋友可以自行查看。
+> :whale2: 执行<font style="color:cornflowerblue">webpack-cli</font>时检测<font style="color:cornflowerblue">webpack-cli</font>是否安装就是在<font style="color:#f03d3d">webpack</font>库的 **/bin/webpack.js** 文件模块执行的，有兴趣的朋友可以自行查看。
 
 
 
-之后在*<font style="color:cornflowerblue">webpack-cli</font>的**/bin/cli.js**文件模块*中调用了**lib/bootstrap.js**启动文件模块
+之后在 *<font style="color:cornflowerblue">webpack-cli</font>的 **/bin/cli.js** 文件模块* 中调用了 **lib/bootstrap.js** 启动文件模块
 
-然后在**lib/bootstrap.js**启动文件模块中创建了**/lib/webpack-cli.js**模块实例（**WebpackCLI**）并调用***run()***
+然后在 **lib/bootstrap.js** 启动文件模块中创建了 **/lib/webpack-cli.js** 模块实例 （**WebpackCLI**） 并调用 ***run()***
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-09.png?raw=true" width="600">
 
@@ -126,7 +126,7 @@
 
 之后**WebpackCLI.run()** 中根据命令调用对应<font style="color:cornflowerblue">@webpack-cli</font>库中对应文件。
 
-如`webpack serve`，根据***serve***命令参数调用 <font style="color:cornflowerblue">@webpack-cli</font>库**/serve/**中模块 。
+如`webpack serve`，根据***serve***命令参数调用 <font style="color:cornflowerblue">@webpack-cli</font>库 **/serve/** 中模块 。
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-12.png?raw=true" width="600">
 
@@ -138,11 +138,11 @@
 
 
 
-在 <font style="color:cornflowerblue">@webpack-cli</font>中**/serve/index.js**文件模块中调用**/serve/startDevServer.js**文件模块
+在 <font style="color:cornflowerblue">@webpack-cli</font> 中 **/serve/index.js** 文件模块中调用 **/serve/startDevServer.js** 文件模块
 
-最后在**/serve/startDevServer.js**创建<font style="color:cornflowerblue">webpack-dev-server</font>中**/lib/Server.js**模块实例对象。
+最后在 **/serve/startDevServer.js** 创建 <font style="color:cornflowerblue">webpack-dev-server</font> 中 **/lib/Server.js** 模块实例对象。
 
-并且调用**Server.listen()**监听启动服务器。
+并且调用 **Server.listen()** 监听启动服务器。
 
 
 
@@ -174,13 +174,13 @@
 
 先来看一下<font style="color:cornflowerblue">express</font>、
 
-<font style="color:cornflowerblue">webpack-dev-server</font>的服务器是**/lib/Server.js**文件模块。
+<font style="color:cornflowerblue">webpack-dev-server</font>的服务器是 **/lib/Server.js** 文件模块。
 
 关于<font style="color:cornflowerblue">express</font>也就是在此模块中。
 
-**/lib/Server.js**模块构造函数中，初始化了许多东西，其中就有<font style="color:cornflowerblue">express</font>
+**/lib/Server.js** 模块构造函数中，初始化了许多东西，其中就有<font style="color:cornflowerblue">express</font>
 
-在**/lib/Server.js**构造函数中便初始化了<font style="color:cornflowerblue">express</font>
+在 **/lib/Server.js** 构造函数中便初始化了<font style="color:cornflowerblue">express</font>
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-18.png?raw=true" width="600">
 
@@ -190,15 +190,15 @@
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-21.png?raw=true" width="600">
 
-可以看到在**Server.setupApp()**中构建了<font style="color:cornflowerblue">express</font>服务器实例
+可以看到在 **Server.setupApp()** 中构建了<font style="color:cornflowerblue">express</font>服务器实例
 
-然后在**Server.createServer()** 中赋值给了**Server.listeningApp**。
+然后在 **Server.createServer()** 中赋值给了 **Server.listeningApp**。
 
-最后在**Server.listen()**进行了启动。
+最后在 **Server.listen()** 进行了启动。
 
-**Server.listen()**就是在<font style="color:cornflowerblue">@webpack-cli</font>中**/serve/startDevServer.js**文件模块调用的。
+**Server.listen()** 就是在 <font style="color:cornflowerblue">@webpack-cli</font> 中 **/serve/startDevServer.js** 文件模块调用的。
 
-> :whale2: **Server.setupApp()**和**Server.createServer()**之间为<font style="color:cornflowerblue">express</font>添加了配置的中间件。
+> :whale2: **Server.setupApp()** 和 **Server.createServer()** 之间为 <font style="color:cornflowerblue">express</font> 添加了配置的中间件。
 
 
 
@@ -281,7 +281,7 @@ module.exports = merge([
 
 
 
-<font style="color:cornflowerblue">webpack-dev-middleware</font>的**/dist/index.js**模块中调用了***/dist/utils/setupOutputFileSystem.js***模块，此模块就是设置输出流函数
+<font style="color:cornflowerblue">webpack-dev-middleware</font>的 **/dist/index.js** 模块中调用了 ***/dist/utils/setupOutputFileSystem.js*** 模块，此模块就是设置输出流函数
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-28.png?raw=true" width="600">
 
@@ -291,7 +291,7 @@ module.exports = merge([
 
 > :whale2:是一个**Node.js** 内存流的库，具体参考[官方](https://www.npmjs.com/package/memfs)
 
-> :whale2:<font style="color:cornflowerblue">webpack-dev-middleware</font> 项目主文件是**/dist/cjs.js**，在**/dist/cjs.js**调用了**/dist/index.js**。
+> :whale2:<font style="color:cornflowerblue">webpack-dev-middleware</font> 项目主文件是 **/dist/cjs.js** ，在 **/dist/cjs.js** 调用了 **/dist/index.js**。
 
 
 
@@ -313,13 +313,13 @@ module.exports = merge([
 
 ######  Server 创建
 
-<font style="color:cornflowerblue">WebSocket Server</font>的实例化是在**Server.listen()**中进行的。
+<font style="color:cornflowerblue">WebSocket Server</font>的实例化是在 **Server.listen()** 中进行的。
 
-在成功启动服务器后，判断是否设置了**hot**或**liveReload**。如果设置就调用**Server.createSocketServer()**实例化<font style="color:cornflowerblue">WebSocket Server</font>
+在成功启动服务器后，判断是否设置了 **hot** 或 **liveReload** 。如果设置就调用 **Server.createSocketServer()** 实例化 <font style="color:cornflowerblue">WebSocket Server</font>
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-30.png?raw=true" width="600">
 
-**Server.createSocketServer()**执行时，首先会根据配置选择<font style="color:cornflowerblue">WebSocket Server</font>类型。
+**Server.createSocketServer()** 执行时，首先会根据配置选择 <font style="color:cornflowerblue">WebSocket Server</font> 类型。
 
 然后实例化此<font style="color:cornflowerblue">WebSocket Server</font>。
 
@@ -399,17 +399,17 @@ module.exports = merge([
 
 <font style="color:cornflowerblue">WebSocket client</font>是<font style="color:cornflowerblue">WebSocket</font>的客户端（浏览器）<font style="color:cornflowerblue">WebSocket client</font>接收到消息时，会根据消息类型执行对应的操作，例如刷新浏览器、获取最新代码数据、输出日志等信息。
 
-<font style="color:cornflowerblue">WebSocket client</font>代码存放在<font style="color:cornflowerblue">webpack-dev-server</font>的**/client**目录下。<font style="color:cornflowerblue">WebSocket client</font>也是具有**SockJSClient**和**WebsocketClient**两种类型，与<font style="color:cornflowerblue">WebSocket Server</font>对应
+<font style="color:cornflowerblue">WebSocket client</font> 代码存放在 <font style="color:cornflowerblue">webpack-dev-server</font> 的 **/client** 目录下。<font style="color:cornflowerblue">WebSocket client</font> 也是具有 **SockJSClient** 和 **WebsocketClient** 两种类型，与<font style="color:cornflowerblue">WebSocket Server</font>对应
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-41.png?raw=true" width="600">
 
 ###### 消息处理
 
-<font style="color:cornflowerblue">WebSocket client</font> 消息处理逻辑编写在**/client/default/index.js**模块文件中。
+<font style="color:cornflowerblue">WebSocket client</font> 消息处理逻辑编写在 **/client/default/index.js** 模块文件中。
 
-**/client/default/index.js**模块文件中有一个**onSocketMessage**对象，这个对象就是消息处理对象。
+**/client/default/index.js** 模块文件中有一个 **onSocketMessage** 对象，这个对象就是消息处理对象。
 
-将**onSocketMessage**对象复制于此。添加部分注释，以便理解，  具体就不再赘述。
+将 **onSocketMessage** 对象复制于此。添加部分注释，以便理解，  具体就不再赘述。
 
 其实代码还是很好理解的。
 
@@ -585,19 +585,19 @@ var onSocketMessage = {
 
 ###### reloadApp
 
-**reloadApp()** 代码位于**/client/default/utils/reloadApp.js**文件中。
+**reloadApp()** 代码位于 **/client/default/utils/reloadApp.js** 文件中。
 
 此函数是个人感觉是一个关键函数，所以在此简单介绍下。
 
-**reloadApp()**是当代码文件发生变化后的处理逻辑。
+**reloadApp()** 是当代码文件发生变化后的处理逻辑。
 
-**reloadApp()**根据**hot**和**liveReload**两个属性类型做了不同处理方案。
+**reloadApp()** 根据 **hot** 和 **liveReload** 两个属性类型做了不同处理方案。
 
 
 
-当**hot**时，加载**webpack/hot/emitter**模块，用于触发热更新。
+当 **hot** 时，加载 **webpack/hot/emitter** 模块，用于触发热更新。
 
-**webpack/hot/emitter**模块是<font style="color:cornflowerblue">webpack</font>中热更新定义的事件。
+**webpack/hot/emitter** 模块是 <font style="color:cornflowerblue">webpack</font> 中热更新定义的事件。
 
 而当**liveReload**时，就直接刷新页面重新获取数据
 
@@ -633,17 +633,17 @@ var onSocketMessage = {
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-08-43.png?raw=true" width="600">
 
-> :whale2:此代码在<font style="color:cornflowerblue">webpack-dev-server</font>的**/lib/utils/DevServerPlugin.js**
+> :whale2:此代码在<font style="color:cornflowerblue">webpack-dev-server</font>的 **/lib/utils/DevServerPlugin.js**
 
 
 
-<font style="color:#f03d3d">HotModuleReplacementPlugin</font>每次编译后会生成一个***hash***，对应其编译文件。<font style="color:cornflowerblue">WebSocket</font>推送类型中具有一个**hash**类型，就是推送的***hash***
+<font style="color:#f03d3d">HotModuleReplacementPlugin</font>每次编译后会生成一个 ***hash***，对应其编译文件。<font style="color:cornflowerblue">WebSocket</font>推送类型中具有一个 **hash** 类型，就是推送的 ***hash***
 
 
 
-<font style="color:cornflowerblue">WebSocket client</font>处理消息时，会存储***hash***。
+<font style="color:cornflowerblue">WebSocket client</font>处理消息时，会存储 ***hash***。
 
-然后在**reloadApp()**中根据当前***hash*** 执行**webpackHotUpdate**事件拉去最新代码。
+然后在 **reloadApp()** 中根据当前 ***hash*** 执行 **webpackHotUpdate** 事件拉去最新代码。
 
 
 ```js
@@ -670,7 +670,7 @@ hash: function hash(_hash) {
 
 
 
-**webpackHotUpdate**事件是<font style="color:#f03d3d">webpack</font>中定义的一个事件，代码在**/hot/dev-server.js**。其功能是获取此次编译的代码。
+**webpackHotUpdate**事件是<font style="color:#f03d3d">webpack</font>中定义的一个事件，代码在 **/hot/dev-server.js** 。其功能是获取此次编译的代码。
 
 ```js
 if (module.hot) {
@@ -731,7 +731,7 @@ if (module.hot) {
 > :whale2::whale2::whale2:
 >
 > * 调试<font style="color:cornflowerblue">webpack-dev-server</font>代码具有两种方法：浏览器和IDE
-> * <font style="color:cornflowerblue">webpack-dev-server</font>内部使用了*<font style="color:cornflowerblue">express</font>框架作为服务器
+> * <font style="color:cornflowerblue">webpack-dev-server</font>内部使用了<font style="color:cornflowerblue">express</font>框架作为服务器
 > * <font style="color:cornflowerblue">webpack-dev-server</font>默认使用了内存流（<font style="color:cornflowerblue">memfs</font>）存储打包文件
 > * <font style="color:cornflowerblue">webpack-dev-server</font>使用了<font style="color:cornflowerblue">webpack</font>提供的钩子函数监听打包编译
 > * **wating**状态是<font style="color:cornflowerblue">webpack</font>提供的功能，其属性为：**watch**
