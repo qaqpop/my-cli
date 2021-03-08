@@ -209,7 +209,7 @@ ReactDOM.render(root, document.getElementById('root'));
 
 然后配置在**.babelrc**文件中
 
-<img src=" " width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-06.png" width="400">
 
 
 
