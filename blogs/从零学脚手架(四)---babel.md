@@ -12,7 +12,7 @@
 
 先来做一个测试
 
-在**/src/index.js**文件使用部分<font style="color:cornflowerblue">ES6（ES2015+）</font>，查看打包编译代码会发现<font style="color:cornflowerblue">webpack</font>并没有处理<font style="color:cornflowerblue">ES6（ES2015+）</font>特性。
+在 **/src/index.js** 文件使用部分<font style="color:cornflowerblue">ES6（ES2015+）</font>，查看打包编译代码会发现<font style="color:cornflowerblue">webpack</font>并没有处理<font style="color:cornflowerblue">ES6（ES2015+）</font>特性。
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-01.png?raw=true" width="600">
 
@@ -30,7 +30,7 @@
 
 这个工具就叫做：<font style="color:cornflowerblue">babel</font>
 
-> :whale2::whale2: :whale2:<font style="color:cornflowerblue">webpack</font>作为一个<font style="color:cornflowerblue">打包器</font>。为<font style="color:cornflowerblue">babel</font>提供了扩展支持。
+> :whale2::whale2: :whale2: <font style="color:cornflowerblue">webpack</font>作为一个<font style="color:cornflowerblue">打包器</font>。为<font style="color:cornflowerblue">babel</font>提供了扩展支持。
 
 > :whale2::whale2:  <font style="color:cornflowerblue">ES6</font>是<font style="color:cornflowerblue">ES2015+</font>所有版本统称   有的文章会写成<font style="color:cornflowerblue">ES7</font>、<font style="color:cornflowerblue">ES8</font>。但其实都是<font style="color:cornflowerblue">ES6</font>。
 
@@ -61,6 +61,8 @@
 <font style="color:cornflowerblue">babel</font> 其实并不是<font style="color:cornflowerblue">webpack</font>一个<font style="color:cornflowerblue">扩展插件</font>，它是一个独立的工具。可以进行单独配置、运行。
 
 <font style="color:cornflowerblue">babel</font>提供了一个[@babel/cli](https://www.npmjs.com/package/@babel/cli)库，与[webpack-cli](https://www.npmjs.com/package/webpack-cli)库一样，允许命令行直接运行<font style="color:cornflowerblue">babel</font>
+
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-01.png?raw=true" width="600">
 
 ``` js
 {
@@ -155,7 +157,7 @@
 
 > :whale2: **presets**配置可以设置短名称，
 >
-> 1. <font style="color:cornflowerblue">preset</font>库名称以**babel-preset-**前缀，可以省去前缀。 例如：**babel-preset-my-custom**，可以直接设置为：**custom**
+> 1. <font style="color:cornflowerblue">preset</font>库名称以 **babel-preset-** 前缀，可以省去前缀。 例如：**babel-preset-my-custom**，可以直接设置为：**custom**
 > 2. 短名称也适用于冠名，例如：**@org/preset-env**，可以设置为：**@org/env**
 >
 
@@ -179,7 +181,7 @@
 
 先来了解下为什么有的<font style="color:cornflowerblue">ES6</font>特性没有被转换。
 
-> :whale2: <font style="color:#f03d3d">@babel/preset-env</font>取代了<font style="color:cornflowerblue">preset-es20**</font>系列的<font style="color:cornflowerblue">预设插件（preset）</font>
+> :whale2: <font style="color:#f03d3d">@babel/preset-env</font>取代了<font style="color:cornflowerblue">preset-es20</font>系列的<font style="color:cornflowerblue">预设插件（preset）</font>
 
  目前生成代码还无法在浏览器运行，缺少**regeneratorRuntime**，这个稍后再说
 
@@ -251,7 +253,7 @@
 
 这种方式与**webpack.config.js**文件一样，使用<font style="color:#007FFF">.**约定文件名称**</font>设置。<font style="color:#f03d3d">@babel/core</font>执行时会尝试读取<font style="color:#007FFF">.**约定文件**</font>。
 
-<font style="color:#007FFF">.**约定文件名称**</font>可以为**babel.config.js**或**.babelrc.json**。 较为常用的是**.babelrc.json**。不过一般都会省略后缀， 名称叫做***.babelrc***
+<font style="color:#007FFF">**约定文件名称**</font> 可以为 **babel.config.js** 或 **.babelrc.json** 。 较为常用的是 **.babelrc.json** 。不过一般都会省略后缀， 名称叫做 ***.babelrc***
 
 <img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-04-05.png?raw=true" width="600">
 
@@ -341,9 +343,9 @@
 
 ###### regenerator-runtime
 
-介绍下关于之前打包代码缺少**regeneratorRuntime()**问题。
+介绍下关于之前打包代码缺少 **regeneratorRuntime()** 问题。
 
-**regeneratorRuntime()**是由[regenerator-runtime](https://www.npmjs.com/package/regenerator-runtime)库提供的，
+**regeneratorRuntime()** 是由[regenerator-runtime](https://www.npmjs.com/package/regenerator-runtime)库提供的，
 
 <font style="color:#f03d3d">regenerator-runtime</font>库是一个转换<font style="color:cornflowerblue">ES6</font>中 **generator函数**、**await函数**  功能的库。<font style="color:cornflowerblue">babel</font>直接使用此库处理两种函数。
 
