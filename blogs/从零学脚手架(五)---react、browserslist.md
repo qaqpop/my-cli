@@ -201,7 +201,7 @@ ReactDOM.render(root, document.getElementById('root'));
 
 <font style="color:#f03d3d">@babel/preset-react</font>中封装了所有处理<font style="color:cornflowerblue">React</font>的**plugin**
 
-<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-01.png" width="600">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-01.png?raw=true" width="600">
 
 > yarn add -D @babel/preset-react@7.12.13
 
@@ -209,7 +209,7 @@ ReactDOM.render(root, document.getElementById('root'));
 
 然后配置在 **.babelrc** 文件中
 
-<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-06.png" width="400">
+<img src="https://github.com/OrcasTeam/my-cli/blob/master/blogs/images/image-05-new-06.png?raw=true" width="400">
 
 
 
