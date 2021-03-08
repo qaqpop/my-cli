@@ -505,387 +505,387 @@ module.exports = merge([
 ])
 ```
 
-> * **host**：服务器启动使用的host地址
->
->   属性可设置为：*String*
->
->   默认值：***localhost***
->
-> 
->
-> * **port**：服务器启动使用的端口号
->
->   属性可设置为：*Number*
->
->   默认值：***8080***
->
-> 
->
-> * **open**：启动服务器后是否自动打开浏览器，
->
->   属性可设置为：*String*、*Boolean*
->
->   属性值为***Boolean***：是否打开默认浏览器
->
->   属性值为***String***：设置打开指定的浏览器，例如：***chrome***
->
->   默认值：***false***
->
->   
->
-> * **openPage**：自动打开浏览器时的路由地址。
->
->   属性可设置为：*String*、*Array*
->
->   属性值为***String***：打开指定的地址
->
->   属性值为***Array***：打开数组中的所有地址。
->
->   默认值：***index.html***
->
-> 
->
-> * **compress**：是否启动gzip压缩数据。
->
->   使用的<font style="color:cornflowerblue">compression</font>中间件进行压缩。
->
->   默认值：***false***
->
-> 
->
-> * **hot**：是否启动<font style="color:cornflowerblue">热更新（HMR）</font>。
->
->   <font style="color:cornflowerblue">热更新（HMR）</font>技术是代码更新后，浏览器只加载需要更新的数据。<font style="color:cornflowerblue">热更新（HMR）</font>属性是必备属性之一。
->
->   <font style="color:cornflowerblue">热更新（HMR）</font>真正执行的是<font style="color:cornflowerblue">webpack</font>中<font style="color:#f03d3d">HotModuleReplacementPlugin</font>
->
->   默认值：***false***
->
-> 
->
-> * **firewall**：是否启用防火墙
->
->   属性可设置为：*Boolean*、*Array*
->
->   属性值为***Boolean***：是否启用防火墙，为***true***，则不允许其它任意主机访问；为***false***，则允许其它主机访问
->
->   属性值为***Array***：设置可以访问的IP地址。 相当于 **webpack-dev-server@3.X**中**allowedHosts**
->
->   默认值：***true***
->
->   > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**allowedHosts**属性
->
-> 
->
-> * **https**：是否使用HTTPS安全连接方式。
->
->   属性可设置为：*Boolean*、*Object*
->
->   属性值为***Boolean***：是否使用HTTPS连接方式
->
->   属性值为***Object***：设置HTTPS安全证书信息
->
->   默认值：***false***
->
-> 
->
-> * **http2**：是否使用HTTP/2
->
->   当此属性设置为***true***时，默认会使用HTTPS安全连接方式。也就是**https**会设置为***true***
->
->   默认值：***false***。
->
-> 
->
-> * **proxy**：服务器代理配置。
->
->   前后端分离时，前端请求API需要指定地址，此属性可以配置IP地址，当访问指定请求时就请求配置的IP地址。
->
->   例如在请求**/api**的接口时会访问http://localhost:3000。具体可参考官网：[devserverproxy](https://webpack.js.org/configuration/dev-server/#devserverproxy)。
->
->   当然也可以不使用此属性，直接使用一个静态字符串或者配置文件。看个人编码习惯
->
-> 
->
-> * **headers**：设置服务器Response消息内自定义header信息。
->
->   属性可设置为：*Object*
->
->   默认值：***null***
->
-> 
->
-> * **static**：对静态文件属性的配置
->
->   属性可设置为：*Object*、*Array*
->
->   属性值为***Object***：配置静态文件属性
->
->   属性值为***Array***：配置多个静态文件属性
->
->   <font style="color:cornflowerblue">webpack-dev-server@3.X</font>不具有此属性。此属性只是将<font style="color:cornflowerblue">webpack-dev-server@3.X</font>中关于静态文件配置的属性进行汇总封装
->
->   - **directory**：设置服务器挂在静态文件的***本地目录***。
->
->     例如设置为***/assets***后， 会加载使用本地**/assets**目录下的静态文件到服务器
->
->     属性可设置为：*String*
->
->     默认值：***/***      **package.json**文件所在地址。
->
->     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**contentBase**属性
->
->   - **publicPath**：静态文件挂载到服务器中的***虚拟地址***，
->
->     例如设置为***/static***后， 那么使用静态文件时必须加入**/static**前缀
->
->     属性可设置为：*String*
->
->     默认值：***/***      
->
->     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**contentBasePublicPath**属性
->
->   - **staticOptions**：服务器挂载静态文件时使用到的参数
->
->     <font style="color:cornflowerblue">webpack-dev-server</font>挂在静态文件使用的是***express.static(directory,staticOptions)***中间件，此属性进行**express.static(directory,staticOptions)**使用的参数，具体请参考[express框架](http://expressjs.com/en/4x/api.html#express.static)
->
->     属性可设置为：*Object*
->
->   - **serveIndex**： 是否可以在浏览器访问静态文件列表。
->
->     <font style="color:cornflowerblue">webpack-dev-server</font>使用的是[serve-index](https://www.npmjs.com/package/serve-index)库作为浏览器访问静态文件功能。
->
->     属性可设置为：*Boolean*
->
->     默认值：***true***
->
->     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**serveIndex**属性
->
->   - **watch**：是否使用轮询方式检查文件变化。
->
->     <font style="color:cornflowerblue">webpack</font>默认使用的是文件系统的变化通知。但是在特殊情况下（例如网络文件系统）时消息通知会失效
->
->     所以可以使用轮询方式进行检查文件变化。使用的[chokidar](https://www.npmjs.com/package/chokidar)来做轮询检测
->
->     属性可设置为：*Boolean*、*Object*
->
->     属性值为***Boolean***：是否开启轮询检测
->
->     属性值为***Object***：配置轮询参数，例如配置轮询时间等
->
->     默认值：***false***
->
->     > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**watchOptions**属性   
->
-> 
->
->   * **client**：<font style="color:cornflowerblue">WebSocket</font>客户端属性的设置。
->
->     属性可设置为：*Object*
->
->     <font style="color:cornflowerblue">webpack-dev-server@3.X</font>不具有此属性。此属性只是将<font style="color:cornflowerblue">webpack-dev-server@3.X</font>中关于<font style="color:cornflowerblue">WebSocket</font>客户端配置属性的汇总封装
->
->     - **logging**：<font style="color:cornflowerblue">WebSocket</font>客户端在浏览器控制台中输出日志级别。
->
->       属性可设置为：*"none" | "error" | "warn" | "info" | "log" | "verbose"*
->
->       默认值：***info***
->
->       例如设置为***verbose*** 便会将所有日志输出在浏览器控制台；***none***则不会输出任何日志
->
->       > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**clientLogLevel**属性 
->
->     - **progress**：是否将打包进度输出在浏览器控制台中（浏览器控制台是否显示打包进度）
->
->       属性可设置为：*Boolean*
->
->       默认值：***false***
->
->       > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**progress**属性 
->
-> 
->
->   * **dev**：设置<font style="color:cornflowerblue">webpack-dev-middleware</font>中间件使用的一些配置属性。
->
->       属性可设置为：*Object*
->
->       <font style="color:cornflowerblue">webpack-dev-server@3.X</font>不具有此属性。此属性只是将<font style="color:cornflowerblue">webpack-dev-server@3.X</font>中关于<font style="color:cornflowerblue">webpack-dev-middleware</font>使用属性的汇总封装
->
->     - **headers**：设置服务器Response消息内自定义header信息。
->
->       <font style="color:cornflowerblue">webpack-dev-server@3.X</font> 中**devServer.headers**在两个地方使用到了。而<font style="color:cornflowerblue">webpack-dev-server@4.X</font>进行了拆分，此属性只负责<font style="color:cornflowerblue">webpack-dev-middleware</font>中间件。只不过最后结果都一致。
->
->       属性可设置为：*Object*
->
->     - **mimeTypes**：设置<font style="color:cornflowerblue">webpack-dev-middleware</font> mimeTypes属性，具体请参考[webpack-dev-middleware文档](https://github.com/webpack/webpack-dev-middleware#mimetypes) 。
->
->       > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的 **mimeTypes**属性 
->
->     - **writeToDisk**：是否将打包编译文件写入磁盘
->
->        <font style="color:cornflowerblue">webpack-dev-middleware</font>默认会将打包编译文件写入到内存流，以达到更快的访问速度。 
->
->       属性可设置为：*Boolean*
->
->       默认值：***false***
->
->       > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**writeToDisk**属性 
->
->     - **publicPath**：设置打包编译文件存放的目录地址
->
->       例如设置为***/public***，那么在访问打包编译生成的文件资源时都需要添加**/public**前缀
->
->       属性可设置为：*String*
->
->       默认值：***/***
->
->       > :whale2::whale2: **static.publicPath**和**dev.publicPath**属性设置不一样， **static.publicPath** 
->       >
->       > **static.publicPath** 代表静态文件在服务器中存储的地址，代码使用静态文件时需要添加目录前缀
->       >
->       > **dev.publicPath**  代表将代码编译打包的目录地址，浏览器访问时需要添加目录前缀
->
->       > :whale2: 此属性就是的**publicPath**属性 
->
->     - **index**：根目录所指向的文件。
->
->       此属性就是能够在浏览器访问根目录指向**index.html**的原因。 
->
->       属性可设置为：*String*
->
->       默认值：***index.html***
->
->       > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**index**属性
->
->     - **stats**：设置打包文件时日志输出级别。
->
->       启动<font style="color:cornflowerblue">dev-server</font>时会在控制台中看到好多打包信息：文件大小、文件名称等信息，就是使用此属性进行控制。
->
->       属性可设置为：*“none" | "summary" | "errors-only" | "errors-warnings" | "minimal" | "normal" | "detailed" | "verbose" | boolean | object { … }*
->
->       默认值：***normal***
->
->       > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**stats**属性 
->
->     - **outputFileSystem**：控制打包文件的输出流。
->
->       默认输出流是内存流，之将文件编译打包至内存中，此属性可以更改输出流。 
->
-> 
->
->  * **overlay**：打包编译时出现错误/警告时，是否直接显示在页面。
->
->    此属性在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>具有bug。
->
->    属性可设置为：*Boolean*、*Object*
->
->    属性值为***Boolean***：为***false***时不显示；为***true***时，当编译出现错误时，显示在页面中
->
->    属性值为***Object***：自定义配置警告和错误状态。
->
-> 
->
->  * **injectClient**：是否注入<font style="color:cornflowerblue">WebSocket</font>
->
->    属性可设置为：*Boolean*、*function (compilerConfig) => boolean*
->
->    默认值：***true***
->
-> 
->
->  * **injectHot**：是否注入<font style="color:cornflowerblue">热更新（HMR）</font>。
->
->    此属性是相当于**injectClient**属性的一个子集，只控制<font style="color:cornflowerblue">热更新（HMR）</font>
->
->    属性可设置为：*Boolean*、*function (compilerConfig) => boolean*
->
->    默认值：***true***
->
->    > :whale2::whale2: 此属性在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>源码中还可以设置***only***字符串，也就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font> 中的**hotOnly**属性。但是属性校验中只允许设置**Boolean**。
->
-> 
->
-> * **liveReload**：是否启动刷新浏览器
->
->   此属性开启后会在在更新代码数据后重新刷新浏览器
->
->   但是此属性优先级低于**hot**，当开启热更新后，会优先使用热更新。
->
->   属性可设置为：*Boolean*
->
->   默认值：***false***
->
-> 
->
-> * **bonjour**：是否开启<font style="color:cornflowerblue">Zeroconf</font>网络
->
->   关于<font style="color:cornflowerblue">Zeroconf</font>，有兴趣的朋友可以查看相关文档
->
->   属性可设置为：*boolean* 
->
->   默认值：***false***
->
-> 
->
-> * **historyApiFallback**：是否将所有404页面指向**index.html**
->
->   此属性使用了[connect-history-api-fallback](https://www.npmjs.com/package/connect-history-api-fallback)来处理404页面
->
->   属性可设置为：*Boolean*、*Object*
->
->   属性值为***Boolean***：是否启用此功能
->
->   属性值为***Object***：设置<font style="color:#f03d3d">connect-history-api-fallback</font>库的参数
->
->   默认值：***false***
->
-> * **useLocalIp**：是否使用本地局域网启用服务器
->
->   属性可设置为：*Boolean*
->
->   默认值：***false***
->
-> 
->
-> * **stdin**：是否监听<font style="color:cornflowerblue">Node.js</font>中**stdin.end**事件关闭服务器
->
->   属性可设置为：*Boolean*
->
->   默认值：***false***
->
-> 
->
-> * **setupExitSignals**：是否监听<font style="color:cornflowerblue">Node.js</font>中的**['SIGINT', 'SIGTERM']**事件关闭服务器。
->
->   此属性为<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>新增加，在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>版本测试，此属性内置了***true***属性，无法更改
->
-> 
->
-> * **transportMode**：设置<font style="color:cornflowerblue">WebSocket</font>库信息。
->
->      <font style="color:cornflowerblue">webpack-dev-server</font>内置了两个<font style="color:cornflowerblue">WebSocket</font>库：[ws](https://www.npmjs.com/package/ws)、[sockjs](https://www.npmjs.com/package/sockjs)。可以进行使用，并且可以自定义<font style="color:cornflowerblue">WebSocket Server</font>和<font style="color:cornflowerblue">WebSocket Client</font>。具体请参考[官网](https://webpack.js.org/configuration/dev-server/#devservertransportmode)
->
->     > :whale2: 
->     >
->     > <font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>默认使用：<font style="color:#f03d3d">ws</font>
->     >
->     > <font style="color:cornflowerblue">webpack-dev-server@3.X</font>默认使用：<font style="color:#f03d3d">sockjs</font>
->
-> 
->
->   * **onBeforeSetupMiddleware**：自定义钩子中间件函数，此中间件会优先其它中间件执行。
->
->     > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**before**属性 
->
-> 
->
->   * **onAfterSetupMiddleware**：自定义钩子中间件函数，此中间件会在所有中间件之后执行。
->
->     > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**after**属性 
->
-> 
->
->   * **onListening**：设置<font style="color:cornflowerblue">webpack-dev-server</font>服务器启动后执行的钩子函数。
+* **host**：服务器启动使用的host地址
+
+  属性可设置为：*String*
+
+  默认值：***localhost***
+
+
+
+* **port**：服务器启动使用的端口号
+
+  属性可设置为：*Number*
+
+  默认值：***8080***
+
+
+
+* **open**：启动服务器后是否自动打开浏览器，
+
+  属性可设置为：*String*、*Boolean*
+
+  属性值为***Boolean***：是否打开默认浏览器
+
+  属性值为***String***：设置打开指定的浏览器，例如：***chrome***
+
+  默认值：***false***
+
+
+
+* **openPage**：自动打开浏览器时的路由地址。
+
+  属性可设置为：*String*、*Array*
+
+  属性值为***String***：打开指定的地址
+
+  属性值为***Array***：打开数组中的所有地址。
+
+  默认值：***index.html***
+
+
+
+* **compress**：是否启动gzip压缩数据。
+
+  使用的<font style="color:cornflowerblue">compression</font>中间件进行压缩。
+
+  默认值：***false***
+
+
+
+* **hot**：是否启动<font style="color:cornflowerblue">热更新（HMR）</font>。
+
+  <font style="color:cornflowerblue">热更新（HMR）</font>技术是代码更新后，浏览器只加载需要更新的数据。<font style="color:cornflowerblue">热更新（HMR）</font>属性是必备属性之一。
+
+  <font style="color:cornflowerblue">热更新（HMR）</font>真正执行的是<font style="color:cornflowerblue">webpack</font>中<font style="color:#f03d3d">HotModuleReplacementPlugin</font>
+
+  默认值：***false***
+
+
+
+* **firewall**：是否启用防火墙
+
+  属性可设置为：*Boolean*、*Array*
+
+  属性值为***Boolean***：是否启用防火墙，为***true***，则不允许其它任意主机访问；为***false***，则允许其它主机访问
+
+  属性值为***Array***：设置可以访问的IP地址。 相当于 **webpack-dev-server@3.X**中**allowedHosts**
+
+  默认值：***true***
+
+  > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**allowedHosts**属性
+
+
+
+* **https**：是否使用HTTPS安全连接方式。
+
+  属性可设置为：*Boolean*、*Object*
+
+  属性值为***Boolean***：是否使用HTTPS连接方式
+
+  属性值为***Object***：设置HTTPS安全证书信息
+
+  默认值：***false***
+
+
+
+* **http2**：是否使用HTTP/2
+
+  当此属性设置为***true***时，默认会使用HTTPS安全连接方式。也就是**https**会设置为***true***
+
+  默认值：***false***。
+
+
+
+* **proxy**：服务器代理配置。
+
+  前后端分离时，前端请求API需要指定地址，此属性可以配置IP地址，当访问指定请求时就请求配置的IP地址。
+
+  例如在请求**/api**的接口时会访问http://localhost:3000。具体可参考官网：[devserverproxy](https://webpack.js.org/configuration/dev-server/#devserverproxy)。
+
+  当然也可以不使用此属性，直接使用一个静态字符串或者配置文件。看个人编码习惯
+
+
+
+* **headers**：设置服务器Response消息内自定义header信息。
+
+  属性可设置为：*Object*
+
+  默认值：***null***
+
+
+
+* **static**：对静态文件属性的配置
+
+  属性可设置为：*Object*、*Array*
+
+  属性值为***Object***：配置静态文件属性
+
+  属性值为***Array***：配置多个静态文件属性
+
+  <font style="color:cornflowerblue">webpack-dev-server@3.X</font>不具有此属性。此属性只是将<font style="color:cornflowerblue">webpack-dev-server@3.X</font>中关于静态文件配置的属性进行汇总封装
+
+  - **directory**：设置服务器挂在静态文件的***本地目录***。
+
+    例如设置为***/assets***后， 会加载使用本地**/assets**目录下的静态文件到服务器
+
+    属性可设置为：*String*
+
+    默认值：***/***      **package.json**文件所在地址。
+
+    > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**contentBase**属性
+
+  - **publicPath**：静态文件挂载到服务器中的***虚拟地址***，
+
+    例如设置为***/static***后， 那么使用静态文件时必须加入**/static**前缀
+
+    属性可设置为：*String*
+
+    默认值：***/***      
+
+    > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**contentBasePublicPath**属性
+
+  - **staticOptions**：服务器挂载静态文件时使用到的参数
+
+    <font style="color:cornflowerblue">webpack-dev-server</font>挂在静态文件使用的是***express.static(directory,staticOptions)***中间件，此属性进行**express.static(directory,staticOptions)**使用的参数，具体请参考[express框架](http://expressjs.com/en/4x/api.html#express.static)
+
+    属性可设置为：*Object*
+
+  - **serveIndex**： 是否可以在浏览器访问静态文件列表。
+
+    <font style="color:cornflowerblue">webpack-dev-server</font>使用的是[serve-index](https://www.npmjs.com/package/serve-index)库作为浏览器访问静态文件功能。
+
+    属性可设置为：*Boolean*
+
+    默认值：***true***
+
+    > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**serveIndex**属性
+
+  - **watch**：是否使用轮询方式检查文件变化。
+
+    <font style="color:cornflowerblue">webpack</font>默认使用的是文件系统的变化通知。但是在特殊情况下（例如网络文件系统）时消息通知会失效
+
+    所以可以使用轮询方式进行检查文件变化。使用的[chokidar](https://www.npmjs.com/package/chokidar)来做轮询检测
+
+    属性可设置为：*Boolean*、*Object*
+
+    属性值为***Boolean***：是否开启轮询检测
+
+    属性值为***Object***：配置轮询参数，例如配置轮询时间等
+
+    默认值：***false***
+
+    > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**watchOptions**属性   
+
+
+
+  * **client**：<font style="color:cornflowerblue">WebSocket</font>客户端属性的设置。
+
+    属性可设置为：*Object*
+
+    <font style="color:cornflowerblue">webpack-dev-server@3.X</font>不具有此属性。此属性只是将<font style="color:cornflowerblue">webpack-dev-server@3.X</font>中关于<font style="color:cornflowerblue">WebSocket</font>客户端配置属性的汇总封装
+
+    - **logging**：<font style="color:cornflowerblue">WebSocket</font>客户端在浏览器控制台中输出日志级别。
+
+      属性可设置为：*"none" | "error" | "warn" | "info" | "log" | "verbose"*
+
+      默认值：***info***
+
+      例如设置为***verbose*** 便会将所有日志输出在浏览器控制台；***none***则不会输出任何日志
+
+      > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**clientLogLevel**属性 
+
+    - **progress**：是否将打包进度输出在浏览器控制台中（浏览器控制台是否显示打包进度）
+
+      属性可设置为：*Boolean*
+
+      默认值：***false***
+
+      > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**progress**属性 
+
+
+
+  * **dev**：设置<font style="color:cornflowerblue">webpack-dev-middleware</font>中间件使用的一些配置属性。
+
+    属性可设置为：*Object*
+
+    <font style="color:cornflowerblue">webpack-dev-server@3.X</font>不具有此属性。此属性只是将<font style="color:cornflowerblue">webpack-dev-server@3.X</font>中关于<font style="color:cornflowerblue">webpack-dev-middleware</font>使用属性的汇总封装
+
+    - **headers**：设置服务器Response消息内自定义header信息。
+
+      <font style="color:cornflowerblue">webpack-dev-server@3.X</font> 中**devServer.headers**在两个地方使用到了。而<font style="color:cornflowerblue">webpack-dev-server@4.X</font>进行了拆分，此属性只负责<font style="color:cornflowerblue">webpack-dev-middleware</font>中间件。只不过最后结果都一致。
+
+      属性可设置为：*Object*
+
+    - **mimeTypes**：设置<font style="color:cornflowerblue">webpack-dev-middleware</font> mimeTypes属性，具体请参考[webpack-dev-middleware文档](https://github.com/webpack/webpack-dev-middleware#mimetypes) 。
+
+      > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的 **mimeTypes**属性 
+
+    - **writeToDisk**：是否将打包编译文件写入磁盘
+
+      <font style="color:cornflowerblue">webpack-dev-middleware</font>默认会将打包编译文件写入到内存流，以达到更快的访问速度。 
+
+      属性可设置为：*Boolean*
+
+      默认值：***false***
+
+      > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**writeToDisk**属性 
+
+    - **publicPath**：设置打包编译文件存放的目录地址
+
+      例如设置为***/public***，那么在访问打包编译生成的文件资源时都需要添加**/public**前缀
+
+      属性可设置为：*String*
+
+      默认值：***/***
+
+      > :whale2::whale2: **static.publicPath**和**dev.publicPath**属性设置不一样， **static.publicPath** 
+      >
+      > **static.publicPath** 代表静态文件在服务器中存储的地址，代码使用静态文件时需要添加目录前缀
+      >
+      > **dev.publicPath**  代表将代码编译打包的目录地址，浏览器访问时需要添加目录前缀
+
+      > :whale2: 此属性就是的**publicPath**属性 
+
+    - **index**：根目录所指向的文件。
+
+      此属性就是能够在浏览器访问根目录指向**index.html**的原因。 
+
+      属性可设置为：*String*
+
+      默认值：***index.html***
+
+      > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**index**属性
+
+    - **stats**：设置打包文件时日志输出级别。
+
+      启动<font style="color:cornflowerblue">dev-server</font>时会在控制台中看到好多打包信息：文件大小、文件名称等信息，就是使用此属性进行控制。
+
+      属性可设置为：*“none" | "summary" | "errors-only" | "errors-warnings" | "minimal" | "normal" | "detailed" | "verbose" | boolean | object { … }*
+
+      默认值：***normal***
+
+      > :whale2: 此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**stats**属性 
+
+    - **outputFileSystem**：控制打包文件的输出流。
+
+      默认输出流是内存流，之将文件编译打包至内存中，此属性可以更改输出流。 
+
+
+
+ * **overlay**：打包编译时出现错误/警告时，是否直接显示在页面。
+
+   此属性在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>具有bug。
+
+   属性可设置为：*Boolean*、*Object*
+
+   属性值为***Boolean***：为***false***时不显示；为***true***时，当编译出现错误时，显示在页面中
+
+   属性值为***Object***：自定义配置警告和错误状态。
+
+
+
+ * **injectClient**：是否注入<font style="color:cornflowerblue">WebSocket</font>
+
+   属性可设置为：*Boolean*、*function (compilerConfig) => boolean*
+
+   默认值：***true***
+
+
+
+ * **injectHot**：是否注入<font style="color:cornflowerblue">热更新（HMR）</font>。
+
+   此属性是相当于**injectClient**属性的一个子集，只控制<font style="color:cornflowerblue">热更新（HMR）</font>
+
+   属性可设置为：*Boolean*、*function (compilerConfig) => boolean*
+
+   默认值：***true***
+
+   > :whale2::whale2: 此属性在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>源码中还可以设置***only***字符串，也就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font> 中的**hotOnly**属性。但是属性校验中只允许设置**Boolean**。
+
+
+
+* **liveReload**：是否启动刷新浏览器
+
+  此属性开启后会在在更新代码数据后重新刷新浏览器
+
+  但是此属性优先级低于**hot**，当开启热更新后，会优先使用热更新。
+
+  属性可设置为：*Boolean*
+
+  默认值：***false***
+
+
+
+* **bonjour**：是否开启<font style="color:cornflowerblue">Zeroconf</font>网络
+
+  关于<font style="color:cornflowerblue">Zeroconf</font>，有兴趣的朋友可以查看相关文档
+
+  属性可设置为：*boolean* 
+
+  默认值：***false***
+
+
+
+* **historyApiFallback**：是否将所有404页面指向**index.html**
+
+  此属性使用了[connect-history-api-fallback](https://www.npmjs.com/package/connect-history-api-fallback)来处理404页面
+
+  属性可设置为：*Boolean*、*Object*
+
+  属性值为***Boolean***：是否启用此功能
+
+  属性值为***Object***：设置<font style="color:#f03d3d">connect-history-api-fallback</font>库的参数
+
+  默认值：***false***
+
+* **useLocalIp**：是否使用本地局域网启用服务器
+
+  属性可设置为：*Boolean*
+
+  默认值：***false***
+
+
+
+* **stdin**：是否监听<font style="color:cornflowerblue">Node.js</font>中**stdin.end**事件关闭服务器
+
+  属性可设置为：*Boolean*
+
+  默认值：***false***
+
+
+
+* **setupExitSignals**：是否监听<font style="color:cornflowerblue">Node.js</font>中的**['SIGINT', 'SIGTERM']**事件关闭服务器。
+
+  此属性为<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>新增加，在<font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>版本测试，此属性内置了***true***属性，无法更改
+
+
+
+* **transportMode**：设置<font style="color:cornflowerblue">WebSocket</font>库信息。
+
+  <font style="color:cornflowerblue">webpack-dev-server</font>内置了两个<font style="color:cornflowerblue">WebSocket</font>库：[ws](https://www.npmjs.com/package/ws)、[sockjs](https://www.npmjs.com/package/sockjs)。可以进行使用，并且可以自定义<font style="color:cornflowerblue">WebSocket Server</font>和<font style="color:cornflowerblue">WebSocket Client</font>。具体请参考[官网](https://webpack.js.org/configuration/dev-server/#devservertransportmode)
+
+  > :whale2: 
+  >
+  > <font style="color:cornflowerblue">webpack-dev-server@4.0.0beta.0</font>默认使用：<font style="color:#f03d3d">ws</font>
+  >
+  > <font style="color:cornflowerblue">webpack-dev-server@3.X</font>默认使用：<font style="color:#f03d3d">sockjs</font>
+
+
+
+  * **onBeforeSetupMiddleware**：自定义钩子中间件函数，此中间件会优先其它中间件执行。
+
+    > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**before**属性 
+
+
+
+  * **onAfterSetupMiddleware**：自定义钩子中间件函数，此中间件会在所有中间件之后执行。
+
+    > :whale2:此属性就是<font style="color:cornflowerblue">webpack-dev-server@3.X</font>的**after**属性 
+
+
+
+  * **onListening**：设置<font style="color:cornflowerblue">webpack-dev-server</font>服务器启动后执行的钩子函数。
 
 
 
